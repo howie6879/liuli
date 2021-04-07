@@ -11,7 +11,7 @@
 
 ## 使用
 
-TODO
+> 待我代码写完
 
 ## 实现
 
@@ -31,16 +31,23 @@ TODO
 
 ## 帮助
 
-为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本。
+为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/bad.csv](.files/datasets/bad.csv)，我设定格式如下：
+
+| title        | url          |
+| ------------ | ------------ |
+| 广告文章标题 | 广告文章连接 |
+
+一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，真的真的希望大家能一起合力贡献，亲，来个PR贡献你的力量吧！
 
 ## 致谢
 
 非常感谢以下项目：
 
+- [flask](https://github.com/pallets/flask)
 - [wechat-feeds](https://github.com/hellodword/wechat-feeds)
 
 ## 关于
 
 欢迎与我交流：
 
-<img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png" alt="img" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png" alt="img" style="width: 80%;" />
