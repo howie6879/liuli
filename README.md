@@ -1,2 +1,7 @@
-# clean_wechat
-本项目旨在为你构建一个干净可自定义的公众号文章阅读环境
+# 2C
+> 打造一个多源（公众号、RSS）、干净、可配置的阅读环境
+
+
+
+![clean_wechat.dio](.files/images/clean_wechat.dio.svg)
+
