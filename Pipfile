@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+verify_ssl = true
+url = "https://pypi.douban.com/simple/"
+
+[packages]
+ruia = "*"
+ruia-motor = "*"
+xmltodict = "*"
+apscheduler = "*"
+newspaper3k = "*"
+
+[dev-packages]
+black = "*"
+isort = "*"
+pylint = "*"
+
