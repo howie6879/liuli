@@ -17,7 +17,7 @@
 
 我的思路很简单，大概流程如下：
 
-<img src=".files/images/clean_wechat.dio.svg" alt="clean_wechat.dio" style="zoom:67%;" />
+<img src=".files/images/clean_wechat.dio.svg" alt="clean_wechat.dio" style="width: 85%;" />
 
 简单解释一下：
 
