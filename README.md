@@ -43,4 +43,4 @@ TODO
 
 欢迎与我交流：
 
-<img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png" alt="img" style="zoom: 67%;" />
