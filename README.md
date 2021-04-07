@@ -17,7 +17,7 @@
 
 我的思路很简单，大概流程如下：
 
-<img src=".files/images/clean_wechat.dio.svg" width="85%" alt="clean_wechat.dio" />
+<div align=center><img src=".files/images/clean_wechat.dio.svg" width="85%" alt="clean_wechat.dio" /></div>
 
 简单解释一下：
 
@@ -54,4 +54,4 @@
 
 欢迎与我交流：
 
-<img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png"  width="85%" alt="img" />
+<div align=center><img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png"  width="85%" alt="img" /></div>
