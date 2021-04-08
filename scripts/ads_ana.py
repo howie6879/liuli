@@ -9,6 +9,8 @@ import time
 
 import pandas as pd
 
+from newspaper import Article
+
 from src.config import Config
 
 
@@ -26,4 +28,15 @@ def csv2txt(target_path: str = ""):
 
 
 if __name__ == "__main__":
-    csv2txt()
+    # csv2txt()
+    article = Article(
+        "https://mp.weixin.qq.com/s/D-las20I8POTmWNaXradhw", language="zh"
+    )
+    article.download()
+    article.parse()
+    article.nlp()
+    # 关键词
+    print(article.keywords)
+
+    # 文章摘要
+    print(article.summary)
