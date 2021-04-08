@@ -7,9 +7,10 @@ url = "https://pypi.douban.com/simple/"
 ruia = "*"
 ruia-motor = "*"
 xmltodict = "*"
-apscheduler = "*"
 newspaper3k = "*"
 numpy = "*"
+schedule = "*"
+flask = "*"
 
 [dev-packages]
 black = "*"
