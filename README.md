@@ -1,5 +1,6 @@
 # 2C
-我是微信公众号的重度用户，作为一名技术人员，公众号一直被我设为汲取知识的地方。现在我面临一个比较头疼的问题——**广告问题**。
+
+作为一名微信公众号的重度用户，公众号一直被我设为汲取知识的地方。现在我面临一个比较头疼的问题——**广告问题**。
 
 假设你关注的公众号有十来个，若一个公众号两周接一次广告，理论上你会面临二十多次广告轰炸，实际上会更多，运气不好的话一天刷下来都是广告也不一定。若你关注了二三十个公众号，那很难避免现阶段公众号环境的广告轰炸。
 
@@ -49,6 +50,14 @@
 
 - [flask](https://github.com/pallets/flask)
 - [wechat-feeds](https://github.com/hellodword/wechat-feeds)
+
+感谢以下开发者的贡献（排名不分先后）：
+
+<!-- To get src for img: https://api.github.com/users/username -->
+<a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="50" height="50"></a>
+<a href="https://github.com/AI-xiaofour"><img src="https://avatars.githubusercontent.com/u/20813419?v=4" title="AI-xiaofour" width="50" height="50"></a>
+<a href="https://github.com/Xuenew"><img src="https://avatars.githubusercontent.com/u/41135035?s=64&v=4" title="Xuenew" width="50" height="50"></a>
+
 
 ## 关于
 

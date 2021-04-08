@@ -5,6 +5,8 @@
     Changelog: all notable changes to this file will be documented
 """
 
+import os
+
 
 class Config:
     """
@@ -13,13 +15,13 @@ class Config:
 
     MONGO_CONFIG = {
         # "mongodb://0.0.0.0:27017"
-        "username": "",
-        "password": "",
-        "host": "localhost",
-        "port": 27017,
-        "db": "2c",
+        "username": os.getenv("CC_M_USER", ""),
+        "password": os.getenv("CC_M_PASS", ""),
+        "host": os.getenv("CC_M_HOST", "0.0.0.0"),
+        "port": int(os.getenv("CC_M_PORT", "27017")),
+        "db": os.getenv("CC_M_DB", "2c"),
     }
-    DD_URL = "https://oapi.dingtalk.com/robot/send?access_token={0}"
+    DD_URL = f"https://oapi.dingtalk.com/robot/send?access_token={os.getenv('CC_D_TOKEN', '')}"
 
     # 微信公众号订阅源，依赖项目：https://github.com/hellodword/wechat-feeds
     RSS_DICT = {
