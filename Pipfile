@@ -11,8 +11,10 @@ newspaper3k = "*"
 numpy = "*"
 schedule = "*"
 flask = "*"
+jieba = "*"
 
 [dev-packages]
 black = "*"
 isort = "*"
 pylint = "*"
+pandas = "*"
