@@ -13,7 +13,7 @@ class Config:
     配置类
     """
 
-    MONGO_CONFIG = {
+    MONGODB_CONFIG = {
         # "mongodb://0.0.0.0:27017"
         "username": os.getenv("CC_M_USER", ""),
         "password": os.getenv("CC_M_PASS", ""),
@@ -22,6 +22,19 @@ class Config:
         "db": os.getenv("CC_M_DB", "2c"),
     }
     DD_URL = f"https://oapi.dingtalk.com/robot/send?access_token={os.getenv('CC_D_TOKEN', '')}"
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    MODEL_DIR = os.path.join(BASE_DIR, "model_data")
+
+    # 关注的公众号
+    WECHAT_LIST = [
+        "是不是很酷",
+        "caoz的梦呓",
+        "美团技术团队",
+        "阿里技术",
+        "ThoughtWorks洞见",
+        "小米技术",
+        "老胡的储物柜",
+    ]
 
     # 微信公众号订阅源，依赖项目：https://github.com/hellodword/wechat-feeds
     RSS_DICT = {
@@ -33,3 +46,7 @@ class Config:
         "小米技术": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzUxMDQxMDMyNg==.xml",
         "老胡的储物柜": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzU4MTA0NDQ0Ng==.xml",
     }
+
+
+if __name__ == "__main__":
+    print(Config.BASE_DIR)
