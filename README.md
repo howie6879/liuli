@@ -32,7 +32,7 @@
 
 ## 帮助
 
-为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/bad.csv](.files/datasets/bad.csv)，我设定格式如下：
+为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/bad.csv](.files/datasets/ads.csv)，我设定格式如下：
 
 | title        | url          |
 | ------------ | ------------ |
