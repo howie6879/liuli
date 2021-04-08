@@ -9,9 +9,9 @@ ruia-motor = "*"
 xmltodict = "*"
 apscheduler = "*"
 newspaper3k = "*"
+numpy = "*"
 
 [dev-packages]
 black = "*"
 isort = "*"
 pylint = "*"
-

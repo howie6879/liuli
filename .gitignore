@@ -105,3 +105,5 @@ venv.bak/
 .mypy_cache/
 .idea/
 .DS_Store
+.env
+*.swp
