@@ -45,6 +45,11 @@ class Config:
         "ThoughtWorks洞见": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MjM5MjY3OTgwMA==.xml",
         "小米技术": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzUxMDQxMDMyNg==.xml",
         "老胡的储物柜": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzU4MTA0NDQ0Ng==.xml",
+        "小道消息": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MjM5ODIyMTE0MA==.xml",
+        "我就BB怎么了": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzA5ODg5NDk1Ng==.xml",
+        "路人甲TM": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzIzMDQyMjcxOA==.xml",
+        "stormzhang": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzA4NTQwNDcyMA==.xml",
+        "caoz的梦呓": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzI0MjA1Mjg2Ng==.xml",
     }
 
 

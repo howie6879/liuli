@@ -30,9 +30,9 @@ class ModelManager:
                 f"src.classifier.model_base.{model_name}_model_loader"
             )
             try:
-                cls._model_load_dict[model_key] = model_loader.ModelLoader(
+                cls._model_load_dict[model_key] = model_loader.get_model(
                     model_path, **kwargs
-                ).get_model()
+                )
             except Exception as e:
                 err_info = f"{model_name}: {model_path} 加载失败"
                 raise ValueError(err_info)
@@ -82,8 +82,20 @@ class ModelResponse:
         # - text:       输入文本
         self.feature_dict = {}
 
+    def to_dict(self):
+        """
+        返回字典
+        :return:
+        """
+        return {
+            "model_name": self.model_name,
+            "result": self.result,
+            "probability": self.probability,
+            "feature_dict": self.feature_dict,
+        }
 
-class ModelBase:
+
+class ModelPredictBase:
     """
     模型父类，抽象流程
     """
@@ -98,14 +110,32 @@ class ModelBase:
         :param input_dict: 输入配置
         :type input_dict: dict
         """
-        self.model_resp: ModelResponse = ModelResponse()
         self.model_name = model_name
-        self.model_resp.model_name = model_name
         self.model_path = model_path
         self.input_dict = input_dict
+        # 模型响应类
+        self.model_resp: ModelResponse = ModelResponse()
+        self.model_resp.model_name = model_name
+        # 自定义返回内容
+        self.model_resp.feature_dict = {}
 
     def _load_model(self):
         """
         加载模型
         """
         return ModelManager.get_model(self.model_name, self.model_path)
+
+    def process(self, **kwargs):
+        """
+        模型开始预测时候可能需要的处理函数
+        :param kwargs:
+        :return:
+        """
+        raise NotImplementedError
+
+    def predict(self):
+        """
+        模型预测函数，模型预测类的唯一入口
+        :return:
+        """
+        raise NotImplementedError

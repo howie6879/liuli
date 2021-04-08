@@ -19,7 +19,7 @@ class CosModel(ModelLoaderBase):
     余弦相似度模型
     """
 
-    def __init__(self, model_path: str, **kwargs):
+    def __init__(self, model_path: str = "", **kwargs):
         """
         初始化
         :param model_path: 这里模型路径指的是训练文件路径
@@ -30,6 +30,7 @@ class CosModel(ModelLoaderBase):
         self.stop_word_path = os.path.join(Config.MODEL_DIR, "data/stop_words.txt")
         self.black_list_path = os.path.join(Config.MODEL_DIR, "data/black.txt")
         self.white_list_path = os.path.join(Config.MODEL_DIR, "data/white.txt")
+        self.model_path = model_path or os.path.join(Config.MODEL_DIR, "cos/train.txt")
 
         # 加载数据
         self.black_data: list = load_text_to_list(self.black_list_path)
@@ -39,10 +40,10 @@ class CosModel(ModelLoaderBase):
         # 对训练数据进行预处理，形成最终可用样本
         self.train_data: list = [
             {"index": i, "value": self.process_text(i)}
-            for i in load_text_to_list(model_path)
+            for i in load_text_to_list(self.model_path)
         ]
 
-    def predict(self, text: str, cos_value: float = 0.9) -> dict:
+    def predict(self, text: str, cos_value: float = 0.8) -> dict:
         """
         对文本相似度进行预测
         :param text: 文本
@@ -58,8 +59,8 @@ class CosModel(ModelLoaderBase):
             max_pro = value if value > max_pro else max_pro
             if result == 1:
                 break
-        predict_dict = {"result": result, "value": max_pro}
-        return predict_dict
+
+        return {"result": result, "value": max_pro}
 
     def process_text(self, text: str) -> list:
         """
@@ -75,8 +76,30 @@ class CosModel(ModelLoaderBase):
         return seg_list
 
     def get_model(self) -> dict:
-        pass
+        """
+        对基础模型，进行封装，返回定义好的模型类
+        :return:
+        """
+        return {
+            "model": type(
+                "Model",
+                (),
+                {"predict": self.predict, "process_text": self.process_text,},
+            ),
+            "black_list": self.black_data,
+            "white_list": self.white_data,
+        }
+
+
+def get_model(model_path, **kwargs):
+    """
+    对基础模型，进行封装，返回定义好的模型类
+    :return:
+    """
+    return CosModel(model_path, **kwargs).get_model()
 
 
 if __name__ == "__main__":
-    print(CosModel("").stop_word_path)
+    cos = CosModel()
+    predict_dict = cos.predict(text="毕业的4年，我用睡后收入买了两套房")
+    print(predict_dict)

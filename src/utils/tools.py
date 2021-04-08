@@ -39,7 +39,6 @@ def load_text_to_list(file_path) -> list:
     :param file_path:
     :return:
     """
-    print(file_path)
     text_list = []
     with open(file_path, encoding="utf-8") as fp:
         for line in fp:

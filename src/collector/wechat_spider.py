@@ -65,7 +65,7 @@ async def init_plugins_after_start(spider_ins):
     """
     初始化ruia-motor插件，数据自动持久化到MongoDB
     """
-    spider_ins.mongodb_config = Config.MONGO_CONFIG
+    spider_ins.mongodb_config = Config.MONGODB_CONFIG
     init_spider(spider_ins=spider_ins)
 
 
