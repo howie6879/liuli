@@ -38,6 +38,6 @@ def test_mongo_doc():
 
 
 if __name__ == "__main__":
-    text = "一份来自阿里P9的职场晋升指南”"
+    text = "指针太难学了"
     res = cos_pre(text=text)
     print(res)
