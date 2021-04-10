@@ -18,7 +18,7 @@ class Config:
     MODEL_DIR = os.path.join(BASE_DIR, "model_data")
 
     # Flask API配置
-    DEBUG = True if os.getenv("CC_FLASK_DEBUG", "1") == "1" else False
+    DEBUG = True if os.getenv("CC_FLASK_DEBUG", "0") == "1" else False
     TIMEZONE = "Asia/Shanghai"
     HOST = os.getenv("CC_HOST", "127.0.0.1")
     HTTP_PORT = os.getenv("CC_HTTP_PORT", 8060)
@@ -35,11 +35,16 @@ class Config:
         "db": os.getenv("CC_M_DB", "2c"),
     }
 
-    # 分发配置
+    # 分发配置，目前仅支持钉钉
+    # TODO work_wechat TG etc...
+    SENDER_LIST = ["ding"]
+    # 钉钉 URL，如果 SENDER_LIST 包含 ding ，CC_D_TOKEN 配置就必须填写
+    # 申请钉钉TOKEN时候，关键字必须带有 [2c]
     DD_URL = f"https://oapi.dingtalk.com/robot/send?access_token={os.getenv('CC_D_TOKEN', '')}"
 
-    # 公众号配置
+    # 订阅的公众号配置
     WECHAT_LIST = [
+        "小道消息",
         "是不是很酷",
         "caoz的梦呓",
         "美团技术团队",
@@ -47,24 +52,10 @@ class Config:
         "ThoughtWorks洞见",
         "小米技术",
         "老胡的储物柜",
+        "我就BB怎么了",
+        "stormzhang",
     ]
-
-    # 微信公众号订阅源，依赖项目：https://github.com/hellodword/wechat-feeds
-    RSS_DICT = {
-        "是不是很酷": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzU4NTIxODYwMQ==.xml",
-        "caoz的梦呓": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzI0MjA1Mjg2Ng==.xml",
-        "美团技术团队": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MjM5NjQ5MTI5OA==.xml",
-        "阿里技术": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzIzOTU0NTQ0MA==.xml",
-        "ThoughtWorks洞见": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MjM5MjY3OTgwMA==.xml",
-        "小米技术": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzUxMDQxMDMyNg==.xml",
-        "老胡的储物柜": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzU4MTA0NDQ0Ng==.xml",
-        "小道消息": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MjM5ODIyMTE0MA==.xml",
-        "我就BB怎么了": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzA5ODg5NDk1Ng==.xml",
-        "路人甲TM": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzIzMDQyMjcxOA==.xml",
-        "stormzhang": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzA4NTQwNDcyMA==.xml",
-        "findyi": "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/MzA3MzA5MTU4NA==.xml",
-    }
 
 
 if __name__ == "__main__":
-    print(Config.BASE_DIR)
+    print(Config.RSS_DICT.keys())

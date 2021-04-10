@@ -13,7 +13,7 @@ def model_predict_factory(
     model_name: str, model_path: str, input_dict: dict
 ) -> ModelResponse:
     """
-    模型预测函数工厂
+    模型预测工厂函数
     :param model_name:
     :param model_path:
     :param input_dict:
