@@ -26,23 +26,3 @@ def send_factory(send_type: str, send_config: dict, send_data: dict) -> bool:
     except ModuleNotFoundError:
         LOGGER.error(f"目标终端类型不存在 {send_type} - {send_config} - {send_data}")
     return send_status
-
-
-if __name__ == "__main__":
-    send_config = {
-        "url": "https://oapi.dingtalk.com/robot/send?access_token=dca91d0f3ea019ef92f8f8c347dddfe9514e682d107afb8163879608743453df"
-    }
-    send_data = {
-        "doc_id": "aabf6b7984424372ee5232b2d83037cb",
-        "doc_content": "数字化时代再提业务平台化",
-        "doc_date": "2021-04-09",
-        "doc_cus_des": "非广告",
-        "doc_ext": {},
-        "doc_link": "https://mp.weixin.qq.com/s/ubrsOCTu1KPLtHu4e9LFlw",
-        "doc_name": "数字化时代再提业务平台化",
-        "doc_source": "wechat",
-        "doc_source_des": "最新技术雷达/各类技术干货/精选职位招聘/精彩活动预告/经典案例故事，就在ThoughtWorks。",
-        "doc_source_name": "ThoughtWorks洞见",
-        "doc_ts": 1617960250.0,
-    }
-    send_factory(send_type="ding", send_config=send_config, send_data=send_data)
