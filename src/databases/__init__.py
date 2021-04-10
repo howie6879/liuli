@@ -4,4 +4,4 @@
     Description：数据库模块
     Changelog: all notable changes to this file will be documented
 """
-from .mongodb_base import MongodbManager
+from .mongodb_base import MongodbBase, MongodbManager
