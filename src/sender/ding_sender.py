@@ -56,7 +56,7 @@ class DingSender(SenderBase):
                 if resp_dict.get("errmsg") == "ok":
                     # 下发成功
                     LOGGER.info(
-                        f"{doc_source_name}_{doc_source_name}：{doc_id} 成功分发到 {self.send_type}"
+                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
                     )
                     # 将状态持久化到数据库
                     self.sl_coll.insert_one({"send_type": "ding", "doc_id": doc_id})
