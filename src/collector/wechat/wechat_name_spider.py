@@ -11,7 +11,7 @@ import ujson
 from ruia import Response, Spider
 from ruia_motor import RuiaMotorUpdate, init_spider
 
-from src.collector.wechat.utils import get_wf_url
+from src.collector.wechat.wechat_utils import get_wf_url
 from src.config import Config
 
 
@@ -21,7 +21,6 @@ class WechatNameSpider(Spider):
     """
 
     collection = "2c_wechat_name"
-    start_urls = [asyncio.get_event_loop().run_until_complete(get_wf_url())]
 
     async def parse(self, response: Response):
         """
@@ -47,5 +46,21 @@ async def init_motor_after_start(spider_ins: Spider):
     init_spider(spider_ins=spider_ins)
 
 
+def run_wechat_name_spider(loop=None):
+    """
+    启动爬虫，这样写启动爬虫的目的是为了多次调度，如果自动关闭了事件循环就会出错
+    :param loop: 事件循环
+    :return:
+    """
+    loop = loop or asyncio.get_event_loop()
+    start_urls = [loop.run_until_complete(get_wf_url())]
+
+    WechatNameSpider.start_urls = start_urls
+    spider = WechatNameSpider.start(
+        loop=loop, after_start=init_motor_after_start, close_event_loop=False
+    )
+    return spider
+
+
 if __name__ == "__main__":
-    WechatNameSpider.start(after_start=init_motor_after_start)
+    run_wechat_name_spider()

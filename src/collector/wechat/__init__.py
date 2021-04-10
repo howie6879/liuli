@@ -6,4 +6,5 @@
     Changelog: all notable changes to this file will be documented
 """
 from .wechat_doc_spider import WechatDocSpider, run_wechat_doc_spider
-from .wechat_name_spider import WechatNameSpider
+from .wechat_name_spider import WechatNameSpider, run_wechat_name_spider
+from .wechat_utils import wechat2url

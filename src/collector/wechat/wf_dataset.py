@@ -12,11 +12,11 @@ import ujson
 
 from ruia import Request
 
-from src.collector.wechat.utils import get_wf_url
 from src.collector.wechat.wechat_doc_spider import (
     WechatDocSpider,
     init_motor_after_start,
 )
+from src.collector.wechat.wechat_utils import get_wf_url
 
 _RSS_TEM = "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/{0}.xml"
 
@@ -38,6 +38,7 @@ async def get_wf_docs():
     # 偶尔有些公众号字段由于原项目兼容问题会出错
     # 但是作为训练集，少几条无所谓，如果正式获取出现错误再针对性地解决
     WechatDocSpider.start_urls = start_urls
+    WechatDocSpider.concurrency = 10
     WechatDocSpider.collection = "2c_wechat_datasets"
     await WechatDocSpider.async_start(after_start=init_motor_after_start)
     print(f"共更新 {len(json_data)} 个公众号")

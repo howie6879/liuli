@@ -53,7 +53,9 @@ class WechatDocSpider(Spider):
                 "doc_date": time.strftime("%Y-%m-%d", s_time),
                 "doc_ts": time.mktime(s_time),
                 "doc_source": "wechat",
-                "doc_ext": {"wechat_name": wechat_name, "wechat_des": wechat_des,},
+                "doc_source_name": wechat_name,
+                "doc_source_des": wechat_des,
+                "doc_ext": {},
             }
             yield RuiaMotorUpdate(
                 collection=self.collection,
@@ -71,16 +73,22 @@ async def init_motor_after_start(spider_ins):
     init_spider(spider_ins=spider_ins)
 
 
-def run_wechat_doc_spider():
+def run_wechat_doc_spider(start_urls: list = None, loop=None):
     """
-    启动爬虫
+    启动爬虫，这样写启动爬虫的目的是为了多次调度，如果自动关闭了事件循环就会出错
+    :param start_urls:
+    :param loop:
+    :return:
     """
-    loop = asyncio.get_event_loop()
-    WechatDocSpider.start_urls = list(Config.RSS_DICT.values())
+    loop = loop or asyncio.get_event_loop()
+    WechatDocSpider.start_urls = start_urls
     WechatDocSpider.start(
         loop=loop, after_start=init_motor_after_start, close_event_loop=False
     )
 
 
 if __name__ == "__main__":
-    run_wechat_doc_spider()
+    from src.collector.wechat import wechat2url
+
+    wechat_urls = wechat2url(Config.WECHAT_LIST)
+    run_wechat_doc_spider(list(wechat_urls.values()))
