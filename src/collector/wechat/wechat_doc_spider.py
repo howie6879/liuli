@@ -2,13 +2,13 @@
 """
     Created by howie.hu at 2021/4/7.
     Description：获取公众号文章列表
-      此脚本严重依赖项目：https://github.com/hellodword/wechat-feeds
     Changelog: all notable changes to this file will be documented
 """
 
-import json
+import asyncio
 import time
 
+import ujson
 import xmltodict
 
 from ruia import Response, Spider
@@ -18,10 +18,12 @@ from src.config import Config
 from src.utils import md5_encryption
 
 
-class WechatRSSSpider(Spider):
+class WechatDocSpider(Spider):
     """
     微信RSS文章爬虫
     """
+
+    collection = "2c_articles"
 
     async def parse(self, response: Response):
         """
@@ -30,7 +32,7 @@ class WechatRSSSpider(Spider):
         :type response: Response
         """
         xml_data = await response.text()
-        json_data = json.loads(json.dumps(xmltodict.parse(xml_input=xml_data)))
+        json_data = ujson.loads(ujson.dumps(xmltodict.parse(xml_input=xml_data)))
         channel_data = json_data["rss"]["channel"]
         item_data = channel_data["item"]
 
@@ -43,8 +45,6 @@ class WechatRSSSpider(Spider):
             doc_id = md5_encryption(f"{doc_name}_{doc_link}")
             s_time = time.strptime(pub_date, "%a, %d %b %Y %H:%M:%S +0800")
             each_data = {
-                "wechat_name": wechat_name,
-                "wechat_des": wechat_des,
                 "doc_id": doc_id,
                 "doc_name": doc_name,
                 "doc_des": each.get("description", ""),
@@ -52,16 +52,18 @@ class WechatRSSSpider(Spider):
                 "doc_content": each.get("content:encoded", ""),
                 "doc_date": time.strftime("%Y-%m-%d", s_time),
                 "doc_ts": time.mktime(s_time),
+                "doc_source": "wechat",
+                "doc_ext": {"wechat_name": wechat_name, "wechat_des": wechat_des,},
             }
             yield RuiaMotorUpdate(
-                collection="2c_articles",
-                filter={"doc_name": each.get("title", ""), "doc_id": doc_id},
+                collection=self.collection,
+                filter={"doc_id": doc_id},
                 update={"$set": each_data},
                 upsert=True,
             )
 
 
-async def init_plugins_after_start(spider_ins):
+async def init_motor_after_start(spider_ins):
     """
     初始化ruia-motor插件，数据自动持久化到MongoDB
     """
@@ -69,6 +71,16 @@ async def init_plugins_after_start(spider_ins):
     init_spider(spider_ins=spider_ins)
 
 
+def run_wechat_doc_spider():
+    """
+    启动爬虫
+    """
+    loop = asyncio.get_event_loop()
+    WechatDocSpider.start_urls = list(Config.RSS_DICT.values())
+    WechatDocSpider.start(
+        loop=loop, after_start=init_motor_after_start, close_event_loop=False
+    )
+
+
 if __name__ == "__main__":
-    WechatRSSSpider.start_urls = list(Config.RSS_DICT.values())
-    WechatRSSSpider.start(after_start=init_plugins_after_start)
+    run_wechat_doc_spider()

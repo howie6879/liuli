@@ -1,6 +1,8 @@
 # 2C
 
-作为一名微信公众号的重度用户，公众号一直被我设为汲取知识的地方。现在我面临一个比较头疼的问题——**广告问题**。
+> 构建一个多源（公众号、RSS）、干净、个性化的阅读环境
+
+作为一名微信公众号的重度用户，公众号一直被我设为汲取知识的地方。随着使用程度的增加，相信大家或多或少会有一个比较头疼的问题——**广告问题**。
 
 假设你关注的公众号有十来个，若一个公众号两周接一次广告，理论上你会面临二十多次广告，实际上会更多，运气不好的话一天刷下来都是广告也不一定。若你关注了二三十个公众号，那很难避免现阶段公众号环境的广告轰炸。
 
@@ -14,7 +16,7 @@
 
 我的思路很简单，大概流程如下：
 
-<div align=center><img src=".files/images/clean_wechat.dio.svg" width="85%" alt="clean_wechat.dio" /></div>
+<div align=center><img src=".files/images/2c_process.svg" width="85%" alt="2c_process" /></div>
 
 简单解释一下：
 
@@ -28,11 +30,20 @@
 
 ## 使用
 
-> 待我代码写完
+本项目使用 [pipenv](https://pipenv.pypa.io/en/latest/) 进行项目管理，安装使用过程如下：
+
+```shell
+# 确保有Python3.6+环境
+git clone https://github.com/howie6879/2c.git
+cd 2c
+
+# 创建基础环境
+pipenv install --python={python3.6+_path}  --skip-lock --dev
+```
 
 ## 帮助
 
-为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/bad.csv](.files/datasets/ads.csv)，我设定格式如下：
+为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/ads.csv](.files/datasets/ads.csv)，我设定格式如下：
 
 | title        | url          |
 | ------------ | ------------ |
@@ -40,7 +51,7 @@
 
 来个实例：
 
-![oxmnqe](https://raw.githubusercontent.com/howie6879/oss/master/images/oxmnqe.png)
+![ads_demo](https://raw.githubusercontent.com/howie6879/oss/master/images/oxmnqe.png)
 
 一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，真的真的希望大家能一起合力贡献，亲，来个PR贡献你的力量吧！
 

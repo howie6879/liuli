@@ -4,6 +4,8 @@
     Description：模型校验脚本
     Changelog: all notable changes to this file will be documented
 """
+import requests
+
 from src.classifier import model_predict_factory
 from src.config import Config
 from src.databases import MongodbManager
@@ -27,10 +29,11 @@ def test_mongo_doc():
     测试数据库文本
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="2c_articles")
+    # coll = mongo_base.get_collection(coll_name="2c_articles")
+    coll = mongo_base.get_collection(coll_name="2c_wechat_datasets")
     for each in coll.find({}):
         doc_name = each["doc_name"]
-        model_resp = cos_pre(text=each["name"])
+        model_resp = cos_pre(text=doc_name)
         if model_resp["result"] == 1:
             print(
                 f"{doc_name} 被识别为广告[{model_resp['probability']}]，链接为：{each['doc_link']}"
@@ -38,6 +41,9 @@ def test_mongo_doc():
 
 
 if __name__ == "__main__":
-    text = "指针太难学了"
-    res = cos_pre(text=text)
-    print(res)
+    # text = "指针太难学了"
+    # res = cos_pre(text=text)
+    # print(res)
+    # test_mongo_doc()
+    resp = requests.get("https://mp.weixin.qq.com/s/G1nrR_DzupEcD6wmKF2Gbw")
+    print(resp.text)

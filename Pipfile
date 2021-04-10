@@ -1,17 +1,19 @@
 [[source]]
 name = "pypi"
 verify_ssl = true
-url = "https://pypi.douban.com/simple/"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [packages]
-ruia = "*"
+gunicorn = "==19.9.0"
+gevent = "==21.1.2"
+ruia = ">=0.8.3"
 ruia-motor = "*"
 xmltodict = "*"
 newspaper3k = "*"
 numpy = "*"
 schedule = "*"
-flask = "*"
 jieba = "*"
+ujson = "*"
 
 [dev-packages]
 black = "*"

@@ -15,6 +15,11 @@ from src.config import Config
 
 
 def csv2txt(target_path: str = ""):
+    """
+    提取广告CSV中的标题作为广告样本
+    :param target_path:
+    :return:
+    """
     target_path = target_path or os.path.join(
         Config.MODEL_DIR, f"cos/train.{int(time.time())}.txt"
     )
@@ -34,9 +39,8 @@ if __name__ == "__main__":
     )
     article.download()
     article.parse()
-    article.nlp()
-    # 关键词
-    print(article.keywords)
+    print(article.text)
 
-    # 文章摘要
-    print(article.summary)
+    # article.nlp()
+    # print(article.keywords)
+    # print(article.summary)
