@@ -44,6 +44,8 @@ pipenv install --python={your_python3.6+_path}  --skip-lock --dev
 pipenv run python src/run.py
 ```
 
+安装使用文档，请移步阅读[2C使用教程](./docs/01.2C使用教程.md)
+
 ## 帮助
 
 为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/ads.csv](.files/datasets/ads.csv)，我设定格式如下：
