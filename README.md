@@ -38,7 +38,10 @@ git clone https://github.com/howie6879/2c.git
 cd 2c
 
 # 创建基础环境
-pipenv install --python={python3.6+_path}  --skip-lock --dev
+pipenv install --python={your_python3.6+_path}  --skip-lock --dev
+# 配置.env 或者 config/config.py 
+# 启动
+pipenv run python src/run.py
 ```
 
 ## 帮助

@@ -61,6 +61,14 @@ class DingSender(SenderBase):
                     # 将状态持久化到数据库
                     self.sl_coll.insert_one({"send_type": "ding", "doc_id": doc_id})
                     send_status = True
+                else:
+                    LOGGER.error(
+                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败：{resp_dict.get('errmsg')}"
+                    )
+            else:
+                LOGGER.error(
+                    f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败!"
+                )
 
         return send_status
 

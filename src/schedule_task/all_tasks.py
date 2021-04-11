@@ -7,7 +7,11 @@
 import time
 
 from src.classifier import model_predict_factory
-from src.collector.wechat import run_wechat_doc_spider, wechat2url
+from src.collector.wechat import (
+    run_wechat_doc_spider,
+    run_wechat_name_spider,
+    wechat2url,
+)
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory
@@ -61,7 +65,7 @@ def send_doc():
     cur_ts = time.time()
     filter_dict = {
         # 时间范围，除第一次外后面其实可以去掉
-        "doc_ts": {"$gte": cur_ts - (2 * 24 * 60 * 60), "$lte": cur_ts},
+        "doc_ts": {"$gte": cur_ts - (1 * 24 * 60 * 60), "$lte": cur_ts},
         # 至少打上一个模型标签
         "cos_model": {"$exists": True},
     }
@@ -84,6 +88,8 @@ def send_doc():
 
 
 if __name__ == "__main__":
+    # 第一次启动请执行
+    # run_wechat_name_spider()
     update_wechat_doc()
     update_ads_tag()
     send_doc()
