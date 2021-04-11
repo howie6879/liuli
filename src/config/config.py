@@ -35,8 +35,8 @@ class Config:
         "db": os.getenv("CC_M_DB", "2c"),
     }
 
-    # 分发配置，目前仅支持钉钉
-    # TODO work_wechat TG etc...
+    # 分发配置，目标支持：ding[钉钉]、wecom[企业微信]、tg[Telegram] 等等
+    # 目前仅支持钉钉
     SENDER_LIST = ["ding"]
     # 钉钉 URL，如果 SENDER_LIST 包含 ding ，CC_D_TOKEN 配置就必须填写
     # 申请钉钉TOKEN时候，关键字必须带有 [2c]
