@@ -42,11 +42,9 @@ class Config:
     # 申请钉钉TOKEN时候，关键字必须带有 [2c]
     DD_TOKEN = os.getenv("CC_D_TOKEN", "")
     # 企业微信配置
-    WECOM_ID = os.getenv("CC_WECOM_ID", "wwee29721ad4f6e1c6")
-    WECOM_AGENT_ID = os.getenv("CC_WECOM_AGENT_ID", "1000002")
-    WECOM_SECRET = os.getenv(
-        "CC_WECOM_SECRET", "O4M9w38wuwAxCMr0O3lTqAgzLC7yxjsDGr6lgva4YvI"
-    )
+    WECOM_ID = os.getenv("CC_WECOM_ID", "")
+    WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", ""))
+    WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
 
     # 订阅的公众号配置
     WECHAT_LIST = [
