@@ -31,7 +31,6 @@ class MongodbBase:
             port=self.mongodb_config.get("port", 271017),
             db=self.mongodb_config.get("db", "2c"),
         )
-        print(self.mongodb_uri)
         self.client = MongoClient(self.mongodb_uri)
 
     def get_db(self, db_name: str = ""):

@@ -41,9 +41,7 @@ def test_mongo_doc():
 
 
 if __name__ == "__main__":
-    # text = "指针太难学了"
-    # res = cos_pre(text=text)
-    # print(res)
+    text = "普通人搞一百万有多难"
+    res = cos_pre(text=text)
+    print(res)
     # test_mongo_doc()
-    resp = requests.get("https://mp.weixin.qq.com/s/G1nrR_DzupEcD6wmKF2Gbw")
-    print(resp.text)

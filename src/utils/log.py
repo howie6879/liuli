@@ -9,9 +9,12 @@ import logging
 
 
 def get_logger(name="2c"):
+    """
+    获取日志
+    :param name:
+    :return:
+    """
     logging_format = f"[%(asctime)s] %(levelname)-5s %(name)-{len(name)}s "
-    # logging_format += "%(module)-7s::l%(lineno)d: "
-    # logging_format += "%(module)-7s: "
     logging_format += "%(message)s"
 
     logging.basicConfig(

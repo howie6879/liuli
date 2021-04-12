@@ -44,7 +44,7 @@ pipenv install --python={your_python3.6+_path}  --skip-lock --dev
 pipenv run python src/run.py
 ```
 
-安装使用文档，请移步阅读[2C使用教程](./docs/01.2C使用教程.md)
+安装使用文档，请移步阅读[2C使用教程](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)。
 
 ## 帮助
 

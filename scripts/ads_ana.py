@@ -33,13 +33,13 @@ def csv2txt(target_path: str = ""):
 
 
 if __name__ == "__main__":
-    # csv2txt()
-    article = Article(
-        "https://mp.weixin.qq.com/s/D-las20I8POTmWNaXradhw", language="zh"
-    )
-    article.download()
-    article.parse()
-    print(article.text)
+    csv2txt()
+    # article = Article(
+    #     "https://mp.weixin.qq.com/s/D-las20I8POTmWNaXradhw", language="zh"
+    # )
+    # article.download()
+    # article.parse()
+    # print(article.text)
 
     # article.nlp()
     # print(article.keywords)

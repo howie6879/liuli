@@ -28,20 +28,27 @@ def update_wechat_doc():
     run_wechat_doc_spider(list(wechat_urls.values()))
 
 
-def update_ads_tag():
+def update_ads_tag(is_force=False):
     """
     对订阅的文章进行广告标记
+    :param is_force: 是否强制重新判决
+    :return:
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="2c_articles")
+    if is_force:
+        query = {}
+    else:
+        query = {"cos_model": {"$exists": False}}
+
     # 查找没有被标记的文章，基于预先相似度模型进行判断
-    for each_data in coll.find({"cos_model": {"$exists": False}}):
+    for each_data in coll.find(query):
         doc_name = each_data["doc_name"]
         # 基于余弦相似度
         cos_model_resp = model_predict_factory(
             model_name="cos",
             model_path="",
-            input_dict={"text": doc_name, "cos_value": 0.65},
+            input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
         ).to_dict()
         each_data["cos_model"] = cos_model_resp
         if cos_model_resp["result"] == 1:
@@ -65,7 +72,7 @@ def send_doc():
     cur_ts = time.time()
     filter_dict = {
         # 时间范围，除第一次外后面其实可以去掉
-        "doc_ts": {"$gte": cur_ts - (1 * 24 * 60 * 60), "$lte": cur_ts},
+        "doc_ts": {"$gte": cur_ts - (2 * 24 * 60 * 60), "$lte": cur_ts},
         # 至少打上一个模型标签
         "cos_model": {"$exists": True},
     }
@@ -74,14 +81,12 @@ def send_doc():
         # 分别分发给各个目标
         for send_type in Config.SENDER_LIST:
             # 暂时固定，测试
-            send_config = {"url": Config.DD_URL}
-            each_data["doc_cus_des"] = "非广告"
+            send_config = {}
+            each_data["doc_cus_des"] = "🤓非广告"
             cos_model_resp = each_data["cos_model"]
             if cos_model_resp["result"] == 1:
                 # 广告标记
-                each_data[
-                    "doc_cus_des"
-                ] = f"广告[probability{cos_model_resp['probability']}]"
+                each_data["doc_cus_des"] = f"👿广告[概率：{cos_model_resp['probability']}]"
             send_factory(
                 send_type=send_type, send_config=send_config, send_data=each_data
             )
@@ -91,5 +96,6 @@ if __name__ == "__main__":
     # 第一次启动请执行
     # run_wechat_name_spider()
     update_wechat_doc()
-    update_ads_tag()
+    # 每次强制重新打标签
+    update_ads_tag(is_force=False)
     send_doc()
