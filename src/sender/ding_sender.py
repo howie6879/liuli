@@ -21,7 +21,8 @@ class DingSender(SenderBase):
         :param send_config:
         """
         super().__init__(send_type="ding", send_config=send_config)
-        self.url = send_config.pop("url") or Config.DD_URL
+        dd_token = send_config.get("dd_token", Config.DD_TOKEN)
+        self.url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
 
     def send(self, send_data) -> bool:
         """
@@ -59,7 +60,9 @@ class DingSender(SenderBase):
                         f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
                     )
                     # 将状态持久化到数据库
-                    self.sl_coll.insert_one({"send_type": "ding", "doc_id": doc_id})
+                    self.sl_coll.insert_one(
+                        {"send_type": self.send_type, "doc_id": doc_id}
+                    )
                     send_status = True
                 else:
                     LOGGER.error(

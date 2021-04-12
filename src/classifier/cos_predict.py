@@ -48,7 +48,7 @@ class CosPredictModel(ModelPredictBase):
         """
         # 定义的必传参数
         text: dict = self.input_dict["text"]
-        cos_value: dict = self.input_dict.pop("cos_value", 0.8)
+        cos_value: dict = self.input_dict.pop("cos_value", 0.65)
         if text:
             is_black, is_white = self.process(text)
 
