@@ -105,7 +105,6 @@ class WeComSender(SenderBase):
             # 开始进行下发
             resp_dict = self.send_text_card(send_data=send_data)
             if resp_dict:
-                print(resp_dict)
                 if resp_dict.get("errcode") == 0:
                     # 下发成功
                     LOGGER.info(
