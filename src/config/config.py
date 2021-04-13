@@ -18,11 +18,11 @@ class Config:
     MODEL_DIR = os.path.join(BASE_DIR, "model_data")
 
     # Flask API配置
-    DEBUG = True if os.getenv("CC_FLASK_DEBUG", "0") == "1" else False
+    DEBUG = bool(os.getenv("CC_FLASK_DEBUG", "0") == "1")
     TIMEZONE = "Asia/Shanghai"
     HOST = os.getenv("CC_HOST", "127.0.0.1")
-    HTTP_PORT = os.getenv("CC_HTTP_PORT", 8060)
-    WORKERS = os.getenv("CC_WORKERS", 1)
+    HTTP_PORT = int(os.getenv("CC_HTTP_PORT", "8060"))
+    WORKERS = int(os.getenv("CC_WORKERS", "1"))
     AUTH_KEY = os.getenv("CC_AUTH_KEY", "123456")
 
     # 数据库配置
