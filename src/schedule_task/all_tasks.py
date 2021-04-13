@@ -97,5 +97,5 @@ if __name__ == "__main__":
     # run_wechat_name_spider()
     update_wechat_doc()
     # 每次强制重新打标签
-    update_ads_tag(is_force=False)
+    update_ads_tag(is_force=True)
     send_doc()
