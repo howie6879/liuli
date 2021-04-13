@@ -41,7 +41,7 @@ def test_mongo_doc():
 
 
 if __name__ == "__main__":
-    text = "普通人搞一百万有多难"
+    text = "干了5年程序员，我竟然遭遇到了“招聘暴力”！"
     res = cos_pre(text=text)
     print(res)
     # test_mongo_doc()
