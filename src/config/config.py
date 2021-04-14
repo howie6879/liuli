@@ -35,15 +35,16 @@ class Config:
         "db": os.getenv("CC_M_DB", "2c"),
     }
 
-    # 分发配置，目标支持：ding[钉钉]、wecom[企业微信]、tg[Telegram] 等等
-    # 目前支持 钉钉、企业微信
-    SENDER_LIST = ["ding", "wecom"]
+    # 分发终端配置，设置环境变量：CC_SENDER_NAME="ding;wecom"
+    # 目标支持：ding[钉钉]、wecom[企业微信]
+    # 多终端记得使用;分割
+    SENDER_LIST = str(os.getenv("CC_SENDER_NAME", "")).split(";")
     # 钉钉分发器参数配置，如果 SENDER_LIST 包含 ding ，CC_D_TOKEN 配置就必须填写
     # 申请钉钉TOKEN时候，关键字必须带有 [2c]
     DD_TOKEN = os.getenv("CC_D_TOKEN", "")
     # 企业微信配置
     WECOM_ID = os.getenv("CC_WECOM_ID", "")
-    WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", ""))
+    WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", "-1"))
     WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
 
     # 订阅的公众号配置
