@@ -107,13 +107,17 @@ class WeComSender(SenderBase):
             print(resp_dict)
             if resp_dict:
                 if resp_dict.get("errcode") == 0:
+                    # 将状态持久化到数据库
+                    self.sl_coll.insert_one(
+                        {
+                            "send_type": self.send_type,
+                            "doc_id": doc_id,
+                            "ts": time.time(),
+                        }
+                    )
                     # 下发成功
                     LOGGER.info(
                         f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
-                    )
-                    # 将状态持久化到数据库
-                    self.sl_coll.insert_one(
-                        {"send_type": self.send_type, "doc_id": doc_id}
                     )
                     send_status = True
                 else:

@@ -23,18 +23,24 @@ async def get_wf_url():
     return f"https://cdn.jsdelivr.net/gh/hellodword/wechat-feeds@{version}/details.json"
 
 
-def wechat2url(name_list: list):
+def wechat2url(name_list: list, source_type: str = "gitee"):
     """
     将微信名称转为 wechat-feeds 对应的url
     :param name_list:
+    :param source_type:
     :return:
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="2c_wechat_name")
-    _rss_tem = "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/{0}.xml"
+    if source_type == "gitee":
+        rss_tem = "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/{0}.xml"
+    else:
+        # 否则使用 github
+        rss_tem = "https://github.com/hellodword/wechat-feeds/raw/feeds/{0}.xml"
+
     res_dict = {}
     for each in coll.find({"name": {"$in": name_list}}):
-        rss_url = _rss_tem.format(each["bizid"])
+        rss_url = rss_tem.format(each["bizid"])
         res_dict[each["name"]] = rss_url
     return res_dict
 
