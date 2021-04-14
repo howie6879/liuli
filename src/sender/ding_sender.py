@@ -4,6 +4,9 @@
     Description：分发到钉钉终端
     Changelog: all notable changes to this file will be documented
 """
+
+import time
+
 from src.config import Config
 from src.sender.base import SenderBase
 from src.sender.utils import send_post_request
@@ -50,18 +53,24 @@ class DingSender(SenderBase):
                     "messageUrl": doc_link,
                 },
             }
+            # 防止触发次数限制，每次休眠 3.5s
+            time.sleep(3.5)
             resp_dict = send_post_request(
                 url=self.url, data=data, headers={"Content-Type": "application/json"}
             )
             if resp_dict:
                 if resp_dict.get("errmsg") == "ok":
+                    # 将状态持久化到数据库
+                    self.sl_coll.insert_one(
+                        {
+                            "send_type": self.send_type,
+                            "doc_id": doc_id,
+                            "ts": time.time(),
+                        }
+                    )
                     # 下发成功
                     LOGGER.info(
                         f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
-                    )
-                    # 将状态持久化到数据库
-                    self.sl_coll.insert_one(
-                        {"send_type": self.send_type, "doc_id": doc_id}
                     )
                     send_status = True
                 else:
