@@ -8,7 +8,7 @@
 import logging
 
 
-def get_logger(name="2c"):
+def get_logger(name="2C"):
     """
     获取日志
     :param name:

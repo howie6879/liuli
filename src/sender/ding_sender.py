@@ -47,7 +47,7 @@ class DingSender(SenderBase):
             data = {
                 "msgtype": "link",
                 "link": {
-                    "text": f"[2c_{doc_source_name}]: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
+                    "text": f"[2c]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
                     "title": doc_name,
                     "picUrl": "",
                     "messageUrl": doc_link,
@@ -58,6 +58,7 @@ class DingSender(SenderBase):
             resp_dict = send_post_request(
                 url=self.url, data=data, headers={"Content-Type": "application/json"}
             )
+            notice_msg = f"{doc_cus_des}👉{doc_source_name}_{doc_name}：{doc_link} 分发到 {self.send_type}"
             if resp_dict:
                 if resp_dict.get("errmsg") == "ok":
                     # 将状态持久化到数据库
@@ -69,18 +70,12 @@ class DingSender(SenderBase):
                         }
                     )
                     # 下发成功
-                    LOGGER.info(
-                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
-                    )
+                    LOGGER.info(f"{notice_msg} 成功！")
                     send_status = True
                 else:
-                    LOGGER.error(
-                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败：{resp_dict.get('errmsg')}"
-                    )
+                    LOGGER.error(f"{notice_msg} 失败：{resp_dict.get('errmsg')}")
             else:
-                LOGGER.error(
-                    f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败!"
-                )
+                LOGGER.error(f"{notice_msg} 失败!")
 
         return send_status
 
