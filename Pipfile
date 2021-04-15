@@ -20,3 +20,7 @@ black = "*"
 isort = "*"
 pylint = "*"
 pandas = "*"
+
+[scripts]
+dev = "bash ./dev.sh"
+pro = "bash ./pro.sh"

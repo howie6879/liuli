@@ -98,13 +98,14 @@ class WeComSender(SenderBase):
         doc_name = send_data["doc_name"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_id = send_data["doc_id"]
+        doc_link = send_data["doc_link"]
         doc_source_name = send_data["doc_source_name"]
         is_send = self.is_send(doc_id=doc_id)
         send_status = True
         if not is_send:
             # 开始进行下发
             resp_dict = self.send_text_card(send_data=send_data)
-            print(resp_dict)
+            notice_msg = f"{doc_cus_des}👉{doc_source_name}_{doc_name}：{doc_link} 分发到 {self.send_type}"
             if resp_dict:
                 if resp_dict.get("errcode") == 0:
                     # 将状态持久化到数据库
@@ -115,19 +116,14 @@ class WeComSender(SenderBase):
                             "ts": time.time(),
                         }
                     )
+
                     # 下发成功
-                    LOGGER.info(
-                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 成功分发到 {self.send_type}"
-                    )
+                    LOGGER.info(f"{notice_msg} 成功！")
                     send_status = True
                 else:
-                    LOGGER.error(
-                        f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败：{resp_dict.get('errmsg')}"
-                    )
+                    LOGGER.error(f"{notice_msg} 失败：{resp_dict.get('errmsg')}")
             else:
-                LOGGER.error(
-                    f"[2c_{doc_source_name}]_{doc_name} {doc_cus_des}：{doc_id} 分发到 {self.send_type} 失败!"
-                )
+                LOGGER.error(f"{notice_msg} 失败!")
 
         return send_status
 

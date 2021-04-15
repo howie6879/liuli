@@ -30,7 +30,7 @@
 
 ## 使用
 
-本项目使用 [pipenv](https://pipenv.pypa.io/en/latest/) 进行项目管理，安装使用过程如下：
+本项目使用 [pipenv](https://pipenv.pypa.io/en/latest/) 进行项目管理， 安装使用过程如下：
 
 ```shell
 # 确保有Python3.6+环境
@@ -39,12 +39,15 @@ cd 2c
 
 # 创建基础环境
 pipenv install --python={your_python3.6+_path}  --skip-lock --dev
-# 配置.env 或者 config/config.py 
+# 配置.env 具体查看 doc/00.环境变量.md
 # 启动
-pipenv run python src/run.py
+pipenv run dev
 ```
 
-安装使用文档，请移步阅读[2C使用教程](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)。
+使用前建议阅读文档：
+ - [00.2C环境变量](./docs/00.2C环境变量.md)
+ - [01.2C使用教程](./docs/01.2C使用教程.md)：[博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)较舒适
+
 
 ## 帮助
 
