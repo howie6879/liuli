@@ -34,14 +34,13 @@ def test_mongo_doc():
     for each in coll.find({}):
         doc_name = each["doc_name"]
         model_resp = cos_pre(text=doc_name)
-        if model_resp["result"] == 1:
-            print(
-                f"{doc_name} 被识别为广告[{model_resp['probability']}]，链接为：{each['doc_link']}"
-            )
+        probability = model_resp["probability"]
+        if model_resp["result"] >= 0.5 and probability != 1.0:
+            print(f"{doc_name} 被识别为广告[{probability}]，链接为：{each['doc_link']}")
 
 
 if __name__ == "__main__":
-    text = "干了5年程序员，我竟然遭遇到了“招聘暴力”！"
-    res = cos_pre(text=text)
-    print(res)
-    # test_mongo_doc()
+    # text = "干了5年程序员，我竟然遭遇到了“招聘暴力”！"
+    # res = cos_pre(text=text)
+    # print(res)
+    test_mongo_doc()
