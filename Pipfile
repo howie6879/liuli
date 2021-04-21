@@ -14,6 +14,7 @@ numpy = "*"
 schedule = "*"
 jieba = "*"
 ujson = "*"
+textrank4zh = "*"
 
 [dev-packages]
 black = "*"
