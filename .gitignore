@@ -108,3 +108,4 @@ venv.bak/
 pro.env
 dev.env
 *.swp
+*.bak
