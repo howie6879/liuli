@@ -7,16 +7,12 @@
 import os
 import time
 
-from collections import Counter
-
 import pandas as pd
-import requests
 
 from newspaper import Article
 from textrank4zh import TextRank4Keyword, TextRank4Sentence
 
 from src.config import Config
-from src.databases import MongodbManager
 
 
 def fetch_keyword_list(url: str):
@@ -49,7 +45,7 @@ def gen_keyword_ads():
 
     ads_path = "../.files/datasets/ads.csv"
     clean_ads_path = "../.files/datasets/clean_ads.csv"
-    df = pd.read_csv(ads_path)
+    ads_df = pd.read_csv(ads_path)
     clean_df = pd.read_csv(clean_ads_path)
 
     ads_res = []
@@ -60,7 +56,7 @@ def gen_keyword_ads():
             {"title": each[0], "keywords": each[1],}
         )
 
-    for each in df.values.tolist():
+    for each in ads_df.values.tolist():
         title, url, is_process = each[0], each[1], each[2]
         cur_data = {
             "title": title,
@@ -110,8 +106,8 @@ def csv2txt(target_path: str = ""):
 
 
 if __name__ == "__main__":
-    # csv2txt()
-    # url = "https://www.ershicimi.com/p/f4b00ac47a2b2fa2ce50719ed2787963"
+    csv2txt()
+    # url = "https://jishuin.proginn.com/p/763bfbd54d15"
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
-    gen_keyword_ads()
+    # gen_keyword_ads()

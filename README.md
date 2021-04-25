@@ -4,6 +4,8 @@
 
 作为一名微信公众号的重度用户，公众号一直被我设为汲取知识的地方。随着使用程度的增加，相信大家或多或少会有一个比较头疼的问题——**广告问题**。
 
+<div align=center><img src=".files/images/2c_ads_word_cloud.jpg"  width="100%" alt="2c_ads_word_cloud" /></div>
+
 假设你关注的公众号有十来个，若一个公众号两周接一次广告，理论上你会面临二十多次广告，实际上会更多，运气不好的话一天刷下来都是广告也不一定。若你关注了二三十个公众号，那很难避免现阶段公众号环境的广告轰炸。
 
 更可恶的是，大部分的广告，无不是**贩卖焦虑，营造消极气氛**，实在无法忍受且严重影响我的心情。但有些公众号写的文章又确实不错，那怎么做可以不看广告只看文章呢？如果你在公众号阅读体验下深切感受到对于广告的无奈，那么这个项目就是你需要的。
@@ -46,29 +48,37 @@ pipenv run dev
 
 使用前建议阅读文档：
  - [00.2C环境变量](./docs/00.2C环境变量.md)
- - [01.2C使用教程](./docs/01.2C使用教程.md)：[博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)较舒适
+ - [01.2C使用教程](./docs/01.2C使用教程.md)：推荐 [博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)较舒适
 
 
 ## 帮助
 
 为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/ads.csv](.files/datasets/ads.csv)，我设定格式如下：
 
-| title        | url          |
-| ------------ | ------------ |
-| 广告文章标题 | 广告文章连接 |
+| title        | url          | is_process |
+| ------------ | ------------ | ---------- |
+| 广告文章标题 | 广告文章连接 | 0          |
+
+字段说明：
+
+- title：文章标题
+- url：文章链接，如果微信文章想、请先验证是否失效
+- is_process：表示是否进行样本处理，默认填`0`即可
 
 来个实例：
 
-![ads_demo](https://raw.githubusercontent.com/howie6879/oss/master/images/oxmnqe.png)
+<div align=center><img src=".files/images/2c_ads_csv_demo.jpg"  width="100%" alt="2c_ads_csv_demo" /></div>
 
 一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，真的真的希望大家能一起合力贡献，亲，来个PR贡献你的力量吧！
 
 ## 致谢
 
-非常感谢以下项目：
+感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`，以及相关项目：
 
 - [flask](https://github.com/pallets/flask)
 - [wechat-feeds](https://github.com/hellodword/wechat-feeds)
+- [CharCNN](https://github.com/mhjabreel/CharCNN)
+- [CharCnn_Keras](https://github.com/mhjabreel/CharCnn_Keras)
 
 感谢以下开发者的贡献（排名不分先后）：
 
