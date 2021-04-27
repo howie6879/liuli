@@ -42,7 +42,7 @@ class WechatDocSpider(Spider):
         for each in item_data:
             pub_date = each["pubDate"]
             doc_name, doc_link = each.get("title", ""), each.get("link", "")
-            doc_id = md5_encryption(f"{doc_name}_{doc_link}")
+            doc_id = md5_encryption(f"{doc_name}_{doc_link}_{wechat_name}")
             s_time = time.strptime(pub_date, "%a, %d %b %Y %H:%M:%S +0800")
             each_data = {
                 "doc_id": doc_id,
@@ -59,7 +59,11 @@ class WechatDocSpider(Spider):
             }
             yield RuiaMotorUpdate(
                 collection=self.collection,
-                filter={"doc_id": doc_id},
+                filter={
+                    "doc_name": doc_name,
+                    "doc_link": doc_link,
+                    "doc_source": wechat_name,
+                },
                 update={"$set": each_data},
                 upsert=True,
             )

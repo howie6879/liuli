@@ -52,19 +52,19 @@ class Config:
         "小道消息",
         "是不是很酷",
         "机器之心",
-        "InfoQ",
         "caoz的梦呓",
         "Sunbelife",
-        "DataFunTalk",
         "TGO鲲鹏会",
         "低并发编程",
         "美团技术团队",
         "阿里技术",
         "ThoughtWorks洞见",
-        "小米技术",
         "老胡的储物柜",
         "我就BB怎么了",
         "stormzhang",
+        "DataFunTalk",
+        "InfoQ",
+        "小米技术",
     ]
 
     # 模型配置

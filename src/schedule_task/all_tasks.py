@@ -15,6 +15,7 @@ from src.collector.wechat import (
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory
+from src.utils.log import LOGGER
 
 
 def update_wechat_doc():
@@ -44,6 +45,7 @@ def update_ads_tag(is_force=False):
     # 查找没有被标记的文章，基于预先相似度模型进行判断
     for each_data in coll.find(query):
         doc_name = each_data["doc_name"]
+        doc_source_name = each_data["doc_source_name"]
         # 基于余弦相似度
         cos_model_resp = model_predict_factory(
             model_name="cos",
@@ -52,8 +54,8 @@ def update_ads_tag(is_force=False):
         ).to_dict()
         each_data["cos_model"] = cos_model_resp
         if cos_model_resp["result"] == 1:
-            print(
-                f"{doc_name} 被识别为广告[{cos_model_resp['probability']}]，链接为：{each_data['doc_link']}"
+            LOGGER.info(
+                f"[{doc_source_name}] {doc_name} 被识别为广告[{cos_model_resp['probability']}]，链接为：{each_data['doc_link']}"
             )
         coll.update_one(
             filter={"doc_id": each_data["doc_id"]},
@@ -94,7 +96,7 @@ def send_doc():
 
 if __name__ == "__main__":
     # 第一次启动请执行
-    # run_wechat_name_spider()
+    run_wechat_name_spider()
     update_wechat_doc()
     # 每次强制重新打标签
     update_ads_tag(is_force=True)
