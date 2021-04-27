@@ -83,6 +83,15 @@ def gen_keyword_ads():
     pd.DataFrame(clean_ads_res).to_csv(clean_ads_path, index=False)
 
 
+def clean_sample():
+    """
+    对样本进行清洗
+    """
+    clean_ads_path = "../.files/datasets/clean_ads.csv"
+    clean_df = pd.read_csv(clean_ads_path)
+    print(clean_df.head())
+
+
 def csv2txt(target_path: str = ""):
     """
     提取广告CSV中的标题作为广告样本
@@ -106,8 +115,9 @@ def csv2txt(target_path: str = ""):
 
 
 if __name__ == "__main__":
-    csv2txt()
+    # csv2txt()
     # url = "https://jishuin.proginn.com/p/763bfbd54d15"
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
     # gen_keyword_ads()
+    clean_sample()
