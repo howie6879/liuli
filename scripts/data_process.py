@@ -36,27 +36,27 @@ def fetch_keyword_list(url: str):
     return keyword_list
 
 
-def gen_keyword_ads():
+def gen_keyword_ads(
+    s_path: str = "../.files/datasets/ads.csv",
+    c_path: str = "../.files/datasets/clean_ads.csv",
+):
     """
-    广告文本提取关键词
-    :param url:
+    广告文本提取关键词，前提是相关文本遵循了2c定义的数据集格式
+    :param s_path: 源路径
+    :param c_path: 目标关键词提取后的路径
     :return:
     """
 
-    ads_path = "../.files/datasets/ads.csv"
-    clean_ads_path = "../.files/datasets/clean_ads.csv"
-    ads_df = pd.read_csv(ads_path)
-    clean_df = pd.read_csv(clean_ads_path)
+    s_df = pd.read_csv(s_path)
+    c_df = pd.read_csv(c_path)
+    s_data_res, c_data_res = [], []
 
-    ads_res = []
-    clean_ads_res = []
-
-    for each in clean_df.values.tolist():
-        clean_ads_res.append(
+    for each in c_df.values.tolist():
+        c_data_res.append(
             {"title": each[0], "keywords": each[1],}
         )
 
-    for each in ads_df.values.tolist():
+    for each in s_df.values.tolist():
         title, url, is_process = each[0], each[1], each[2]
         cur_data = {
             "title": title,
@@ -73,14 +73,14 @@ def gen_keyword_ads():
                     print(f"{title} {url} 需要重新收集有效链接")
                 else:
                     cur_data["is_process"] = "1"
-                    clean_ads_res.append(
-                        {"title": title, "keywords": ";".join(keyword_list)}
+                    c_data_res.append(
+                        {"title": title, "keywords": " ".join(keyword_list)}
                     )
-        ads_res.append(cur_data)
+        s_data_res.append(cur_data)
 
     # 持久化
-    pd.DataFrame(ads_res).to_csv(ads_path, index=False)
-    pd.DataFrame(clean_ads_res).to_csv(clean_ads_path, index=False)
+    pd.DataFrame(s_data_res).to_csv(s_path, index=False)
+    pd.DataFrame(c_data_res).to_csv(c_path, index=False)
 
 
 def clean_sample():
@@ -119,5 +119,5 @@ if __name__ == "__main__":
     # url = "https://jishuin.proginn.com/p/763bfbd54d15"
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
-    # gen_keyword_ads()
-    clean_sample()
+    gen_keyword_ads()
+    # clean_sample()
