@@ -8,3 +8,5 @@
         - 博客
     Changelog: all notable changes to this file will be documented
 """
+from .utils import fetch_keyword_list
+from .wechat import run_wechat_doc_spider, run_wechat_name_spider, wechat2url

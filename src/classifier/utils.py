@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """
-    Created by howie.hu at 2021-04-27.
+    Created by howie.hu at 2021/04/27.
     Description: 模型相关通用工具函数
     Changelog: all notable changes to this file will be documented
 """
 from pypinyin import lazy_pinyin
+
 
 def text2py(text):
     """

@@ -46,4 +46,5 @@ def wechat2url(name_list: list, source_type: str = "gitee"):
 
 
 if __name__ == "__main__":
-    wechat2url(Config.WECHAT_LIST)
+    res_dict = wechat2url(Config.WECHAT_LIST)
+    print(res_dict)
