@@ -7,11 +7,7 @@
 import time
 
 from src.classifier import model_predict_factory
-from src.collector.wechat import (
-    run_wechat_doc_spider,
-    run_wechat_name_spider,
-    wechat2url,
-)
+from src.collector import run_wechat_doc_spider, run_wechat_name_spider, wechat2url
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory

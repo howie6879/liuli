@@ -60,7 +60,6 @@ class Config:
         "阿里技术",
         "ThoughtWorks洞见",
         "老胡的储物柜",
-        "我就BB怎么了",
         "stormzhang",
         "DataFunTalk",
         "InfoQ",

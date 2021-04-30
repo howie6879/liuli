@@ -24,6 +24,7 @@ class WechatDocSpider(Spider):
     """
 
     collection = "2c_articles"
+    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 2}
 
     async def parse(self, response: Response):
         """
@@ -57,16 +58,38 @@ class WechatDocSpider(Spider):
                 "doc_source_des": wechat_des,
                 "doc_ext": {},
             }
+            # yield self.request(
+            #     url=doc_link, metadata=each_data, callback=self.parse_url
+            # )
             yield RuiaMotorUpdate(
                 collection=self.collection,
                 filter={
-                    "doc_name": doc_name,
-                    "doc_link": doc_link,
-                    "doc_source": wechat_name,
+                    "doc_name": each_data["doc_name"],
+                    "doc_link": each_data["doc_link"],
+                    "doc_source_name": each_data["doc_source_name"],
                 },
                 update={"$set": each_data},
                 upsert=True,
             )
+
+    async def parse_url(self, response: Response):
+        """
+        解析链接内容
+        :param response:
+        :return:
+        """
+        each_data = response.metadata
+        each_data["html"] = await response.text()
+        yield RuiaMotorUpdate(
+            collection=self.collection,
+            filter={
+                "doc_name": each_data["doc_name"],
+                "doc_link": each_data["doc_link"],
+                "doc_source_name": each_data["doc_source_name"],
+            },
+            update={"$set": each_data},
+            upsert=True,
+        )
 
 
 async def init_motor_after_start(spider_ins):

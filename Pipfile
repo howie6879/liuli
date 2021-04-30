@@ -17,6 +17,7 @@ ujson = "*"
 textrank4zh = "*"
 keras = "*"
 tensorflow = "*"
+pypinyin = "*"
 
 [dev-packages]
 black = "*"
