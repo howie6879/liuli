@@ -16,6 +16,8 @@ class Config:
     # 基础配置
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
     MODEL_DIR = os.path.join(BASE_DIR, "model_data")
+    FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), ".files")
+    DS_DIR = os.path.join(FILE_DIR, "datasets")
 
     # Flask API配置
     DEBUG = bool(os.getenv("CC_FLASK_DEBUG", "0") == "1")
@@ -61,11 +63,15 @@ class Config:
         "ThoughtWorks洞见",
         "老胡的储物柜",
         "stormzhang",
-        "DataFunTalk",
         "InfoQ",
-        "小米技术",
+        "从码农到工匠",
+        "真没什么逻辑",
     ]
 
     # 模型配置
     # 余弦相似度阈值
-    COS_VALUE = float(os.getenv("CC_COS_VALUE", "0.50"))
+    COS_VALUE = float(os.getenv("CC_COS_VALUE", "0.60"))
+
+
+if __name__ == "__main__":
+    print(Config.DS_DIR)

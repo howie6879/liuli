@@ -58,9 +58,6 @@ class WechatDocSpider(Spider):
                 "doc_source_des": wechat_des,
                 "doc_ext": {},
             }
-            # yield self.request(
-            #     url=doc_link, metadata=each_data, callback=self.parse_url
-            # )
             yield RuiaMotorUpdate(
                 collection=self.collection,
                 filter={
@@ -71,6 +68,10 @@ class WechatDocSpider(Spider):
                 update={"$set": each_data},
                 upsert=True,
             )
+
+            # yield self.request(
+            #     url=doc_link, metadata=each_data, callback=self.parse_url
+            # )
 
     async def parse_url(self, response: Response):
         """
