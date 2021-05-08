@@ -92,8 +92,8 @@ def send_doc():
 
 if __name__ == "__main__":
     # 第一次启动请执行
-    run_wechat_name_spider()
+    # run_wechat_name_spider()
     update_wechat_doc()
     # 每次强制重新打标签
     update_ads_tag(is_force=True)
-    send_doc()
+    # send_doc()
