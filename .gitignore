@@ -109,3 +109,4 @@ pro.env
 dev.env
 *.swp
 *.bak
+logs/
