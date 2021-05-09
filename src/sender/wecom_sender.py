@@ -57,10 +57,11 @@ class WeComSender(SenderBase):
         doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
+        doc_keywords = send_data["doc_keywords"]
         doc_ts = send_data["doc_ts"]
         doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
 
-        doc_des_info = f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦：{doc_content}"
+        doc_des_info = f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦! \n\n{doc_content}\n\n文章关键字：{doc_keywords}"
         doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[2c]👉技术支持❤️'
 
         data = {

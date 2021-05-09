@@ -31,31 +31,38 @@ def ads2txt(target_path: str = ""):
     :return:
     """
     target_path = target_path or os.path.join(Config.MODEL_DIR, f"cos/train.txt")
-    his_title_list = load_text_to_list(target_path)
+    his_text_list = load_text_to_list(target_path)
 
     ads_path = os.path.join(Config.DS_DIR, "clean_ads.csv")
     df = pd.read_csv(ads_path)
 
-    all_title = set(df["title"].drop_duplicates().values.tolist() + his_title_list)
+    df["text"] = df["title"] + df["keywords"]
+
+    # all_text = set(df["title"].drop_duplicates().values.tolist() + his_text_list)
+    all_text = set(df["text"].drop_duplicates().values.tolist() + his_text_list)
 
     with open(target_path, "w") as fp:
-        for title in all_title:
+        for title in all_text:
             fp.write(title + "\n")
 
-    print(f"{target_path} 写入成功，共 {len(all_title)} 条记录")
+    print(f"{target_path} 写入成功，共 {len(all_text)} 条记录")
 
 
 def gen_alphabet() -> str:
     """
     基于 .files/datasets 目录下的数据集，生成字幕文件
+    i（,l）h《$9a～“g」”』~.?j7·x)—;}'》k`|&>rvf5*0q：de{/":？w3，_ys#｜^8-『】[41%!<「bn+(om…6【tp=！c@uz]\2
     """
-    character_list = []
+    # 基础字符列表
+    character_list = list(
+        "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+    )
 
     for file_name in ["final_ads.csv", "final_normal.csv"]:
         full_path = os.path.join(Config.DS_DIR, file_name)
         df = pd.read_csv(full_path)
         for each in df["text"].values:
-            for word in each[0].strip().split(" "):
+            for word in each.strip().split(" "):
                 for character in list(word):
                     if character:
                         character_list.append(character.lower())
@@ -69,6 +76,6 @@ if __name__ == "__main__":
     # df = pd.read_csv(os.path.join(Config.DS_DIR, "clean_ads.csv"))
     # print(Counter(df["title"].values.tolist()))
 
-    # ads2txt()
-    character_str = gen_alphabet()
-    print(character_str)
+    ads2txt()
+    # character_str = gen_alphabet()
+    # print(character_str)
