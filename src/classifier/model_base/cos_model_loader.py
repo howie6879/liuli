@@ -101,5 +101,7 @@ def get_model(model_path, **kwargs):
 
 if __name__ == "__main__":
     cos = CosModel()
-    predict_dict = cos.predict(text="毕业的4年，我用睡后收入买了两套房")
+    predict_dict = cos.predict(
+        text="为什么 Django 框架持续统治着 Python 开发？,django 开发 系统 产品 管理 架构 项目 功能 企业 粉丝 知识 定制 python 能力 学习 后台 web 掌握 设计 口令"
+    )
     print(predict_dict)

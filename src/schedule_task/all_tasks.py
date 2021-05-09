@@ -7,7 +7,12 @@
 import time
 
 from src.classifier import model_predict_factory
-from src.collector import run_wechat_doc_spider, run_wechat_name_spider, wechat2url
+from src.collector import (
+    fetch_keyword_list,
+    run_wechat_doc_spider,
+    run_wechat_name_spider,
+    wechat2url,
+)
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory
@@ -41,12 +46,21 @@ def update_ads_tag(is_force=False):
     # 查找没有被标记的文章，基于预先相似度模型进行判断
     for each_data in coll.find(query):
         doc_name = each_data["doc_name"]
+        doc_link = each_data["doc_link"]
         doc_source_name = each_data["doc_source_name"]
+        doc_keywords = each_data.get("doc_keywords")
+
+        if not doc_keywords:
+            keyword_list = fetch_keyword_list(doc_link)
+            doc_keywords = " ".join(keyword_list)
+            each_data["doc_keywords"] = doc_keywords
+
         # 基于余弦相似度
         cos_model_resp = model_predict_factory(
             model_name="cos",
             model_path="",
-            input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
+            input_dict={"text": doc_name + doc_keywords, "cos_value": Config.COS_VALUE},
+            # input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
         ).to_dict()
         each_data["cos_model"] = cos_model_resp
         if cos_model_resp["result"] == 1:
@@ -93,7 +107,7 @@ def send_doc():
 if __name__ == "__main__":
     # 第一次启动请执行
     # run_wechat_name_spider()
-    update_wechat_doc()
+    # update_wechat_doc()
     # 每次强制重新打标签
-    update_ads_tag(is_force=True)
-    # send_doc()
+    # update_ads_tag(is_force=False)
+    send_doc()

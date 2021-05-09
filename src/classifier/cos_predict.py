@@ -67,6 +67,7 @@ class CosPredictModel(ModelPredictBase):
                 model_res = self.model.predict(text=text, cos_value=cos_value)
                 self.model_resp.result = model_res["result"]
                 self.model_resp.probability = model_res["value"]
+
         return self.model_resp
 
 

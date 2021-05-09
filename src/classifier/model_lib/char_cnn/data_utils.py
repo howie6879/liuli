@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-class DataUtils(object):
+class DataUtils:
     """
     此类用于加载原始数据
     """
@@ -18,10 +18,10 @@ class DataUtils(object):
         self,
         data_source: str,
         *,
-        alphabet: str = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}",
+        alphabet: str = """i（,l）h《$9a～“g」”』~.?j7·x)—;}'》k`|&>rvf5*0q：de{/":？w3，_ys#｜^8-『】[41%!<「bn+(om…6【tp=！c@uz]\2""",
         batch_size=128,
         input_size: int = 1014,
-        num_of_classes: int = 4
+        num_of_classes: int = 2
     ):
         """
         数据初始化
@@ -100,13 +100,8 @@ class DataUtils(object):
         从文件加载原始数据
         Returns: None
         """
-        data_df = pd.read_csv(
-            self.data_source, delimiter=",", quotechar='"', header=None
-        )
-        # 后面两列结合
-        data_df["data"] = (data_df[1] + " " + data_df[2]).replace("\\n", "\n")
-
-        self.data = data_df[[0, "data"]].values
+        data_df = pd.read_csv(self.data_source)
+        self.data = data_df[["label", "text"]].values
         self.shuffled_data = self.data
         print("Data loaded from " + self.data_source)
 

@@ -5,14 +5,10 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from math import sqrt
 
-import tensorflow as tf
-
-from keras import backend as K
 from keras import layers
-from keras.callbacks import TensorBoard
-from keras.models import Model
+from keras.callbacks import ModelCheckpoint, TensorBoard
+from keras.models import Sequential
 
 from src.classifier.model_lib.char_cnn.keras_utils import FitCallback
 
@@ -77,55 +73,31 @@ class CharCNN:
         论文中的模型结构
         :return:
         """
-        input_x = layers.Input(shape=(self.input_size,), name="X_input", dtype="int64")
+        model = Sequential()
 
-        Q = tf.concat(
-            [
-                # 字母表之外的字符补零
-                tf.zeros([1, self.alphabet_size]),
-                tf.one_hot(
-                    list(range(self.alphabet_size)), self.alphabet_size, 1.0, 0.0
-                ),
-            ],
-            0,
-            name="Q",
+        # 词嵌入
+        model.add(
+            layers.Embedding(self.alphabet_size + 1, 128, input_length=self.input_size)
         )
-
-        x = layers.Lambda(lambda i: K.gather(Q, K.cast(i, "int64")))(input_x)
-        x = layers.Lambda(lambda i: K.expand_dims(i, -1))(x)
-
-        # 使用词嵌入
-        # x = layers.Embedding(self.alphabet_size + 1, 128, input_length=self.input_size)(input_x)
-        # x = layers.Lambda(lambda i: K.expand_dims(i, -1))(x)
-
         # 卷积层
         for cl in self.conv_layers:
-            x = layers.Conv2D(
-                filters=cl[0],
-                kernel_size=(cl[1], x.get_shape()[2].value),
-                kernel_initializer="random_uniform",
-            )(x)
-            stdv = 1 / sqrt(cl[0] * cl[1])
-            b = K.random_uniform([cl[0]], minval=-stdv, maxval=stdv)
-            x = layers.Lambda(lambda i: K.bias_add(i, b))(x)
-            x = layers.ThresholdedReLU(self.threshold)(x)
+            model.add(layers.Conv1D(filters=cl[0], kernel_size=cl[1]))
+            model.add(layers.ThresholdedReLU(self.threshold))
             if cl[-1] is not None:
-                x = layers.MaxPool2D(pool_size=(cl[-1], 1))(x)
-            x = layers.Lambda(lambda i: K.permute_dimensions(i, [0, 1, 3, 2]))(x)
+                model.add(layers.MaxPool1D(pool_size=cl[-1]))
 
+        model.add(layers.Flatten())
         # 全连接层
-        x = layers.Flatten()(x)
         for fl in self.fully_layers:
-            x = layers.Dense(fl)(x)
-            x = layers.ThresholdedReLU(self.threshold)(x)
-            x = layers.Dropout(self.dropout_p)(x)
-
+            # model.add(layers.Dense(fl, activity_regularizer=regularizers.l2(0.01)))
+            model.add(layers.Dense(fl))
+            model.add(layers.ThresholdedReLU(self.threshold))
+            model.add(layers.Dropout(self.dropout_p))
         # 输出层
-        predictions = layers.Dense(self.num_of_classes, activation="softmax")(x)
+        model.add(layers.Dense(self.num_of_classes, activation="softmax"))
 
-        model = Model(inputs=input_x, outputs=predictions)
         model.compile(optimizer=self.optimizer, loss=self.loss, metrics=["accuracy"])
-        print("CharCNN model built success:")
+        print("CharCNN model built success")
         model.summary()
         return model
 
@@ -138,6 +110,7 @@ class CharCNN:
         validation_labels,
         epochs,
         batch_size,
+        model_file_path,
         verbose=2,
         checkpoint_every=100,
         evaluate_every=100,
@@ -150,6 +123,7 @@ class CharCNN:
         :param validation_labels: 验证标签
         :param epochs:  迭代周期
         :param batch_size: 每次批大小
+        :param model_file_path：模型保存路径
         :param verbose: Integer. 0, 1, or 2. Verbosity mode. 0 = silent, 1 = progress bar, 2 = one line per epoch.
         :param checkpoint_every: 每多少次进行 checkpoint
         :param evaluate_every: 每多少次进行 evaluate
@@ -170,6 +144,14 @@ class CharCNN:
             test_data=(validation_inputs, validation_labels),
             evaluate_every=evaluate_every,
         )
+        checkpoint = ModelCheckpoint(
+            model_file_path,
+            monitor="val_loss",
+            verbose=1,
+            save_best_only=True,
+            mode="min",
+        )
+
         # 开始训练
         print("Training Started ===>")
         self.model.fit(
@@ -179,7 +161,7 @@ class CharCNN:
             epochs=epochs,
             batch_size=batch_size,
             verbose=verbose,
-            callbacks=[tensorboard, fit_callback],
+            callbacks=[tensorboard, fit_callback, checkpoint],
         )
 
 
