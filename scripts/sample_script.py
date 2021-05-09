@@ -21,7 +21,7 @@ def gen_final_sample():
     将样本做最后的拼音处理
     :return:
     """
-    for sample in [("clean_ads.csv", 0), ("clean_normal.csv", 1)]:
+    for sample in [("clean_ads.csv", 1), ("clean_normal.csv", 2)]:
         file_name, label = sample
         print(f"正在处理文件 {file_name}")
         full_path = os.path.join(Config.DS_DIR, file_name)
@@ -117,10 +117,10 @@ if __name__ == "__main__":
     # url = "https://jishuin.proginn.com/p/763bfbd54d15"
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
-    # gen_keyword_sample()
+    gen_keyword_sample()
     # gen_keyword_sample(
     #     s_path="../.files/datasets/normal.csv",
     #     c_path="../.files/datasets/clean_normal.csv",
     # )
     # gen_normal_sample()
-    gen_final_sample()
+    # gen_final_sample()

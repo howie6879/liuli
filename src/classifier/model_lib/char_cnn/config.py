@@ -17,17 +17,17 @@ class Config:
 
     base_dir = os.path.dirname(os.path.dirname(__file__))
     # 字母表
-    alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+    alphabet = """i（,l）h《$9a～“g」”』~.?j7·x)—;}'》k`|&>rvf5*0q：de{/":？w3，_ys#｜^8-『】[41%!<「bn+(om…6【tp=！c@uz]\2"""
     alphabet_size = len(alphabet)
     # 输入大小，即论文中的l0
-    input_size = 1014
+    input_size = 128
     # 训练集类别
-    num_of_classes = 4
+    num_of_classes = 2
 
     # 批大小
-    batch_size = 128
+    batch_size = 12
     # 迭代次数
-    epochs = 6
+    epochs = 20
 
     # 每多少次 checkpoint
     checkpoint_every = 100
@@ -60,8 +60,3 @@ class Config:
     optimizer = "adam"
     # Keras 日志输出配置
     verbose = 1
-
-    # 训练集配置
-    train_data_source = ""
-    test_data_source = ""
-    model_path = base_dir + ""

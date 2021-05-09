@@ -14,18 +14,24 @@ schedule = "*"
 jieba = "*"
 ujson = "*"
 textrank4zh = "*"
-keras = "*"
-tensorflow = "*"
 pypinyin = "*"
 readability-lxml = "*"
 html2text = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
 isort = "*"
 pylint = "*"
 pandas = "*"
+scikit-learn = "*"
+keras = "==2.2.4"
+h5py = "==2.9.0"
+tensorflow = "==1.12.0"
 
 [scripts]
 dev = "bash ./dev.sh"
 pro = "bash ./pro.sh"
+
+[requires]
+python_version = "3.6"
