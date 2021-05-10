@@ -9,7 +9,7 @@ import os
 
 import pandas as pd
 
-from src.classifier import text2py
+from src.classifier import ads2txt, text2py
 from src.collector import fetch_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
@@ -118,6 +118,7 @@ if __name__ == "__main__":
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
     gen_keyword_sample()
+    ads2txt()
     # gen_keyword_sample(
     #     s_path="../.files/datasets/normal.csv",
     #     c_path="../.files/datasets/clean_normal.csv",
