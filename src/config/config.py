@@ -37,6 +37,15 @@ class Config:
         "db": os.getenv("CC_M_DB", "2c"),
     }
 
+    # 采集器配置
+    # 是否为爬虫设置代理
+    PROXY = os.getenv("CC_PROXY", "http://0.0.0.0:1087")
+
+    # 分类器配置
+    # 余弦相似度阈值
+    COS_VALUE = float(os.getenv("CC_COS_VALUE", "0.60"))
+
+    # 分发器配置
     # 分发终端配置，设置环境变量：CC_SENDER_NAME="ding;wecom"
     # 目标支持：ding[钉钉]、wecom[企业微信]
     # 多终端记得使用;分割
@@ -48,7 +57,6 @@ class Config:
     WECOM_ID = os.getenv("CC_WECOM_ID", "")
     WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", "-1"))
     WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
-
     # 订阅的公众号配置
     WECHAT_LIST = [
         "小道消息",
@@ -67,10 +75,6 @@ class Config:
         "从码农到工匠",
         "真没什么逻辑",
     ]
-
-    # 模型配置
-    # 余弦相似度阈值
-    COS_VALUE = float(os.getenv("CC_COS_VALUE", "0.60"))
 
 
 if __name__ == "__main__":

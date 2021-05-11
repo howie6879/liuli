@@ -21,6 +21,8 @@ class WechatNameSpider(Spider):
     """
 
     collection = "2c_wechat_name"
+    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 5}
+    aiohttp_kwargs = {"proxy": Config.PROXY} if Config.PROXY else {}
 
     async def parse(self, response: Response):
         """
