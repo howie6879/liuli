@@ -23,17 +23,23 @@ async def get_wf_url():
     return f"https://cdn.jsdelivr.net/gh/hellodword/wechat-feeds@{version}/details.json"
 
 
-def wechat2url(name_list: list, source_type: str = "gitee"):
+def wechat2url(name_list: list, source_type: str = "github"):
     """
     将微信名称转为 wechat-feeds 对应的url
+    updated:
+        - 21-05-11: https://github.com/hellodword/wechat-feeds 去除 gitee 支持
     :param name_list:
     :param source_type:
     :return:
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="2c_wechat_name")
-    if source_type == "gitee":
+    if source_type == "github":
+        rss_tem = "https://github.com/hellodword/wechat-feeds/raw/feeds/{0}.xml"
+
+    elif source_type == "gitee":
         rss_tem = "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/{0}.xml"
+
     else:
         # 否则使用 github
         rss_tem = "https://github.com/hellodword/wechat-feeds/raw/feeds/{0}.xml"
