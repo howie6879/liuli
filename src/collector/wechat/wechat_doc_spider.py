@@ -24,7 +24,8 @@ class WechatDocSpider(Spider):
     """
 
     collection = "2c_articles"
-    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 2}
+    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 5}
+    aiohttp_kwargs = {"proxy": Config.PROXY} if Config.PROXY else {}
 
     async def parse(self, response: Response):
         """
