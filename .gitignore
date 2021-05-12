@@ -110,3 +110,4 @@ dev.env
 *.swp
 *.bak
 logs/
+*.out
