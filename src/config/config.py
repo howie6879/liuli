@@ -75,7 +75,3 @@ class Config:
         "从码农到工匠",
         "真没什么逻辑",
     ]
-
-
-if __name__ == "__main__":
-    print(Config.DS_DIR)
