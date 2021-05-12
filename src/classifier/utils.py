@@ -36,7 +36,7 @@ def ads2txt(target_path: str = ""):
     ads_path = os.path.join(Config.DS_DIR, "clean_ads.csv")
     df = pd.read_csv(ads_path)
 
-    df["text"] = df["title"] + df["keywords"]
+    df["text"] = df["title"] + " " + df["keywords"]
 
     # all_text = set(df["title"].drop_duplicates().values.tolist() + his_text_list)
     all_text = set(df["text"].drop_duplicates().values.tolist() + his_text_list)
