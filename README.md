@@ -28,7 +28,7 @@
 
 这样做就实现了干净阅读环境的构建，衍生一下，还可以实现个人知识库的构建，可以做诸如标签管理、图谱构建等，这些都可以在接口层进行实现。
 
-实现详情可参考文章[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
+实现详情可参考文章[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)。
 
 ## 使用
 
@@ -47,8 +47,8 @@ pipenv run dev
 ```
 
 使用前建议阅读文档：
- - [00.2C环境变量](./docs/00.2C环境变量.md)
- - [01.2C使用教程](./docs/01.2C使用教程.md)：推荐 [博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/)较舒适
+ - [00.2C环境变量](./docs/00.2C环境变量.md)：请在`.env`中进行相关配置
+ - [01.2C使用教程](./docs/01.2C使用教程.md)：推荐 [博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/) 较舒适
 
 ## 效果
 
@@ -72,7 +72,7 @@ pipenv run dev
 
 <div align=center><img src=".files/images/2c_ads_csv_demo.jpg"  width="100%" alt="2c_ads_csv_demo" /></div>
 
-一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，真的真的希望大家能一起合力贡献，亲，来个PR贡献你的力量吧！
+一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，希望大家能一起合力贡献，亲，来个 [PR](https://github.com/howie6879/2c/issues/4) 贡献你的力量吧！
 
 ## 致谢
 
