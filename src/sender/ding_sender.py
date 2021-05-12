@@ -40,17 +40,27 @@ class DingSender(SenderBase):
         doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
+        doc_keywords = send_data["doc_keywords"]
         is_send = self.is_send(doc_id=doc_id)
+        doc_ts = send_data["doc_ts"]
+        doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
         send_status = True
         if not is_send:
             # 开始进行下发
+            # data = {
+            #     "msgtype": "link",
+            #     "link": {
+            #         "text": f"[2c]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
+            #         "title": doc_name,
+            #         "picUrl": "",
+            #         "messageUrl": doc_link,
+            #     },
+            # }
             data = {
-                "msgtype": "link",
-                "link": {
-                    "text": f"[2c]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
-                    "title": doc_name,
-                    "picUrl": "",
-                    "messageUrl": doc_link,
+                "msgtype": "markdown",
+                "markdown": {
+                    "text": f"## [{doc_name}]({doc_link})\n\n**{doc_source_name}** | **{doc_date}** | **{doc_cus_des}** \n\n-----\n\n> 文章关键字：{doc_keywords}\n\n-----\n\n识别错误？点击[广告反馈](https://github.com/howie6879/2c/issues/4)  👉来自[2c](https://github.com/howie6879/2c)技术支持❤️",
+                    "title": f"亲，{doc_source} 源有更新啦!👉{doc_name} ",
                 },
             }
             # 防止触发次数限制，每次休眠 3.5s
