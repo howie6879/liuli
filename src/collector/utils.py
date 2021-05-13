@@ -5,12 +5,16 @@
     Changelog: all notable changes to this file will be documented
 """
 
+import os
+
 import html2text
 import requests
 
+from gne import GeneralNewsExtractor
 from readability import Document
 from textrank4zh import TextRank4Keyword
 
+from src.config import Config
 from src.utils import LOGGER
 
 
@@ -21,12 +25,18 @@ def fetch_keyword_list(url_or_text: str = None):
     :return:
     """
     if url_or_text.startswith("http"):
+        print(url_or_text)
         resp = send_get_request(url_or_text)
-        text = html_to_text(resp.text)
+        if resp:
+            text = html_to_text_gne(resp.text)
+        else:
+            text = None
     else:
         text = url_or_text
-    tr4w = TextRank4Keyword()
-    tr4w.analyze(text=text, lower=True, window=2, vertex_source="words_no_stop_words")
+    tr4w = TextRank4Keyword(
+        stop_words_file=os.path.join(Config.BASE_DIR, "model_data/data/stop_words.txt")
+    )
+    tr4w.analyze(text=text, lower=True, window=2)
     keyword_list = []
     for item in tr4w.get_keywords(20, word_min_len=2):
         keyword_list.append(item.word)
@@ -34,7 +44,18 @@ def fetch_keyword_list(url_or_text: str = None):
     return keyword_list
 
 
-def html_to_text(html: str):
+def html_to_text_gne(html: str):
+    """
+    从html提取核心内容text
+    :param html:
+    :return:
+    """
+    extractor = GeneralNewsExtractor()
+    result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
+    return result.get("content").strip()
+
+
+def html_to_text_h2t(html: str):
     """
     从html提取核心内容text
     :param html:
@@ -66,9 +87,10 @@ def send_get_request(url, params: dict = None, **kwargs):
 
 
 if __name__ == "__main__":
-    url = "https://mp.weixin.qq.com/s/RWO0xF6zKBJ6y_ClYaDLXg"
+    url = "https://mp.weixin.qq.com/s/LKaYM7f7W4DXw7gnQxToKQ"
 
     resp = requests.get(url)
-    text = html_to_text(resp.text)
+    text = html_to_text_gne(resp.text)
+    print(text)
     res = fetch_keyword_list(url)
     print(res)
