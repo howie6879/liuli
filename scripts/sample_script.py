@@ -71,9 +71,9 @@ def gen_keyword_sample(
                     print(f"{title} {url} 需要重新收集有效链接")
                 else:
                     cur_data["is_process"] = "1"
-                    c_data_res.append(
-                        {"title": title, "keywords": " ".join(keyword_list)}
-                    )
+                    keywords = " ".join(keyword_list)
+                    c_data_res.append({"title": title, "keywords": keywords})
+                    print(f"{title} {url} 新增成功：{keywords}")
         s_data_res.append(cur_data)
 
     # 持久化
