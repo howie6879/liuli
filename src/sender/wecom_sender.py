@@ -76,7 +76,6 @@ class WeComSender(SenderBase):
             },
             "safe": 0,
         }
-
         data = json.dumps(data, ensure_ascii=False)
         try:
             resp_dict = requests.post(
@@ -141,7 +140,7 @@ def send(send_config: dict, send_data: dict) -> bool:
 
 if __name__ == "__main__":
     send(
-        send_config={},
+        send_config={"wecom_id": "", "wecom_agent_id": 0, "wecom_secret": "",},
         send_data={
             "doc_id": "f42460107f69c9e929f8d591243efeb2",
             "doc_content": "普通人搞一百万有多难？",
@@ -154,6 +153,7 @@ if __name__ == "__main__":
             "doc_source_des": "前码农&产品人，现自由职业者，创业者。",
             "doc_source_name": "stormzhang",
             "doc_cus_des": "广告",
+            "doc_keywords": [],
             "doc_ts": 1618136819.0,
             "cos_model": {
                 "model_name": "cos",
