@@ -7,6 +7,7 @@
 import requests
 
 from src.classifier import model_predict_factory
+from src.collector import fetch_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
 
@@ -40,7 +41,11 @@ def test_mongo_doc():
 
 
 if __name__ == "__main__":
-    # text = "干了5年程序员，我竟然遭遇到了“招聘暴力”！"
-    # res = cos_pre(text=text)
-    # print(res)
-    test_mongo_doc()
+    url = "https://mp.weixin.qq.com/s/RJPLZJXGwNbUgj3vihxfjw"
+    text = "肝了3天！如何设计实现一个通用的微服务架构？"
+    print(f"{text},{url},0")
+    keyword_list = fetch_keyword_list(url)
+    keywords = " ".join(keyword_list)
+    res = cos_pre(text=f"{text} {keywords}")
+    print(res)
+    # test_mongo_doc()
