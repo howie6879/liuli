@@ -73,7 +73,7 @@ def gen_keyword_sample(
                     cur_data["is_process"] = "1"
                     keywords = " ".join(keyword_list)
                     c_data_res.append({"title": title, "keywords": keywords})
-                    print(f"{title} {url} 新增成功：{keywords}")
+                    print(f"新增成功：{title} {url} {keywords}")
         s_data_res.append(cur_data)
 
     # 持久化
