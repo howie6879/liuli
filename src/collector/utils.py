@@ -25,7 +25,6 @@ def fetch_keyword_list(url_or_text: str = None):
     :return:
     """
     if url_or_text.startswith("http"):
-        print(url_or_text)
         resp = send_get_request(url_or_text)
         if resp:
             text = html_to_text_gne(resp.text)

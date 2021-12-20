@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            // "module": "flask",
+            // "stopOnEntry": false,
+            "program": "${workspaceRoot}/src/http_app.py",
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "FLASK_APP": "${workspaceRoot}/src/http_app.py",
+                "FLASK_DEBUG": "0"
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                // "--no-reload"
+            ],
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ]
+        },
+    ]
+}

@@ -76,11 +76,10 @@ pipenv run dev
 
 ## 致谢
 
-感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`，以及相关项目：
+感谢以下开源项目：
 
 - [flask](https://github.com/pallets/flask)
-- [wechat-feeds](https://github.com/hellodword/wechat-feeds)
-- [CharCNN](https://github.com/mhjabreel/CharCNN)
+- [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
 - [CharCnn_Keras](https://github.com/mhjabreel/CharCnn_Keras)
 
 感谢以下开发者的贡献（排名不分先后）：
