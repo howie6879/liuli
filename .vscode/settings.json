@@ -6,6 +6,8 @@
         "source.organizeImports": true
     },
     "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
+    "python.testing.pytestEnabled": true,
     // "python.envFile": "${workspaceFolder}/pro.env"
     "python.envFile": "${workspaceFolder}/.env"
 }
