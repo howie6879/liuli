@@ -10,7 +10,7 @@ import asyncio
 from flask import Flask
 
 from src.api.views import bp_api
-from src.collector.wechat import run_wechat_name_spider
+from src.collector.wechat_feeds import run_wechat_name_spider
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils import LOGGER

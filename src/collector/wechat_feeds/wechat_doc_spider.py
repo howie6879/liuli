@@ -51,7 +51,7 @@ class WechatDocSpider(Spider):
                 "doc_name": doc_name,
                 "doc_des": each.get("description", ""),
                 "doc_link": doc_link,
-                "doc_content": each.get("content:encoded", ""),
+                "doc_content": each.get("content", ""),
                 "doc_date": time.strftime("%Y-%m-%d", s_time),
                 "doc_ts": time.mktime(s_time),
                 "doc_source": "wechat",
@@ -69,10 +69,6 @@ class WechatDocSpider(Spider):
                 update={"$set": each_data},
                 upsert=True,
             )
-
-            # yield self.request(
-            #     url=doc_link, metadata=each_data, callback=self.parse_url
-            # )
 
     async def parse_url(self, response: Response):
         """
@@ -97,6 +93,19 @@ class WechatDocSpider(Spider):
 async def init_motor_after_start(spider_ins):
     """
     初始化ruia-motor插件，数据自动持久化到MongoDB
+    数据持久化示例:
+    eg:
+    {
+        "doc_id" : "5b1c9cef370f25c8b6aea6e6b36536da",
+        "doc_name" : "让 Flutter 在鸿蒙系统上跑起来",
+        "doc_content" : "让 Flutter 在鸿蒙系统上跑起来",
+        "doc_date" : "2021-01-21",
+        "doc_des" : null,
+        "doc_link" : "https://mp.weixin.qq.com/s/vTWZRaxvsOS_VRjfh6l4FQ",
+        "doc_ts" : 1611224311.0,
+        "wechat_des" : "10000+工程师，如何支撑中国领先的生活服务电子商务平台？4.6亿消费者、630万商户、2000多个行业、几千亿交易额背后是哪些技术？这里是美团、大众点评、美团外卖、美团配送、美团优选等技术团队的对外窗口。",
+        "wechat_name" : "美团技术团队"
+    }
     """
     spider_ins.mongodb_config = Config.MONGODB_CONFIG
     init_spider(spider_ins=spider_ins)
@@ -117,7 +126,7 @@ def run_wechat_doc_spider(start_urls: list = None, loop=None):
 
 
 if __name__ == "__main__":
-    from src.collector.wechat import wechat2url
+    from src.collector.wechat_feeds import wechat2url
 
     wechat_urls = wechat2url(Config.WECHAT_LIST)
     run_wechat_doc_spider(list(wechat_urls.values()))

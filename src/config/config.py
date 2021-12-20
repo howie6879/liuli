@@ -59,7 +59,7 @@ class Config:
     WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
     # 订阅的公众号配置
     WECHAT_LIST = [
-        "小道消息",
+        "小众消息",
         "是不是很酷",
         "机器之心",
         "caoz的梦呓",

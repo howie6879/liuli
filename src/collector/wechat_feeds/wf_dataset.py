@@ -12,11 +12,11 @@ import ujson
 
 from ruia import Request
 
-from src.collector.wechat.wechat_doc_spider import (
+from src.collector.wechat_feeds.wechat_doc_spider import (
     WechatDocSpider,
     init_motor_after_start,
 )
-from src.collector.wechat.wechat_utils import get_wf_url
+from src.collector.wechat_feeds.wechat_utils import get_wf_url
 
 _RSS_TEM = "https://gitee.com/BlogZ/wechat-feeds/raw/feeds/{0}.xml"
 

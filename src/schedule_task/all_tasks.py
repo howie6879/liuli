@@ -43,7 +43,7 @@ def update_ads_tag(is_force=False):
     else:
         query = {"cos_model": {"$exists": False}}
 
-    # 查找没有被标记的文章，基于预先相似度模型进行判断
+    # 查找没有被标记的文章，基于相似度模型进行判断
     for each_data in coll.find(query):
         doc_name = each_data["doc_name"]
         doc_link = each_data["doc_link"]

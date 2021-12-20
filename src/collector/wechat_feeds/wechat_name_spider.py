@@ -11,7 +11,7 @@ import ujson
 from ruia import Response, Spider
 from ruia_motor import RuiaMotorUpdate, init_spider
 
-from src.collector.wechat.wechat_utils import get_wf_url
+from src.collector.wechat_feeds.wechat_utils import get_wf_url
 from src.config import Config
 
 
