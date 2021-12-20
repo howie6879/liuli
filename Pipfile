@@ -27,6 +27,7 @@ isort = "*"
 pylint = "*"
 pandas = "*"
 scikit-learn = "*"
+pytest = "*"
 
 [scripts]
 dev = "bash ./dev.sh"
