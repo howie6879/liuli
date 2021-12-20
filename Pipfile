@@ -1,7 +1,7 @@
 [[source]]
 name = "pypi"
 verify_ssl = true
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.douban.com/simple/"
 
 [packages]
 gunicorn = "==19.9.0"
@@ -19,6 +19,7 @@ pypinyin = "*"
 readability-lxml = "*"
 html2text = "*"
 requests = "*"
+playwright = "*"
 
 [dev-packages]
 black = "*"
@@ -26,13 +27,10 @@ isort = "*"
 pylint = "*"
 pandas = "*"
 scikit-learn = "*"
-keras = "==2.2.4"
-h5py = "==2.9.0"
-tensorflow = "==1.12.0"
 
 [scripts]
 dev = "bash ./dev.sh"
 pro = "bash ./pro.sh"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
