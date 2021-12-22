@@ -3,7 +3,7 @@
     Description: 基于 Ruia 的搜狗微信页面 Item 提取类
     Changelog: all notable changes to this file will be documented
 """
-from ruia import AttrField, Item, TextField
+from ruia import AttrField, Item, Spider, TextField
 
 
 class SGWechatItem(Item):
@@ -45,3 +45,30 @@ class SGWechatItem(Item):
         if latest_href:
             f_url = f"https://weixin.sogou.com/{latest_href}"
         return f_url
+
+
+class SGWechatSpider(Spider):
+    """微信文章爬虫"""
+
+    name = "WechatSpider"
+    start_urls = [
+        "https://weixin.sogou.com/weixin?type=1&query=%E8%80%81%E8%83%A1%E7%9A%84%E5%82%A8%E7%89%A9%E6%9F%9C&ie=utf8&s_from=input&_sug_=n&_sug_type_="
+    ]
+    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 20}
+    concurrency = 10
+    # aiohttp config
+    aiohttp_kwargs = {}
+
+    async def parse(self, response):
+        html = await response.text()
+        print(html)
+        item_list = []
+        async for item in SGWechatItem.get_items(html=html):
+            item_list.append(item)
+        print(item_list)
+
+
+if __name__ == "__main__":
+    from ruia_ua import middleware
+
+    SGWechatSpider.start(middleware=middleware)

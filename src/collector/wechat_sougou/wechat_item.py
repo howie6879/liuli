@@ -63,6 +63,8 @@ class WechatItem(Item):
 
 
 class WechatSpider(Spider):
+    """微信文章爬虫"""
+
     name = "WechatSpider"
     start_urls = ["https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw"]
     request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 20}
