@@ -26,7 +26,6 @@ black = "*"
 isort = "*"
 pylint = "*"
 pandas = "*"
-scikit-learn = "*"
 pytest = "*"
 
 [scripts]
