@@ -78,7 +78,8 @@ pipenv run dev
 
 感谢以下开源项目：
 
-- [flask](https://github.com/pallets/flask)
+- [Flask](https://github.com/pallets/flask): web 框架
+- [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架
 - [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
 - [CharCnn_Keras](https://github.com/mhjabreel/CharCnn_Keras)
 
