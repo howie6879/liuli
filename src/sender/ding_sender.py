@@ -37,13 +37,12 @@ class DingSender(SenderBase):
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
-        doc_content = send_data["doc_content"]
+        # doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
         doc_keywords = send_data["doc_keywords"]
         is_send = self.is_send(doc_id=doc_id)
-        doc_ts = send_data["doc_ts"]
-        doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
+        doc_date = send_data["doc_date"]
         send_status = True
         if not is_send:
             # 开始进行下发

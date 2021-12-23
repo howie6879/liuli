@@ -8,4 +8,4 @@
 """
 from .wechat_doc_spider import WechatDocSpider, run_wechat_doc_spider
 from .wechat_name_spider import WechatNameSpider, run_wechat_name_spider
-from .wechat_utils import wechat2url
+from .utils import wechat2url

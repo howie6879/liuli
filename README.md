@@ -46,9 +46,10 @@ pipenv install --python={your_python3.7+_path}  --skip-lock --dev
 pipenv run dev
 ```
 
-使用前建议阅读文档：
- - [00.2C环境变量](./docs/00.2C环境变量.md)：请在`.env`中进行相关配置
- - [01.2C使用教程](./docs/01.2C使用教程.md)：推荐 [博客阅读地址](https://www.howie6879.cn/p/2c-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/) 较舒适
+教程[使用前必读]：
+ - [00.2C环境变量](./docs/00.2C环境变量.md)
+ - [01.2C使用教程](./docs/01.2C使用教程.md)
+ - [02.2C分发器配置](./docs/02.2C分发器配置.md)
 
 ## 效果
 
