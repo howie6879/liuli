@@ -54,14 +54,16 @@ class WeComSender(SenderBase):
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
-        doc_content = send_data["doc_content"]
+        # doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
         doc_keywords = send_data["doc_keywords"]
-        doc_ts = send_data["doc_ts"]
-        doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
+        doc_date = send_data["doc_date"]
+        # doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
 
-        doc_des_info = f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦! \n\n{doc_content}\n\n文章关键字：{doc_keywords}"
+        doc_des_info = (
+            f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦! \n\n文章关键字：{doc_keywords}"
+        )
         doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[2c]👉技术支持❤️'
 
         data = {
@@ -69,7 +71,7 @@ class WeComSender(SenderBase):
             "msgtype": "textcard",
             "agentid": self.wecom_agent_id,
             "textcard": {
-                "title": f"[{doc_source_name}]{doc_name}",
+                "title": f"[{doc_source_name}] {doc_name}",
                 "description": doc_des,
                 "url": doc_link,
                 "btntxt": "更多",
@@ -140,7 +142,11 @@ def send(send_config: dict, send_data: dict) -> bool:
 
 if __name__ == "__main__":
     send(
-        send_config={"wecom_id": "", "wecom_agent_id": 0, "wecom_secret": "",},
+        send_config={
+            "wecom_id": "",
+            "wecom_agent_id": 0,
+            "wecom_secret": "",
+        },
         send_data={
             "doc_id": "f42460107f69c9e929f8d591243efeb2",
             "doc_content": "普通人搞一百万有多难？",

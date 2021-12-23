@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
     Created by howie.hu at 2021/04/29.
-    Description: 采集器相关通用工具函数
+    Description: wechat feeds 采集器相关通用工具函数
     Changelog: all notable changes to this file will be documented
 """
 
@@ -10,7 +10,7 @@ import os
 import html2text
 import requests
 
-from gne import GeneralNewsExtractor
+# from gne import GeneralNewsExtractor
 from readability import Document
 from textrank4zh import TextRank4Keyword
 
@@ -26,10 +26,7 @@ def fetch_keyword_list(url_or_text: str = None):
     """
     if url_or_text.startswith("http"):
         resp = send_get_request(url_or_text)
-        if resp:
-            text = html_to_text_gne(resp.text)
-        else:
-            text = None
+        text = html_to_text_h2t(resp.text) if resp else None
     else:
         text = url_or_text
     tr4w = TextRank4Keyword(
@@ -43,15 +40,15 @@ def fetch_keyword_list(url_or_text: str = None):
     return keyword_list
 
 
-def html_to_text_gne(html: str):
-    """
-    从html提取核心内容text
-    :param html:
-    :return:
-    """
-    extractor = GeneralNewsExtractor()
-    result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
-    return result.get("content").strip()
+# def html_to_text_gne(html: str):
+#     """
+#     从html提取核心内容text
+#     :param html:
+#     :return:
+#     """
+#     extractor = GeneralNewsExtractor()
+#     result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
+#     return result.get("content").strip()
 
 
 def html_to_text_h2t(html: str):
@@ -86,10 +83,9 @@ def send_get_request(url, params: dict = None, **kwargs):
 
 
 if __name__ == "__main__":
-    url = "https://mp.weixin.qq.com/s/LKaYM7f7W4DXw7gnQxToKQ"
-
+    url = "https://mp.weixin.qq.com/s/QyucRNz-QlgwxYumRMfrHw"
     resp = requests.get(url)
-    text = html_to_text_gne(resp.text)
+    text = html_to_text_h2t(resp.text)
     print(text)
     res = fetch_keyword_list(url)
     print(res)
