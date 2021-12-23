@@ -32,7 +32,21 @@
 
 ## 使用
 
-本项目使用 [pipenv](https://pipenv.pypa.io/en/latest/) 进行项目管理， 安装使用过程如下：
+教程[使用前必读]：
+ - [01.2C使用教程](./docs/01.2C使用教程.md)
+ - [02.2C环境变量](./docs/02.2C环境变量.md)
+ - [03.2C分发器配置](./docs/03.2C分发器配置.md)
+
+快速开始，请先确保安装`Docker`：
+
+```shell
+mkdir 2c
+# 配置 pro.env 具体查看 doc/02.环境变量.md
+vim pro.env
+docker run -d -it --restart=always -v $PWD/pro.env:/data/code/pro.env --name 2c_schedule howie6879/2c:schedule_v0.1.0
+```
+
+代码安装使用过程如下：
 
 ```shell
 # 确保有Python3.7+环境
@@ -41,15 +55,20 @@ cd 2c
 
 # 创建基础环境
 pipenv install --python={your_python3.7+_path}  --skip-lock --dev
-# 配置.env 具体查看 doc/00.环境变量.md
-# 启动
-pipenv run dev
+# 配置.env 具体查看 doc/02.环境变量.md 启动调度
+pipenv run dev_schedule
 ```
 
-教程[使用前必读]：
- - [00.2C环境变量](./docs/00.2C环境变量.md)
- - [01.2C使用教程](./docs/01.2C使用教程.md)
- - [02.2C分发器配置](./docs/02.2C分发器配置.md)
+启动成功日志如下：
+
+```shell
+Loading .env environment variables...
+[2021:12:23 23:08:35] INFO  2C Schedule started successfully :)
+[2021:12:23 23:08:35] INFO  2C Schedule time: 00:00 06:00
+[2021:12:23 23:09:36] INFO  2C playwright 匹配公众号 老胡的储物柜(howie_locker) 成功! 正在提取最新文章: 我的周刊(第018期)
+[2021:12:23 23:09:39] INFO  2C 公众号文章持久化成功! 👉 老胡的储物柜
+[2021:12:23 23:09:40] INFO  2C 🤗 微信公众号文章更新完毕(1/1)
+```
 
 ## 效果
 
@@ -81,6 +100,7 @@ pipenv run dev
 
 - [Flask](https://github.com/pallets/flask): web 框架
 - [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架
+- [docker-playwright-python](https://github.com/danofun/docker-playwright-python): `playwright-python` 的 `Docker` 镜像
 - [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
 - [CharCnn_Keras](https://github.com/mhjabreel/CharCnn_Keras)
 

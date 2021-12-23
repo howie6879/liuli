@@ -20,6 +20,7 @@ readability-lxml = "*"
 html2text = "*"
 requests = "*"
 scipy = "*"
+playwright = "*"
 
 [dev-packages]
 black = "*"
@@ -27,11 +28,10 @@ isort = "*"
 pylint = "*"
 pandas = "*"
 pytest = "*"
-playwright = "*"
 
 [scripts]
-dev = "bash ./dev.sh"
-pro = "bash ./pro.sh"
+dev_schedule = "bash ./dev_schedule.sh"
+pro_schedule = "bash ./pro_schedule.sh"
 
 [requires]
 python_version = "3.7"

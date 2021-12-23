@@ -4,6 +4,7 @@
     Changelog: all notable changes to this file will be documented
 """
 from ruia import AttrField, Item, Spider, TextField
+from ruia_ua import middleware as ua_middleware
 
 
 class SGWechatItem(Item):
@@ -50,10 +51,7 @@ class SGWechatItem(Item):
 class SGWechatSpider(Spider):
     """微信文章爬虫"""
 
-    name = "WechatSpider"
-    start_urls = [
-        "https://weixin.sogou.com/weixin?type=1&query=%E8%80%81%E8%83%A1%E7%9A%84%E5%82%A8%E7%89%A9%E6%9F%9C&ie=utf8&s_from=input&_sug_=n&_sug_type_="
-    ]
+    name = "SGWechatSpider"
     request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 20}
     concurrency = 10
     # aiohttp config
@@ -61,7 +59,6 @@ class SGWechatSpider(Spider):
 
     async def parse(self, response):
         html = await response.text()
-        print(html)
         item_list = []
         async for item in SGWechatItem.get_items(html=html):
             item_list.append(item)
@@ -69,6 +66,6 @@ class SGWechatSpider(Spider):
 
 
 if __name__ == "__main__":
-    from ruia_ua import middleware
-
-    SGWechatSpider.start(middleware=middleware)
+    sg_url = "https://weixin.sogou.com/weixin?type=1&query={}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
+    SGWechatSpider.start_urls = [sg_url.format("老胡的储物柜")]
+    SGWechatSpider.start(middleware=ua_middleware)
