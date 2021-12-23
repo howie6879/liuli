@@ -2,25 +2,16 @@
 """
     Created by howie.hu at 2021/4/10.
     Description：统一调度入口
-    暂定时间：每日的
-        - 07:10
-        - 11:10
-        - 13:10
-        - 16:10
-        - 20:10
-        - 23:10
+    - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
+        - 命令: pipenv run pro or PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/run.py
+    - 调度时间：每日的 "00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"
     Changelog: all notable changes to this file will be documented
 """
 import time
 
 import schedule
 
-from src.schedule_task.all_tasks import (
-    run_wechat_name_spider,
-    send_doc,
-    update_ads_tag,
-    update_wechat_doc,
-)
+from src.schedule_task.all_tasks import send_doc, update_ads_tag, update_wechat_doc
 from src.utils import LOGGER
 
 
@@ -38,16 +29,13 @@ def schedule_task():
 
 
 if __name__ == "__main__":
-    # 初次启动执行即可
-    run_wechat_name_spider()
     # 每日抓取公众号最新文章并更新广告标签
-    schedule.every().day.at("07:10").do(schedule_task)
-    schedule.every().day.at("11:10").do(schedule_task)
-    schedule.every().day.at("16:10").do(schedule_task)
-    schedule.every().day.at("20:10").do(schedule_task)
-    schedule.every().day.at("23:10").do(schedule_task)
+    schdule_time_list = ["00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"]
+    for each in schdule_time_list:
+        schedule.every().day.at(each).do(schedule_task)
     LOGGER.info("Schedule started successfully :)")
-    LOGGER.info("Schedule time:\n 07:10 \n 11:10 \n 16:10 \n 20:10 \n 23:10")
+    schdule_msg = "Schedule time:\n " + "\n ".join(schdule_time_list)
+    LOGGER.info(schdule_msg)
     while True:
         schedule.run_pending()
         time.sleep(1)

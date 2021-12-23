@@ -2,17 +2,14 @@
 """
     Created by howie.hu at 2021/4/10.
     Description：常用调度函数
+    - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
+        - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/schedule_task/all_tasks.py
     Changelog: all notable changes to this file will be documented
 """
 import time
 
 from src.classifier import model_predict_factory
-from src.collector import (
-    fetch_keyword_list,
-    run_wechat_doc_spider,
-    run_wechat_name_spider,
-    wechat2url,
-)
+from src.collector import fetch_keyword_list, run_wechat_doc_spider
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory
@@ -25,9 +22,8 @@ def update_wechat_doc():
     :param wechat_list:
     :return:
     """
-    # TODO 统一的地方进行配置管理
-    wechat_urls = wechat2url(Config.WECHAT_LIST)
-    run_wechat_doc_spider(list(wechat_urls.values()))
+    # TODO 统一的地方进行配置管理\
+    run_wechat_doc_spider(Config.WECHAT_LIST)
 
 
 def update_ads_tag(is_force=False):
@@ -48,10 +44,11 @@ def update_ads_tag(is_force=False):
         doc_name = each_data["doc_name"]
         doc_link = each_data["doc_link"]
         doc_source_name = each_data["doc_source_name"]
+        doc_content = each_data["doc_content"]
         doc_keywords = each_data.get("doc_keywords")
 
         if not doc_keywords:
-            keyword_list = fetch_keyword_list(doc_link)
+            keyword_list = fetch_keyword_list(doc_content)
             doc_keywords = " ".join(keyword_list)
             each_data["doc_keywords"] = doc_keywords
 
@@ -106,8 +103,7 @@ def send_doc():
 
 if __name__ == "__main__":
     # 第一次启动请执行
-    run_wechat_name_spider()
-    update_wechat_doc()
+    # update_wechat_doc()
     # 每次强制重新打标签
-    update_ads_tag(is_force=False)
+    # update_ads_tag(is_force=False)
     send_doc()

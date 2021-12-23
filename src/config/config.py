@@ -58,20 +58,7 @@ class Config:
     WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", "-1"))
     WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
     # 订阅的公众号配置
-    WECHAT_LIST = [
-        "小众消息",
-        "是不是很酷",
-        "机器之心",
-        "caoz的梦呓",
-        "Sunbelife",
-        "TGO鲲鹏会",
-        "低并发编程",
-        "美团技术团队",
-        "阿里技术",
-        "ThoughtWorks洞见",
-        "老胡的储物柜",
-        "stormzhang",
-        "InfoQ",
-        "从码农到工匠",
-        "真没什么逻辑",
-    ]
+    WECHAT_LIST = os.getenv(
+        "CC_WECHAT_ACCOUNT",
+        "小众消息;是不是很酷;caoz的梦呓;阿里技术;Thoughtworks洞见;老胡的储物柜",
+    ).split(";")

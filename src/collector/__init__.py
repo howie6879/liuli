@@ -8,5 +8,5 @@
         - 博客
     Changelog: all notable changes to this file will be documented
 """
-from .utils import fetch_keyword_list, html_to_text_gne, send_get_request
-from .wechat_feeds import run_wechat_doc_spider, run_wechat_name_spider, wechat2url
+from .utils import fetch_keyword_list, html_to_text_h2t, send_get_request
+from .wechat_sougou import run_wechat_doc_spider
