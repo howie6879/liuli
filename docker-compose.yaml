@@ -1,0 +1,28 @@
+version: "3"
+services:
+  2c_schedule:
+    image: howie6879/2c:schedule_v0.1.0
+    restart: always
+    container_name: 2c_schedule
+    volumes:
+      - ./pro.env:/data/code/pro.env
+    links:
+      - 2c_mongodb
+    depends_on:
+      - 2c_mongodb
+    networks:
+      - 2c-network
+  2c_mongodb:
+    image: mongo:3.6
+    restart: always
+    container_name: 2c_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb_data:/data/db
+    networks:
+      - 2c-network
+
+networks:
+  2c-network:
+    driver: bridge
