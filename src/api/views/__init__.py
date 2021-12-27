@@ -6,3 +6,4 @@
 """
 
 from .bp_api_v1 import bp_api
+from .bp_rss import bp_rss

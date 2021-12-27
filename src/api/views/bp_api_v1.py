@@ -6,17 +6,14 @@
 """
 from flask import Blueprint, current_app, request
 
-from src.databases import MongodbBase
-
-bp_api = Blueprint(__name__, __name__, url_prefix="/v1")
+bp_api = Blueprint("v1", __name__, url_prefix="/v1")
 
 
-@bp_api.route("/", methods=["POST"], strict_slashes=False)
-def predict():
+@bp_api.route("/ping", methods=["GET"], strict_slashes=False)
+def ping():
     """
-    是否广告预测接口
+    示例接口
     :return:
     """
     # 获取基本配置
-    mongodb_base: MongodbBase = current_app.config["mongodb_base"]
-    post_data = request.json
+    return "pong"
