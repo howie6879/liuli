@@ -18,6 +18,9 @@ class Config:
     MODEL_DIR = os.path.join(BASE_DIR, "model_data")
     FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), ".files")
     DS_DIR = os.path.join(FILE_DIR, "datasets")
+    API_DIR = os.path.join(BASE_DIR, "api")
+    API_TEM_DIR = os.path.join(API_DIR, "templates")
+    API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
 
     # Flask API配置
     DEBUG = bool(os.getenv("CC_FLASK_DEBUG", "0") == "1")
