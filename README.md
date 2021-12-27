@@ -43,7 +43,10 @@
 mkdir 2c
 # 配置 pro.env 具体查看 doc/02.环境变量.md
 vim pro.env
-docker run -d -it --restart=always -v $PWD/pro.env:/data/code/pro.env --name 2c_schedule howie6879/2c:schedule_v0.1.0
+# 下载 docker-compose
+wget https://raw.githubusercontent.com/howie6879/2c/main/docker-compose.yaml
+# 启动
+docker-compose up -d
 ```
 
 代码安装使用过程如下：
