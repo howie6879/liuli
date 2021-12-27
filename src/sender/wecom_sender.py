@@ -32,7 +32,9 @@ class WeComSender(SenderBase):
         self.wecom_secret = send_config.get("wecom_secret", Config.WECOM_SECRET)
         self.access_token = self.get_token()
         self.url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={self.access_token}"
-        self.wecom_party_list = send_config.get("wecom_party_list", Config.WECOM_PARTY_LIST)
+        self.wecom_party_list = send_config.get(
+            "wecom_party_list", Config.WECOM_PARTY_LIST
+        )
         self.wecom_to_user = send_config.get("wecom_to_user", Config.WECOM_TO_USER)
         self.wecom_party = ""
         # 如果部门和用户都没有，则默认发送给所有人
@@ -73,7 +75,11 @@ class WeComSender(SenderBase):
         :return:
         """
         party_list = self.get_party()
-        party_ids = [party_info["id"] for party_info in party_list if party_info["name"] in self.wecom_party_list]
+        party_ids = [
+            party_info["id"]
+            for party_info in party_list
+            if party_info["name"] in self.wecom_party_list
+        ]
         for party_id in party_ids:
             self.wecom_party += f"{party_id}|"
         self.wecom_party = self.wecom_party[:-1]

@@ -11,6 +11,7 @@ import time
 
 import schedule
 
+from src.config.config import Config
 from src.schedule_task.all_tasks import send_doc, update_ads_tag, update_wechat_doc
 from src.sender.rss import gen_rss_xml
 from src.utils import LOGGER
@@ -37,7 +38,8 @@ def main():
     schdule_time_list = ["00:10", "06:10", "09:10", "12:10", "15:10", "18:10", "21:10"]
     for each in schdule_time_list:
         schedule.every().day.at(each).do(schedule_task)
-    LOGGER.info("Schedule started successfully :)")
+    start_info = f"Schedule({Config.SCHEDULE_VERSION}) started successfully :)"
+    LOGGER.info(start_info)
     schdule_msg = "Schedule time:\n " + "\n ".join(schdule_time_list)
     LOGGER.info(schdule_msg)
     # 启动就执行一次

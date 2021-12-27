@@ -34,6 +34,3 @@ pytest = "*"
 [scripts]
 dev_schedule = "bash ./dev_schedule.sh"
 pro_schedule = "bash ./pro_schedule.sh"
-
-[requires]
-python_version = "3.7"
