@@ -1,6 +1,6 @@
 # 2C
 
-> 构建一个多源（公众号、RSS）、干净、个性化的阅读环境
+> 构建一个多源、干净、个性化的公众号阅读环境
 
 作为一名微信公众号的重度用户，公众号一直被我设为汲取知识的地方。随着使用程度的增加，相信大家或多或少会有一个比较头疼的问题——**广告问题**。
 
@@ -10,7 +10,7 @@
 
 更可恶的是，大部分的广告，无不是**贩卖焦虑，营造消极气氛**，实在无法忍受且严重影响我的心情。但有些公众号写的文章又确实不错，那怎么做可以不看广告只看文章呢？如果你在公众号阅读体验下深切感受到对于广告的无奈，那么这个项目就是你需要的。
 
-这就是本项目的产生的原因，**构建一个多源（公众号、RSS）、干净、个性化的阅读环境**。
+这就是本项目的产生的原因，**构建一个多源、干净、个性化的公众号阅读环境**。
 
 > PS: 这里声明一点，看广告是对作者的支持，这样一定程度上可以促进作者更好地产出。但我看到喜欢的会直接**打赏支持**，所以**搭便车**的言论在我这里站不住脚，谢谢。
 
@@ -110,12 +110,12 @@ Loading .env environment variables...
 感谢以下开发者的贡献（排名不分先后）：
 
 <!-- To get src for img: https://api.github.com/users/username -->
-<a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="50" height="50"></a>
-<a href="https://github.com/AI-xiaofour"><img src="https://avatars.githubusercontent.com/u/20813419?v=4" title="AI-xiaofour" width="50" height="50"></a>
-<a href="https://github.com/Xuenew"><img src="https://avatars.githubusercontent.com/u/41135035?s=64&v=4" title="Xuenew" width="50" height="50"></a>
-<a href="https://github.com/cn-qlg"><img src="https://avatars.githubusercontent.com/u/15536545?s=64&v=4" title="cn-qlg" width="50" height="50"></a>
-<a href="https://github.com/baboon-king"><img src="https://avatars.githubusercontent.com/u/63645337?v=4" title="baboon-king" width="50" height="50"></a>
-
+<a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="40" height="40" ></a>
+<a href="https://github.com/AI-xiaofour"><img src="https://avatars.githubusercontent.com/u/20813419?v=4" title="AI-xiaofour" width="40" height="40" ></a>
+<a href="https://github.com/Xuenew"><img src="https://avatars.githubusercontent.com/u/41135035?s=64&v=4" title="Xuenew" width="40" height="40" ></a>
+<a href="https://github.com/cn-qlg"><img src="https://avatars.githubusercontent.com/u/15536545?s=64&v=4" title="cn-qlg" width="40" height="40" ></a>
+<a href="https://github.com/baboon-king"><img src="https://avatars.githubusercontent.com/u/63645337?v=4" title="baboon-king" width="40" height="40" ></a>
+<a href="https://github.com/123seven"><img src="https://avatars.githubusercontent.com/u/42730681?v=4" title="123seven" width="40" height="40" ></a>
 
 ## 关于
 

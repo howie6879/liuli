@@ -22,7 +22,7 @@ def update_wechat_doc():
     :param wechat_list:
     :return:
     """
-    # TODO 统一的地方进行配置管理\
+    # TODO 统一的地方进行配置管理
     run_wechat_doc_spider(Config.WECHAT_LIST)
 
 
@@ -76,29 +76,35 @@ def send_doc():
     对文章进行分发
     :return:
     """
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="2c_articles")
-    cur_ts = time.time()
-    filter_dict = {
-        # 时间范围，除第一次外后面其实可以去掉
-        "doc_ts": {"$gte": cur_ts - (2 * 24 * 60 * 60), "$lte": cur_ts},
-        # 至少打上一个模型标签
-        "cos_model": {"$exists": True},
-    }
-    # 查找所有可分发文章
-    for each_data in coll.find(filter_dict):
-        # 分别分发给各个目标
-        for send_type in Config.SENDER_LIST:
-            # 暂时固定，测试
-            send_config = {}
-            each_data["doc_cus_des"] = "🤓非广告"
-            cos_model_resp = each_data["cos_model"]
-            if cos_model_resp["result"] == 1:
-                # 广告标记
-                each_data["doc_cus_des"] = f"👿广告[概率：{cos_model_resp['probability']}]"
-            send_factory(
-                send_type=send_type, send_config=send_config, send_data=each_data
-            )
+    if Config.SENDER_LIST:
+        # 是否启用分发器
+        mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+        coll = mongo_base.get_collection(coll_name="2c_articles")
+        cur_ts = time.time()
+        filter_dict = {
+            # 时间范围，除第一次外后面其实可以去掉
+            "doc_ts": {"$gte": cur_ts - (2 * 24 * 60 * 60), "$lte": cur_ts},
+            # 至少打上一个模型标签
+            "cos_model": {"$exists": True},
+        }
+        # 查找所有可分发文章
+        for each_data in coll.find(filter_dict):
+            # 分别分发给各个目标
+            for send_type in Config.SENDER_LIST:
+                # 暂时固定，测试
+                send_config = {}
+                each_data["doc_cus_des"] = "🤓非广告"
+                cos_model_resp = each_data["cos_model"]
+                if cos_model_resp["result"] == 1:
+                    # 广告标记
+                    each_data[
+                        "doc_cus_des"
+                    ] = f"👿广告[概率：{cos_model_resp['probability']}]"
+                send_factory(
+                    send_type=send_type, send_config=send_config, send_data=each_data
+                )
+    else:
+        LOGGER.info("未配置分发器!")
 
 
 if __name__ == "__main__":

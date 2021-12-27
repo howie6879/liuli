@@ -111,3 +111,4 @@ dev.env
 *.bak
 logs/
 *.out
+*.xml

@@ -5,7 +5,7 @@
 """
 import time
 
-from ruia import AttrField, Item, RegexField, Spider, TextField
+from ruia import AttrField, HtmlField, Item, RegexField, Spider, TextField
 from ruia_ua import middleware as ua_middleware
 
 
@@ -52,6 +52,8 @@ class WechatItem(Item):
     doc_source_meta_list = TextField(
         css_select="p.profile_meta>span.profile_meta_value", many=True, default=["", ""]
     )
+    # 核心html
+    doc_core_html = HtmlField(css_select="div#js_content", default="")
     # 公众号昵称
     doc_source_account_nick = ""
     # 公众号介绍
@@ -68,12 +70,16 @@ class WechatItem(Item):
         self.doc_source_account_intro = value[1]
         return value
 
-    # async def clean_doc_date(self, value):
-    #     """
-    #     清洗日期，数据格式 2021-12-17 08:48
-    #     """
-    #     t_list = str(value).split(" ")
-    #     return t_list[0] if t_list else ""
+    async def clean_doc_core_html(self, value: list):
+        """清洗核心html"""
+
+        return (
+            str(value)
+            .strip()
+            .replace("visibility: visible;", "")
+            .replace("<br>", "")
+            .replace("data-src", "src")
+        )
 
     async def clean_doc_ts(self, value):
         """
@@ -99,7 +105,7 @@ class WechatSpider(Spider):
     async def parse(self, response):
         html = await response.text()
         item = await WechatItem.get_item(html=html)
-        print(item)
+        print(item.doc_core_html)
         yield item
 
 
