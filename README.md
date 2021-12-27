@@ -110,12 +110,12 @@ Loading .env environment variables...
 感谢以下开发者的贡献（排名不分先后）：
 
 <!-- To get src for img: https://api.github.com/users/username -->
-<a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="50" height="50" style="border-radius: 50%"></a>
-<a href="https://github.com/AI-xiaofour"><img src="https://avatars.githubusercontent.com/u/20813419?v=4" title="AI-xiaofour" width="50" height="50" style="border-radius: 50%"></a>
-<a href="https://github.com/Xuenew"><img src="https://avatars.githubusercontent.com/u/41135035?s=64&v=4" title="Xuenew" width="50" height="50" style="border-radius: 50%"></a>
-<a href="https://github.com/cn-qlg"><img src="https://avatars.githubusercontent.com/u/15536545?s=64&v=4" title="cn-qlg" width="50" height="50" style="border-radius: 50%"></a>
-<a href="https://github.com/baboon-king"><img src="https://avatars.githubusercontent.com/u/63645337?v=4" title="baboon-king" width="50" height="50" style="border-radius: 50%"></a>
-<a href="https://github.com/123seven"><img src="https://avatars.githubusercontent.com/u/42730681?v=4" title="123seven" width="50" height="50" style="border-radius: 50%"></a>
+<a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="40" height="40" ></a>
+<a href="https://github.com/AI-xiaofour"><img src="https://avatars.githubusercontent.com/u/20813419?v=4" title="AI-xiaofour" width="40" height="40" ></a>
+<a href="https://github.com/Xuenew"><img src="https://avatars.githubusercontent.com/u/41135035?s=64&v=4" title="Xuenew" width="40" height="40" ></a>
+<a href="https://github.com/cn-qlg"><img src="https://avatars.githubusercontent.com/u/15536545?s=64&v=4" title="cn-qlg" width="40" height="40" ></a>
+<a href="https://github.com/baboon-king"><img src="https://avatars.githubusercontent.com/u/63645337?v=4" title="baboon-king" width="40" height="40" ></a>
+<a href="https://github.com/123seven"><img src="https://avatars.githubusercontent.com/u/42730681?v=4" title="123seven" width="40" height="40" ></a>
 
 ## 关于
 
