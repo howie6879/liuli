@@ -26,6 +26,7 @@ def fetch_keyword_list(url_or_text: str = None):
     """
     if url_or_text.startswith("http"):
         resp = send_get_request(url_or_text)
+        # TODO 当text为空时候需要进行处理
         text = html_to_text_h2t(resp.text) if resp else None
     else:
         text = url_or_text
@@ -38,17 +39,6 @@ def fetch_keyword_list(url_or_text: str = None):
         keyword_list.append(item.word)
 
     return keyword_list
-
-
-# def html_to_text_gne(html: str):
-#     """
-#     从html提取核心内容text
-#     :param html:
-#     :return:
-#     """
-#     extractor = GeneralNewsExtractor()
-#     result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
-#     return result.get("content").strip()
 
 
 def html_to_text_h2t(html: str):
@@ -82,8 +72,18 @@ def send_get_request(url, params: dict = None, **kwargs):
     return resp
 
 
+# def html_to_text_gne(html: str):
+#     """
+#     从html提取核心内容text
+#     :param html:
+#     :return:
+#     """
+#     extractor = GeneralNewsExtractor()
+#     result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
+#     return result.get("content").strip()
+
 if __name__ == "__main__":
-    url = "https://mp.weixin.qq.com/s/QyucRNz-QlgwxYumRMfrHw"
+    url = "https://mp.weixin.qq.com/s/GLo6hs2infzxynN64MjyIQ"
     resp = requests.get(url)
     text = html_to_text_h2t(resp.text)
     print(text)
