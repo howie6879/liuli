@@ -159,7 +159,7 @@ async def playwright_main(wechat_name: str):
 
 
 if __name__ == "__main__":
-    # for name in Config.WECHAT_LIST:
-    #     time.sleep(2)
-    #     load_data_from_playwright(name)
-    res = asyncio.run(playwright_main("Thoughtworks洞见"))
+    for name in Config.WECHAT_LIST:
+        time.sleep(2)
+        load_data_from_playwright(name)
+    # res = asyncio.run(playwright_main("老胡的储物柜"))

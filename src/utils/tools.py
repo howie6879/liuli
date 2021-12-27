@@ -6,6 +6,7 @@
 """
 
 import hashlib
+import time
 
 
 def md5_encryption(string: str) -> str:
@@ -46,3 +47,17 @@ def load_text_to_list(file_path) -> list:
             if line:
                 text_list.append(line)
     return text_list
+
+
+def ts_to_str_date(ts: int, ts_format: str = "%Y-%m-%d %H:%M:%S"):
+    """
+    时间戳转文本时间
+    :param ts:
+    :param ts_format:
+    :return:
+    """
+    return time.strftime(ts_format, time.localtime(int(ts)))
+
+
+if __name__ == "__main__":
+    print(ts_to_str_date(1640062200.0))
