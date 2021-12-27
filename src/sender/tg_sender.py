@@ -66,7 +66,10 @@ class TGSender(SenderBase):
                 "disable_web_page_preview": "yes",
             }
             resp_dict = send_post_request(
-                url=self.url, data=data, headers={"Content-Type": "application/json"}, timeout=5
+                url=self.url,
+                data=data,
+                headers={"Content-Type": "application/json"},
+                timeout=5,
             )
             notice_msg = f"{doc_cus_des}👉{doc_source_name}_{doc_name}：{doc_link} 分发到 {self.send_type}"
             if resp_dict:
