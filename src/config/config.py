@@ -57,6 +57,10 @@ class Config:
     WECOM_ID = os.getenv("CC_WECOM_ID", "")
     WECOM_AGENT_ID = int(os.getenv("CC_WECOM_AGENT_ID", "-1"))
     WECOM_SECRET = os.getenv("CC_WECOM_SECRET", "")
+    # 企业微信分发部门，多个部门用;分割
+    WECOM_PARTY_LIST = os.getenv("CC_WECOM_PARTY", "").split(";")
+    # 企业微信分发用户，多个用户用;分割
+    WECOM_TO_USER = os.getenv("CC_WECOM_TO_USER", "").replace(";", "|")
     # 订阅的公众号配置
     WECHAT_LIST = os.getenv(
         "CC_WECHAT_ACCOUNT",

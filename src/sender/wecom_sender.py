@@ -30,7 +30,17 @@ class WeComSender(SenderBase):
         self.wecom_id = send_config.get("wecom_id", Config.WECOM_ID)
         self.wecom_agent_id = send_config.get("wecom_agent_id", Config.WECOM_AGENT_ID)
         self.wecom_secret = send_config.get("wecom_secret", Config.WECOM_SECRET)
-        self.url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={self.get_token()}"
+        self.access_token = self.get_token()
+        self.url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={self.access_token}"
+        self.wecom_party_list = send_config.get("wecom_party_list", Config.WECOM_PARTY_LIST)
+        self.wecom_to_user = send_config.get("wecom_to_user", Config.WECOM_TO_USER)
+        self.wecom_party = ""
+        # 如果部门和用户都没有，则默认发送给所有人
+        if not self.wecom_party_list[0] and not self.wecom_to_user:
+            self.wecom_to_user = "@all"
+        # 其他情况，则按用户填写的发送(既发用户，也发部门)
+        else:
+            self.change_wecom_party_to_id()
 
     def get_token(self):
         """
@@ -44,6 +54,29 @@ class WeComSender(SenderBase):
         token_url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
         json_data = requests.get(token_url, params=data).json()
         return json_data.get("access_token", "")
+
+    def get_party(self):
+        """
+        获取部门列表
+        :return:
+        """
+        data = {
+            "access_token": self.access_token,
+        }
+        url = "https://qyapi.weixin.qq.com/cgi-bin/department/list"
+        json_data = requests.get(url, params=data).json()
+        return json_data.get("department", [])
+
+    def change_wecom_party_to_id(self):
+        """
+        将部门名称转换为部门ID
+        :return:
+        """
+        party_list = self.get_party()
+        party_ids = [party_info["id"] for party_info in party_list if party_info["name"] in self.wecom_party_list]
+        for party_id in party_ids:
+            self.wecom_party += f"{party_id}|"
+        self.wecom_party = self.wecom_party[:-1]
 
     def send_text_card(self, send_data):
         """
@@ -67,7 +100,8 @@ class WeComSender(SenderBase):
         doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[2c]👉技术支持❤️'
 
         data = {
-            "toparty": 1,
+            "touser": self.wecom_to_user,
+            "toparty": self.wecom_party,
             "msgtype": "textcard",
             "agentid": self.wecom_agent_id,
             "textcard": {
@@ -146,6 +180,8 @@ if __name__ == "__main__":
             "wecom_id": "",
             "wecom_agent_id": 0,
             "wecom_secret": "",
+            "wecom_party_list": [],
+            "wecom_to_user": "",
         },
         send_data={
             "doc_id": "f42460107f69c9e929f8d591243efeb2",
