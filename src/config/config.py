@@ -22,6 +22,9 @@ class Config:
     API_TEM_DIR = os.path.join(API_DIR, "templates")
     API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
 
+    # 版本设置
+    SCHEDULE_VERSION = "0.1.1"
+
     # Flask API配置
     DEBUG = bool(os.getenv("CC_FLASK_DEBUG", "0") == "1")
     TIMEZONE = "Asia/Shanghai"
