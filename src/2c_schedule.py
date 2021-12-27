@@ -3,7 +3,7 @@
     Created by howie.hu at 2021/4/10.
     Description：统一调度入口
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-        - 命令: pipenv run pro or PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/2c_schdule.py
+        - 命令: pipenv run pro_schedule or PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/2c_schdule.py
     - 调度时间：每日的 "00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"
     Changelog: all notable changes to this file will be documented
 """
@@ -12,6 +12,7 @@ import time
 import schedule
 
 from src.schedule_task.all_tasks import send_doc, update_ads_tag, update_wechat_doc
+from src.sender.rss import gen_rss_xml
 from src.utils import LOGGER
 
 
@@ -26,12 +27,14 @@ def schedule_task():
     update_ads_tag()
     # 文章分发
     send_doc()
+    # 生成 RSS
+    gen_rss_xml()
 
 
 def main():
     """调度启动函数"""
     # 每日抓取公众号最新文章并更新广告标签
-    schdule_time_list = ["00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"]
+    schdule_time_list = ["00:10", "06:10", "09:10", "12:10", "15:10", "18:10", "21:10"]
     for each in schdule_time_list:
         schedule.every().day.at(each).do(schedule_task)
     LOGGER.info("Schedule started successfully :)")

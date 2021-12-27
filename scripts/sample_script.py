@@ -35,8 +35,8 @@ def gen_final_sample():
 
 
 def gen_keyword_sample(
-    s_path: str = "../.files/datasets/ads.csv",
-    c_path: str = "../.files/datasets/clean_ads.csv",
+    s_path: str = f"{Config.DS_DIR}/ads.csv",
+    c_path: str = f"{Config.DS_DIR}/clean_ads.csv",
 ):
     """
     广告文本提取关键词，前提是相关文本遵循了2c定义的数据集格式
@@ -51,7 +51,10 @@ def gen_keyword_sample(
 
     for each in c_df.values.tolist():
         c_data_res.append(
-            {"title": each[0], "keywords": each[1],}
+            {
+                "title": each[0],
+                "keywords": each[1],
+            }
         )
 
     for each in s_df.values.tolist():
@@ -64,6 +67,7 @@ def gen_keyword_sample(
         if is_process == 0:
             # 进行提取，成功就改值为1
             keyword_list = fetch_keyword_list(url)
+            print(keyword_list)
             if keyword_list:
                 # 判断是否被删除
                 if keyword_list and "发布者" in keyword_list and "删除" in keyword_list:
@@ -118,10 +122,10 @@ if __name__ == "__main__":
     # keyword_list = fetch_keyword_list(url)
     # print(keyword_list)
     gen_keyword_sample()
-    ads2txt()
+    # ads2txt()
     # gen_keyword_sample(
-    #     s_path="../.files/datasets/normal.csv",
-    #     c_path="../.files/datasets/clean_normal.csv",
+    #     s_path=f"{Config.DS_DIR}/normal.csv",
+    #     c_path=f"{Config.DS_DIR}/clean_normal.csv",
     # )
     # gen_normal_sample()
     # gen_final_sample()

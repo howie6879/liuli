@@ -25,7 +25,12 @@ def mongodb_delete_many_data(coll_conn, filter_dict: dict) -> dict:
 
 
 def mongodb_find(
-    coll_conn, filter_dict: dict, return_dict: dict = None, sorted_key: str = ""
+    coll_conn,
+    filter_dict: dict,
+    return_dict: dict = None,
+    sorted_key: str = "",
+    sorted_index: int = 1,
+    limit: int = None,
 ) -> dict:
     """找到满足条件的所有记录
 
@@ -34,6 +39,8 @@ def mongodb_find(
         filter_dict (dict): 条件字典
         return_dict (dict, optional): 返回条件字典
         sorted_key (str, optional): 排序的key
+        sorted_index (int, optional): 1 正序，逐渐变大 -1 倒序 逐渐变小
+        limit (int, optional): 返回查询数量
 
     Returns:
         dict: 结果字典
@@ -45,7 +52,8 @@ def mongodb_find(
             cursor = coll_conn.find(filter_dict, return_dict)
         else:
             cursor = coll_conn.find(filter_dict)
-        cursor = cursor.sort(sorted_key) if sorted_key else cursor
+        cursor = cursor.sort(sorted_key, sorted_index) if sorted_key else cursor
+        cursor = cursor.limit(limit) if limit else cursor
         for document in cursor:
             res.append(document)
         db_result["info"] = res
