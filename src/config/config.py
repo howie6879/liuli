@@ -23,7 +23,7 @@ class Config:
     API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
 
     # 版本设置
-    SCHEDULE_VERSION = "0.1.1"
+    SCHEDULE_VERSION = "0.1.2"
 
     # Flask API配置
     DEBUG = bool(os.getenv("CC_FLASK_DEBUG", "0") == "1")
@@ -52,8 +52,8 @@ class Config:
     COS_VALUE = float(os.getenv("CC_COS_VALUE", "0.60"))
 
     # 分发器配置
-    # 分发终端配置，设置环境变量：CC_SENDER_NAME="ding;wecom"
-    # 目标支持：ding[钉钉]、wecom[企业微信]
+    # 分发终端配置，设置环境变量：CC_SENDER_NAME="ding;wecom;tg"
+    # 目标支持：ding[钉钉]、wecom[企业微信]、tg[Telegram]
     # 多终端记得使用;分割
     SENDER_LIST = str(os.getenv("CC_SENDER_NAME", "")).split(";")
     # 钉钉分发器参数配置，如果 SENDER_LIST 包含 ding ，CC_D_TOKEN 配置就必须填写
@@ -74,3 +74,6 @@ class Config:
         "CC_WECHAT_ACCOUNT",
         "小众消息;是不是很酷;caoz的梦呓;阿里技术;Thoughtworks洞见;老胡的储物柜",
     ).split(";")
+    # TG分发器参数配置
+    TG_CHAT_ID = os.getenv("CC_TG_CHAT_ID", "")
+    TG_TOKEN = os.getenv("CC_TG_TOKEN", "")
