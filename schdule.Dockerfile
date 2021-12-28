@@ -4,7 +4,7 @@ ENV APP_ROOT=/data/code \
 WORKDIR ${APP_ROOT}/
 COPY . ${APP_ROOT}
 RUN rm -rf .git \
-    && pip install --no-cache-dir --trusted-host mirrors.aliyun.com -i https://pypi.douban.com/simple/ pipenv \
+    && pip install --no-cache-dir -i https://pypi.douban.com/simple/ pipenv \
     && pipenv install --dev --skip-lock \
     && pipenv run playwright install chromium \
     && echo "${TIME_ZONE}" > /etc/timezone \
