@@ -84,7 +84,10 @@ class CosModel(ModelLoaderBase):
             "model": type(
                 "Model",
                 (),
-                {"predict": self.predict, "process_text": self.process_text,},
+                {
+                    "predict": self.predict,
+                    "process_text": self.process_text,
+                },
             ),
             "black_list": self.black_data,
             "white_list": self.white_data,
