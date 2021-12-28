@@ -1,13 +1,13 @@
-FROM danofun/playwright-python
-ENV APP_ROOT /data/code
+FROM mcr.microsoft.com/playwright:focal
+ENV APP_ROOT=/data/code \
+    TIME_ZONE=Asia/Shanghai
 WORKDIR ${APP_ROOT}/
-COPY Pipfile ${APP_ROOT}/
-RUN pip install --no-cache-dir --trusted-host mirrors.aliyun.com -i https://pypi.douban.com/simple/ pipenv
-RUN pipenv install --dev --skip-lock
-RUN pipenv run playwright install chromium
-ENV TIME_ZONE=Asia/Shanghai
-RUN echo "${TIME_ZONE}" > /etc/timezone \
-    && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 COPY . ${APP_ROOT}
-RUN find . -name "*.pyc" -delete
+RUN rm -rf .git \
+    && pip install --no-cache-dir --trusted-host mirrors.aliyun.com -i https://pypi.douban.com/simple/ pipenv \
+    && pipenv install --dev --skip-lock \
+    && pipenv run playwright install chromium \
+    && echo "${TIME_ZONE}" > /etc/timezone \
+    && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
+    && find . -name "*.pyc" -delete
 CMD ["pipenv", "run", "pro_schedule"]
