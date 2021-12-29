@@ -62,7 +62,7 @@ class WechatItem(Item):
     doc_content = ""
     # 常量
     # 信息来源
-    doc_source = "2c_wechat"
+    doc_source = "liuli_wechat"
 
     async def clean_doc_source_meta_list(self, value: list):
         """从doc_source_meta_list提取公众号昵称和介绍"""
