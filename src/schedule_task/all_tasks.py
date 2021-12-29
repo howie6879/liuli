@@ -33,7 +33,7 @@ def update_ads_tag(is_force=False):
     :return:
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="2c_articles")
+    coll = mongo_base.get_collection(coll_name="liuli_articles")
     if is_force:
         query = {}
     else:
@@ -79,7 +79,7 @@ def send_doc():
     if Config.SENDER_LIST:
         # 是否启用分发器
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-        coll = mongo_base.get_collection(coll_name="2c_articles")
+        coll = mongo_base.get_collection(coll_name="liuli_articles")
         cur_ts = time.time()
         filter_dict = {
             # 时间范围，除第一次外后面其实可以去掉

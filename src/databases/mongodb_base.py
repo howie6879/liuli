@@ -29,7 +29,7 @@ class MongodbBase:
             else "",
             host=self.mongodb_config.get("host", "localhost"),
             port=self.mongodb_config.get("port", 271017),
-            db=self.mongodb_config.get("db", "2c"),
+            db=self.mongodb_config.get("db", "liuli"),
         )
         self.client = MongoClient(self.mongodb_uri)
 

@@ -23,7 +23,7 @@ class WechatDocSpider(Spider):
     微信RSS文章爬虫
     """
 
-    collection = "2c_articles"
+    collection = "liuli_articles"
     request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 5}
     aiohttp_kwargs = {"proxy": Config.PROXY} if Config.PROXY else {}
 
