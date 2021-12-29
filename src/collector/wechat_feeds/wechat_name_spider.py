@@ -20,7 +20,7 @@ class WechatNameSpider(Spider):
     微信公众号名称爬虫
     """
 
-    collection = "2c_wechat_name"
+    collection = "liuli_wechat_name"
     request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 5}
     aiohttp_kwargs = {"proxy": Config.PROXY} if Config.PROXY else {}
 

@@ -23,8 +23,8 @@ TG_BOT_MSG_TEMPLATE = """
 
 <pre>文章关键字: {doc_keywords}</pre>
 
-<a href="https://github.com/howie6879/2c"><b>👉技术支持[2c]❤</b></a>
-<a href="https://github.com/howie6879/2c/issues/4">👉识别错误？点击广告反馈</a>
+<a href="https://github.com/howie6879/liuli"><b>👉技术支持[liuli]❤</b></a>
+<a href="https://github.com/howie6879/liuli/issues/4">👉识别错误？点击广告反馈</a>
 """
 
 

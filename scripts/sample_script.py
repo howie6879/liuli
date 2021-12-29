@@ -39,7 +39,7 @@ def gen_keyword_sample(
     c_path: str = f"{Config.DS_DIR}/clean_ads.csv",
 ):
     """
-    广告文本提取关键词，前提是相关文本遵循了2c定义的数据集格式
+    广告文本提取关键词，前提是相关文本遵循了liuli定义的数据集格式
     :param s_path: 源路径
     :param c_path: 目标关键词提取后的路径
     :return:
@@ -96,7 +96,7 @@ def gen_normal_sample(nums: int = None):
         ads_title_list = load_text_to_list(ads_path)
         nums = len(ads_title_list) - 1
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="2c_articles")
+    coll = mongo_base.get_collection(coll_name="liuli_articles")
     query = {"cos_model.result": 0, "doc_source_name": "真没什么逻辑"}
     normal_path = os.path.join(Config.DS_DIR, "normal.csv")
     for each_data in coll.aggregate([{"$match": query}, {"$sample": {"size": nums}}]):

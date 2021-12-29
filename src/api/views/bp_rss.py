@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2021-12-27.
-    Description: 2C RSS 接口
+    Description: liuli RSS 接口
     Changelog: all notable changes to this file will be documented
 """
 
@@ -21,7 +21,7 @@ def feeds(rss_name):
     # 获取基本配置
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
     logger = current_app.config["app_logger"]
-    coll_rss_conn = mongodb_base.get_collection(coll_name="2c_rss")
+    coll_rss_conn = mongodb_base.get_collection(coll_name="liuli_rss")
     filter_dict = {"doc_source_name": rss_name}
     db_res = mongodb_find(
         coll_conn=coll_rss_conn, filter_dict=filter_dict, return_dict={}, limit=1

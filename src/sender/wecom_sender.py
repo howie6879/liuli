@@ -103,7 +103,7 @@ class WeComSender(SenderBase):
         doc_des_info = (
             f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦! \n\n文章关键字：{doc_keywords}"
         )
-        doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[2c]👉技术支持❤️'
+        doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[liuli]👉技术支持❤️'
 
         data = {
             "touser": self.wecom_to_user,

@@ -39,7 +39,7 @@ async def get_wf_docs():
     # 但是作为训练集，少几条无所谓，如果正式获取出现错误再针对性地解决
     WechatDocSpider.start_urls = start_urls
     WechatDocSpider.concurrency = 10
-    WechatDocSpider.collection = "2c_wechat_datasets"
+    WechatDocSpider.collection = "liuli_wechat_datasets"
     await WechatDocSpider.async_start(after_start=init_motor_after_start)
     print(f"共更新 {len(json_data)} 个公众号")
 
