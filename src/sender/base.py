@@ -26,8 +26,8 @@ class SenderBase:
         self.mongo_base = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG
         )
-        # 2c_send_list 存储所有已经下发过的文章列表，可以当做缓存表
-        self.sl_coll = self.mongo_base.get_collection(coll_name="2c_send_list")
+        # liuli_send_list 存储所有已经下发过的文章列表，可以当做缓存表
+        self.sl_coll = self.mongo_base.get_collection(coll_name="liuli_send_list")
 
     def is_send(self, doc_id: str) -> bool:
         """

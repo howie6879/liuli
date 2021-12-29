@@ -22,7 +22,7 @@ def create_app():
 
     with flask_app.app_context():
         # 项目内部配置
-        LOGGER = get_logger("2C API")
+        LOGGER = get_logger("Liuli API")
         mongodb_base = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG
         )

@@ -27,7 +27,7 @@ from src.utils.tools import md5_encryption
 
 def load_data_from_playwright(wechat_name: str):
     """
-    基于 playwright 获取微信公众号数据并持久化到 2c_articles
+    基于 playwright 获取微信公众号数据并持久化到 liuli_articles
     """
     # 抓取数据
     wechat_data = asyncio.run(playwright_main(wechat_name))
@@ -36,7 +36,7 @@ def load_data_from_playwright(wechat_name: str):
     if wechat_data:
         # 抓取成功进行持久化
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-        coll_conn = mongo_base.get_collection(coll_name="2c_articles")
+        coll_conn = mongo_base.get_collection(coll_name="liuli_articles")
         filter_dict = {"doc_id": wechat_data["doc_id"]}
         update_data = {"$set": wechat_data}
         db_res = mongodb_update_data(
@@ -70,7 +70,7 @@ async def playwright_main(wechat_name: str):
         "doc_keywords": [],
         "doc_link": "https://mp.weixin.qq.com/s",
         "doc_name": "我的周刊（第018期）",
-        "doc_source": "2c_wechat",
+        "doc_source": "liuli_wechat",
         "doc_source_account_intro": "编程、兴趣、生活",
         "doc_source_account_nick": "howie_locker",
         "doc_source_meta_list": [
