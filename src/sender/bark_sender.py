@@ -1,8 +1,17 @@
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+"""
+    Created by Leslie Leung at 2021/12/28.
+    Description：分发到 Bark 终端
+    Changelog: all notable changes to this file will be documented
+"""
+import json
+import time
+
+import requests
+
 from src.config import Config
 from src.sender.base import SenderBase
 from src.utils import LOGGER
-import requests, json, time, os
 
 
 class BarkSender(SenderBase):
@@ -16,6 +25,11 @@ class BarkSender(SenderBase):
         self.url = bark_url[:-1] if bark_url.endswith("/") else bark_url
 
     def send(self, send_data) -> bool:
+        """
+        下发到Bark终端
+        :param send_data: 下发内容字典，字段开发者自定义
+        :return:
+        """
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
@@ -52,6 +66,11 @@ class BarkSender(SenderBase):
         return send_status
 
     def compose(self, send_data) -> str:
+        """
+        根据发送数据产生Bark请求url
+        :param send_data: 下发内容字典，字段开发者自定义
+        :return:
+        """
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
@@ -65,10 +84,18 @@ class BarkSender(SenderBase):
         copy = f"?copy={doc_link}"
         return f"{self.url}/{title}/{body}{copy}"
 
+
 def send(send_config: dict, send_data: dict) -> bool:
+    """
+    下方到Bark终端
+    :param send_config: 下发终端配置
+    :param send_data: 下发内容字典，字段开发者自定义
+    :return:
+    """
     return BarkSender(send_config=send_config).send(send_data)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     send(
         send_config={
             "wecom_id": "",
