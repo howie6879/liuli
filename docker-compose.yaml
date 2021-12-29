@@ -1,28 +1,28 @@
 version: "3"
 services:
-  2c_schedule:
-    image: howie6879/2c:schedule_v0.1.2
+  liuli_schedule:
+    image: howie6879/liuli:schedule_v0.1.2
     restart: always
-    container_name: 2c_schedule
+    container_name: liuli_schedule
     volumes:
       - ./pro.env:/data/code/pro.env
     links:
-      - 2c_mongodb
+      - liuli_mongodb
     depends_on:
-      - 2c_mongodb
+      - liuli_mongodb
     networks:
-      - 2c-network
-  2c_mongodb:
+      - liuli-network
+  liuli_mongodb:
     image: mongo:3.6
     restart: always
-    container_name: 2c_mongodb
+    container_name: liuli_mongodb
     ports:
       - "27017:27017"
     volumes:
       - ./mongodb_data:/data/db
     networks:
-      - 2c-network
+      - liuli-network
 
 networks:
-  2c-network:
+  liuli-network:
     driver: bridge

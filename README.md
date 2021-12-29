@@ -1,12 +1,16 @@
-<h1 align="center">2C</h1>
+<!-- <p align="center"><img src="" width='120px' height='120px' alt="Liuli logo" >
+</p> -->
+
+<h1 align="center">Liuli</h1>
 
 <p align="center">📖 构建一个多源、干净、个性化的阅读环境</p>
+<p align="center"><strong>琉璃开净界，薜荔启禅关</strong></p>
 
-<div align=center><img src=".files/images/2c_ads_word_cloud.jpg"  width="100%" alt="2c_ads_word_cloud" /></div>
+<!-- <div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div> -->
 
 使用场景：
 
-- 阅读源管控，构建自己的知识管理框架：目标阅读源不方便订阅、杂乱，利用2c生成RSS源进行自定义输出阅读
+- 阅读源管控，构建自己的知识管理框架：目标阅读源不方便订阅可利用`Liuli`生成RSS源进行自定义输出阅读
 - 公众号用户的**广告问题**：避免公众号阅读环境的广告轰炸，案例见：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
 - 目标监控：针对特别关注的信息流进行监控，比如小说追更、特殊新闻追踪等
 
@@ -14,7 +18,7 @@
 
 我的思路很简单，大概流程如下：
 
-<div align=center><img src=".files/images/2c_process.svg" width="85%" alt="2c_process" /></div>
+<div align=center><img src=".files/images/liuli_process.svg" width="85%" alt="liuli_process" /></div>
 
 简单解释一下：
 
@@ -27,18 +31,18 @@
 ## 使用
 
 教程[使用前必读]：
- - [01.2C使用教程](./docs/01.2C使用教程.md)
- - [02.2C环境变量](./docs/02.2C环境变量.md)
- - [03.2C分发器配置](./docs/03.2C分发器配置.md)
+ - [01.使用教程](./docs/01.使用教程.md)
+ - [02.环境变量](./docs/02.环境变量.md)
+ - [03.分发器配置](./docs/03.分发器配置.md)
 
 快速开始，请先确保安装`Docker`：
 
 ```shell
-mkdir 2c
+mkdir liuli
 # 配置 pro.env 具体查看 doc/02.环境变量.md
 vim pro.env
 # 下载 docker-compose
-wget https://raw.githubusercontent.com/howie6879/2c/main/docker-compose.yaml
+wget https://raw.githubusercontent.com/howie6879/liuli/main/docker-compose.yaml
 # 启动
 docker-compose up -d
 ```
@@ -47,8 +51,8 @@ docker-compose up -d
 
 ```shell
 # 确保有Python3.7+环境
-git clone https://github.com/howie6879/2c.git
-cd 2c
+git clone https://github.com/howie6879/liuli.git
+cd liuli
 
 # 创建基础环境
 pipenv install --python={your_python3.7+_path}  --skip-lock --dev
@@ -60,11 +64,11 @@ pipenv run dev_schedule
 
 ```shell
 Loading .env environment variables...
-[2021:12:23 23:08:35] INFO  2C Schedule started successfully :)
-[2021:12:23 23:08:35] INFO  2C Schedule time: 00:00 06:00
-[2021:12:23 23:09:36] INFO  2C playwright 匹配公众号 老胡的储物柜(howie_locker) 成功! 正在提取最新文章: 我的周刊(第018期)
-[2021:12:23 23:09:39] INFO  2C 公众号文章持久化成功! 👉 老胡的储物柜
-[2021:12:23 23:09:40] INFO  2C 🤗 微信公众号文章更新完毕(1/1)
+[2021:12:23 23:08:35] INFO  Liuli Schedule started successfully :)
+[2021:12:23 23:08:35] INFO  Liuli Schedule time: 00:00 06:00
+[2021:12:23 23:09:36] INFO  Liuli playwright 匹配公众号 老胡的储物柜(howie_locker) 成功! 正在提取最新文章: 我的周刊(第018期)
+[2021:12:23 23:09:39] INFO  Liuli 公众号文章持久化成功! 👉 老胡的储物柜
+[2021:12:23 23:09:40] INFO  Liuli 🤗 微信公众号文章更新完毕(1/1)
 ```
 
 ## 效果
@@ -87,9 +91,9 @@ Loading .env environment variables...
 
 来个实例：
 
-<div align=center><img src=".files/images/2c_ads_csv_demo.jpg"  width="100%" alt="2c_ads_csv_demo" /></div>
+<div align=center><img src=".files/images/liuli_ads_csv_demo.jpg"  width="100%" alt="liuli_ads_csv_demo" /></div>
 
-一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，希望大家能一起合力贡献，亲，来个 [PR](https://github.com/howie6879/2c/issues/4) 贡献你的力量吧！
+一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，希望大家能一起合力贡献，亲，来个 [PR](https://github.com/howie6879/liuli/issues/4) 贡献你的力量吧！
 
 ## 致谢
 
@@ -111,6 +115,7 @@ Loading .env environment variables...
 <a href="https://github.com/baboon-king"><img src="https://avatars.githubusercontent.com/u/63645337?v=4" title="baboon-king" width="40" height="40" ></a>
 <a href="https://github.com/123seven"><img src="https://avatars.githubusercontent.com/u/42730681?v=4" title="123seven" width="40" height="40" ></a>
 <a href="https://github.com/zyd16888"><img src="https://avatars.githubusercontent.com/u/26684563?v=4" title="zyd16888" width="40" height="40" ></a>
+<a href="https://github.com/LeslieLeung"><img src="https://avatars.githubusercontent.com/u/22127499?v=4" title="LeslieLeung" width="40" height="40" ></a>
 
 ## 关于
 

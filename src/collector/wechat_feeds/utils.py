@@ -33,7 +33,7 @@ def wechat2url(name_list: list, source_type: str = "github"):
     :return:
     """
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="2c_wechat_name")
+    coll = mongo_base.get_collection(coll_name="liuli_wechat_name")
     if source_type == "github":
         rss_tem = "https://github.com/hellodword/wechat-feeds/raw/feeds/{0}.xml"
 

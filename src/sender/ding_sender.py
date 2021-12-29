@@ -49,7 +49,7 @@ class DingSender(SenderBase):
             # data = {
             #     "msgtype": "link",
             #     "link": {
-            #         "text": f"[2c]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
+            #         "text": f"[liuli]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
             #         "title": doc_name,
             #         "picUrl": "",
             #         "messageUrl": doc_link,
@@ -58,7 +58,7 @@ class DingSender(SenderBase):
             data = {
                 "msgtype": "markdown",
                 "markdown": {
-                    "text": f"## [{doc_name}]({doc_link})\n\n**{doc_source_name}** | **{doc_date}** | **{doc_cus_des}** \n\n-----\n\n> 文章关键字：{doc_keywords}\n\n-----\n\n识别错误？点击[广告反馈](https://github.com/howie6879/2c/issues/4)  👉来自[2c](https://github.com/howie6879/2c)技术支持❤️",
+                    "text": f"## [{doc_name}]({doc_link})\n\n**{doc_source_name}** | **{doc_date}** | **{doc_cus_des}** \n\n-----\n\n> 文章关键字：{doc_keywords}\n\n-----\n\n识别错误？点击[广告反馈](https://github.com/howie6879/liuli/issues/4)  👉来自[liuli](https://github.com/howie6879/liuli)技术支持❤️",
                     "title": f"亲，{doc_source} 源有更新啦!👉{doc_name} ",
                 },
             }
