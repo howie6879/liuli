@@ -68,7 +68,7 @@ class Config:
     # 企业微信分发用户，多个用户用;分割
     WECOM_TO_USER = os.getenv("CC_WECOM_TO_USER", "").replace(";", "|")
     # Bark URL
-    BARK_URL = os.getenv("BARK_URL", "")
+    BARK_URL = os.getenv("LL_BARK_URL", "")
     # 订阅的公众号配置
     WECHAT_LIST = os.getenv(
         "CC_WECHAT_ACCOUNT",
