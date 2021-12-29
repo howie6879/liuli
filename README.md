@@ -6,7 +6,7 @@
 <p align="center">📖 构建一个多源、干净、个性化的阅读环境</p>
 <p align="center"><strong>琉璃开净界，薜荔启禅关</strong></p>
 
-<div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div>
+<!-- <div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div> -->
 
 使用场景：
 
