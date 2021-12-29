@@ -9,17 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      
-      - name: Build Docker Image
-        run: docker build --no-cache=true -t leslieleung/liuli:schedule_${{ steps.get_version.outputs.VERSION }} -f schdule.Dockerfile .
-        
+
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: leslieleung/liuli
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          tag_names: true
+          dockerfile: schedule.Dockerfile
+          buildoptions: "--no-cache=true"
