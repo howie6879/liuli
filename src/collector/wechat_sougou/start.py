@@ -10,9 +10,7 @@ from src.config import Config
 from src.utils.log import LOGGER
 
 
-def run_wechat_doc_spider(
-    wechat_list: list = Config.WECHAT_LIST, delta_time: int = 0.5
-):
+def run(wechat_list: list = Config.WECHAT_LIST, delta_time: int = 0.5):
     """微信公众号文章抓取爬虫
 
     Args:

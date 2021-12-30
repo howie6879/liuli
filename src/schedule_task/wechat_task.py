@@ -9,7 +9,8 @@
 import time
 
 from src.classifier import model_predict_factory
-from src.collector import fetch_keyword_list, run_wechat_doc_spider
+from src.collector.wechat_sougou import start as satrt_wechat
+from src.common.process import fetch_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender import send_factory
@@ -23,7 +24,7 @@ def update_wechat_doc():
     :return:
     """
     # TODO 统一的地方进行配置管理
-    run_wechat_doc_spider(Config.WECHAT_LIST)
+    satrt_wechat.run(Config.WECHAT_LIST)
 
 
 def update_ads_tag(is_force=False):
