@@ -8,7 +8,9 @@
 
 <!-- <div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div> -->
 
-✨ 特性（都是Flag）:
+## ✨ 特性
+
+使用`Liuli`，你可以得到（都是Flag）:
 - [ ] 配置化开发，自定义输入、处理、输出
 - [ ] 阅读源管控，构建知识管理平台
 - [ ] 机器学习赋能：验证码识别、广告分类、智能标签
