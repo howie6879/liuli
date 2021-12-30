@@ -70,7 +70,7 @@ class Config:
     # 订阅的公众号配置
     WECHAT_LIST = os.getenv(
         "LL_WECHAT_ACCOUNT",
-        "小众消息;是不是很酷;caoz的梦呓;阿里技术;Thoughtworks洞见;老胡的储物柜",
+        "是不是很酷;老胡的储物柜",
     ).split(";")
     # TG分发器参数配置
     TG_CHAT_ID = os.getenv("LL_TG_CHAT_ID", "")
