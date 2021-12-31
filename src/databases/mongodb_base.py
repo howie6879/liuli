@@ -31,6 +31,7 @@ class MongodbBase:
             port=self.mongodb_config.get("port", 271017),
             db=self.mongodb_config.get("db", "liuli"),
         )
+        self.op_db = self.mongodb_config.get("op_db", "liuli")
         self.client = MongoClient(self.mongodb_uri)
 
     def get_db(self, db_name: str = ""):
@@ -54,8 +55,7 @@ class MongodbBase:
         :param db_name: 数据库名称
         :return:
         """
-        if not db_name:
-            db_name = self.mongodb_config["db"]
+        db_name = db_name or self.op_db
         coll_key = db_name + coll_name
         if coll_key not in self._collection:
             self._collection[coll_key] = self.get_db(db_name)[coll_name]
@@ -85,5 +85,17 @@ class MongodbManager:
 if __name__ == "__main__":
     from src.config import Config
 
-    mongo_base = MongodbManager.get_mongo_base(Config.MONGODB_CONFIG)
+    m_config = {
+        "username": "liuli",
+        "password": "liuli",
+        "host": "127.0.0.1",
+        "port": 27027,
+        "db": "admin",
+    }
+    mongo_base = MongodbManager.get_mongo_base(m_config)
     print(mongo_base.mongodb_uri)
+    coll_conn = mongo_base.get_collection(coll_name="test", db_name="admin")
+
+    coll_conn.update_one(
+        filter={"test_id": "abc"}, update={"$set": {"test_id": "abc"}}, upsert=True
+    )
