@@ -8,7 +8,7 @@
 import os
 
 HOST = os.getenv("LL_HOST", "127.0.0.1")
-HTTP_PORT = os.getenv("LL_HTTP_PORT", 8060)
+HTTP_PORT = os.getenv("LL_HTTP_PORT", 8765)
 WORKERS = os.getenv("LL_WORKERS", 1)
 MAX_REQUEST = int(os.getenv("MAX_REQUEST", 10000))
 
