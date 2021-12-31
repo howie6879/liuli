@@ -12,6 +12,6 @@ docker build --no-cache=true -t liuliio/api:v0.1.0 -f api.Dockerfile .
 # 打包使用缓存
 docker build --no-cache=false -t liuliio/api:v0.1.0 -f api.Dockerfile .
 # 运行
-docker run -d -it --restart=always -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.0
+docker run -d -it --restart=always -p 8765:8765 -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.0
 # 上传
 docker push liuliio/api:v0.1.0
