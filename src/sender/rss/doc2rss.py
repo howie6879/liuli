@@ -26,8 +26,10 @@ def gen_rss_xml(wechat_list: list = None):
     """
     wechat_list = wechat_list or Config.WECHAT_LIST
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll_articles_conn = mongo_base.get_collection(coll_name="liuli_articles")
-    coll_rss_conn = mongo_base.get_collection(coll_name="liuli_rss")
+    coll_articles_conn = mongo_base.get_collection(
+        coll_name="liuli_articles", db_name="liuli"
+    )
+    coll_rss_conn = mongo_base.get_collection(coll_name="liuli_rss", db_name="liuli")
     for wechat_name in wechat_list:
         filter_dict = {"doc_source_name": wechat_name}
         return_dict = {
