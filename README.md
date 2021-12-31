@@ -8,27 +8,21 @@
 
 <!-- <div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div> -->
 
+## ✨ 特性
+
+使用`Liuli`，你可以得到（都是Flag）:
+- [ ] 配置化开发，自定义输入、处理、输出
+- [ ] 阅读源管控，构建知识管理平台
+- [ ] 机器学习赋能：验证码识别、广告分类、智能标签
+- [ ] Github做源信息持久化
+- [ ] 官方案例技术支持
+
 使用场景：
+- [x] 公众号**广告问题**：避免公众号阅读环境的广告轰炸，案例见：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
+- [ ] 新闻追踪
+- [ ] 小说追更
 
-- 阅读源管控，构建自己的知识管理框架：目标阅读源不方便订阅可利用`Liuli`生成RSS源进行自定义输出阅读
-- 公众号用户的**广告问题**：避免公众号阅读环境的广告轰炸，案例见：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
-- 目标监控：针对特别关注的信息流进行监控，比如小说追更、特殊新闻追踪等
-
-## 实现
-
-我的思路很简单，大概流程如下：
-
-<div align=center><img src=".files/images/liuli_process.svg" width="85%" alt="liuli_process" /></div>
-
-简单解释一下：
-
-- **采集器**：监控各自关注的公众号或者博客源等自定义阅读源，最终构建`Feed`流作为输入源；
-- **处理器**：对目标内容进行自定义处理，如基于历史广告数据，利用机器学习实现一个广告分类器（可自定义规则），或者自动打标签等；
-- **分发器**：依靠接口层进行数据请求&响应，为使用者提供个性化配置，然后根据配置自动进行分发，将干净的文章流向微信、钉钉、TG甚至自建网站都行。
-
-这样做就实现了干净阅读环境的构建，衍生一下，还可以实现个人知识库的构建，可以做诸如标签管理、图谱构建等，这些都可以在接口层进行实现。
-
-## 使用
+## 🍥 使用
 
 教程[使用前必读]：
  - [01.使用教程](./docs/01.使用教程.md)
@@ -38,7 +32,9 @@
 快速开始，请先确保安装`Docker`：
 
 ```shell
-mkdir liuli
+mkdir liuli && cd liuli
+# 数据库目录
+mkdir mongodb_data
 # 配置 pro.env 具体查看 doc/02.环境变量.md
 vim pro.env
 # 下载 docker-compose
@@ -71,11 +67,25 @@ Loading .env environment variables...
 [2021:12:23 23:09:40] INFO  Liuli 🤗 微信公众号文章更新完毕(1/1)
 ```
 
-## 效果
+推送效果如图：
 
 <div align=center><img width="20%" src="https://raw.githubusercontent.com/howie6879/oss/master/images/m3nJ61.png" /></div>
 
-## 帮助
+## 🤔 实现
+
+大概流程如下：
+
+<div align=center><img src=".files/images/liuli_process.svg" width="85%" alt="liuli_process" /></div>
+
+简单解释一下：
+
+- **采集器**：监控各自关注的公众号或者博客源等自定义阅读源，最终构建`Feed`流作为输入源；
+- **处理器**：对目标内容进行自定义处理，如基于历史广告数据，利用机器学习实现一个广告分类器（可自定义规则），或者自动打标签等；
+- **分发器**：依靠接口层进行数据请求&响应，为使用者提供个性化配置，然后根据配置自动进行分发，将干净的文章流向微信、钉钉、TG甚至自建网站都行。
+
+这样做就实现了干净阅读环境的构建，衍生一下，基于获取的数据，可做的事情有很多，大家不妨发散一下思路。
+
+## 🤖 帮助
 
 为了提升模型的识别准确率，我希望大家能尽力贡献一些广告样本，请看样本文件：[.files/datasets/ads.csv](.files/datasets/ads.csv)，我设定格式如下：
 
@@ -95,7 +105,7 @@ Loading .env environment variables...
 
 一般广告会重复在多个公众号投放，填写的时候麻烦查一下是否存在此条记录，希望大家能一起合力贡献，亲，来个 [PR](https://github.com/howie6879/liuli/issues/4) 贡献你的力量吧！
 
-## 致谢
+## 👀 致谢
 
 感谢以下开源项目：
 
@@ -117,8 +127,8 @@ Loading .env environment variables...
 <a href="https://github.com/zyd16888"><img src="https://avatars.githubusercontent.com/u/26684563?v=4" title="zyd16888" width="40" height="40" ></a>
 <a href="https://github.com/LeslieLeung"><img src="https://avatars.githubusercontent.com/u/22127499?v=4" title="LeslieLeung" width="40" height="40" ></a>
 
-## 关于
+## 👉 关于
 
-欢迎与我交流（关注入群）：
+欢迎一起交流（关注入群）：
 
 <div align=center><img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png"  width="85%" alt="img" /></div>

@@ -22,4 +22,4 @@
 
 **提升**:
 - 完成[使用文档](https://github.com/howie6879/liuli/blob/main/docs/01.%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.md) [#10](https://github.com/howie6879/liuli/issues/10)
-- 支持Docker部署 [howie6879/liuli:schedule_v0.1.2](https://hub.docker.com/repository/docker/howie6879/liuli/tags?page=1&ordering=last_updated)
+- 支持Docker部署 [liuliio/schedule:v0.1.2](https://hub.docker.com/repository/docker/howie6879/liuli/tags?page=1&ordering=last_updated)

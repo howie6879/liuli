@@ -5,4 +5,3 @@
         Solution: https://playwright.dev/python/docs/intro
     Changelog: all notable changes to this file will be documented
 """
-from .spider import run_wechat_doc_spider
