@@ -15,9 +15,8 @@ import time
 
 from playwright.async_api import async_playwright
 
-from src.collector import html_to_text_h2t
-from src.collector.wechat_sougou.sg_wechat_item import SGWechatItem
-from src.collector.wechat_sougou.wechat_item import WechatItem
+from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
+from src.common.process import html_to_text_h2t
 from src.config.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_update_data
@@ -94,10 +93,13 @@ async def playwright_main(wechat_name: str):
             page = await context.new_page()
             # 进行公众号检索
             await page.goto("https://weixin.sogou.com/")
+            await page.wait_for_load_state()
             await page.click('input[name="query"]')
             await page.fill('input[name="query"]', wechat_name)
+            await asyncio.sleep(1)
             await page.click("text=搜公众号")
             await page.wait_for_load_state()
+            # await page.pause()
             # 抓取最新文章标题
             sg_html_handle = await page.query_selector("html")
             sg_html = await sg_html_handle.inner_html()
