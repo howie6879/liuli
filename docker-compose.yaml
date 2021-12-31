@@ -5,7 +5,7 @@ services:
     restart: always
     container_name: liuli_api
     ports:
-      - "8060:8060"
+      - "8765:8765"
     volumes:
       - ./pro.env:/data/code/pro.env
     links:
@@ -15,7 +15,7 @@ services:
     networks:
       - liuli-network
   liuli_schedule:
-    image: liuliio/schedule:v0.1.2
+    image: liuliio/schedule:v0.1.3
     restart: always
     container_name: liuli_schedule
     volumes:
@@ -30,10 +30,14 @@ services:
     image: mongo:3.6
     restart: always
     container_name: liuli_mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=liuli
+      - MONGO_INITDB_ROOT_PASSWORD=liuli
     ports:
       - "27027:27017"
     volumes:
       - ./mongodb_data:/data/db
+    command: mongod
     networks:
       - liuli-network
 

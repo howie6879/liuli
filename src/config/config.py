@@ -29,7 +29,7 @@ class Config:
     DEBUG = bool(os.getenv("LL_FLASK_DEBUG", "0") == "1")
     TIMEZONE = "Asia/Shanghai"
     HOST = os.getenv("LL_HOST", "127.0.0.1")
-    HTTP_PORT = int(os.getenv("LL_HTTP_PORT", "8060"))
+    HTTP_PORT = int(os.getenv("LL_HTTP_PORT", "8765"))
     WORKERS = int(os.getenv("LL_WORKERS", "1"))
     AUTH_KEY = os.getenv("LL_AUTH_KEY", "123456")
 
@@ -41,6 +41,8 @@ class Config:
         "host": os.getenv("LL_M_HOST", "0.0.0.0"),
         "port": int(os.getenv("LL_M_PORT", "27017")),
         "db": os.getenv("LL_M_DB", "liuli"),
+        # 不设置就默认等于 LL_M_DB，针对设置了默认db是admin情况下，想再单独设置操作DB
+        "op_db": os.getenv("LL_M_OP_DB", os.getenv("LL_M_DB", "liuli")),
     }
 
     # 采集器配置
