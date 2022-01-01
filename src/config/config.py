@@ -77,3 +77,5 @@ class Config:
     # TG分发器参数配置
     TG_CHAT_ID = os.getenv("LL_TG_CHAT_ID", "")
     TG_TOKEN = os.getenv("LL_TG_TOKEN", "")
+    # Bark 分发器参数配置
+    BARK_URL = os.getenv("LL_BARK_URL", "")
