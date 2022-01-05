@@ -9,7 +9,7 @@
 import time
 
 from src.classifier import model_predict_factory
-from src.collector.wechat_sougou import start as satrt_wechat
+from src.collector.collect_factory import collect_factory
 from src.common.process import fetch_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
@@ -24,7 +24,9 @@ def update_wechat_doc():
     :return:
     """
     # TODO 统一的地方进行配置管理
-    satrt_wechat.run(Config.WECHAT_LIST)
+    t_collect_type = "wechat_sougou"
+    t_collect_config = {"wechat_list": Config.WECHAT_LIST, "delta_time": 5}
+    collect_factory(t_collect_type, t_collect_config)
 
 
 def update_ads_tag(is_force=False):
