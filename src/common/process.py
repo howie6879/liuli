@@ -54,7 +54,6 @@ def html_to_text_h2t(html: str):
 
 
 if __name__ == "__main__":
-
     url = "https://mp.weixin.qq.com/s/GLo6hs2infzxynN64MjyIQ"
     resp = send_get_request(url)
     text = html_to_text_h2t(resp.text)

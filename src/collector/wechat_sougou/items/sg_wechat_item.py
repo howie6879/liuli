@@ -10,7 +10,7 @@ from ruia_ua import middleware as ua_middleware
 class SGWechatItem(Item):
     """
     搜索搜狗微信公众号页面信息提取类，一般是只会有一个结果
-    示例：https://weixin.sogou.com/weixin?query=小众
+    示例：https://weixin.sogou.com/weixin?query=老胡的储物柜
     """
 
     # 默认此页面是多行内容列表
