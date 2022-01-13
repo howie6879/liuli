@@ -9,5 +9,9 @@
     "python.linting.pylintEnabled": true,
     "python.testing.pytestEnabled": true,
     // "python.envFile": "${workspaceFolder}/pro.env"
-    "python.envFile": "${workspaceFolder}/.env"
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false
 }

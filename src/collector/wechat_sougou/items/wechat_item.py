@@ -17,7 +17,9 @@ class WechatItem(Item):
 
     # 文章标题
     # doc_name = AttrField(css_select='meta[property="og:title"]', attr="content")
-    doc_name = AttrField(css_select='meta[property="og:title"]', attr="content")
+    doc_name = AttrField(
+        css_select='meta[property="og:title"]', attr="content", default=""
+    )
     # 描述
     doc_des = AttrField(
         css_select='meta[property="og:description"]', attr="content", default=""
@@ -36,10 +38,10 @@ class WechatItem(Item):
     )
     # 文章发布日期
     # doc_date = TextField(css_select="em#publish_time", default="")
-    doc_date = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="")
+    doc_date = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="2099-01-01 00:00")
     # 文章发布时间戳
     # doc_ts = TextField(css_select="em#publish_time", default="")
-    doc_ts = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="")
+    doc_ts = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="2099-01-01 00:00")
     # 文章图
     doc_image = AttrField(
         css_select='meta[property="og:image"]', attr="content", default=""
