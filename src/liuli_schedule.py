@@ -4,7 +4,7 @@
     Description：统一调度入口
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
         - 命令: pipenv run pro_schedule or PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/liuli_schedule.py
-    - 调度时间：每日的 "00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"
+    - 调度时间：每日的 ["00:10", "12:10", "21:10"]
     Changelog: all notable changes to this file will be documented
 """
 import time

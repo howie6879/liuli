@@ -3,8 +3,8 @@
     Description: 基于 Ruia 的搜狗微信页面 Item 提取类
     Changelog: all notable changes to this file will be documented
 """
-from ruia import AttrField, Item, Spider, TextField
-from ruia_ua import middleware as ua_middleware
+
+from ruia import AttrField, Item, TextField
 
 
 class SGWechatItem(Item):
@@ -46,26 +46,3 @@ class SGWechatItem(Item):
         if latest_href:
             f_url = f"https://weixin.sogou.com/{latest_href}"
         return f_url
-
-
-class SGWechatSpider(Spider):
-    """微信文章爬虫"""
-
-    name = "SGWechatSpider"
-    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 20}
-    concurrency = 10
-    # aiohttp config
-    aiohttp_kwargs = {}
-
-    async def parse(self, response):
-        html = await response.text()
-        item_list = []
-        async for item in SGWechatItem.get_items(html=html):
-            item_list.append(item)
-        print(item_list)
-
-
-if __name__ == "__main__":
-    sg_url = "https://weixin.sogou.com/weixin?type=1&query={}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
-    SGWechatSpider.start_urls = [sg_url.format("老胡的储物柜")]
-    SGWechatSpider.start(middleware=ua_middleware)
