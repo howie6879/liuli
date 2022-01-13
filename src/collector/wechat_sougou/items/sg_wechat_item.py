@@ -15,8 +15,8 @@ class SGWechatItem(Item):
 
     # 默认此页面是多行内容列表
     target_item = TextField(css_select="div.news-box>ul>li")
-    wechat_name = TextField(css_select="p.tit>a")
-    wechat_id = TextField(css_select='label[name="em_weixinhao"]')
+    wechat_name = TextField(css_select="p.tit>a", default="")
+    wechat_id = TextField(css_select='label[name="em_weixinhao"]', default="")
     latest_title = TextField(css_select='dd>a[target="_blank"]', default="暂无更新")
     latest_href = AttrField(css_select='dd>a[target="_blank"]', attr="href", default="")
 
