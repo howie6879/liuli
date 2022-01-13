@@ -14,13 +14,13 @@
 - [ ] 配置化开发，自定义输入、处理、输出
 - [ ] 阅读源管控，构建知识管理平台
 - [ ] 机器学习赋能：验证码识别、广告分类、智能标签
-- [ ] Github做源信息持久化
+- [ ] 信息备份: Github
 - [ ] 官方案例技术支持
 
 使用场景：
 - [x] 公众号**广告问题**：避免公众号阅读环境的广告轰炸，案例见：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
-- [ ] 新闻追踪
-- [ ] 小说追更
+- [ ] 信息监控
+- [ ] 数据备份
 
 ## 🍥 使用
 
@@ -111,11 +111,10 @@ Loading .env environment variables...
 
 - [Flask](https://github.com/pallets/flask): web 框架
 - [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架
-- [docker-playwright-python](https://github.com/danofun/docker-playwright-python): `playwright-python` 的 `Docker` 镜像
+- [playwright](https://playwright.dev/): 终端爬虫失效后考虑使用浏览器进行数据抓取，默认不启用
 - [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
-- [CharCnn_Keras](https://github.com/mhjabreel/CharCnn_Keras)
 
-感谢以下开发者的贡献（排名不分先后）：
+您任何PR都是对`Liuli`项目的大力支持，非常感谢以下开发者的贡献（排名不分先后）：
 
 <!-- To get src for img: https://api.github.com/users/username -->
 <a href="https://github.com/howie6879"><img src="https://avatars.githubusercontent.com/u/17047388?s=60&v=4" title="howie6879" width="40" height="40" ></a>
