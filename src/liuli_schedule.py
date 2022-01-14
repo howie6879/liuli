@@ -12,7 +12,7 @@ import time
 import schedule
 
 from src.config.config import Config
-from src.middleware.rss import gen_rss_xml
+from src.processor.rss import gen_rss_xml
 from src.schedule_task.wechat_task import send_doc, update_ads_tag, update_wechat_doc
 from src.utils import LOGGER
 

@@ -10,9 +10,9 @@ import time
 
 from src.classifier import model_predict_factory
 from src.collector.collect_factory import collect_factory
-from src.common.process import fetch_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
+from src.processor import fetch_keyword_list
 from src.sender import send_factory
 from src.utils.log import LOGGER
 
@@ -25,7 +25,12 @@ def update_wechat_doc():
     """
     # TODO 统一的地方进行配置管理
     t_collect_type = "wechat_sougou"
-    t_collect_config = {"wechat_list": Config.WECHAT_LIST, "delta_time": 5}
+    t_collect_config = {
+        "wechat_list": Config.WECHAT_LIST,
+        "delta_time": 5,
+        # playwright
+        "spider_type": "playwright",
+    }
     collect_factory(t_collect_type, t_collect_config)
 
 

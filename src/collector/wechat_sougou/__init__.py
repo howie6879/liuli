@@ -5,4 +5,4 @@
         Solution: https://playwright.dev/python/docs/intro
     Changelog: all notable changes to this file will be documented
 """
-from .playwright_start import run
+from .start import run

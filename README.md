@@ -111,7 +111,7 @@ Loading .env environment variables...
 
 - [Flask](https://github.com/pallets/flask): web 框架
 - [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架
-- [playwright](https://playwright.dev/): 终端爬虫失效后考虑使用浏览器进行数据抓取，默认不启用
+- [playwright](https://playwright.dev/): 使用浏览器进行数据抓取
 - [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
 
 您任何PR都是对`Liuli`项目的大力支持，非常感谢以下开发者的贡献（排名不分先后）：

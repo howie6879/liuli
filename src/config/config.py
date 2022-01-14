@@ -15,9 +15,11 @@ class Config:
 
     # 基础配置
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-    MODEL_DIR = os.path.join(BASE_DIR, "model_data")
+    # 模型相关路径
+    MODEL_DIR = os.path.join(os.path.join(BASE_DIR, "classifier"), "model_data")
     FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), ".files")
     DS_DIR = os.path.join(FILE_DIR, "datasets")
+    # API 相关路径
     API_DIR = os.path.join(BASE_DIR, "api")
     API_TEM_DIR = os.path.join(API_DIR, "templates")
     API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
