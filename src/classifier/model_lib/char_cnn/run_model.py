@@ -87,7 +87,7 @@ def train_model():
     X_train, X_valid, y_train, y_valid = train_test_split(
         X_train_val, y_train_val, test_size=0.125, random_state=6
     )
-    model_path = os.path.join(Config.BASE_DIR, "model_data/char_cnn/v1.0.h5")
+    model_path = os.path.join(Config.BASE_DIR, "classifier/model_data/char_cnn/v1.0.h5")
 
     char_cnn_model.train(
         training_inputs=X_train,
@@ -131,7 +131,7 @@ def valid():
     测试模型
     :return:
     """
-    model_path = os.path.join(Config.BASE_DIR, "model_data/char_cnn/v1.0.h5")
+    model_path = os.path.join(Config.BASE_DIR, "classifier/model_data/char_cnn/v1.0.h5")
     model = load_model(model_path)
     print(model)
 

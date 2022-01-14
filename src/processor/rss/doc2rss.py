@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2021-12-27.
     Description: RSS相关脚本
-        - 生成RSS命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/sender/rss/doc2rss.py
+        - 生成RSS命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss/doc2rss.py
     Changelog: all notable changes to this file will be documented
 """
 import time
@@ -74,7 +74,8 @@ def gen_rss_xml(wechat_list: list = None):
                     fe.link(href=doc_link)
                     fe.description(doc_des)
                     fe.author(name=f"{wechat_name} - {doc_author}")
-                    fe.content(doc_core_html)
+                    # 内容先为空
+                    fe.content("")
                     fe.pubDate(
                         pytz.timezone("Asia/Shanghai").localize(
                             datetime.fromtimestamp(doc_ts)

@@ -1,5 +1,5 @@
-# FROM mcr.microsoft.com/playwright:focal
-FROM python:3.7.11
+FROM mcr.microsoft.com/playwright:focal
+# FROM python:3.7.11
 ENV APP_ROOT=/data/code \
     TIME_ZONE=Asia/Shanghai
 WORKDIR ${APP_ROOT}/

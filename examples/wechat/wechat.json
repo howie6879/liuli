@@ -4,22 +4,33 @@
     "collector": {
         "wechat_sougou": {
             "collect_config": {
-                "wechat_list": ["老胡的储物柜"],
+                "wechat_list": [
+                    "老胡的储物柜"
+                ],
                 "delta_time": 5
             }
         }
     },
     "processor": {
-        "ads_tag": {
-            "cos_value": 0.6
+        "before_start": {},
+        "after_collect": {
+            "to_rss": {},
+            "ads_tag": {
+                "cos_value": 0.6
+            }
         }
     },
     "sender": {
-        "wecom": {}
+        "sender_list": ["wecom"]
     },
-    "to_rss": true,
     "backup": {
-        "github": {}
+        "github": {
+            "token": ""
+        }
     },
-    "schedule": ["00:10", "12:10", "21:10"]
+    "schedule": [
+        "00:10",
+        "12:10",
+        "21:10"
+    ]
 }

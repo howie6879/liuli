@@ -27,9 +27,10 @@ def fetch_keyword_list(url_or_text: str = None):
         text = html_to_text_h2t(resp.text) if resp else None
     else:
         text = url_or_text
-    tr4w = TextRank4Keyword(
-        stop_words_file=os.path.join(Config.BASE_DIR, "model_data/data/stop_words.txt")
+    stop_file_path = os.path.join(
+        os.path.join(Config.MODEL_DIR, "data"), "stop_words.txt"
     )
+    tr4w = TextRank4Keyword(stop_words_file=stop_file_path)
     tr4w.analyze(text=text, lower=True, window=2)
     keyword_list = []
     for item in tr4w.get_keywords(20, word_min_len=2):
