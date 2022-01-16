@@ -1,11 +1,10 @@
-#!/usr/bin/env python
 """
     Created by howie.hu at 2021/4/7.
     Description：通用函数
     Changelog: all notable changes to this file will be documented
 """
-
 import hashlib
+import re
 import time
 
 
@@ -59,5 +58,15 @@ def ts_to_str_date(ts: int, ts_format: str = "%Y-%m-%d %H:%M:%S"):
     return time.strftime(ts_format, time.localtime(int(ts)))
 
 
+def string_camelcase(string: str) -> str:
+    """
+    方便普通字符串转化成大写开头命名的形式
+    :param string:
+    :return:
+    """
+    return re.compile(r"[^a-zA-Z\d]").sub("", string.title())
+
+
 if __name__ == "__main__":
     print(ts_to_str_date(1640062200.0))
+    print(string_camelcase("github_backup"))

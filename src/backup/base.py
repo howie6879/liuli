@@ -11,20 +11,20 @@ from src.databases import MongodbManager
 from src.utils import LOGGER
 
 
-class BakupBase:
+class BackupBase:
     """
     备份工厂父类
     :return:
     """
 
-    def __init__(self, bakup_type: str, bakup_config: dict):
+    def __init__(self, backup_type: str, backup_config: dict):
         """
         初始化相关配置
-        :param bakup_type: 下发目标类型
-        :param bakup_config: 下发目标类型相关配置，如密钥之类
+        :param backup_type: 下发目标类型
+        :param backup_config: 下发目标类型相关配置，如密钥之类
         """
-        self.bakup_type = bakup_type
-        self.bakup_config = bakup_config
+        self.backup_type = backup_type
+        self.backup_config = backup_config
         # 初始化数据库
         self.mongo_base = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG
@@ -44,7 +44,7 @@ class BakupBase:
         """
         curl = self.bak_coll.find(
             {
-                "bakup_type": self.bakup_type,
+                "backup_type": self.backup_type,
                 "doc_source": doc_source,
                 "doc_source_name": doc_source_name,
                 "doc_name": doc_name,
@@ -65,7 +65,7 @@ class BakupBase:
         file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
         try:
             filter_dict = {
-                "bakup_type": self.bakup_type,
+                "backup_type": self.backup_type,
                 "doc_source": doc_source,
                 "doc_source_name": doc_source_name,
                 "doc_name": doc_name,
@@ -74,9 +74,9 @@ class BakupBase:
             self.bak_coll.update_one(
                 filter=filter_dict, update=update_data, upsert=True
             )
-            LOGGER.info(f"Backup({self.bakup_type}): 文章 {file_msg} 状态保存成功！")
+            LOGGER.info(f"Backup({self.backup_type}): 文章 {file_msg} 状态保存成功！")
         except Exception as e:
-            LOGGER.error(f"Backup({self.bakup_type}): 文章 {file_msg} 状态保存失败！{e}")
+            LOGGER.error(f"Backup({self.backup_type}): 文章 {file_msg} 状态保存失败！{e}")
 
     def delete_backup(
         self, doc_source: str, doc_source_name: str, doc_name: str
@@ -94,15 +94,15 @@ class BakupBase:
         try:
             self.bak_coll.delete_one(
                 {
-                    "bakup_type": self.bakup_type,
+                    "backup_type": self.backup_type,
                     "doc_source": doc_source,
                     "doc_source_name": doc_source_name,
                     "doc_name": doc_name,
                 }
             )
-            LOGGER.info(f"Backup({self.bakup_type}): 文章 {file_msg} 状态删除成功！")
+            LOGGER.info(f"Backup({self.backup_type}): 文章 {file_msg} 状态删除成功！")
         except Exception as e:
-            LOGGER.error(f"Backup({self.bakup_type}): 文章 {file_msg} 状态删除失败！{e}")
+            LOGGER.error(f"Backup({self.backup_type}): 文章 {file_msg} 状态删除失败！{e}")
 
     def backup(self, backup_data) -> bool:
         """
