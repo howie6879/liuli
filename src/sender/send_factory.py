@@ -3,6 +3,9 @@
     Created by howie.hu at 2021/4/10.
     Description：分发器工厂，支持分发终端如下：
         - 钉钉
+        - 企业微信
+        - TG
+        - Bark
     Changelog: all notable changes to this file will be documented
 """
 

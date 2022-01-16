@@ -7,23 +7,23 @@
 
 from github import Github, GithubException
 
-from src.backup.base import BakupBase
+from src.backup.base import BackupBase
 from src.common.remote import send_get_request
 from src.config import Config
 from src.utils import LOGGER
 
 
-class GithubBackup(BakupBase):
+class GithubBackup(BackupBase):
     """基于Github进行文章备份"""
 
-    def __init__(self, bakup_config: dict):
+    def __init__(self, backup_config: dict):
         """
         初始化相关变量
         :param send_config:
         """
-        super().__init__(bakup_type="github", bakup_config=bakup_config)
-        github_token = bakup_config.get("github_token", Config.GITHUB_TOKEN)
-        github_repo = bakup_config.get("github_repo", Config.GITHUB_REPO)
+        super().__init__(backup_type="github", backup_config=backup_config)
+        github_token = backup_config.get("github_token", Config.GITHUB_TOKEN)
+        github_repo = backup_config.get("github_repo", Config.GITHUB_REPO)
         g = Github(github_token)
         self.repo = g.get_repo(github_repo)
 
@@ -70,7 +70,7 @@ class GithubBackup(BakupBase):
                         resp.text,
                     )
 
-                LOGGER.info(f"Backup({self.bakup_type}): {file_path} 上传成功！")
+                LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
                 # 保存当前文章状态
                 self.save_backup(
                     doc_source=doc_source,
@@ -78,9 +78,9 @@ class GithubBackup(BakupBase):
                     doc_name=doc_name,
                 )
             except GithubException as e:
-                LOGGER.error(f"Backup({self.bakup_type}): {file_path} 上传失败！{e}")
+                LOGGER.error(f"Backup({self.backup_type}): {file_path} 上传失败！{e}")
         else:
-            LOGGER.info(f"Backup({self.bakup_type}): {file_path} 已存在！")
+            LOGGER.info(f"Backup({self.backup_type}): {file_path} 已存在！")
 
     def delete(self, doc_source: str, doc_source_name: str, doc_name: str) -> bool:
         """删除某个文件
@@ -99,7 +99,7 @@ class GithubBackup(BakupBase):
             _ = self.repo.delete_file(
                 contents.path, f"Remove {file_path}", contents.sha
             )
-            LOGGER.info(f"Backup({self.bakup_type}): {file_path} 删除成功！")
+            LOGGER.info(f"Backup({self.backup_type}): {file_path} 删除成功！")
             # 删除当前文章状态
             self.delete_backup(
                 doc_source=doc_source,
@@ -107,7 +107,7 @@ class GithubBackup(BakupBase):
                 doc_name=doc_name,
             )
         except Exception as e:
-            LOGGER.error(f"Backup({self.bakup_type}): {file_path} 删除失败！{e}")
+            LOGGER.error(f"Backup({self.backup_type}): {file_path} 删除失败！{e}")
 
 
 if __name__ == "__main__":
@@ -120,8 +120,8 @@ if __name__ == "__main__":
     }
     github_backup = GithubBackup({})
     github_backup.backup(test_backup_data)
-    github_backup.delete(
-        doc_source="liuli_wechat",
-        doc_source_name="老胡的储物柜",
-        doc_name="打造一个干净且个性化的公众号阅读环境",
-    )
+    # github_backup.delete(
+    #     doc_source="liuli_wechat",
+    #     doc_source_name="老胡的储物柜",
+    #     doc_name="打造一个干净且个性化的公众号阅读环境",
+    # )
