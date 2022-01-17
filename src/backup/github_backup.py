@@ -63,12 +63,12 @@ class GithubBackup(BackupBase):
                 try:
                     _ = self.repo.get_contents(file_path)
                 except Exception as e:
+                    # 调试，先硬编码
+                    before_str = 'data-src="'
+                    after_str = 'src="https://images.weserv.nl/?url='
+                    content = resp.text.replace(before_str, after_str)
                     # 不存在
-                    _ = self.repo.create_file(
-                        file_path,
-                        f"Add {file_msg}",
-                        resp.text,
-                    )
+                    _ = self.repo.create_file(file_path, f"Add {file_msg}", content)
 
                 LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
                 # 保存当前文章状态
@@ -120,8 +120,8 @@ if __name__ == "__main__":
     }
     github_backup = GithubBackup({})
     github_backup.backup(test_backup_data)
-    # github_backup.delete(
-    #     doc_source="liuli_wechat",
-    #     doc_source_name="老胡的储物柜",
-    #     doc_name="打造一个干净且个性化的公众号阅读环境",
-    # )
+    github_backup.delete(
+        doc_source="liuli_wechat",
+        doc_source_name="老胡的储物柜",
+        doc_name="打造一个干净且个性化的公众号阅读环境",
+    )

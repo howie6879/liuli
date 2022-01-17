@@ -15,6 +15,17 @@ from src.common.remote import send_get_request
 from src.config import Config
 
 
+def str_replace(text: str, before_str: str, after_str: str):
+    """文本替换
+
+    Args:
+        text (str): 原始文本
+        before_str (str): 替换前
+        after_str (str): 替换后
+    """
+    return str(text).replace(before_str, after_str)
+
+
 def fetch_keyword_list(url_or_text: str = None):
     """
     获取文本的关键词列表

@@ -12,25 +12,30 @@
         }
     },
     "processor": {
-        "before_start": {},
-        "after_collect": {
-            "to_rss": {},
-            "ads_tag": {
-                "cos_value": 0.6
-            }
-        }
+        "before_start": [],
+        "after_collect": [{
+            "func": "to_rss"
+        }, {
+            "func": "ads_tag",
+            "cos_value": 0.6
+        }],
+        "before_backup": [{
+            "func": "str_replace",
+            "before_str": "data-src=\"",
+            "after_str": "src=\"https://images.weserv.nl/?url="
+        }]
     },
     "sender": {
         "sender_list": ["wecom"]
     },
     "backup": {
-        "github": {
-            "token": ""
-        }
+        "backup_list": ["github"]
     },
-    "schedule": [
-        "00:10",
-        "12:10",
-        "21:10"
-    ]
+    "schedule": {
+        "period_list": [
+            "00:10",
+            "12:10",
+            "21:10"
+        ]
+    }
 }
