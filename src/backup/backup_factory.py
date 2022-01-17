@@ -45,4 +45,11 @@ if __name__ == "__main__":
     }
 
     github_backup = backup_factory(backup_type="github", backup_config={})
+
+    github_backup.delete(
+        doc_source="liuli_wechat",
+        doc_source_name="老胡的储物柜",
+        doc_name="打造一个干净且个性化的公众号阅读环境",
+    )
+
     github_backup.backup(test_backup_data)
