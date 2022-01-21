@@ -7,7 +7,7 @@
 import time
 
 from src.config import Config
-from src.databases import MongodbManager
+from src.databases import MongodbBase, MongodbManager
 from src.utils import LOGGER
 
 
@@ -26,7 +26,7 @@ class BackupBase:
         self.backup_type = backup_type
         self.backup_config = backup_config
         # 初始化数据库
-        self.mongo_base = MongodbManager.get_mongo_base(
+        self.mongo_base: MongodbBase = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG
         )
         # liuli_send_list 存储所有已经备份过的文章列表
@@ -70,7 +70,7 @@ class BackupBase:
                 "doc_source_name": doc_source_name,
                 "doc_name": doc_name,
             }
-            update_data = {"$set": {**filter_dict, **{"ts": time.time()}}}
+            update_data = {"$set": {**filter_dict, **{"ts": int(time.time())}}}
             self.bak_coll.update_one(
                 filter=filter_dict, update=update_data, upsert=True
             )
