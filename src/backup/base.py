@@ -17,14 +17,14 @@ class BackupBase:
     :return:
     """
 
-    def __init__(self, backup_type: str, backup_config: dict):
+    def __init__(self, backup_type: str, init_config: dict):
         """
         初始化相关配置
         :param backup_type: 下发目标类型
-        :param backup_config: 下发目标类型相关配置，如密钥之类
+        :param init_config: 下发目标类型相关配置，如密钥之类
         """
         self.backup_type = backup_type
-        self.backup_config = backup_config
+        self.init_config = init_config
         # 初始化数据库
         self.mongo_base: MongodbBase = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG
@@ -104,7 +104,7 @@ class BackupBase:
         except Exception as e:
             LOGGER.error(f"Backup({self.backup_type}): 文章 {file_msg} 状态删除失败！{e}")
 
-    def backup(self, backup_data) -> bool:
+    def save(self, backup_data) -> bool:
         """
         执行备份动作，每个子类必须实现的方法
         :param send_data: 发送列表

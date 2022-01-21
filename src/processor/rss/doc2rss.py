@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2021-12-27.
     Description: RSS相关脚本
-        - 生成RSS命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss/doc2rss.py
+        - 生成RSS命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss/doc2rss.py
     Changelog: all notable changes to this file will be documented
 """
 import time
@@ -12,6 +12,7 @@ import pytz
 
 from feedgen.feed import FeedGenerator
 
+from src import config
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_find, mongodb_update_data
@@ -62,9 +63,11 @@ def to_rss(wechat_list: list = None):
                 fg.author({"name": "liuli"})
                 for each in f_db_info:
                     doc_name = each["doc_name"]
+                    if not doc_name:
+                        continue
                     doc_des = each["doc_des"]
                     doc_link = each["doc_link"]
-                    doc_author = each["doc_author"]
+                    doc_author = each["doc_author"] or "liuli_defaults"
                     doc_ts = each["doc_ts"]
                     doc_core_html = each.get("doc_core_html", "")
                     # 构造 RSS
@@ -81,27 +84,26 @@ def to_rss(wechat_list: list = None):
                             datetime.fromtimestamp(doc_ts)
                         )
                     )
+                try:
+                    rss_data = str(fg.atom_str(pretty=True), "utf-8")
+                    # 更新 RSS 内容
+                    rss_db_data = {
+                        "doc_source_name": wechat_name,
+                        "rss_data": rss_data,
+                        "updated_at": int(time.time()),
+                    }
+                    rss_db_res = mongodb_update_data(
+                        coll_conn=coll_rss_conn,
+                        filter_dict=filter_dict,
+                        update_data={"$set": rss_db_data},
+                    )
+                    if rss_db_res["status"]:
+                        msg = f"😀 为 {wechat_name} 的 {len(f_db_info)} 篇文章生成RSS成功!"
+                    else:
+                        msg = f"😿 为 {wechat_name} 的 {len(f_db_info)} 篇文章生成RSS失败!"
+                except Exception as e:
+                    msg = f"😿 为 {wechat_name} 的 {len(f_db_info)} 篇文章生成RSS失败, 非法数据! {e}"
 
-                # xml_filename = os.path.join(
-                #     Config.API_TEM_RSS_DIR, f"{wechat_name}.xml"
-                # )
-                # fg.atom_file(xml_filename)
-                rss_data = str(fg.atom_str(pretty=True), "utf-8")
-                # 更新 RSS 内容
-                rss_db_data = {
-                    "doc_source_name": wechat_name,
-                    "rss_data": rss_data,
-                    "updated_at": int(time.time()),
-                }
-                rss_db_res = mongodb_update_data(
-                    coll_conn=coll_rss_conn,
-                    filter_dict=filter_dict,
-                    update_data={"$set": rss_db_data},
-                )
-                if rss_db_res["status"]:
-                    msg = f"😀 为 {wechat_name} 的 {len(f_db_info)} 篇文章生成RSS成功!"
-                else:
-                    msg = f"😿 为 {wechat_name} 的 {len(f_db_info)} 篇文章生成RSS失败!"
             else:
                 msg = f"查询成功 {wechat_name} 暂无历史文章!"
             LOGGER.info(msg)

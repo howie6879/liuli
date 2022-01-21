@@ -4,4 +4,3 @@
     Description：分发器模块
     Changelog: all notable changes to this file will be documented
 """
-from .send_factory import send_factory

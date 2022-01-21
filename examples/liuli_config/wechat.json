@@ -7,7 +7,8 @@
                 "wechat_list": [
                     "老胡的储物柜"
                 ],
-                "delta_time": 5
+                "delta_time": 5,
+                "spider_type": "playwright"
             }
         }
     },
@@ -19,17 +20,20 @@
             "func": "ads_tag",
             "cos_value": 0.6
         }],
-        "before_backup": [{
+        "before_backup_save": [{
             "func": "str_replace",
             "before_str": "data-src=\"",
             "after_str": "src=\"https://images.weserv.nl/?url="
         }]
     },
     "sender": {
-        "sender_list": ["wecom"]
+        "sender_list": ["wecom", "dings"]
     },
     "backup": {
-        "backup_list": ["github"]
+        "backup_list": ["github", "mongodb"],
+        "query_days": 1,
+        "delta_time": 5,
+        "init_config": {}
     },
     "schedule": {
         "period_list": [

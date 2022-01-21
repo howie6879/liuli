@@ -4,4 +4,9 @@
     Changelog: all notable changes to this file will be documented
 """
 from .rss import to_rss
-from .utils import fetch_keyword_list, html_to_text_h2t, str_replace
+from .text_utils import (
+    fetch_keyword_list,
+    html_to_text_h2t,
+    str_replace,
+    update_ads_tag,
+)
