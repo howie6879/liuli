@@ -2,11 +2,12 @@
 """
     Created by howie.hu at 2021/4/10.
     Description：HTTP API 服务
+        - 启动命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run  gunicorn -c src/config/gunicorn.py src.api.http_app:app
     Changelog: all notable changes to this file will be documented
 """
 from flask import Flask
 
-from src.api.views import bp_api, bp_rss
+from src.api.views import bp_api, bp_backup, bp_rss
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils.log import get_logger
@@ -34,6 +35,7 @@ def create_app():
 
     flask_app.register_blueprint(bp_api)
     flask_app.register_blueprint(bp_rss)
+    flask_app.register_blueprint(bp_backup)
     return flask_app
 
 
@@ -41,5 +43,4 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    # PIPENV_DOTENV_LOCATION=./pro.env pipenv run  gunicorn -c src/config/gunicorn.py src.api.http_app:app
     app.run(host=Config.HOST, port=Config.HTTP_PORT, debug=Config.DEBUG)
