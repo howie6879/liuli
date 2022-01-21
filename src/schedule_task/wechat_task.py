@@ -88,7 +88,7 @@ def send_doc():
         # 是否启用分发器
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
         coll = mongo_base.get_collection(coll_name="liuli_articles")
-        cur_ts = time.time()
+        cur_ts = int(time.time())
         filter_dict = {
             # 时间范围，除第一次外后面其实可以去掉
             "doc_ts": {"$gte": cur_ts - (2 * 24 * 60 * 60), "$lte": cur_ts},

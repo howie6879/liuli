@@ -37,7 +37,6 @@ class GithubBackup(BackupBase):
             bool: 是否成功
         """
         # 以下字段必须存在
-        doc_id = backup_data["doc_id"]
         doc_source = backup_data["doc_source"]
         doc_source_name = backup_data["doc_source_name"]
         doc_name = backup_data["doc_name"]

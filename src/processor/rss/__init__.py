@@ -3,4 +3,4 @@
     Description: 将文章生成RSS
     Changelog: all notable changes to this file will be documented
 """
-from .doc2rss import gen_rss_xml
+from .doc2rss import to_rss

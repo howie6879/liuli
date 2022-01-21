@@ -155,7 +155,7 @@ class WeComSender(SenderBase):
                         {
                             "send_type": self.send_type,
                             "doc_id": doc_id,
-                            "ts": time.time(),
+                            "ts": int(time.time()),
                         }
                     )
 

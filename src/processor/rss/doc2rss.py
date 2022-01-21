@@ -18,11 +18,11 @@ from src.databases.mongodb_tools import mongodb_find, mongodb_update_data
 from src.utils import LOGGER
 
 
-def gen_rss_xml(wechat_list: list = None):
-    """为公众号文章生成RSS
+def to_rss(wechat_list: list = None):
+    """为文章生成RSS
 
     Args:
-        wechat_list (list, optional): 公众号文章列表.
+        wechat_list (list, optional): 文章列表.
     """
     wechat_list = wechat_list or Config.WECHAT_LIST
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
@@ -91,7 +91,7 @@ def gen_rss_xml(wechat_list: list = None):
                 rss_db_data = {
                     "doc_source_name": wechat_name,
                     "rss_data": rss_data,
-                    "updated_at": time.time(),
+                    "updated_at": int(time.time()),
                 }
                 rss_db_res = mongodb_update_data(
                     coll_conn=coll_rss_conn,
@@ -111,4 +111,4 @@ def gen_rss_xml(wechat_list: list = None):
 
 
 if __name__ == "__main__":
-    gen_rss_xml()
+    to_rss()
