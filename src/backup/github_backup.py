@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2022-01-15.
     Description: 基于github做备份
-        - 命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/backup/github_backup.py
+        - 命令：s
     Changelog: all notable changes to this file will be documented
 """
 
@@ -16,18 +16,18 @@ from src.utils import LOGGER
 class GithubBackup(BackupBase):
     """基于Github进行文章备份"""
 
-    def __init__(self, backup_config: dict):
+    def __init__(self, init_config: dict):
         """
         初始化相关变量
         :param send_config:
         """
-        super().__init__(backup_type="github", backup_config=backup_config)
-        github_token = backup_config.get("github_token", Config.GITHUB_TOKEN)
-        github_repo = backup_config.get("github_repo", Config.GITHUB_REPO)
+        super().__init__(backup_type="github", init_config=init_config or {})
+        github_token = init_config.get("github_token", Config.GITHUB_TOKEN)
+        github_repo = init_config.get("github_repo", Config.GITHUB_REPO)
         g = Github(github_token)
         self.repo = g.get_repo(github_repo)
 
-    def backup(self, backup_data: dict) -> bool:
+    def save(self, backup_data: dict) -> bool:
         """执行备份动作
 
         Args:
@@ -118,7 +118,7 @@ if __name__ == "__main__":
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
     }
     github_backup = GithubBackup({})
-    github_backup.backup(test_backup_data)
+    github_backup.save(test_backup_data)
     github_backup.delete(
         doc_source="liuli_wechat",
         doc_source_name="老胡的储物柜",

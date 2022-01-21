@@ -17,7 +17,8 @@ def load_data(input_data: dict):
     flag = False
     doc_source_name = input_data.get("doc_source_name")
     doc_source = input_data.get("doc_source")
-    if doc_source_name and doc_source:
+    doc_name = input_data.get("doc_name")
+    if doc_source_name and doc_source and doc_name:
         # 抓取成功进行持久化
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
         coll_conn = mongo_base.get_collection(coll_name="liuli_articles")
@@ -35,6 +36,6 @@ def load_data(input_data: dict):
         else:
             msg = f"来自 {doc_source} 的文章持久化失败! 👉 {doc_source_name} {db_res['info']}"
     else:
-        msg = f"来自 {doc_source} 的文章抓取失败! 👉 {doc_source_name} "
+        msg = f"来自 {doc_source} 的文章抓取失败! 👉 {doc_source}/{doc_source_name}/{doc_name} "
     LOGGER.info(msg)
     return flag

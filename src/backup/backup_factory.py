@@ -15,11 +15,11 @@ from src.utils import LOGGER
 from src.utils.tools import string_camelcase
 
 
-def backup_factory(backup_type: str, backup_config: dict) -> BackupBase:
+def backup_factory(backup_type: str, init_config: dict) -> BackupBase:
     """
     备份器工厂函数
     :param backup_type: 备份类型
-    :param backup_config: 备份配置
+    :param init_config: 备份配置
     :return:
     """
     backup_ins = None
@@ -28,10 +28,10 @@ def backup_factory(backup_type: str, backup_config: dict) -> BackupBase:
         backup_module = import_module(f"src.backup.{backup_class_name}")
         # 备份类实例化
         backup_ins = getattr(backup_module, string_camelcase(backup_class_name))(
-            backup_config=backup_config
+            init_config=init_config
         )
     except ModuleNotFoundError:
-        LOGGER.error(f"目标备份类型不存在 {backup_type} - {backup_config}")
+        LOGGER.error(f"目标备份类型不存在 {backup_type} - {init_config}")
     return backup_ins
 
 
@@ -44,8 +44,8 @@ if __name__ == "__main__":
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
     }
 
-    backup = backup_factory(backup_type="mongodb", backup_config={})
-    # backup = backup_factory(backup_type="github", backup_config={})
+    backup = backup_factory(backup_type="mongodb", init_config={})
+    # backup = backup_factory(backup_type="github", init_config={})
 
     backup.delete(
         doc_source="liuli_wechat",
@@ -53,4 +53,4 @@ if __name__ == "__main__":
         doc_name="打造一个干净且个性化的公众号阅读环境",
     )
 
-    backup.backup(test_backup_data)
+    backup.save(test_backup_data)

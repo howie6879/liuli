@@ -11,15 +11,19 @@ import time
 
 import schedule
 
+from src.backup.action import backup_doc
 from src.config.config import Config
+from src.processor import update_ads_tag
 from src.processor.rss import to_rss
-from src.schedule_task.wechat_task import send_doc, update_ads_tag, update_wechat_doc
+from src.schedule_task.wechat_task import update_wechat_doc
+from src.sender.action import send_doc
 from src.utils import LOGGER
 
 
 def schedule_task():
     """
     更新持久化订阅的公众号最新文章
+    TODO: 引入调度框架
     :return:
     """
     # 抓取最新的文章，然后持久化到数据库
@@ -30,6 +34,16 @@ def schedule_task():
     send_doc()
     # 生成 RSS
     to_rss()
+    # 文章备份
+    backup_doc(
+        {
+            "backup_list": ["github", "mongodb"],
+            # "backup_list": ["mongodb"],
+            "query_days": 365,
+            "delta_time": 3,
+            "init_config": {},
+        }
+    )
 
 
 def main():

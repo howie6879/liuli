@@ -19,17 +19,17 @@ from src.utils import LOGGER
 class MongodbBackup(BackupBase):
     """基于MongoDB进行文章备份"""
 
-    def __init__(self, backup_config: dict):
+    def __init__(self, init_config: dict):
         """
         初始化相关变量
         :param send_config: {}
         """
-        super().__init__(backup_type="mongodb", backup_config=backup_config or {})
+        super().__init__(backup_type="mongodb", init_config=init_config or {})
         self.liuli_backup_coll = self.mongo_base.get_collection(
             coll_name="liuli_backup"
         )
 
-    def backup(self, backup_data: dict) -> bool:
+    def save(self, backup_data: dict) -> bool:
         """执行备份动作
 
         Args:
@@ -132,7 +132,9 @@ class MongodbBackup(BackupBase):
                 doc_name=doc_name,
             )
         else:
-            LOGGER.error(f"Backup({self.backup_type}): {file_path} 删除失败！{e}")
+            LOGGER.error(
+                f"Backup({self.backup_type}): {file_path} 删除失败！{db_res['info']}"
+            )
 
 
 if __name__ == "__main__":
@@ -143,7 +145,7 @@ if __name__ == "__main__":
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
     }
     mongo_backup = MongodbBackup({})
-    mongo_backup.backup(test_backup_data)
+    mongo_backup.save(test_backup_data)
     # mongo_backup.delete(
     #     doc_source="liuli_wechat",
     #     doc_source_name="老胡的储物柜",
