@@ -16,7 +16,7 @@ from src.databases.mongodb_tools import (
 from src.utils import LOGGER
 
 
-class MongoBackup(BackupBase):
+class MongodbBackup(BackupBase):
     """基于MongoDB进行文章备份"""
 
     def __init__(self, backup_config: dict):
@@ -142,7 +142,7 @@ if __name__ == "__main__":
         "doc_name": "打造一个干净且个性化的公众号阅读环境",
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
     }
-    mongo_backup = MongoBackup({})
+    mongo_backup = MongodbBackup({})
     mongo_backup.backup(test_backup_data)
     # mongo_backup.delete(
     #     doc_source="liuli_wechat",
