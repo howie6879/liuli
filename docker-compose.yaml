@@ -1,7 +1,7 @@
 version: "3"
 services:
   liuli_api:
-    image: liuliio/api:v0.1.0
+    image: liuliio/api:v0.1.1
     restart: always
     container_name: liuli_api
     ports:
@@ -15,7 +15,7 @@ services:
     networks:
       - liuli-network
   liuli_schedule:
-    image: liuliio/schedule:v0.1.3
+    image: liuliio/schedule:v0.1.4
     restart: always
     container_name: liuli_schedule
     volumes:

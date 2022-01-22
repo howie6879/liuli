@@ -19,7 +19,7 @@ requests = "*"
 scipy = "*"
 playwright = "*"
 flask = "2.0.2"
-gunicorn = "==20.1.0"
+gunicorn = "==20.1.1"
 gevent = "==21.12.0"
 feedgen = "*"
 
