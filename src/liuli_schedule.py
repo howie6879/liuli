@@ -12,56 +12,109 @@ import time
 import schedule
 
 from src.backup.action import backup_doc
+from src.collector.collect_factory import collect_factory
 from src.config.config import Config
-from src.processor import update_ads_tag
-from src.processor.rss import to_rss
-from src.schedule_task.wechat_task import update_wechat_doc
+from src.processor import processor_dict
 from src.sender.action import send_doc
 from src.utils import LOGGER
 
 
-def schedule_task():
+def schedule_task(ll_config: dict):
+    """更新持久化订阅的公众号最新文章
+
+    Args:
+        ll_config (dict): Liuli 任务配置
     """
-    更新持久化订阅的公众号最新文章
-    TODO: 引入调度框架
-    :return:
-    """
-    # 抓取最新的文章，然后持久化到数据库
-    update_wechat_doc()
-    # 更新广告标签
-    update_ads_tag()
-    # 文章分发
-    send_doc()
-    # 生成 RSS
-    to_rss()
-    # 文章备份
-    backup_doc(
-        {
-            "backup_list": ["github", "mongodb"],
-            # "backup_list": ["mongodb"],
-            "query_days": 365,
-            "delta_time": 3,
-            "init_config": {},
-        }
-    )
+    # 采集器配置
+    collector_conf: dict = ll_config["collector"]
+    # 处理器配置
+    processor_conf: dict = ll_config["processor"]
+    # 分发器配置
+    sender_conf: dict = ll_config["sender"]
+    # 备份器配置
+    backup_conf: dict = ll_config["backup"]
+
+    # 采集器执行
+    LOGGER.info("采集器开始执行!")
+    for collect_type, collect_config in collector_conf.items():
+        collect_factory(collect_type, collect_config)
+    LOGGER.info("采集器执行完毕!")
+    # 采集器执行
+    LOGGER.info("处理器(after_collect): 开始执行!")
+    for each in processor_conf["after_collect"]:
+        func_name = each.pop("func")
+        LOGGER.info("处理器(after_collect): {} 正在执行...".format(func_name))
+        processor_dict[func_name](each)
+    LOGGER.info("处理器(after_collect): 执行完毕!")
+    # 分发器执行
+    LOGGER.info("分发器开始执行!")
+    send_doc(sender_conf)
+    LOGGER.info("分发器执行完毕!")
+    # 备份器执行
+    LOGGER.info("备份器开始执行!")
+    backup_doc(backup_conf)
+    LOGGER.info("备份器执行完毕!")
 
 
-def main():
-    """调度启动函数"""
+def main(task_config: dict):
+    """调度启动函数
+
+    Args:
+        task_config (dict): 调度任务配置
+    """
     # 每日抓取公众号最新文章并更新广告标签
-    schdule_time_list = ["00:10", "12:10", "21:10"]
+    schdule_time_list = task_config["schedule"].get(
+        "period_list", ["00:10", "12:10", "21:10"]
+    )
     for each in schdule_time_list:
-        schedule.every().day.at(each).do(schedule_task)
+        schedule.every().day.at(each).do(schedule_task, task_config)
     start_info = f"Schedule({Config.SCHEDULE_VERSION}) started successfully :)"
     LOGGER.info(start_info)
     schdule_msg = "Schedule time:\n " + "\n ".join(schdule_time_list)
     LOGGER.info(schdule_msg)
     # 启动就执行一次
-    schedule_task()
+    schedule_task(task_config)
     while True:
         schedule.run_pending()
         time.sleep(1)
 
 
 if __name__ == "__main__":
-    main()
+    ll_config = {
+        "name": "liuli_config_demo",
+        "author": "liuli_team",
+        "collector": {
+            "wechat_sougou": {
+                "wechat_list": ["老胡的储物柜"],
+                "delta_time": 5,
+                "spider_type": "playwright",
+            }
+        },
+        "processor": {
+            "before_start": [],
+            "after_collect": [
+                {"func": "ad_marker", "cos_value": 0.6},
+                {"func": "to_rss"},
+            ],
+            "before_backup_save": [
+                {
+                    "func": "str_replace",
+                    "before_str": 'data-src="',
+                    "after_str": 'src="https://images.weserv.nl/?url=',
+                }
+            ],
+        },
+        "sender": {
+            "sender_list": ["wecom", "ding"],
+            "query_days": 365,
+            "delta_time": 1,
+        },
+        "backup": {
+            "backup_list": ["github", "mongodb"],
+            "query_days": 7,
+            "delta_time": 1,
+            "init_config": {},
+        },
+        "schedule": {"period_list": ["00:10", "12:10", "21:10"]},
+    }
+    main(ll_config)

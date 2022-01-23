@@ -1,24 +1,23 @@
 {
-    "name": "wechat_demo",
+    "name": "liuli_config_demo",
     "author": "liuli_team",
     "collector": {
         "wechat_sougou": {
-            "collect_config": {
-                "wechat_list": [
-                    "老胡的储物柜"
-                ],
-                "delta_time": 5,
-                "spider_type": "playwright"
-            }
+            "wechat_list": [
+                "老胡的储物柜"
+            ],
+            "delta_time": 5,
+            "spider_type": "playwright"
         }
     },
     "processor": {
         "before_start": [],
         "after_collect": [{
-            "func": "to_rss"
-        }, {
-            "func": "ads_tag",
+            "func": "ad_marker",
             "cos_value": 0.6
+        }, {
+            "func": "to_rss"
+
         }],
         "before_backup_save": [{
             "func": "str_replace",
@@ -27,12 +26,14 @@
         }]
     },
     "sender": {
-        "sender_list": ["wecom", "dings"]
+        "sender_list": ["wecom", "ding"],
+        "query_days": 365,
+        "delta_time": 1
     },
     "backup": {
         "backup_list": ["github", "mongodb"],
-        "query_days": 1,
-        "delta_time": 5,
+        "query_days": 7,
+        "delta_time": 1,
         "init_config": {}
     },
     "schedule": {

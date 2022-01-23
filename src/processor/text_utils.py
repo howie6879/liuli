@@ -68,7 +68,7 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
     return str(text).replace(before_str, after_str)
 
 
-def update_ads_tag(is_force=False):
+def ad_marker(is_force=False):
     """
     对订阅的文章进行广告标记
     :param is_force: 是否强制重新判决

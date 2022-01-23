@@ -12,7 +12,6 @@ import pytz
 
 from feedgen.feed import FeedGenerator
 
-from src import config
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_find, mongodb_update_data
@@ -20,11 +19,7 @@ from src.utils import LOGGER
 
 
 def to_rss(wechat_list: list = None):
-    """为文章生成RSS
-
-    Args:
-        wechat_list (list, optional): 文章列表.
-    """
+    """为文章生成RSS"""
     wechat_list = wechat_list or Config.WECHAT_LIST
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll_articles_conn = mongo_base.get_collection(
