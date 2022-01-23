@@ -62,8 +62,6 @@ class DingSender(SenderBase):
                     "title": f"亲，{doc_source} 源有更新啦!👉{doc_name} ",
                 },
             }
-            # 防止触发次数限制，每次休眠 3.5s
-            time.sleep(3.5)
             resp_dict = send_post_request(
                 url=self.url, data=data, headers={"Content-Type": "application/json"}
             )

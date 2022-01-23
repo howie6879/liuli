@@ -4,9 +4,10 @@
     Changelog: all notable changes to this file will be documented
 """
 from .rss import to_rss
-from .text_utils import (
-    fetch_keyword_list,
-    html_to_text_h2t,
-    str_replace,
-    update_ads_tag,
-)
+from .text_utils import ad_marker, fetch_keyword_list, html_to_text_h2t, str_replace
+
+processor_dict = {
+    "to_rss": to_rss,
+    "ad_marker": ad_marker,
+    "str_replace": str_replace,
+}
