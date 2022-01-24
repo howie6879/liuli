@@ -42,8 +42,8 @@ class MongodbBackup(BackupBase):
         doc_source = backup_data["doc_source"]
         doc_source_name = backup_data["doc_source_name"]
         doc_name = backup_data["doc_name"]
-        # 有些html源文件比较大，直接网络请求然后保存
-        doc_link = backup_data["doc_link"]
+        # 源文件
+        doc_text = backup_data["doc_text"]
 
         file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
         file_path = f"{file_msg}.html"
@@ -69,16 +69,10 @@ class MongodbBackup(BackupBase):
             )
             if db_find_res["status"] and not db_find_res["info"]:
                 # 没有备份过继续远程备份
-                resp = send_get_request(url=doc_link)
-                # 调试，先硬编码
-                before_str = 'data-src="'
-                after_str = 'src="https://images.weserv.nl/?url='
-                # 查询成功但是没有数据，则重新备份
-                content = resp.text.replace(before_str, after_str)
                 update_data = {
                     "$set": {
                         **filter_dict,
-                        **{"ts": int(time.time()), "content": content},
+                        **{"ts": int(time.time()), "content": doc_text},
                     }
                 }
 
@@ -88,13 +82,11 @@ class MongodbBackup(BackupBase):
                     update_data=update_data,
                 )
                 if db_update_res["status"]:
-                    LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
+                    msg = f"Backup({self.backup_type}): {file_path} 上传成功！"
                 else:
-                    LOGGER.error(
-                        f"Backup({self.backup_type}): {file_path} 上传失败！{db_update_res['info']}"
-                    )
+                    msg = f"Backup({self.backup_type}): {file_path} 上传失败！{db_update_res['info']}"
             else:
-                LOGGER.info(f"Backup({self.backup_type}): {file_path} 已成功！")
+                msg = f"Backup({self.backup_type}): {file_path} 已成功！"
             # 保存当前文章状态
             self.save_backup(
                 doc_source=doc_source,
@@ -102,7 +94,8 @@ class MongodbBackup(BackupBase):
                 doc_name=doc_name,
             )
         else:
-            LOGGER.info(f"Backup({self.backup_type}): {file_path} 已存在！")
+            msg = f"Backup({self.backup_type}): {file_path} 已存在！"
+        LOGGER.info(msg)
 
     def delete(self, doc_source: str, doc_source_name: str, doc_name: str) -> bool:
         """删除某个文件

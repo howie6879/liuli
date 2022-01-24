@@ -11,18 +11,13 @@
         }
     },
     "processor": {
-        "before_start": [],
+        "before_collect": [],
         "after_collect": [{
             "func": "ad_marker",
             "cos_value": 0.6
         }, {
             "func": "to_rss"
 
-        }],
-        "before_backup_save": [{
-            "func": "str_replace",
-            "before_str": "data-src=\"",
-            "after_str": "src=\"https://images.weserv.nl/?url="
         }]
     },
     "sender": {
@@ -34,7 +29,12 @@
         "backup_list": ["github", "mongodb"],
         "query_days": 7,
         "delta_time": 1,
-        "init_config": {}
+        "init_config": {},
+        "after_get_content": [{
+            "func": "str_replace",
+            "before_str": "data-src=\"",
+            "after_str": "src=\"https://images.weserv.nl/?url="
+        }]
     },
     "schedule": {
         "period_list": [

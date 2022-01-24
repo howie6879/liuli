@@ -91,17 +91,10 @@ if __name__ == "__main__":
             }
         },
         "processor": {
-            "before_start": [],
+            "before_collect": [],
             "after_collect": [
                 {"func": "ad_marker", "cos_value": 0.6},
                 {"func": "to_rss"},
-            ],
-            "before_backup_save": [
-                {
-                    "func": "str_replace",
-                    "before_str": 'data-src="',
-                    "after_str": 'src="https://images.weserv.nl/?url=',
-                }
             ],
         },
         "sender": {
@@ -114,6 +107,13 @@ if __name__ == "__main__":
             "query_days": 7,
             "delta_time": 1,
             "init_config": {},
+            "after_get_content": [
+                {
+                    "func": "str_replace",
+                    "before_str": 'data-src="',
+                    "after_str": 'src="https://images.weserv.nl/?url=',
+                }
+            ],
         },
         "schedule": {"period_list": ["00:10", "12:10", "21:10"]},
     }
