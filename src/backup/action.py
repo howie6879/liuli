@@ -8,9 +8,11 @@
 import time
 
 from src.backup.backup_factory import backup_factory
+from src.common.remote import send_get_request
 from src.config import Config
 from src.databases import MongodbManager
 from src.databases.mongodb_tools import mongodb_find
+from src.processor import processor_dict
 from src.utils.log import LOGGER
 
 
@@ -24,6 +26,7 @@ def backup_doc(backup_config: dict):
     query_days = backup_config.get("query_days", 2)
     delta_time = backup_config.get("delta_time", 3)
     init_config = backup_config.get("init_config", {})
+    after_get_content = backup_config.get("after_get_content", [])
     if backup_list:
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
         coll = mongo_base.get_collection(coll_name="liuli_articles")
@@ -53,6 +56,19 @@ def backup_doc(backup_config: dict):
                     backup_ins = backup_factory(
                         backup_type=each, init_config=init_config
                     )
+                    # 获取原始文本内容
+                    doc_link = each_data["doc_link"]
+                    resp = send_get_request(url=doc_link)
+                    each_data["doc_text"] = resp.text
+                    # 执行获取文本后的钩子函数
+                    for func_dict in after_get_content:
+                        func_name = func_dict.pop("func")
+                        LOGGER.info(
+                            "处理器(after_get_content): {} 正在执行...".format(func_name)
+                        )
+                        func_dict.update({"text": each_data["doc_text"]})
+                        each_data["doc_text"] = processor_dict[func_name](func_dict)
+                    # 进行保存动作
                     backup_ins.save(each_data)
         else:
             LOGGER.error(f"Backup 数据查询失败! {db_res['info']}")

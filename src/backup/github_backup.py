@@ -8,7 +8,6 @@
 from github import Github, GithubException
 
 from src.backup.base import BackupBase
-from src.common.remote import send_get_request
 from src.config import Config
 from src.utils import LOGGER
 
@@ -40,8 +39,8 @@ class GithubBackup(BackupBase):
         doc_source = backup_data["doc_source"]
         doc_source_name = backup_data["doc_source_name"]
         doc_name = backup_data["doc_name"]
-        # 有些html源文件比较大，直接网络请求然后保存
-        doc_link = backup_data["doc_link"]
+        # 源文件
+        doc_text = backup_data["doc_text"]
 
         file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
         file_path = f"{file_msg}.html"
@@ -53,21 +52,15 @@ class GithubBackup(BackupBase):
 
         # 在数据库存在就默认线上必定存在，希望用户不操作这个仓库造成状态不同步
         if not is_backup:
-            # 没有备份过继续远程备份
-            resp = send_get_request(url=doc_link)
-            # 上传前做是否存在检测
+            # 上传前做是否存在检测，没有备份过继续远程备份
             # 已存在的但是数据库没有状态需要重新同步
             try:
                 # 先判断文件是否存在
                 try:
-                    _ = self.repo.get_contents(file_path)
+                    self.repo.get_contents(file_path)
                 except Exception as e:
-                    # 调试，先硬编码
-                    before_str = 'data-src="'
-                    after_str = 'src="https://images.weserv.nl/?url='
-                    content = resp.text.replace(before_str, after_str)
                     # 不存在
-                    _ = self.repo.create_file(file_path, f"Add {file_msg}", content)
+                    self.repo.create_file(file_path, f"Add {file_msg}", doc_text)
 
                 LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
                 # 保存当前文章状态
