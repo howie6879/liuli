@@ -59,16 +59,19 @@ def backup_doc(backup_config: dict):
                     # 获取原始文本内容
                     doc_link = each_data["doc_link"]
                     resp = send_get_request(url=doc_link)
-                    each_data["doc_text"] = resp.text
+                    doc_text = resp.text
                     # 执行获取文本后的钩子函数
                     for func_dict in after_get_content:
                         func_name = func_dict.pop("func")
                         LOGGER.info(
-                            "处理器(after_get_content): {} 正在执行...".format(func_name)
+                            "处理器(backup:after_get_content): {} 正在执行...".format(
+                                func_name
+                            )
                         )
-                        func_dict.update({"text": each_data["doc_text"]})
-                        each_data["doc_text"] = processor_dict[func_name](func_dict)
+                        func_dict.update({"text": doc_text})
+                        doc_text = processor_dict[func_name](func_dict)
                     # 进行保存动作
+                    each_data["doc_text"] = doc_text
                     backup_ins.save(each_data)
         else:
             LOGGER.error(f"Backup 数据查询失败! {db_res['info']}")
@@ -80,8 +83,15 @@ if __name__ == "__main__":
     backup = {
         "backup_list": ["github", "mongodb"],
         # "backup_list": ["mongodb"],
-        "query_days": 365,
-        "delta_time": 3,
+        "query_days": 7,
+        "delta_time": 1,
         "init_config": {},
+        "after_get_content": [
+            {
+                "func": "str_replace",
+                "before_str": 'data-src="',
+                "after_str": 'src="https://images.weserv.nl/?url=',
+            }
+        ],
     }
     backup_doc(backup)

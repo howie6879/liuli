@@ -7,7 +7,6 @@
 import time
 
 from src.backup.base import BackupBase
-from src.common.remote import send_get_request
 from src.databases.mongodb_tools import (
     mongodb_delete_many_data,
     mongodb_find,
