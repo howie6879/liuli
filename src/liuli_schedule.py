@@ -43,8 +43,8 @@ def schedule_task(ll_config: dict):
     LOGGER.info("处理器(after_collect): 开始执行!")
     for each in processor_conf["after_collect"]:
         func_name = each.pop("func")
-        LOGGER.info("处理器(after_collect): {} 正在执行...".format(func_name))
-        processor_dict[func_name](each)
+        LOGGER.info(f"处理器(after_collect): {func_name} 正在执行...")
+        processor_dict[func_name](**each)
     LOGGER.info("处理器(after_collect): 执行完毕!")
     # 分发器执行
     LOGGER.info("分发器开始执行!")
@@ -85,7 +85,7 @@ if __name__ == "__main__":
         "author": "liuli_team",
         "collector": {
             "wechat_sougou": {
-                "wechat_list": ["老胡的储物柜"],
+                "wechat_list": ["老胡的储物柜", "是不是很酷"],
                 "delta_time": 5,
                 "spider_type": "playwright",
             }
@@ -94,18 +94,14 @@ if __name__ == "__main__":
             "before_collect": [],
             "after_collect": [
                 {"func": "ad_marker", "cos_value": 0.6},
-                {"func": "to_rss"},
+                {"func": "to_rss", "link_source": "mongodb"},
             ],
         },
-        "sender": {
-            "sender_list": ["wecom", "ding"],
-            "query_days": 365,
-            "delta_time": 1,
-        },
+        "sender": {"sender_list": ["wecom"], "query_days": 7, "delta_time": 3},
         "backup": {
             "backup_list": ["github", "mongodb"],
             "query_days": 7,
-            "delta_time": 1,
+            "delta_time": 3,
             "init_config": {},
             "after_get_content": [
                 {

@@ -30,27 +30,6 @@ def backup_factory(backup_type: str, init_config: dict) -> BackupBase:
         backup_ins = getattr(backup_module, string_camelcase(backup_class_name))(
             init_config=init_config
         )
-    except ModuleNotFoundError:
-        LOGGER.error(f"目标备份类型不存在 {backup_type} - {init_config}")
+    except ModuleNotFoundError as e:
+        LOGGER.error(f"目标备份类型不存在 {backup_type} - {init_config} - {e}")
     return backup_ins
-
-
-if __name__ == "__main__":
-    test_backup_data = {
-        "doc_id": "test",
-        "doc_source": "liuli_wechat",
-        "doc_source_name": "老胡的储物柜",
-        "doc_name": "打造一个干净且个性化的公众号阅读环境",
-        "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
-    }
-
-    backup = backup_factory(backup_type="mongodb", init_config={})
-    # backup = backup_factory(backup_type="github", init_config={})
-
-    backup.delete(
-        doc_source="liuli_wechat",
-        doc_source_name="老胡的储物柜",
-        doc_name="打造一个干净且个性化的公众号阅读环境",
-    )
-
-    backup.save(test_backup_data)

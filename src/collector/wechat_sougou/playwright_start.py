@@ -37,7 +37,7 @@ import time
 
 from playwright.async_api import async_playwright
 
-from src.collector.utils import load_data
+from src.collector.utils import load_data_to_articlles
 from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
 from src.config.config import Config
 from src.processor import html_to_text_h2t
@@ -58,7 +58,7 @@ def run(collect_config: dict):
         time.sleep(delta_time)
         input_data = asyncio.run(playwright_main(name))
         # 持久化，必须执行
-        flag = load_data(input_data)
+        flag = load_data_to_articlles(input_data)
         if flag:
             s_nums += 1
     msg = f"🤗 微信公众号文章更新完毕({s_nums}/{len(wechat_list)})"

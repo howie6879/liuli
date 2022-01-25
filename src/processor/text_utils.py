@@ -68,12 +68,14 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
     return str(text).replace(before_str, after_str)
 
 
-def ad_marker(is_force=False):
+def ad_marker(cos_value: float = 0.6, is_force=False):
+    """对订阅的文章进行广告标记
+
+    Args:
+        cos_value (str): 0.6
+        is_force (bool): 是否强制重新判决
     """
-    对订阅的文章进行广告标记
-    :param is_force: 是否强制重新判决
-    :return:
-    """
+
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="liuli_articles")
     if is_force:
@@ -97,7 +99,7 @@ def ad_marker(is_force=False):
         cos_model_resp = model_predict_factory(
             model_name="cos",
             model_path="",
-            input_dict={"text": doc_name + doc_keywords, "cos_value": Config.COS_VALUE},
+            input_dict={"text": doc_name + doc_keywords, "cos_value": cos_value},
             # input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
         ).to_dict()
         each_data["cos_model"] = cos_model_resp

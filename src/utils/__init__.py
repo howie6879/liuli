@@ -5,4 +5,4 @@
     Changelog: all notable changes to this file will be documented
 """
 from .log import LOGGER
-from .tools import is_contain_text, load_text_to_list, md5_encryption
+from .tools import get_ip, is_contain_text, load_text_to_list, md5_encryption

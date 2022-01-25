@@ -34,6 +34,7 @@ class Config:
     HTTP_PORT = int(os.getenv("LL_HTTP_PORT", "8765"))
     WORKERS = int(os.getenv("LL_WORKERS", "1"))
     AUTH_KEY = os.getenv("LL_AUTH_KEY", "123456")
+    DOMAIN = os.getenv("LL_DOMAIN", "")
 
     # 数据库配置
     MONGODB_CONFIG = {
@@ -49,17 +50,14 @@ class Config:
 
     # 采集器配置
     # 是否为爬虫设置代理
-    PROXY = os.getenv("LL_PROXY", "http://0.0.0.0:1087")
+    SPIDER_PROXY = os.getenv("LL_SPIDER_PROXY", "http://0.0.0.0:1087")
 
     # 分类器配置
     # 余弦相似度阈值
     COS_VALUE = float(os.getenv("LL_COS_VALUE", "0.60"))
 
     # 分发器配置
-    # 分发终端配置，设置环境变量：LL_SENDER_NAME="ding;wecom;tg"
     # 目标支持：ding[钉钉]、wecom[企业微信]、tg[Telegram]
-    # 多终端记得使用;分割
-    SENDER_LIST = str(os.getenv("LL_SENDER_NAME", "")).split(";")
     # 钉钉分发器参数配置，如果 SENDER_LIST 包含 ding ，LL_D_TOKEN 配置就必须填写
     # 申请钉钉TOKEN时候，关键字必须带有 [liuli]
     DD_TOKEN = os.getenv("LL_D_TOKEN", "")
@@ -85,3 +83,4 @@ class Config:
     # 备份器配置
     GITHUB_TOKEN = os.getenv("LL_GITHUB_TOKEN", "")
     GITHUB_REPO = os.getenv("LL_GITHUB_REPO", "")
+    GITHUB_DOMAIN = os.getenv("LL_GITHUB_DOMAIN", "")
