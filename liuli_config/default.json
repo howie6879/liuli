@@ -4,7 +4,7 @@
     "collector": {
         "wechat_sougou": {
             "wechat_list": [
-                "老胡的储物柜"
+                "老胡的储物柜", "是不是很酷"
             ],
             "delta_time": 5,
             "spider_type": "playwright"
@@ -16,19 +16,20 @@
             "func": "ad_marker",
             "cos_value": 0.6
         }, {
-            "func": "to_rss"
+            "func": "to_rss",
+            "link_source": "mongodb"
 
         }]
     },
     "sender": {
-        "sender_list": ["wecom", "ding"],
-        "query_days": 365,
-        "delta_time": 1
+        "sender_list": ["wecom"],
+        "query_days": 7,
+        "delta_time": 3
     },
     "backup": {
         "backup_list": ["github", "mongodb"],
         "query_days": 7,
-        "delta_time": 1,
+        "delta_time": 3,
         "init_config": {},
         "after_get_content": [{
             "func": "str_replace",

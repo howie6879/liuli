@@ -33,7 +33,7 @@ import re
 from ruia import Response, Spider
 from ruia_ua import middleware as ua_middleware
 
-from src.collector.utils import load_data
+from src.collector.utils import load_data_to_articlles
 from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
 from src.config import Config
 from src.processor import html_to_text_h2t
@@ -95,7 +95,7 @@ class SGWechatSpider(Spider):
                 "doc_content": html_to_text_h2t(html),
             },
         }
-        await asyncio.coroutine(load_data)(input_data=wechat_data)
+        await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
 
 
 def run(collect_config: dict):

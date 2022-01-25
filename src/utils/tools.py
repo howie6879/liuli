@@ -3,9 +3,24 @@
     Description：通用函数
     Changelog: all notable changes to this file will be documented
 """
+
 import hashlib
 import re
+import socket
 import time
+
+
+def get_ip():
+    """
+    获取本机IP
+    """
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
 
 
 def md5_encryption(string: str) -> str:
@@ -70,3 +85,4 @@ def string_camelcase(string: str) -> str:
 if __name__ == "__main__":
     print(ts_to_str_date(1640062200.0))
     print(string_camelcase("github_backup"))
+    print(get_ip())

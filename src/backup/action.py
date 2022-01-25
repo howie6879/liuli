@@ -7,6 +7,8 @@
 """
 import time
 
+from copy import deepcopy
+
 from src.backup.backup_factory import backup_factory
 from src.common.remote import send_get_request
 from src.config import Config
@@ -62,14 +64,15 @@ def backup_doc(backup_config: dict):
                     doc_text = resp.text
                     # 执行获取文本后的钩子函数
                     for func_dict in after_get_content:
-                        func_name = func_dict.pop("func")
+                        cur_func_dict = deepcopy(func_dict)
+                        func_name = cur_func_dict.pop("func")
                         LOGGER.info(
                             "处理器(backup:after_get_content): {} 正在执行...".format(
                                 func_name
                             )
                         )
-                        func_dict.update({"text": doc_text})
-                        doc_text = processor_dict[func_name](func_dict)
+                        cur_func_dict.update({"text": doc_text})
+                        doc_text = processor_dict[func_name](**cur_func_dict)
                     # 进行保存动作
                     each_data["doc_text"] = doc_text
                     backup_ins.save(each_data)

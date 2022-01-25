@@ -18,9 +18,15 @@ bp_backup = Blueprint("backup", __name__, url_prefix="/backup")
     strict_slashes=False,
 )
 def backup(doc_source, doc_source_name, doc_name):
-    """
-    示例接口
-    :return:
+    """备份文章获取接口
+
+    Args:
+        doc_source ([type]): 文章来源
+        doc_source_name ([type]): 文章来源作者
+        doc_name ([type]): 文章名称
+
+    Returns:
+        [type]: Flask Response
     """
     # 获取基本配置
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
@@ -28,14 +34,14 @@ def backup(doc_source, doc_source_name, doc_name):
 
     # 获取变量
     file_path = f"{doc_source}/{doc_source_name}/{doc_name}"
-    coll_rss_conn = mongodb_base.get_collection(coll_name="liuli_backup")
+    coll_conn = mongodb_base.get_collection(coll_name="liuli_backup")
     filter_dict = {
         "doc_source": doc_source,
         "doc_source_name": doc_source_name,
         "doc_name": doc_name,
     }
     db_res = mongodb_find(
-        coll_conn=coll_rss_conn,
+        coll_conn=coll_conn,
         filter_dict=filter_dict,
         return_dict={"_id": 0},
         limit=1,

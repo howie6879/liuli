@@ -9,7 +9,7 @@ from src.databases.mongodb_tools import mongodb_update_data
 from src.utils.log import LOGGER
 
 
-def load_data(input_data: dict):
+def load_data_to_articlles(input_data: dict):
     """
     将获取的文章数据并持久化到 liuli_articles
     """

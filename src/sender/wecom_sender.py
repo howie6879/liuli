@@ -12,7 +12,6 @@ import requests
 
 from src.config import Config
 from src.sender.base import SenderBase
-from src.sender.utils import send_post_request
 from src.utils import LOGGER
 
 
