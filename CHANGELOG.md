@@ -11,12 +11,14 @@
 
 **特性**:
 - [官网](https://github.com/liuli-io/liuli/issues/19) @123seven
+- [LOGO](https://github.com/liuli-io/liuli/issues/23) @我妹妹
 - [分发器]支持 TG、Bark [#8](https://github.com/howie6879/liuli/issues/8)
   - [TG](https://github.com/liuli-io/liuli/projects/1#card-75295457) @123seven
   - [Bark](https://github.com/liuli-io/liuli/projects/1#card-75295458) @LeslieLeung
 - [RSS 支持](https://github.com/liuli-io/liuli/projects/1#card-75295442)
-- 备份器支持：[MongoDB](https://github.com/liuli-io/liuli/issues/33)，[GitHub](https://github.com/liuli-io/liuli/issues/20)
-
+- 备份器支持：
+  - [MongoDB](https://github.com/liuli-io/liuli/issues/33)
+  - [GitHub](https://github.com/liuli-io/liuli/issues/20)
 
 ## v0.1.1 2021-12-23
 
