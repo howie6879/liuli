@@ -11,4 +11,4 @@ RUN rm -rf .git \
     && echo "${TIME_ZONE}" > /etc/timezone \
     && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     && find . -name "*.pyc" -delete
-CMD ["pipenv", "run", "gunicorn", "-c", "src/config/gunicorn.py", "src.api.http_app:app"]
+CMD ["pipenv", "run", "pro_api"]

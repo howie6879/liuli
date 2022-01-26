@@ -18,9 +18,9 @@
 - [x] 官方案例技术支持
 
 使用场景：
-- [x] 公众号相关案例：
-  - [x] 公众号**广告问题**：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
-  - [ ] 公众号**RSS订阅问题**：[基于Liuli构建自己的RSS公众号信息流]()
+- [x] 公众号应用实践：
+  - [x] **广告问题**：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
+  - [ ] **RSS订阅问题**：[基于Liuli构建纯净的RSS公众号信息流]()
 - [ ] 信息监控
 - [ ] 数据备份
 
