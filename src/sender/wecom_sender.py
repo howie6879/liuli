@@ -20,21 +20,21 @@ class WeComSender(SenderBase):
     企业微信分发类
     """
 
-    def __init__(self, send_config: dict):
+    def __init__(self, init_config: dict):
         """
         初始化相关变量
-        :param send_config:
+        :param init_config:
         """
-        super().__init__(send_type="wecom", send_config=send_config)
-        self.wecom_id = send_config.get("wecom_id", Config.WECOM_ID)
-        self.wecom_agent_id = send_config.get("wecom_agent_id", Config.WECOM_AGENT_ID)
-        self.wecom_secret = send_config.get("wecom_secret", Config.WECOM_SECRET)
+        super().__init__(send_type="wecom", init_config=init_config)
+        self.wecom_id = init_config.get("wecom_id", Config.WECOM_ID)
+        self.wecom_agent_id = init_config.get("wecom_agent_id", Config.WECOM_AGENT_ID)
+        self.wecom_secret = init_config.get("wecom_secret", Config.WECOM_SECRET)
         self.access_token = self.get_token()
         self.url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={self.access_token}"
-        self.wecom_party_list = send_config.get(
+        self.wecom_party_list = init_config.get(
             "wecom_party_list", Config.WECOM_PARTY_LIST
         )
-        self.wecom_to_user = send_config.get("wecom_to_user", Config.WECOM_TO_USER)
+        self.wecom_to_user = init_config.get("wecom_to_user", Config.WECOM_TO_USER)
         self.wecom_party = ""
         # 如果部门和用户都没有，则默认发送给所有人
         if not self.wecom_party_list[0] and not self.wecom_to_user:
@@ -169,19 +169,19 @@ class WeComSender(SenderBase):
         return send_status
 
 
-def send(send_config: dict, send_data: dict) -> bool:
+def send(init_config: dict, send_data: dict) -> bool:
     """
     下发到钉钉终端
-    :param send_config: 下发终端配置
+    :param init_config: 下发终端配置
     :param send_data: 下发内容字典，字段开发者自定义
     :return:
     """
-    return WeComSender(send_config=send_config).send(send_data)
+    return WeComSender(init_config=init_config).send(send_data)
 
 
 if __name__ == "__main__":
     send(
-        send_config={
+        init_config={
             "wecom_id": "",
             "wecom_agent_id": 0,
             "wecom_secret": "",

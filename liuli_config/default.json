@@ -17,7 +17,7 @@
             "cos_value": 0.6
         }, {
             "func": "to_rss",
-            "link_source": "mongodb"
+            "link_source": "github"
 
         }]
     },

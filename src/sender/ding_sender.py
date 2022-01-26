@@ -18,13 +18,13 @@ class DingSender(SenderBase):
     钉钉分发类
     """
 
-    def __init__(self, send_config: dict):
+    def __init__(self, init_config: dict):
         """
         初始化相关变量
-        :param send_config:
+        :param init_config:
         """
-        super().__init__(send_type="ding", send_config=send_config)
-        dd_token = send_config.get("dd_token", Config.DD_TOKEN)
+        super().__init__(send_type="ding", init_config=init_config)
+        dd_token = init_config.get("dd_token", Config.DD_TOKEN)
         self.url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
 
     def send(self, send_data) -> bool:
@@ -87,11 +87,11 @@ class DingSender(SenderBase):
         return send_status
 
 
-def send(send_config: dict, send_data: dict) -> bool:
+def send(init_config: dict, send_data: dict) -> bool:
     """
     下发到钉钉终端
-    :param send_config: 下发终端配置
+    :param init_config: 下发终端配置
     :param send_data: 下发内容字典，字段开发者自定义
     :return:
     """
-    return DingSender(send_config=send_config).send(send_data)
+    return DingSender(init_config=init_config).send(send_data)

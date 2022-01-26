@@ -20,7 +20,9 @@ from src.processor.rss.utils import get_rss_doc_link
 from src.utils import LOGGER
 
 
-def to_rss(doc_source_list: list = None, link_source: str = "self"):
+def to_rss(
+    doc_source_list: list = None, link_source: str = "self", skip_ads: bool = False
+):
     """为文章生成RSS
 
     Args:
@@ -29,6 +31,7 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
             - self: 不替换，用本身的 doc_link
             - mongodb: 用 liuli api 服务的连接 {LL_DOMAIN}/backup/{doc_source}/{doc_source_name}/{doc_name}
             - github: 用 github 仓库地址 {LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
+        skip_ads (bool, optional): 是否直接忽略广告. Defaults to False.
     """
     # 获取 doc_source 下的 doc_source_name 组成的字典
     doc_source_name_dict: dict = get_doc_source_name_dict(doc_source_list)
@@ -41,6 +44,15 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
     for doc_source, doc_source_name_list in doc_source_name_dict.items():
         for doc_source_name in doc_source_name_list:
             filter_dict = {"doc_source_name": doc_source_name, "doc_source": doc_source}
+            if skip_ads:
+                filter_dict.update(
+                    {
+                        # 至少打上一个模型标签
+                        "cos_model": {"$exists": True},
+                        # 判定结果为非广告
+                        "cos_model.result": 1,
+                    }
+                )
             return_dict = {
                 "doc_source_name": 1,
                 "doc_source": 1,
@@ -51,6 +63,7 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
                 "doc_author": 1,
                 "doc_date": 1,
                 "doc_ts": 1,
+                "cos_model": 1,
             }
             # 提取文章
             f_db_res = mongodb_find(
@@ -71,25 +84,33 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
                     fg.id(doc_source_name)
                     fg.title(doc_source_name)
                     fg.author({"name": "liuli"})
-                    for each in f_db_info:
-                        doc_name = each["doc_name"]
+                    for each_data in f_db_info:
+                        cos_model_resp = each_data.get("cos_model", {})
+                        doc_cus_des = ""
+                        if cos_model_resp:
+                            # 经过模型判断
+                            if cos_model_resp["result"] == 1:
+                                # 广告标记
+                                doc_cus_des = f"👿广告[概率：{cos_model_resp['probability']}]"
+                            else:
+                                doc_cus_des = "🤓非广告"
+                        doc_name = each_data["doc_name"]
                         if not doc_name:
                             continue
-                        doc_des = each["doc_des"]
+                        doc_des = each_data["doc_des"]
                         doc_link = get_rss_doc_link(
-                            link_source=link_source, doc_data=each
+                            link_source=link_source, doc_data=each_data
                         )
-                        doc_author = each["doc_author"] or "liuli_defaults"
-                        doc_ts = each["doc_ts"]
-                        # doc_core_html = each.get("doc_core_html", "")
+                        doc_author = each_data["doc_author"] or "liuli_defaults"
+                        doc_ts = each_data["doc_ts"]
                         # 构造 RSS
                         fe = fg.add_entry()
                         article_id = f"{doc_source} - {doc_source_name} - {doc_name}"
                         fe.id(article_id)
-                        fe.title(doc_name)
+                        fe.title(f"{doc_name} | {doc_cus_des}")
                         fe.link(href=doc_link)
                         fe.description(doc_des)
-                        fe.author(name=f"{article_id} - {doc_author}")
+                        fe.author(name=f"{doc_source} - {doc_author}")
                         # 内容先为空
                         fe.content("")
                         fe.pubDate(
@@ -127,4 +148,4 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
 
 
 if __name__ == "__main__":
-    to_rss()
+    to_rss(link_source="github", skip_ads=False)

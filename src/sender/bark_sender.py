@@ -19,9 +19,9 @@ class BarkSender(SenderBase):
     Bark分发类
     """
 
-    def __init__(self, send_config: dict):
-        super(BarkSender, self).__init__(send_type="bark", send_config=send_config)
-        bark_url = send_config.get("bark_url", Config.BARK_URL)
+    def __init__(self, init_config: dict):
+        super(BarkSender, self).__init__(send_type="bark", init_config=init_config)
+        bark_url = init_config.get("bark_url", Config.BARK_URL)
         self.url = bark_url[:-1] if bark_url.endswith("/") else bark_url
 
     def send(self, send_data) -> bool:
@@ -85,19 +85,19 @@ class BarkSender(SenderBase):
         return f"{self.url}/{title}/{body}{copy}"
 
 
-def send(send_config: dict, send_data: dict) -> bool:
+def send(init_config: dict, send_data: dict) -> bool:
     """
     下方到Bark终端
-    :param send_config: 下发终端配置
+    :param init_config: 下发终端配置
     :param send_data: 下发内容字典，字段开发者自定义
     :return:
     """
-    return BarkSender(send_config=send_config).send(send_data)
+    return BarkSender(init_config=init_config).send(send_data)
 
 
 if __name__ == "__main__":
     send(
-        send_config={
+        init_config={
             "wecom_id": "",
             "wecom_agent_id": 0,
             "wecom_secret": "",
