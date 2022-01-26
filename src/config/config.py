@@ -73,11 +73,6 @@ class Config:
     WECOM_PARTY_LIST = os.getenv("LL_WECOM_PARTY", "").split(";")
     # 企业微信分发用户，多个用户用;分割
     WECOM_TO_USER = os.getenv("LL_WECOM_TO_USER", "").replace(";", "|")
-    # 订阅的公众号配置
-    WECHAT_LIST = os.getenv(
-        "LL_WECHAT_ACCOUNT",
-        "是不是很酷;老胡的储物柜",
-    ).split(";")
     # TG分发器参数配置
     TG_CHAT_ID = os.getenv("LL_TG_CHAT_ID", "")
     TG_TOKEN = os.getenv("LL_TG_TOKEN", "")
