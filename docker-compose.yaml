@@ -15,11 +15,12 @@ services:
     networks:
       - liuli-network
   liuli_schedule:
-    image: liuliio/schedule:v0.1.4
+    image: liuliio/schedule:v0.1.5
     restart: always
     container_name: liuli_schedule
     volumes:
       - ./pro.env:/data/code/pro.env
+      - ./liuli_config:/data/code/liuli_config
     links:
       - liuli_mongodb
     depends_on:

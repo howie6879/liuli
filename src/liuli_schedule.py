@@ -7,6 +7,8 @@
     - 调度时间：每日的 ["00:10", "12:10", "21:10"]
     Changelog: all notable changes to this file will be documented
 """
+import json
+import os
 import time
 
 import schedule
@@ -56,12 +58,16 @@ def schedule_task(ll_config: dict):
     LOGGER.info("备份器执行完毕!")
 
 
-def main(task_config: dict):
+def start(ll_config_name: str = "default"):
     """调度启动函数
 
     Args:
         task_config (dict): 调度任务配置
     """
+    ll_config_path = os.path.join(Config.LL_CONFIG_DIR, f"{ll_config_name}.json")
+    with open(ll_config_path, "r", encoding="utf-8") as load_f:
+        task_config = json.load(load_f)
+
     # 每日抓取公众号最新文章并更新广告标签
     schdule_time_list = task_config["schedule"].get(
         "period_list", ["00:10", "12:10", "21:10"]
@@ -80,37 +86,4 @@ def main(task_config: dict):
 
 
 if __name__ == "__main__":
-    ll_config = {
-        "name": "liuli_config_demo",
-        "author": "liuli_team",
-        "collector": {
-            "wechat_sougou": {
-                "wechat_list": ["老胡的储物柜", "是不是很酷"],
-                "delta_time": 5,
-                "spider_type": "playwright",
-            }
-        },
-        "processor": {
-            "before_collect": [],
-            "after_collect": [
-                {"func": "ad_marker", "cos_value": 0.6},
-                {"func": "to_rss", "link_source": "mongodb"},
-            ],
-        },
-        "sender": {"sender_list": ["wecom"], "query_days": 7, "delta_time": 3},
-        "backup": {
-            "backup_list": ["github", "mongodb"],
-            "query_days": 7,
-            "delta_time": 3,
-            "init_config": {},
-            "after_get_content": [
-                {
-                    "func": "str_replace",
-                    "before_str": 'data-src="',
-                    "after_str": 'src="https://images.weserv.nl/?url=',
-                }
-            ],
-        },
-        "schedule": {"period_list": ["00:10", "12:10", "21:10"]},
-    }
-    main(ll_config)
+    start()

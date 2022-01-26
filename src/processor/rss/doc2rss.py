@@ -112,11 +112,11 @@ def to_rss(doc_source_list: list = None, link_source: str = "self"):
                             update_data={"$set": rss_db_data},
                         )
                         if rss_db_res["status"]:
-                            msg = f"😀 为 {doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS成功!"
+                            msg = f"😀 为{doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS成功!"
                         else:
-                            msg = f"😿 为 {doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS失败!"
+                            msg = f"😿 为{doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS失败!"
                     except Exception as e:
-                        msg = f"😿 为 {doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS失败, 非法数据! {e}"
+                        msg = f"😿 为{doc_source}: {doc_source_name} 的 {len(f_db_info)} 篇文章生成RSS失败, 非法数据! {e}"
 
                 else:
                     msg = f"查询成功 {doc_source}: {doc_source_name} 暂无历史文章!"

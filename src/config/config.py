@@ -15,9 +15,12 @@ class Config:
 
     # 基础配置
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    # 项目根目录
+    PROJECT_DIR = os.path.dirname(BASE_DIR)
     # 模型相关路径
     MODEL_DIR = os.path.join(os.path.join(BASE_DIR, "classifier"), "model_data")
-    FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), ".files")
+    LL_CONFIG_DIR = os.path.join(PROJECT_DIR, "liuli_config")
+    FILE_DIR = os.path.join(PROJECT_DIR, ".files")
     DS_DIR = os.path.join(FILE_DIR, "datasets")
     # API 相关路径
     API_DIR = os.path.join(BASE_DIR, "api")
@@ -25,7 +28,7 @@ class Config:
     API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
 
     # 版本设置
-    SCHEDULE_VERSION = "0.1.2"
+    SCHEDULE_VERSION = "v0.1.5"
 
     # Flask API配置
     DEBUG = bool(os.getenv("LL_FLASK_DEBUG", "0") == "1")
@@ -84,3 +87,7 @@ class Config:
     GITHUB_TOKEN = os.getenv("LL_GITHUB_TOKEN", "")
     GITHUB_REPO = os.getenv("LL_GITHUB_REPO", "")
     GITHUB_DOMAIN = os.getenv("LL_GITHUB_DOMAIN", "")
+
+
+if __name__ == "__main__":
+    print(Config.BASE_DIR)
