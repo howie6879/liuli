@@ -51,3 +51,7 @@ def send_doc(sender_conf: dict):
                 )
     else:
         LOGGER.warn("未配置分发器!")
+
+
+if __name__ == "__main__":
+    send_config = {"sender_list": ["wecom"], "query_days": 7, "delta_time": 3}

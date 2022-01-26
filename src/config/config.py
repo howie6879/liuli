@@ -29,6 +29,7 @@ class Config:
 
     # 版本设置
     SCHEDULE_VERSION = "v0.1.5"
+    API_VERSION = "v0.1.1"
 
     # Flask API配置
     DEBUG = bool(os.getenv("LL_FLASK_DEBUG", "0") == "1")

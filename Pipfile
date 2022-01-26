@@ -35,3 +35,5 @@ pytest = "*"
 [scripts]
 dev_schedule = "bash ./dev_schedule.sh"
 pro_schedule = "bash ./pro_schedule.sh"
+dev_api = "bash ./dev_api.sh"
+pro_api = "bash ./pro_api.sh"
