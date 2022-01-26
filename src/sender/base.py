@@ -14,14 +14,14 @@ class SenderBase:
     :return:
     """
 
-    def __init__(self, send_type: str, send_config: dict):
+    def __init__(self, send_type: str, init_config: dict):
         """
         初始化相关配置
         :param send_type: 下发目标类型
-        :param send_config: 下发目标类型相关配置，如密钥之类
+        :param init_config: 下发目标类型相关配置，如密钥之类
         """
         self.send_type = send_type
-        self.send_config = send_config
+        self.init_config = init_config
         # 初始化数据库
         self.mongo_base = MongodbManager.get_mongo_base(
             mongodb_config=Config.MONGODB_CONFIG

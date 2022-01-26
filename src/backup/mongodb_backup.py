@@ -21,7 +21,7 @@ class MongodbBackup(BackupBase):
     def __init__(self, init_config: dict):
         """
         初始化相关变量
-        :param send_config: {}
+        :param init_config: {}
         """
         super().__init__(backup_type="mongodb", init_config=init_config or {})
         self.liuli_backup_coll = self.mongo_base.get_collection(
