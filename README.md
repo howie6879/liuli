@@ -18,9 +18,10 @@
 - [x] 官方案例技术支持
 
 使用场景：
+
 - [x] 公众号应用实践：
   - [x] **广告问题**：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
-  - [ ] **RSS订阅问题**：[基于Liuli构建纯净的RSS公众号信息流]()
+  - [x] **RSS订阅问题**：[基于Liuli构建纯净的RSS公众号信息流](https://mp.weixin.qq.com/s/rxoq97YodwtAdTqKntuwMA)
 - [ ] 信息监控
 - [ ] 数据备份
 
@@ -30,6 +31,7 @@
  - [01.使用教程](./docs/01.使用教程.md)
  - [02.环境变量](./docs/02.环境变量.md)
  - [03.分发器配置](./docs/03.分发器配置.md)
+ - [04.备份器配置](./docs/03.备份器配置.md)
 
 快速开始，请先确保安装`Docker`：
 
@@ -37,6 +39,9 @@
 mkdir liuli && cd liuli
 # 数据库目录
 mkdir mongodb_data
+# 任务配置目录
+mkdir liuli_config
+wget -O liuli_config/default.json https://raw.githubusercontent.com/howie6879/liuli/main/liuli_config/default.json
 # 配置 pro.env 具体查看 doc/02.环境变量.md
 vim pro.env
 # 下载 docker-compose
