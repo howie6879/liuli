@@ -8,6 +8,7 @@
 from pymongo import MongoClient
 
 from src.utils.tools import md5_encryption
+from urllib import parse
 
 
 class MongodbBase:
@@ -22,8 +23,8 @@ class MongodbBase:
         self.mongodb_config = mongodb_config
         self.mongodb_uri = "mongodb://{account}{host}:{port}/{db}".format(
             account="{username}:{password}@".format(
-                username=self.mongodb_config["username"],
-                password=self.mongodb_config["password"],
+                username=parse.quote_plus(self.mongodb_config["username"]),
+                password=parse.quote_plus(self.mongodb_config["password"])
             )
             if self.mongodb_config.get("username")
             else "",
