@@ -6,7 +6,6 @@
 """
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
-from src.utils.log import LOGGER
 
 MONGO_BASE = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
 

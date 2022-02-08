@@ -24,6 +24,8 @@ gevent = "==21.12.0"
 feedgen = "*"
 pygithub = "*"
 pymongo = "*"
+html5lib = "*"
+bs4 = "*"
 
 [dev-packages]
 black = "*"

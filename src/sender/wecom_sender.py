@@ -96,13 +96,17 @@ class WeComSender(SenderBase):
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
         doc_keywords = send_data["doc_keywords"]
-        doc_date = send_data["doc_date"]
-        # doc_date = time.strftime("%Y-%m-%d", time.localtime(doc_ts))
-
-        doc_des_info = (
-            f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦! \n\n文章关键字：{doc_keywords}"
+        doc_ts = send_data["doc_ts"]
+        doc_date = send_data["doc_date"] or time.strftime(
+            "%Y-%m-%d: %H:%M", time.localtime(doc_ts)
         )
-        doc_des = f'<div class="black">{doc_date} | {doc_cus_des}</div>\n<div class="normal">{doc_des_info}</div>\n来自[liuli]👉技术支持❤️'
+
+        doc_des_info = f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦!"
+        if doc_keywords:
+            doc_des_info += f"\n\n文章关键字：{doc_keywords}"
+
+        doc_des_head = f"{doc_date} | {doc_cus_des}" if doc_cus_des else f"{doc_date}"
+        doc_des = f'<div class="black">{doc_des_head}</div>\n<div class="normal">{doc_des_info}</div>\n来自[liuli]👉技术支持❤️'
 
         data = {
             "touser": self.wecom_to_user,

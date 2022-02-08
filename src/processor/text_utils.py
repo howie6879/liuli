@@ -3,11 +3,15 @@
     Description: 通用处理函数
     Changelog: all notable changes to this file will be documented
 """
-
 import os
+import re
+
+from operator import itemgetter
+from urllib.parse import urljoin, urlparse
 
 import html2text
 
+from bs4 import BeautifulSoup
 from readability import Document
 from textrank4zh import TextRank4Keyword
 
@@ -16,6 +20,79 @@ from src.common.remote import send_get_request
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils.log import LOGGER
+
+
+def ad_marker(cos_value: float = 0.6, is_force=False):
+    """对订阅的文章进行广告标记
+
+    Args:
+        cos_value (str): 0.6
+        is_force (bool): 是否强制重新判决
+    """
+
+    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+    coll = mongo_base.get_collection(coll_name="liuli_articles")
+    if is_force:
+        query = {}
+    else:
+        query = {"cos_model": {"$exists": False}}
+
+    # 查找没有被标记的文章，基于相似度模型进行判断
+    for each_data in coll.find(query):
+        doc_name = each_data["doc_name"]
+        doc_source_name = each_data["doc_source_name"]
+        doc_content = each_data["doc_content"]
+        doc_keywords = each_data.get("doc_keywords")
+
+        if not doc_keywords:
+            keyword_list = fetch_keyword_list(doc_content)
+            doc_keywords = " ".join(keyword_list)
+            each_data["doc_keywords"] = doc_keywords
+
+        # 基于余弦相似度
+        cos_model_resp = model_predict_factory(
+            model_name="cos",
+            model_path="",
+            input_dict={"text": doc_name + doc_keywords, "cos_value": cos_value},
+            # input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
+        ).to_dict()
+        each_data["cos_model"] = cos_model_resp
+        if cos_model_resp["result"] == 1:
+            LOGGER.info(
+                f"[{doc_source_name}] {doc_name} 被识别为广告[{cos_model_resp['probability']}]，链接为：{each_data['doc_link']}"
+            )
+        coll.update_one(
+            filter={"doc_id": each_data["doc_id"]},
+            update={"$set": each_data},
+            upsert=True,
+        )
+
+
+def extract_chapters(chapter_url, html):
+    """
+    通用解析小说目录
+    :param chapter_url: 小说目录页url
+    :param res: 当前页面html
+    :return:
+    """
+    # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
+    chapters_reg = (
+        r"(<a\s+.*?>.*第?\s*[一二两三四五六七八九十○零百千万亿0-9１２３４５６７８９０]{1,6}\s*[章回卷节折篇幕集].*?</a>)"
+    )
+    # 这里不能保证获取的章节分得很清楚，但能保证这一串str是章节目录。可以利用bs安心提取a
+    chapters_res = re.findall(chapters_reg, str(html), re.I)
+    str_chapters_res = "\n".join(chapters_res)
+    chapters_res_soup = BeautifulSoup(str_chapters_res, "html5lib")
+    all_chapters = []
+    for link in chapters_res_soup.find_all("a"):
+        each_data = {}
+        cur_chapter_url = urljoin(chapter_url, link.get("href")) or ""
+        cur_chapter_name = link.text or ""
+        if valid_chapter_name(cur_chapter_name):
+            each_data["chapter_url"] = cur_chapter_url
+            each_data["chapter_name"] = cur_chapter_name
+            all_chapters.append(each_data)
+    return all_chapters
 
 
 def fetch_keyword_list(url_or_text: str = None):
@@ -68,50 +145,16 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
     return str(text).replace(before_str, after_str)
 
 
-def ad_marker(cos_value: float = 0.6, is_force=False):
-    """对订阅的文章进行广告标记
-
-    Args:
-        cos_value (str): 0.6
-        is_force (bool): 是否强制重新判决
+def valid_chapter_name(chapter_name):
     """
-
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
-    coll = mongo_base.get_collection(coll_name="liuli_articles")
-    if is_force:
-        query = {}
-    else:
-        query = {"cos_model": {"$exists": False}}
-
-    # 查找没有被标记的文章，基于相似度模型进行判断
-    for each_data in coll.find(query):
-        doc_name = each_data["doc_name"]
-        doc_source_name = each_data["doc_source_name"]
-        doc_content = each_data["doc_content"]
-        doc_keywords = each_data.get("doc_keywords")
-
-        if not doc_keywords:
-            keyword_list = fetch_keyword_list(doc_content)
-            doc_keywords = " ".join(keyword_list)
-            each_data["doc_keywords"] = doc_keywords
-
-        # 基于余弦相似度
-        cos_model_resp = model_predict_factory(
-            model_name="cos",
-            model_path="",
-            input_dict={"text": doc_name + doc_keywords, "cos_value": cos_value},
-            # input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
-        ).to_dict()
-        each_data["cos_model"] = cos_model_resp
-        if cos_model_resp["result"] == 1:
-            LOGGER.info(
-                f"[{doc_source_name}] {doc_name} 被识别为广告[{cos_model_resp['probability']}]，链接为：{each_data['doc_link']}"
-            )
-        coll.update_one(
-            filter={"doc_id": each_data["doc_id"]},
-            update={"$set": each_data},
-            upsert=True,
-        )
+    判断目录名称是否合理
+    Args:
+        chapter_name ([type]): [description]
+    """
+    for each in ["目录"]:
+        if each in chapter_name:
+            return False
+    return True
 
 
 if __name__ == "__main__":

@@ -133,6 +133,7 @@ async def playwright_main(wechat_name: str):
                                 "doc_source_account_nick": wechat_item.doc_source_account_nick,
                                 "doc_source_account_intro": wechat_item.doc_source_account_intro,
                                 "doc_content": html_to_text_h2t(wx_html),
+                                "doc_keywords": "",
                             },
                         }
                     else:

@@ -12,11 +12,11 @@ import pytz
 
 from feedgen.feed import FeedGenerator
 
+from src.backup.utils import get_bak_doc_link
 from src.common.db_utils import get_doc_source_name_dict
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_find, mongodb_update_data
-from src.processor.rss.utils import get_rss_doc_link
 from src.utils import LOGGER
 
 
@@ -93,12 +93,13 @@ def to_rss(
                                 # 广告标记
                                 doc_cus_des = f"👿广告[概率：{cos_model_resp['probability']}]"
                             else:
-                                doc_cus_des = "🤓非广告"
+                                # doc_cus_des = "🤓非广告"
+                                doc_cus_des = ""
                         doc_name = each_data["doc_name"]
                         if not doc_name:
                             continue
                         doc_des = each_data["doc_des"]
-                        doc_link = get_rss_doc_link(
+                        doc_link = get_bak_doc_link(
                             link_source=link_source, doc_data=each_data
                         )
                         doc_author = each_data["doc_author"] or "liuli_defaults"

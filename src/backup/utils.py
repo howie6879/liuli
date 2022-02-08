@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2022-01-25.
-    Description: RSS 生成相关处理函数
+    Description: 存储器通用函数
     Changelog: all notable changes to this file will be documented
 """
 
@@ -8,8 +8,8 @@ from src.config import Config
 from src.utils import get_ip
 
 
-def get_rss_doc_link(link_source: str, doc_data: dict):
-    """返回 RSS 展示的 href
+def get_bak_doc_link(link_source: str, doc_data: dict):
+    """返回不同存储器下的 href
 
     Args:
         link_source (str): 链接返回规则类型

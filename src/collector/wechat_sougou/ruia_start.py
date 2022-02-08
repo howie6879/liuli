@@ -23,7 +23,8 @@
             "doc_source": "liuli_wechat",
             "doc_source_account_nick": "howie_locker",
             "doc_source_account_intro": "编程、兴趣、生活",
-            "doc_content": "hello world"
+            "doc_content": "hello world",
+            "doc_keywords": ""
         }
     Changelog: all notable changes to this file will be documented
 """
@@ -35,7 +36,6 @@ from ruia_ua import middleware as ua_middleware
 
 from src.collector.utils import load_data_to_articlles
 from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
-from src.config import Config
 from src.processor import html_to_text_h2t
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
@@ -87,6 +87,7 @@ class SGWechatSpider(Spider):
             **wechat_item.results,
             **{
                 "doc_id": md5_encryption(f"{wechat_item.doc_name}_{self.wechat_name}"),
+                "doc_keywords": "",
                 "doc_source_name": self.wechat_name,
                 "doc_link": response.url,
                 "doc_source": wechat_item.doc_source,
@@ -116,7 +117,6 @@ def run(collect_config: dict):
         }
         sg_url = f"https://weixin.sogou.com/weixin?type=1&query={wechat_name}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
         SGWechatSpider.start_urls = [sg_url]
-        # 持久化，必须执行
         try:
             SGWechatSpider.start(
                 middleware=ua_middleware,

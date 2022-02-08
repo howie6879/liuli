@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2021-12-20.
-    Description: 测试用例
-        - pytest -s tests/test_sg_wechat.py
+    Description: 采集器测试用例
+        - pytest -s tests/test_collector.py
     Changelog: all notable changes to this file will be documented
 """
 import asyncio

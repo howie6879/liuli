@@ -68,7 +68,6 @@ def start(ll_config_name: str = "default"):
     with open(ll_config_path, "r", encoding="utf-8") as load_f:
         task_config = json.load(load_f)
 
-    # 每日抓取公众号最新文章并更新广告标签
     schdule_time_list = task_config["schedule"].get(
         "period_list", ["00:10", "12:10", "21:10"]
     )
