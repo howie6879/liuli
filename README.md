@@ -55,7 +55,7 @@ docker-compose up -d
 
 ```shell
 # 确保有Python3.7+环境
-git clone https://github.com/howie6879/liuli.git
+git clone https://github.com/liuli-io/liuli.git --depth=1
 cd liuli
 
 # 创建基础环境
