@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # github_backup.save(test_backup_data)
     github_backup.delete(
         doc_source="liuli_book",
-        doc_source_name="诡秘之主",
-        doc_name="第四十一章 新的旅程",
+        doc_source_name="老胡的储物柜",
+        doc_name="打造一个干净且个性化的公众号阅读环境",
     )

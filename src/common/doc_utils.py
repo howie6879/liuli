@@ -3,8 +3,10 @@
     Description: 文档元数据相关通用函数
     Changelog: all notable changes to this file will be documented
 """
+from urllib.parse import quote
+
 from src.config import Config
-from src.utils import LOGGER, get_ip
+from src.utils import get_ip
 
 
 def get_bak_doc_link(link_source: str, doc_data: dict) -> str:
@@ -16,7 +18,7 @@ def get_bak_doc_link(link_source: str, doc_data: dict) -> str:
     """
     doc_source = doc_data["doc_source"]
     doc_source_name = doc_data["doc_source_name"]
-    doc_name = doc_data["doc_name"]
+    doc_name = quote(doc_data["doc_name"])
 
     if link_source == "github":
         github_domain = Config.GITHUB_DOMAIN

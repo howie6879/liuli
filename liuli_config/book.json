@@ -5,8 +5,7 @@
     "collector": {
         "book_common": {
             "book_dict": {
-                "诡秘之主": "https://www.yruan.com/article/38563.html",
-                "宇宙职业选手": "https://www.yruan.com/article/85588.html"
+                "诡秘之主": "https://www.yruan.com/article/38563.html"
             },
             "delta_time": 5
         }
