@@ -11,15 +11,16 @@ from string import Template
 from src.config import Config
 
 
-def render_book_html(data: dict) -> str:
+def render_book_html(data: dict, theme: str = "book_owllook") -> str:
     """将抓取的元数据渲染成html
 
     Args:
         data (dict): 抓取的文章元数据
+        theme (str): 渲染主题
     Returns:
         str: html
     """
-    book_tmpl_path = os.path.join(Config.PROC_HTML_TMPL_DIR, "book.tmpl")
+    book_tmpl_path = os.path.join(Config.PROC_HTML_TMPL_DIR, f"{theme}.tmpl")
     with open(book_tmpl_path, "rb") as fp:
         raw = fp.read().decode("utf8")
     doc_source_name = data.get("doc_source_name", "")
