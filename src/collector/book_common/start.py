@@ -8,8 +8,14 @@
 import time
 
 from src.collector.utils import load_data_to_articlles
-from src.common.remote import send_get_request
-from src.processor.text_utils import extract_chapters
+from src.common.remote import get_html_by_requests
+from src.config import Config
+from src.processor.text_utils import (
+    extract_chapters,
+    extract_core_html,
+    extract_keyword_list,
+    html_to_text_h2t,
+)
 from src.utils.tools import md5_encryption
 
 
@@ -21,11 +27,16 @@ def run(collect_config: dict):
     """
     book_dict: dict = collect_config["book_dict"]
     for book_name, book_url in book_dict.items():
-        resp = send_get_request(url=book_url)
-        all_chapters = extract_chapters(chapter_url=book_url, html=resp.text)
+        resp_text = get_html_by_requests(book_url)
+        all_chapters = extract_chapters(chapter_url=book_url, html=resp_text)
         latest_chapter = all_chapters[-1] if all_chapters else {}
         doc_name = latest_chapter.get("chapter_name")
         doc_link = latest_chapter.get("chapter_url")
+
+        resp_text = get_html_by_requests(
+            url=doc_link, headers={"User-Agent": Config.SPIDER_UA}
+        )
+        _, doc_core_html = extract_core_html(resp_text)
         data = {
             "doc_date": "",
             "doc_image": "",
@@ -33,9 +44,9 @@ def run(collect_config: dict):
             "doc_ts": int(time.time()),
             "doc_link": doc_link,
             "doc_source_meta_list": [],
-            "doc_keywords": "",
+            "doc_keywords": " ".join(extract_keyword_list(html_to_text_h2t(resp_text))),
             "doc_des": "",
-            "doc_core_html": "",
+            "doc_core_html": doc_core_html,
             "doc_type": "article",
             "doc_author": "",
             "doc_source_name": book_name,
@@ -44,13 +55,17 @@ def run(collect_config: dict):
             "doc_source_account_nick": "",
             "doc_source_account_intro": "",
             "doc_content": "",
+            "doc_html": "",
         }
         load_data_to_articlles(input_data=data)
 
 
 if __name__ == "__main__":
     t_cc = {
-        "book_dict": {"诡秘之主": "https://www.yruan.com/article/38563.html"},
+        "book_dict": {
+            "诡秘之主": "https://www.yruan.com/article/38563.html",
+            "宇宙职业选手": "https://www.yruan.com/article/85588.html",
+        },
         "delta_time": 5,
     }
     run(t_cc)

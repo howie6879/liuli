@@ -12,8 +12,8 @@ import pytz
 
 from feedgen.feed import FeedGenerator
 
-from src.backup.utils import get_bak_doc_link
 from src.common.db_utils import get_doc_source_name_dict
+from src.common.doc_utils import get_bak_doc_link
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_find, mongodb_update_data
@@ -21,7 +21,10 @@ from src.utils import LOGGER
 
 
 def to_rss(
-    doc_source_list: list = None, link_source: str = "self", skip_ads: bool = False
+    doc_source_list: list = None,
+    link_source: str = "self",
+    skip_ads: bool = False,
+    **kwargs,
 ):
     """为文章生成RSS
 
@@ -33,6 +36,14 @@ def to_rss(
             - github: 用 github 仓库地址 {LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
         skip_ads (bool, optional): 是否直接忽略广告. Defaults to False.
     """
+    doc_source_list = doc_source_list or []
+    # 兼容配置中的全局查询条件
+    basic_filter = kwargs.get("basic_filter", {})
+    if basic_filter:
+        # 当前情况下必存在
+        doc_source = basic_filter["doc_source"]
+        doc_source_list.append(doc_source)
+        doc_source_list = list(set(doc_source_list))
     # 获取 doc_source 下的 doc_source_name 组成的字典
     doc_source_name_dict: dict = get_doc_source_name_dict(doc_source_list)
     # 数据库初始化

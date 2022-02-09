@@ -94,6 +94,7 @@ class SGWechatSpider(Spider):
                 "doc_source_account_nick": wechat_item.doc_source_account_nick,
                 "doc_source_account_intro": wechat_item.doc_source_account_intro,
                 "doc_content": html_to_text_h2t(html),
+                "doc_html": "",
             },
         }
         await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)

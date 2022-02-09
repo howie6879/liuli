@@ -26,6 +26,11 @@ class Config:
     API_DIR = os.path.join(BASE_DIR, "api")
     API_TEM_DIR = os.path.join(API_DIR, "templates")
     API_TEM_RSS_DIR = os.path.join(API_TEM_DIR, "rss")
+    API_TEM_ARTICLE_DIR = os.path.join(API_TEM_DIR, "article")
+    # 处理器相关路径
+    PROC_DIR = os.path.join(BASE_DIR, "processor")
+    PROC_HTML_DIR = os.path.join(PROC_DIR, "html_render")
+    PROC_HTML_TMPL_DIR = os.path.join(PROC_HTML_DIR, "tmpl")
 
     # 版本设置
     SCHEDULE_VERSION = "v0.1.5"
@@ -55,9 +60,10 @@ class Config:
     # 采集器配置
     # 是否为爬虫设置代理
     SPIDER_PROXY = os.getenv("LL_SPIDER_PROXY", "http://0.0.0.0:1087")
+    SPIDER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
 
-    # 分类器配置
-    # 余弦相似度阈值
+    # 处理器配置
+    # 分类器余弦相似度阈值
     COS_VALUE = float(os.getenv("LL_COS_VALUE", "0.60"))
 
     # 分发器配置

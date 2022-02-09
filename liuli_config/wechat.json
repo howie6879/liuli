@@ -1,6 +1,7 @@
 {
-    "name": "default",
+    "name": "wechat",
     "author": "liuli_team",
+    "doc_source": "liuli_wechat",
     "collector": {
         "wechat_sougou": {
             "wechat_list": [
@@ -8,12 +9,6 @@
             ],
             "delta_time": 5,
             "spider_type": "playwright"
-        },
-        "book_common": {
-            "book_dict": {
-                "诡秘之主": "https://www.yruan.com/article/38563.html"
-            },
-            "delta_time": 5
         }
     },
     "processor": {
@@ -23,6 +18,7 @@
             "cos_value": 0.6
         }, {
             "func": "to_rss",
+            "doc_source_list": ["liuli_wechat"],
             "link_source": "github"
 
         }]

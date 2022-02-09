@@ -7,7 +7,7 @@
 import requests
 
 from src.classifier import model_predict_factory
-from src.collector import fetch_keyword_list
+from src.collector import extract_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     url = "https://mp.weixin.qq.com/s/RJPLZJXGwNbUgj3vihxfjw"
     text = "肝了3天！如何设计实现一个通用的微服务架构？"
     print(f"{text},{url},0")
-    keyword_list = fetch_keyword_list(url)
+    keyword_list = extract_keyword_list(url)
     keywords = " ".join(keyword_list)
     res = cos_pre(text=f"{text} {keywords}")
     print(res)

@@ -31,7 +31,7 @@ def load_data_to_articlles(input_data: dict):
             upsert=True,
         )
         if db_res["status"]:
-            msg = f"来自 {doc_source} 的文章持久化成功! 👉 {doc_source_name} "
+            msg = f"来自 {doc_source} 的文章持久化成功! 👉 {doc_source_name}: {doc_name} "
             flag = True
         else:
             msg = f"来自 {doc_source} 的文章持久化失败! 👉 {doc_source_name} {db_res['info']}"

@@ -10,7 +10,7 @@ import os
 import pandas as pd
 
 from src.classifier import ads2txt, text2py
-from src.collector import fetch_keyword_list
+from src.collector import extract_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils import load_text_to_list
@@ -66,7 +66,7 @@ def gen_keyword_sample(
         }
         if is_process == 0:
             # 进行提取，成功就改值为1
-            keyword_list = fetch_keyword_list(url)
+            keyword_list = extract_keyword_list(url)
             print(keyword_list)
             if keyword_list:
                 # 判断是否被删除
@@ -119,7 +119,7 @@ def gen_normal_sample(nums: int = None):
 
 if __name__ == "__main__":
     # url = "https://jishuin.proginn.com/p/763bfbd54d15"
-    # keyword_list = fetch_keyword_list(url)
+    # keyword_list = extract_keyword_list(url)
     # print(keyword_list)
     gen_keyword_sample()
     # ads2txt()

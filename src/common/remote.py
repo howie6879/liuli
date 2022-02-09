@@ -5,18 +5,41 @@
 """
 import json
 
+import cchardet
 import requests
 
 from src.utils import LOGGER
 
 
-def send_get_request(url, params: dict = None, **kwargs):
+def get_html_by_requests(url: str, params: dict = None, timeout: int = 3, **kwargs):
+    """发起GET请求，获取文本
+
+    Args:
+        url (str): 目标网页
+        params (dict, optional): 请求参数. Defaults to None.
+        timeout (int, optional): 超时时间. Defaults to 3.
     """
-    发起GET请求
-    :param url: 请求目标地址
-    :param params: 请求参数
-    :param kwargs:
-    :return:
+    resp = send_get_request(url=url, params=params, timeout=timeout, **kwargs)
+    text = None
+    try:
+        content = resp.content
+        charset = cchardet.detect(content)
+        text = content.decode(charset["encoding"])
+    except Exception as e:
+        LOGGER.exception(f"请求内容提取出错 - {url} - {str(e)}")
+    return text
+
+
+def send_get_request(url: str, params: dict = None, timeout: int = 3, **kwargs):
+    """发起GET请求
+
+    Args:
+        url (str): 目标地址
+        params (dict, optional): 请求参数. Defaults to None.
+        timeout (int, optional): 超时时间. Defaults to 3.
+
+    Returns:
+        [type]: [description]
     """
     try:
         resp = requests.get(url, params, **kwargs)
@@ -26,16 +49,21 @@ def send_get_request(url, params: dict = None, **kwargs):
     return resp
 
 
-def send_post_request(url, data: dict = None, **kwargs) -> dict:
-    """
-    发起post请求
-    :param url: 请求目标地址
-    :param data: 请求参数
-    :param kwargs:
-    :return:
+def send_post_request(url: str, data: dict = None, timeout: int = 5, **kwargs) -> dict:
+    """发起post请求
+
+    Args:
+        url (str): 目标地址
+        data (dict, optional): 请求参数. Defaults to None.
+        timeout (int, optional): 超时时间. Defaults to 5.
+
+    Returns:
+        dict: [description]
     """
     try:
-        resp_dict = requests.post(url, data=json.dumps(data), **kwargs).json()
+        resp_dict = requests.post(
+            url, data=json.dumps(data), timeout=timeout, **kwargs
+        ).json()
     except Exception as e:
         resp_dict = {}
         LOGGER.error(f"请求出错：{e}")

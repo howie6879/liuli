@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2022-01-15.
     Description: 基于github做备份
-        - 命令：s
+        - 命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/backup/github_backup.py
     Changelog: all notable changes to this file will be documented
 """
 
@@ -40,7 +40,7 @@ class GithubBackup(BackupBase):
         doc_source_name = backup_data["doc_source_name"]
         doc_name = backup_data["doc_name"]
         # 源文件
-        doc_text = backup_data["doc_text"]
+        doc_html = backup_data["doc_html"]
 
         file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
         file_path = f"{file_msg}.html"
@@ -60,7 +60,7 @@ class GithubBackup(BackupBase):
                     self.repo.get_contents(file_path)
                 except Exception as e:
                     # 不存在
-                    self.repo.create_file(file_path, f"Add {file_msg}", doc_text)
+                    self.repo.create_file(file_path, f"Add {file_msg}", doc_html)
 
                 LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
                 # 保存当前文章状态
@@ -103,17 +103,17 @@ class GithubBackup(BackupBase):
 
 
 if __name__ == "__main__":
-    test_backup_data = {
-        "doc_id": "test",
-        "doc_source": "liuli_wechat",
-        "doc_source_name": "老胡的储物柜",
-        "doc_name": "打造一个干净且个性化的公众号阅读环境",
-        "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
-    }
+    # test_backup_data = {
+    #     "doc_id": "test",
+    #     "doc_source": "liuli_wechat",
+    #     "doc_source_name": "老胡的储物柜",
+    #     "doc_name": "打造一个干净且个性化的公众号阅读环境",
+    #     "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
+    # }
     github_backup = GithubBackup({})
-    github_backup.save(test_backup_data)
+    # github_backup.save(test_backup_data)
     github_backup.delete(
-        doc_source="liuli_wechat",
-        doc_source_name="老胡的储物柜",
-        doc_name="打造一个干净且个性化的公众号阅读环境",
+        doc_source="liuli_book",
+        doc_source_name="诡秘之主",
+        doc_name="第四十一章 新的旅程",
     )

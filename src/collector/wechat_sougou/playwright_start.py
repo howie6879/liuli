@@ -28,7 +28,8 @@
                 "doc_source": "liuli_wechat",
                 "doc_source_account_nick": "howie_locker",
                 "doc_source_account_intro": "编程、兴趣、生活",
-                "doc_content": "hello world"
+                "doc_content": "hello world",
+                "doc_html": ""
             }
     Changelog: all notable changes to this file will be documented
 """
@@ -75,9 +76,7 @@ async def playwright_main(wechat_name: str):
         async with async_playwright() as p:
             # browser = await p.chromium.launch(headless=False)
             browser = await p.chromium.launch()
-            context = await browser.new_context(
-                user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
-            )
+            context = await browser.new_context(user_agent=Config.SPIDER_UA)
             page = await context.new_page()
             # 进行公众号检索
             await page.goto("https://weixin.sogou.com/")
@@ -134,6 +133,7 @@ async def playwright_main(wechat_name: str):
                                 "doc_source_account_intro": wechat_item.doc_source_account_intro,
                                 "doc_content": html_to_text_h2t(wx_html),
                                 "doc_keywords": "",
+                                "doc_html": "",
                             },
                         }
                     else:

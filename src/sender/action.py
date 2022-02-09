@@ -6,6 +6,7 @@
 """
 import time
 
+from src.common.doc_utils import get_bak_doc_link
 from src.config import Config
 from src.databases import MongodbManager
 from src.sender.send_factory import send_factory
@@ -21,6 +22,8 @@ def send_doc(sender_conf: dict):
     sender_list = sender_conf["sender_list"]
     query_days = sender_conf.get("query_days", 2)
     delta_time = sender_conf.get("delta_time", 3)
+    link_source = sender_conf.get("link_source", "self")
+    basic_filter = sender_conf.get("basic_filter", {})
     skip_ads = sender_conf.get("skip_ads", False)
     if sender_list:
         # 是否启用分发器
@@ -28,8 +31,14 @@ def send_doc(sender_conf: dict):
         coll = mongo_base.get_collection(coll_name="liuli_articles")
         cur_ts = int(time.time())
         filter_dict = {
-            # 时间范围，除第一次外后面其实可以去掉
-            "doc_ts": {"$gte": cur_ts - (query_days * 24 * 60 * 60), "$lte": cur_ts},
+            **basic_filter,
+            **{
+                # 时间范围，除第一次外后面其实可以去掉
+                "doc_ts": {
+                    "$gte": cur_ts - (query_days * 24 * 60 * 60),
+                    "$lte": cur_ts,
+                },
+            },
         }
         if skip_ads:
             filter_dict.update(
@@ -57,6 +66,9 @@ def send_doc(sender_conf: dict):
                         doc_cus_des = "🤓非广告"
 
                 each_data["doc_cus_des"] = doc_cus_des
+                each_data["doc_link"] = get_bak_doc_link(
+                    link_source=link_source, doc_data=each_data
+                )
                 # 每次分发休眠一定时间
                 time.sleep(delta_time)
                 send_factory(

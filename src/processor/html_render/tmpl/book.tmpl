@@ -1,0 +1,62 @@
+<html lang="zh-Hans" data-darkmode="auto">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/heti@0.9.2/umd/heti.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/howie6879/oss/cus_heti.css">
+    <script src="https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"></script>
+    <title>${html_title}</title>
+
+<body>
+    <main class="container">
+        <article class="article heti">
+            <h1 class="article__title">${article_title}</h1>
+            ${article_content}
+        </article>
+    </main>
+    <aside class="panel">
+        <ul class="panel-list panel-list--gray">
+            <li><input type="radio" class="J_fontStack" value="heti--classic" name="font" id="font-classic"
+                    checked=""><label for="font-classic">传统</label></li>
+            <li><input type="radio" class="J_fontStack" value="heti--sans" name="font" id="font-sans"><label
+                    for="font-sans">黑体</label></li>
+            <li><input type="radio" class="J_fontStack" value="heti--serif" name="font" id="font-serif"><label
+                    for="font-serif">宋体</label></li>
+        </ul>
+        <ul class="panel-list panel-list--gray panel-list--icon">
+            <li><input type="radio" class="J_darkMode" value="auto" name="darkmode" id="darkmode-auto" checked=""><label
+                    for="darkmode-auto">🌗</label></li>
+            <li><input type="radio" class="J_darkMode" value="light" name="darkmode" id="darkmode-light"><label
+                    for="darkmode-light">🌞</label></li>
+            <li><input type="radio" class="J_darkMode" value="dark" name="darkmode" id="darkmode-dark"><label
+                    for="darkmode-dark">🌙</label></li>
+        </ul>
+    </aside>
+    <script>
+        const $$root = document.getElementsByTagName('html')[0]
+        const $$main = document.getElementsByTagName('main')[0]
+        const $$article = document.getElementsByTagName('article')[0]
+
+        function addEventListeners(nodeList, event, fn) {
+            [].forEach.call(nodeList, function (elm) {
+                elm.addEventListener(event, fn, false)
+            }, false)
+        }
+
+        addEventListeners(document.getElementsByClassName('J_darkMode'), 'change', function (e) {
+            $$root.setAttribute('data-darkmode', e.target.value)
+        })
+
+        addEventListeners(document.getElementsByClassName('J_radioGrid'), 'change', function (e) {
+            $$main.setAttribute('data-bg-grid', e.target.value)
+        })
+
+        addEventListeners(document.getElementsByClassName('J_fontStack'), 'change', function (e) {
+            $$article.className = ['article', 'heti', e.target.value].join(' ')
+        })
+
+        const heti = new Heti('.article')
+        heti.autoSpacing()
+    </script>
+</body>
+
+</html>

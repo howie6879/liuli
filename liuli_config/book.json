@@ -1,0 +1,48 @@
+{
+    "name": "book",
+    "author": "liuli_team",
+    "doc_source": "liuli_book",
+    "collector": {
+        "book_common": {
+            "book_dict": {
+                "诡秘之主": "https://www.yruan.com/article/38563.html",
+                "宇宙职业选手": "https://www.yruan.com/article/85588.html"
+            },
+            "delta_time": 5
+        }
+    },
+    "processor": {
+        "before_collect": [],
+        "after_collect": [{
+            "func": "to_rss",
+            "link_source": "github"
+
+        }]
+    },
+    "sender": {
+        "sender_list": ["wecom", "ding"],
+        "query_days": 7,
+        "delta_time": 3,
+        "link_source": "github"
+    },
+    "backup": {
+        "backup_list": ["github", "mongodb"],
+        "query_days": 7,
+        "delta_time": 3,
+        "basic_filter": {
+            "doc_source": "liuli_book"
+        },
+        "doc_html_dict": {
+            "liuli_book": "book"
+        },
+        "init_config": {},
+        "after_get_content": []
+    },
+    "schedule": {
+        "period_list": [
+            "00:10",
+            "12:10",
+            "21:10"
+        ]
+    }
+}

@@ -6,8 +6,7 @@
 import os
 import re
 
-from operator import itemgetter
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 import html2text
 
@@ -16,17 +15,23 @@ from readability import Document
 from textrank4zh import TextRank4Keyword
 
 from src.classifier import model_predict_factory
-from src.common.remote import send_get_request
+from src.common.remote import get_html_by_requests, send_get_request
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils.log import LOGGER
 
 
-def ad_marker(cos_value: float = 0.6, is_force=False):
+def ad_marker(
+    cos_value: float = 0.6,
+    is_force=False,
+    basic_filter={},
+    **kwargs,
+):
     """对订阅的文章进行广告标记
 
     Args:
         cos_value (str): 0.6
+        basic_filter (dict): {} 查询条件
         is_force (bool): 是否强制重新判决
     """
 
@@ -37,6 +42,8 @@ def ad_marker(cos_value: float = 0.6, is_force=False):
     else:
         query = {"cos_model": {"$exists": False}}
 
+    query.update(basic_filter)
+
     # 查找没有被标记的文章，基于相似度模型进行判断
     for each_data in coll.find(query):
         doc_name = each_data["doc_name"]
@@ -45,7 +52,7 @@ def ad_marker(cos_value: float = 0.6, is_force=False):
         doc_keywords = each_data.get("doc_keywords")
 
         if not doc_keywords:
-            keyword_list = fetch_keyword_list(doc_content)
+            keyword_list = extract_keyword_list(doc_content)
             doc_keywords = " ".join(keyword_list)
             each_data["doc_keywords"] = doc_keywords
 
@@ -95,7 +102,17 @@ def extract_chapters(chapter_url, html):
     return all_chapters
 
 
-def fetch_keyword_list(url_or_text: str = None):
+def extract_core_html(html: str):
+    """从文章类型提取核心HTML
+
+    Args:
+        html (str): raw html
+    """
+    doc = Document(html)
+    return doc.title(), doc.summary()
+
+
+def extract_keyword_list(url_or_text: str = None):
     """
     获取文本的关键词列表
     :param url_or_text:
@@ -125,12 +142,12 @@ def html_to_text_h2t(html: str):
     :param html:
     :return:
     """
-    doc = Document(html)
     h = html2text.HTML2Text()
     h.ignore_links = True
     h.bypass_tables = False
     h.unicode_snob = False
-    text = h.handle(doc.summary())
+    _, summary = extract_core_html(html)
+    text = h.handle(summary)
     return text.strip()
 
 
@@ -158,9 +175,13 @@ def valid_chapter_name(chapter_name):
 
 
 if __name__ == "__main__":
-    url = "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw"
-    resp = send_get_request(url)
-    text = html_to_text_h2t(resp.text)
+    # url = "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw"
+    url = "https://www.yruan.com/article/38563/28963588.html"
+    text = get_html_by_requests(url)
+    # doc = Document(text)
+    # print(doc.title(), doc.short_title(), dir(doc))
+    # print(doc.summary())
+    text = html_to_text_h2t(text)
     print(text)
-    res = fetch_keyword_list(url)
-    print(res)
+    # res = extract_keyword_list(url)
+    # print(res)

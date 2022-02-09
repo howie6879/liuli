@@ -42,7 +42,7 @@ class MongodbBackup(BackupBase):
         doc_source_name = backup_data["doc_source_name"]
         doc_name = backup_data["doc_name"]
         # 源文件
-        doc_text = backup_data["doc_text"]
+        doc_html = backup_data["doc_html"]
 
         file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
         file_path = f"{file_msg}.html"
@@ -71,7 +71,7 @@ class MongodbBackup(BackupBase):
                 update_data = {
                     "$set": {
                         **filter_dict,
-                        **{"ts": int(time.time()), "content": doc_text},
+                        **{"ts": int(time.time()), "content": doc_html},
                     }
                 }
 
@@ -137,9 +137,9 @@ if __name__ == "__main__":
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
     }
     mongo_backup = MongodbBackup({})
-    mongo_backup.save(test_backup_data)
-    # mongo_backup.delete(
-    #     doc_source="liuli_wechat",
-    #     doc_source_name="老胡的储物柜",
-    #     doc_name="打造一个干净且个性化的公众号阅读环境",
-    # )
+    # mongo_backup.save(test_backup_data)
+    mongo_backup.delete(
+        doc_source="liuli_book",
+        doc_source_name="诡秘之主",
+        doc_name="第四十一章 新的旅程",
+    )
