@@ -1,5 +1,5 @@
-<!-- <p align="center"><img src="" width='120px' height='120px' alt="Liuli logo" >
-</p> -->
+<p align="center"><img src="./.files/images/logo_pure.jpg" width='120px' height='120px' alt="Liuli logo" >
+</p>
 
 <h1 align="center">Liuli</h1>
 
