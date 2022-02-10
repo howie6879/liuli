@@ -5,10 +5,10 @@
     "collector": {
         "book_common": {
             "book_dict": {
+                "诡秘之主": "https://www.yruan.com/article/38563.html",
                 "没钱上大学的我只能去屠龙了": "https://www.sobiquge.com/book/48066/",
-                "谁还不是个修行者了": "http://www.bqxs520.com/112386/",
-                "宇宙职业选手": "https://www.xbiquge.so/book/54523/",
-                "诡秘之主": "https://www.xbiquge.so/book/36327/"
+                "宇宙职业选手": "https://www.yruan.com/article/85588.html",
+                "谁还不是个修行者了": "http://www.bqxs520.com/112386/"
             },
             "delta_time": 5
         }
