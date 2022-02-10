@@ -55,6 +55,7 @@ def run(collect_config: dict):
     s_nums = 0
     wechat_list = collect_config["wechat_list"]
     delta_time = collect_config.get("delta_time", 5)
+
     for name in wechat_list:
         time.sleep(delta_time)
         input_data = asyncio.run(playwright_main(name))
@@ -96,48 +97,49 @@ async def playwright_main(wechat_name: str):
                     item_list.append(item)
 
                 if item_list:
-                    target_item = item_list[0]
-                    if target_item.wechat_name == wechat_name:
-                        # 名字匹配才继续
-                        info = f"playwright 匹配公众号 {wechat_name}({target_item.wechat_id}) 成功! 正在提取最新文章: {target_item.latest_title}"
-                        LOGGER.info(info)
-                        latest_href = target_item.latest_href
+                    for target_item in item_list:
+                        if target_item.wechat_name == wechat_name:
+                            # 名字匹配才继续
+                            info = f"playwright 匹配公众号 {wechat_name}({target_item.wechat_id}) 成功! 正在提取最新文章: {target_item.latest_title}"
+                            LOGGER.info(info)
+                            latest_href = target_item.latest_href
 
-                        await page.goto(latest_href)
-                        # 等待公众号图片加载出来，整个就算加载完毕
-                        try:
-                            await page.wait_for_selector(
-                                selector="#js_pc_qr_code_img", timeout=6000
+                            await page.goto(latest_href)
+                            # 等待公众号图片加载出来，整个就算加载完毕
+                            try:
+                                await page.wait_for_selector(
+                                    selector="#js_pc_qr_code_img", timeout=6000
+                                )
+                            except Exception as _:
+                                pass
+                            await page.wait_for_load_state()
+                            wx_html_handle = await page.query_selector("html")
+                            wx_html = await wx_html_handle.inner_html()
+                            wechat_item: WechatItem = await WechatItem.get_item(
+                                html=wx_html
                             )
-                        except Exception as _:
-                            pass
-                        await page.wait_for_load_state()
-                        wx_html_handle = await page.query_selector("html")
-                        wx_html = await wx_html_handle.inner_html()
-                        wechat_item: WechatItem = await WechatItem.get_item(
-                            html=wx_html
-                        )
-                        # 获取当前微信公众号文章地址
-                        wechat_item.doc_link = page.url
-                        doc_source_name = wechat_item.doc_source_name or wechat_name
-                        wechat_data = {
-                            **wechat_item.results,
-                            **{
-                                "doc_id": md5_encryption(
-                                    f"{wechat_item.doc_name}_{doc_source_name}"
-                                ),
-                                "doc_source_name": doc_source_name,
-                                "doc_link": wechat_item.doc_link,
-                                "doc_source": wechat_item.doc_source,
-                                "doc_source_account_nick": wechat_item.doc_source_account_nick,
-                                "doc_source_account_intro": wechat_item.doc_source_account_intro,
-                                "doc_content": html_to_text_h2t(wx_html),
-                                "doc_keywords": "",
-                                "doc_html": "",
-                            },
-                        }
+                            # 获取当前微信公众号文章地址
+                            wechat_item.doc_link = page.url
+                            doc_source_name = wechat_item.doc_source_name or wechat_name
+                            wechat_data = {
+                                **wechat_item.results,
+                                **{
+                                    "doc_id": md5_encryption(
+                                        f"{wechat_item.doc_name}_{doc_source_name}"
+                                    ),
+                                    "doc_source_name": doc_source_name,
+                                    "doc_link": wechat_item.doc_link,
+                                    "doc_source": wechat_item.doc_source,
+                                    "doc_source_account_nick": wechat_item.doc_source_account_nick,
+                                    "doc_source_account_intro": wechat_item.doc_source_account_intro,
+                                    "doc_content": html_to_text_h2t(wx_html),
+                                    "doc_keywords": "",
+                                    "doc_html": "",
+                                },
+                            }
+                            break
                     else:
-                        info = f"playwright 匹配公众号 {wechat_name} - {target_item.wechat_name} 失败! "
+                        info = f"playwright 匹配公众号 {wechat_name} 失败! "
                         LOGGER.error(info)
             else:
                 info = f"playwright 抓取 HTML 失败: {wechat_name} "

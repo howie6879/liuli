@@ -119,9 +119,7 @@ def run(collect_config: dict):
         sg_url = f"https://weixin.sogou.com/weixin?type=1&query={wechat_name}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
         SGWechatSpider.start_urls = [sg_url]
         try:
-            SGWechatSpider.start(
-                middleware=ua_middleware,
-            )
+            SGWechatSpider.start(middleware=ua_middleware)
             s_nums += 1
         except Exception as e:
             err_msg = f"😿 公众号->{wechat_name} 文章更新失败! 错误信息: {e}"

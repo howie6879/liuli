@@ -5,10 +5,11 @@
     Changelog: all notable changes to this file will be documented
 """
 
+from urllib import parse
+
 from pymongo import MongoClient
 
 from src.utils.tools import md5_encryption
-from urllib import parse
 
 
 class MongodbBase:
@@ -24,7 +25,7 @@ class MongodbBase:
         self.mongodb_uri = "mongodb://{account}{host}:{port}/{db}".format(
             account="{username}:{password}@".format(
                 username=parse.quote_plus(self.mongodb_config["username"]),
-                password=parse.quote_plus(self.mongodb_config["password"])
+                password=parse.quote_plus(self.mongodb_config["password"]),
             )
             if self.mongodb_config.get("username")
             else "",
@@ -33,7 +34,7 @@ class MongodbBase:
             db=self.mongodb_config.get("db", "liuli"),
         )
         self.op_db = self.mongodb_config.get("op_db", "liuli")
-        self.client = MongoClient(self.mongodb_uri)
+        self.client = MongoClient(self.mongodb_uri, connect=False)
 
     def get_db(self, db_name: str = ""):
         """

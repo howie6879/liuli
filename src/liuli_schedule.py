@@ -11,6 +11,8 @@ import json
 import os
 import time
 
+from multiprocessing import Pool, freeze_support
+
 import schedule
 
 from src.backup.action import backup_doc
@@ -21,7 +23,7 @@ from src.sender.action import send_doc
 from src.utils import LOGGER
 
 
-def schedule_task(ll_config: dict):
+def run_liuli_task(ll_config: dict):
     """执行调度任务
 
     Args:
@@ -65,7 +67,7 @@ def schedule_task(ll_config: dict):
     LOGGER.info("备份器执行完毕!")
 
 
-def start(ll_config_name: str = "default"):
+def run_liuli_schedule(ll_config_name: str = "default"):
     """调度启动函数
 
     Args:
@@ -73,23 +75,55 @@ def start(ll_config_name: str = "default"):
     """
     ll_config_path = os.path.join(Config.LL_CONFIG_DIR, f"{ll_config_name}.json")
     with open(ll_config_path, "r", encoding="utf-8") as load_f:
-        task_config = json.load(load_f)
+        ll_config = json.load(load_f)
 
-    schdule_time_list = task_config["schedule"].get(
+    schdule_time_list = ll_config["schedule"].get(
         "period_list", ["00:10", "12:10", "21:10"]
     )
     for each in schdule_time_list:
-        schedule.every().day.at(each).do(schedule_task, task_config)
-    start_info = f"Schedule({Config.SCHEDULE_VERSION}) started successfully :)"
+        schedule.every().day.at(each).do(run_liuli_task, ll_config)
+
+    name: str = ll_config["name"]
+    author: str = ll_config["author"]
+    start_info = f"Schedule({Config.SCHEDULE_VERSION}) task({name}@{author}) started successfully :)"
     LOGGER.info(start_info)
-    schdule_msg = "Schedule time:\n " + "\n ".join(schdule_time_list)
+    schdule_msg = f"Task({name}@{author}) schedule time:\n " + "\n ".join(
+        schdule_time_list
+    )
     LOGGER.info(schdule_msg)
     # 启动就执行一次
-    schedule_task(task_config)
+    run_liuli_task(ll_config)
     while True:
         schedule.run_pending()
         time.sleep(1)
 
 
+def start(ll_config_name: str = ""):
+    """调度启动函数
+
+    Args:
+        task_config (dict): 调度任务配置
+    """
+    if not ll_config_name:
+        freeze_support()
+
+        # 默认启动 liuli_config 目录下所有配置
+        ll_config_name_list = []
+        for each_file in os.listdir(Config.LL_CONFIG_DIR):
+            if each_file.endswith("json"):
+                # 加入启动列表
+                ll_config_name_list.append(each_file.replace(".json", ""))
+        # 进程池
+        p = Pool(len(ll_config_name_list))
+        for each_ll_config_name in ll_config_name_list:
+            LOGGER.info(f"Task {each_ll_config_name} register successfully!")
+            p.apply_async(run_liuli_schedule, args=(each_ll_config_name,))
+        p.close()
+        p.join()
+
+    else:
+        run_liuli_schedule(ll_config_name)
+
+
 if __name__ == "__main__":
-    start(ll_config_name="book")
+    start(ll_config_name="")
