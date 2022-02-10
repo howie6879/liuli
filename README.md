@@ -24,7 +24,7 @@
 - [x] 公众号：
   - [x] **广告问题**：[打造一个干净且个性化的公众号阅读环境](https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw)
   - [x] **RSS订阅问题**：[基于Liuli构建纯净的RSS公众号信息流](https://mp.weixin.qq.com/s/rxoq97YodwtAdTqKntuwMA)
-- [ ] 书籍(小说)追更订阅
+- [x] 书籍(小说)追更订阅：[基于Liuli追更&阅读小说](https://mp.weixin.qq.com/s/RSVZFxiq8G7a51te4q93gQ)
 
 ## 🍥 使用
 
