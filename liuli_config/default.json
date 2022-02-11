@@ -1,0 +1,29 @@
+{
+    "name": "default",
+    "author": "liuli_team",
+    "doc_source": "",
+    "collector": {},
+    "processor": {
+        "before_collect": [],
+        "after_collect": []
+    },
+    "sender": {
+        "sender_list": ["wecom"],
+        "query_days": 3,
+        "delta_time": 3
+    },
+    "backup": {
+        "backup_list": ["mongodb"],
+        "query_days": 3,
+        "delta_time": 3,
+        "init_config": {},
+        "after_get_content": []
+    },
+    "schedule": {
+        "period_list": [
+            "00:10",
+            "12:10",
+            "21:10"
+        ]
+    }
+}

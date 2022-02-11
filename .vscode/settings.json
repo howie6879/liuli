@@ -2,6 +2,9 @@
     "python.sortImports.args": [
         "--settings-path=${workspaceFolder}/setup.cfg"
     ],
+    "python.linting.pylintArgs": [
+        "--rcfile=${workspaceFolder}/.pylintrc"
+    ],
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
     },

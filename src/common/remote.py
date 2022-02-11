@@ -42,7 +42,7 @@ def send_get_request(url: str, params: dict = None, timeout: int = 3, **kwargs):
         [type]: [description]
     """
     try:
-        resp = requests.get(url, params, **kwargs)
+        resp = requests.get(url, params, timeout=timeout, **kwargs)
     except Exception as e:
         resp = None
         LOGGER.exception(f"请求出错 - {url} - {str(e)}")

@@ -5,7 +5,7 @@
 **提升**:
 - 部分代码重构，重命名为 [liuli](https://github.com/liuli-io/liuli/issues/29)
 - 提升部署效率，支持`docker-compose` [#17](https://github.com/howie6879/liuli/issues/17)
-- 项目容量从100m搜小到3m
+- 项目容量从100m缩小到3m（移除模型）
 
 **修复**:
 - 分发器：企业微信分发部门ID参数不定 [#16](https://github.com/howie6879/liuli/issues/16) @zyd16888
