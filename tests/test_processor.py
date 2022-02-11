@@ -14,8 +14,8 @@ def test_extract_chapters():
     """
     目录提取测试用例
     """
-    # chapter_url = "https://book.qidian.com/info/1010868264/#Catalog"
-    chapter_url = "https://www.biduoxs.com/biquge/59_59253/"
+    chapter_url = "https://book.qidian.com/info/1010868264/#Catalog"
+    # chapter_url = "https://www.biduoxs.com/biquge/59_59253/"
     resp_text = get_html_by_requests(
         chapter_url, headers={"User-Agent": Config.SPIDER_UA, "Cookie": ""}
     )

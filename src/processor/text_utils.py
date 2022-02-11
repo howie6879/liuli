@@ -24,7 +24,7 @@ from src.utils.log import LOGGER
 def ad_marker(
     cos_value: float = 0.6,
     is_force=False,
-    basic_filter={},
+    basic_filter=None,
     **kwargs,
 ):
     """对订阅的文章进行广告标记
@@ -42,7 +42,7 @@ def ad_marker(
     else:
         query = {"cos_model": {"$exists": False}}
 
-    query.update(basic_filter)
+    query.update(basic_filter or {})
 
     # 查找没有被标记的文章，基于相似度模型进行判断
     for each_data in coll.find(query):
