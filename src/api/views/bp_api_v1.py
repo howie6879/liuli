@@ -9,7 +9,7 @@ from flask import Blueprint, request
 from src.api.common import ResponseField, UniResponse, response_handle
 from src.common.remote import get_html_by_requests
 from src.config import Config
-from src.processor.text_utils import extract_chapters
+from src.processor.text_utils import extract_chapters, extract_core_html
 
 bp_api = Blueprint("v1", __name__, url_prefix="/v1")
 
@@ -24,15 +24,14 @@ def ping():
     return "pong"
 
 
-@bp_api.route("/book", methods=["GET"], strict_slashes=False)
-def book():
+@bp_api.route("/book_chapter", methods=["GET"], strict_slashes=False)
+def book_chapter():
     """
     返回书籍目录json，依赖参数：
         - url: 书籍目录链接
-        - resp_type: html or json
+    eg: http://0.0.0.0:8765/v1/book_chapter?url=https://www.biduoxs.com/biquge/59_59253/
     """
     args = request.args.to_dict()
-    resp_type = args.get("resp_type", "json")
     url = args.get("url", "")
     chapter_list = []
     result = UniResponse.SUCCESS
@@ -45,7 +44,32 @@ def book():
 
     result[ResponseField.DATA] = {
         "url": url,
-        "resp_type": resp_type,
         "chapter_list": chapter_list,
+    }
+    return response_handle(request=request, dict_value=result)
+
+
+@bp_api.route("/book_content", methods=["GET"], strict_slashes=False)
+def book_content():
+    """
+    基于readability算法提取文章核心内容，并转化为MD格式输出
+    返回书籍目录json，依赖参数：
+        - url: 书籍章节页链接
+    eg: http://0.0.0.0:8765/v1/book_content?url=https://www.biduoxs.com/biquge/59_59253/c382120.html
+    """
+    args = request.args.to_dict()
+    url = args.get("url", "")
+    result = UniResponse.SUCCESS
+    core_html = ""
+    if url:
+        # 章节链接必须存在
+        resp_text = get_html_by_requests(url, headers={"User-Agent": Config.SPIDER_UA})
+        _, core_html = extract_core_html(resp_text)
+    else:
+        result = UniResponse.PARAM_ERR
+
+    result[ResponseField.DATA] = {
+        "url": url,
+        "core_html": core_html,
     }
     return response_handle(request=request, dict_value=result)

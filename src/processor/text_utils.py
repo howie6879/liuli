@@ -99,7 +99,12 @@ def extract_chapters(chapter_url, html):
             each_data["chapter_url"] = cur_chapter_url
             each_data["chapter_name"] = cur_chapter_name
             all_chapters.append(each_data)
-    return all_chapters
+    # 去重
+    all_chapters_sorted = []
+    for index, value in enumerate(all_chapters):
+        if value not in all_chapters[index + 1 :]:
+            all_chapters_sorted.append(value)
+    return all_chapters_sorted
 
 
 def extract_core_html(html: str):
