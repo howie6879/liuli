@@ -10,7 +10,7 @@
 
 ## ✨ 特性
 
-使用`Liuli`，你可以得到（都是Flag）:
+使用`Liuli`，你可以得到:
 
 - [x] 配置化开发，自定义输入、处理、输出
 - [x] 信息备份(支持跨源): Github, MongoDB
@@ -93,6 +93,11 @@ Loading .env environment variables...
 - **备份器**：将处理后的文章进行备份，如持久化到数据库或者GitHub等。
 
 这样做就实现了干净阅读环境的构建，衍生一下，基于获取的数据，可做的事情有很多，大家不妨发散一下思路。
+
+开发进度看板:
+
+- [x] [v0.2.0](https://github.com/liuli-io/liuli/projects/1): 实现基础功能，保证常规场景解决方案可应用
+- [ ] [v0.3.0](https://github.com/liuli-io/liuli/projects/2): 实现采集器自定义，用户所见即可采集
 
 ## 🤖 帮助
 
