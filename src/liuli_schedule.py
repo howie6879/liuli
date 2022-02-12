@@ -11,7 +11,8 @@ import json
 import os
 import time
 
-from multiprocessing import Pool, freeze_support
+from copy import deepcopy
+from multiprocessing import Process
 
 import schedule
 
@@ -81,7 +82,7 @@ def run_liuli_schedule(ll_config_name: str = "default"):
         "period_list", ["00:10", "12:10", "21:10"]
     )
     for each in schdule_time_list:
-        schedule.every().day.at(each).do(run_liuli_task, ll_config)
+        schedule.every().day.at(each).do(run_liuli_task, deepcopy(ll_config))
 
     name: str = ll_config["name"]
     author: str = ll_config["author"]
@@ -92,7 +93,7 @@ def run_liuli_schedule(ll_config_name: str = "default"):
     )
     LOGGER.info(schdule_msg)
     # 启动就执行一次
-    run_liuli_task(ll_config)
+    run_liuli_task(deepcopy(ll_config))
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -105,21 +106,17 @@ def start(ll_config_name: str = ""):
         task_config (dict): 调度任务配置
     """
     if not ll_config_name:
-        freeze_support()
-
         # 默认启动 liuli_config 目录下所有配置
-        ll_config_name_list = []
+        process_list = []
         for each_file in os.listdir(Config.LL_CONFIG_DIR):
             if each_file.endswith("json"):
                 # 加入启动列表
-                ll_config_name_list.append(each_file.replace(".json", ""))
-        # 进程池
-        p = Pool(len(ll_config_name_list))
-        for each_ll_config_name in ll_config_name_list:
-            LOGGER.info(f"Task {each_ll_config_name} register successfully!")
-            p.apply_async(run_liuli_schedule, args=(each_ll_config_name,))
-        p.close()
-        p.join()
+                each_ll_config_name = each_file.replace(".json", "")
+                process_list.append(
+                    Process(target=run_liuli_schedule, args=(each_ll_config_name,))
+                )
+        _ = [p.start() for p in process_list]
+        _ = [p.join() for p in process_list]
 
     else:
         run_liuli_schedule(ll_config_name)

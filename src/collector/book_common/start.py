@@ -16,6 +16,7 @@ from src.processor.text_utils import (
     extract_keyword_list,
     html_to_text_h2t,
 )
+from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
 
 
@@ -26,6 +27,7 @@ def run(collect_config: dict):
         collect_config (dict, optional): 采集器配置
     """
     book_dict: dict = collect_config["book_dict"]
+    s_nums = 0
     for book_name, book_url in book_dict.items():
         resp_text = get_html_by_requests(book_url)
         all_chapters = extract_chapters(chapter_url=book_url, html=resp_text)
@@ -37,7 +39,7 @@ def run(collect_config: dict):
             url=doc_link, headers={"User-Agent": Config.SPIDER_UA}
         )
         _, doc_core_html = extract_core_html(resp_text)
-        data = {
+        input_data = {
             "doc_date": "",
             "doc_image": "",
             "doc_name": doc_name,
@@ -57,7 +59,12 @@ def run(collect_config: dict):
             "doc_content": "",
             "doc_html": "",
         }
-        load_data_to_articlles(input_data=data)
+        # 持久化，必须执行
+        flag = load_data_to_articlles(input_data)
+        if flag:
+            s_nums += 1
+    msg = f"🤗 liuli_book 更新完毕({s_nums}/{len(book_dict.keys())})"
+    LOGGER.info(msg)
 
 
 if __name__ == "__main__":
