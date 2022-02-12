@@ -3,6 +3,7 @@
     Description: 备份器工厂
     支持备份方式如下：
         - Github
+        - MongoDB
     命令：PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/backup/backup_factory.py
     Changelog: all notable changes to this file will be documented
 """

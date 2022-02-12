@@ -24,6 +24,7 @@ def to_rss(
     doc_source_list: list = None,
     link_source: str = "self",
     skip_ads: bool = False,
+    rss_count: int = 20,
     **kwargs,
 ):
     """为文章生成RSS
@@ -35,6 +36,7 @@ def to_rss(
             - mongodb: 用 liuli api 服务的连接 {LL_DOMAIN}/backup/{doc_source}/{doc_source_name}/{doc_name}
             - github: 用 github 仓库地址 {LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
         skip_ads (bool, optional): 是否直接忽略广告. Defaults to False.
+        rss_count (int, optional): 生成rss的文章数量. Defaults to 20.
     """
     doc_source_list = doc_source_list or []
     # 兼容配置中的全局查询条件
@@ -84,8 +86,8 @@ def to_rss(
                 sorted_key="doc_ts",
                 # 倒序，从最新发的开始
                 sorted_index=-1,
-                # 最近10篇文章
-                limit=20,
+                # 最近 rss_count 篇文章
+                limit=rss_count,
             )
             f_db_satus, f_db_info = f_db_res["status"], f_db_res["info"]
             if f_db_satus:

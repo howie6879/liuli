@@ -87,7 +87,7 @@ def backup_doc(backup_config: dict):
         else:
             LOGGER.error(f"Backup 数据查询失败! {db_res['info']}")
     else:
-        LOGGER.warn("Backup 未配置备份源!")
+        LOGGER.error("Backup 未配置备份源!")
 
 
 if __name__ == "__main__":

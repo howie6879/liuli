@@ -7,19 +7,20 @@
             "book_dict": {
                 "诡秘之主": "https://www.yruan.com/article/38563.html"
             },
-            "delta_time": 5
+            "delta_time": 3,
+            "latest_chapter_nums": 3
         }
     },
     "processor": {
         "before_collect": [],
         "after_collect": [{
             "func": "to_rss",
-            "link_source": "github"
-
+            "link_source": "github",
+            "rss_count": 20
         }]
     },
     "sender": {
-        "sender_list": ["wecom", "ding"],
+        "sender_list": ["wecom"],
         "query_days": 7,
         "delta_time": 3,
         "link_source": "github"
