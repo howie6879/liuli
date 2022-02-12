@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2021-12-27.
     Description: RSS相关脚本
-        - 生成RSS命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss/doc2rss.py
+        - 生成RSS命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss_utils.py
     Changelog: all notable changes to this file will be documented
 """
 import time
@@ -41,8 +41,7 @@ def to_rss(
     basic_filter = kwargs.get("basic_filter", {})
     if basic_filter:
         # 当前情况下必存在
-        doc_source = basic_filter["doc_source"]
-        doc_source_list.append(doc_source)
+        doc_source_list.append(basic_filter["doc_source"])
         doc_source_list = list(set(doc_source_list))
     # 获取 doc_source 下的 doc_source_name 组成的字典
     doc_source_name_dict: dict = get_doc_source_name_dict(doc_source_list)
@@ -65,12 +64,13 @@ def to_rss(
                     }
                 )
             return_dict = {
+                "_id": 0,
                 "doc_source_name": 1,
                 "doc_source": 1,
                 "doc_name": 1,
                 "doc_des": 1,
                 "doc_link": 1,
-                "doc_core_html": 1,
+                # "doc_core_html": 1,
                 "doc_author": 1,
                 "doc_date": 1,
                 "doc_ts": 1,
@@ -82,10 +82,10 @@ def to_rss(
                 filter_dict=filter_dict,
                 return_dict=return_dict,
                 sorted_key="doc_ts",
-                # 倒序
-                sorted_index=1,
+                # 倒序，从最新发的开始
+                sorted_index=-1,
                 # 最近10篇文章
-                limit=10,
+                limit=20,
             )
             f_db_satus, f_db_info = f_db_res["status"], f_db_res["info"]
             if f_db_satus:
@@ -95,7 +95,8 @@ def to_rss(
                     fg.id(doc_source_name)
                     fg.title(doc_source_name)
                     fg.author({"name": "liuli"})
-                    for each_data in f_db_info:
+                    # 再倒序
+                    for each_data in f_db_info[::-1]:
                         cos_model_resp = each_data.get("cos_model", {})
                         doc_cus_des = ""
                         if cos_model_resp:
@@ -160,4 +161,8 @@ def to_rss(
 
 
 if __name__ == "__main__":
-    to_rss(link_source="github", skip_ads=False)
+    to_rss(
+        link_source="github",
+        skip_ads=False,
+        **{"basic_filter": {"doc_source": "liuli_wechat"}},
+    )

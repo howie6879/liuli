@@ -106,6 +106,7 @@ venv.bak/
 .idea/
 .DS_Store
 pro.env
+pro_online.env
 dev.env
 *.swp
 *.bak
