@@ -5,6 +5,7 @@
 """
 import os
 import re
+import zlib
 
 from urllib.parse import urljoin
 
@@ -167,6 +168,30 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
     return str(text).replace(before_str, after_str)
 
 
+def text_compress(text: str) -> str:
+    """对文本进行压缩
+
+    Args:
+        text (str): 待压缩文本
+
+    Returns:
+        str: 压缩后的文本
+    """
+    return zlib.compress(text.encode())
+
+
+def text_decompress(text) -> str:
+    """对文本进行解压
+
+    Args:
+        text (str or bytes): 待解压文本
+
+    Returns:
+        str: 解压后的文本
+    """
+    return zlib.decompress(text).decode() if type(text).__name__ == "bytes" else text
+
+
 def valid_chapter_name(chapter_name):
     """
     判断目录名称是否合理
@@ -182,11 +207,11 @@ def valid_chapter_name(chapter_name):
 if __name__ == "__main__":
     # url = "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw"
     url = "https://www.yruan.com/article/38563/28963588.html"
-    text = get_html_by_requests(url)
+    t_text = get_html_by_requests(url)
     # doc = Document(text)
     # print(doc.title(), doc.short_title(), dir(doc))
     # print(doc.summary())
-    text = html_to_text_h2t(text)
-    print(text)
+    res_text = html_to_text_h2t(t_text)
+    print(res_text)
     # res = extract_keyword_list(url)
     # print(res)

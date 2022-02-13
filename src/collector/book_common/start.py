@@ -15,6 +15,7 @@ from src.processor.text_utils import (
     extract_core_html,
     extract_keyword_list,
     html_to_text_h2t,
+    text_compress,
 )
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
@@ -47,6 +48,8 @@ def run(collect_config: dict):
                 url=doc_link, headers={"User-Agent": Config.SPIDER_UA}
             )
             _, doc_core_html = extract_core_html(resp_text)
+            # 压缩为二进制进行存储
+            doc_core_html_lib = text_compress(doc_core_html)
             input_data = {
                 "doc_date": "",
                 "doc_image": "",
@@ -58,7 +61,7 @@ def run(collect_config: dict):
                     extract_keyword_list(html_to_text_h2t(resp_text))
                 ),
                 "doc_des": "",
-                "doc_core_html": doc_core_html,
+                "doc_core_html": doc_core_html_lib,
                 "doc_type": "article",
                 "doc_author": "",
                 "doc_source_name": book_name,
@@ -79,6 +82,6 @@ if __name__ == "__main__":
     t_cc = {
         "book_dict": {"谁还不是个修行者了": "http://www.bqxs520.com/112386/"},
         "delta_time": 5,
-        "latest_chapter_nums": 10,
+        "latest_chapter_nums": 3,
     }
     run(t_cc)

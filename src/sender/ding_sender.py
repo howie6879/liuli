@@ -37,7 +37,6 @@ class DingSender(SenderBase):
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
-        # doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
         doc_keywords = send_data["doc_keywords"]
@@ -49,7 +48,7 @@ class DingSender(SenderBase):
             # data = {
             #     "msgtype": "link",
             #     "link": {
-            #         "text": f"[liuli]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n{doc_content}",
+            #         "text": f"[liuli]{doc_source_name}: {doc_cus_des}\n亲，{doc_source} 源有更新\n",
             #         "title": doc_name,
             #         "picUrl": "",
             #         "messageUrl": doc_link,

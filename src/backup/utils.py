@@ -8,6 +8,7 @@
 from src.common.remote import get_html_by_requests
 from src.config import Config
 from src.processor.html_render import render_book_html
+from src.processor.text_utils import text_decompress
 
 
 def get_bak_doc_html(doc_data: dict, doc_html_type: str = "default") -> str:
@@ -25,14 +26,18 @@ def get_bak_doc_html(doc_data: dict, doc_html_type: str = "default") -> str:
     """
     # 获取原始文本内容
     doc_link = doc_data["doc_link"]
-    doc_html = doc_data.get("doc_html")
     online_func = lambda url: get_html_by_requests(
         url=url, headers={"User-Agent": Config.SPIDER_UA}
     )
     if doc_html_type == "online":
         doc_html = online_func(doc_link)
     elif doc_html_type == "book":
-        doc_html = render_book_html(doc_data)
+        doc_source_name = doc_data.get("doc_source_name", "")
+        doc_name = doc_data.get("doc_name", "")
+        doc_core_html = text_decompress(doc_data.get("doc_core_html", ""))
+        doc_html = render_book_html(doc_source_name, doc_name, doc_core_html)
     else:
-        doc_html = doc_html or online_func(doc_link)
+        # 本地模式
+        doc_html = text_decompress(doc_data.get("doc_html")) or online_func(doc_link)
+
     return doc_html

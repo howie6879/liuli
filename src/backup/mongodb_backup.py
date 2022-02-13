@@ -12,6 +12,7 @@ from src.databases.mongodb_tools import (
     mongodb_find,
     mongodb_update_data,
 )
+from src.processor.text_utils import text_compress
 from src.utils import LOGGER
 
 
@@ -71,7 +72,7 @@ class MongodbBackup(BackupBase):
                 update_data = {
                     "$set": {
                         **filter_dict,
-                        **{"ts": int(time.time()), "content": doc_html},
+                        **{"ts": int(time.time()), "content": text_compress(doc_html)},
                     }
                 }
 

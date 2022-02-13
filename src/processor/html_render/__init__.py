@@ -11,11 +11,15 @@ from string import Template
 from src.config import Config
 
 
-def render_book_html(data: dict, theme: str = "book_owllook") -> str:
+def render_book_html(
+    doc_source_name: str, doc_name: str, doc_content: str, theme: str = "book_owllook"
+) -> str:
     """将抓取的元数据渲染成html
 
     Args:
-        data (dict): 抓取的文章元数据
+        doc_source_name (str): 书籍名称
+        doc_name (str): 书籍当前章节
+        doc_content (str): 书籍当前内容
         theme (str): 渲染主题
     Returns:
         str: html
@@ -23,13 +27,10 @@ def render_book_html(data: dict, theme: str = "book_owllook") -> str:
     book_tmpl_path = os.path.join(Config.PROC_HTML_TMPL_DIR, f"{theme}.tmpl")
     with open(book_tmpl_path, "rb") as fp:
         raw = fp.read().decode("utf8")
-    doc_source_name = data.get("doc_source_name", "")
-    doc_name = data.get("doc_name", "")
-    doc_core_html = data.get("doc_core_html", "")
     render_dict = {
         "html_title": f"{doc_source_name}-{doc_name}",
         "article_title": doc_name,
-        "article_content": doc_core_html,
+        "article_content": doc_content,
     }
     raw_html = Template(raw).substitute(render_dict)
     return raw_html
@@ -39,7 +40,6 @@ if __name__ == "__main__":
     s_data = {
         "doc_id": "13611259dd2caf25ebdec506c11032ba",
         "doc_author": "",
-        "doc_content": "",
         "doc_core_html": "w",
         "doc_date": "",
         "doc_des": "",
@@ -55,5 +55,5 @@ if __name__ == "__main__":
         "doc_ts": 1644376985,
         "doc_type": "article",
     }
-    raw_html = render_book_html(s_data)
-    print(raw_html)
+    r_raw_html = render_book_html("诡秘之主", "第四十一章 新的旅程", "")
+    print(r_raw_html)

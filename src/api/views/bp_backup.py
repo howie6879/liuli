@@ -8,6 +8,7 @@ from flask import Blueprint, current_app
 
 from src.databases.mongodb_base import MongodbBase
 from src.databases.mongodb_tools import mongodb_find
+from src.processor.text_utils import text_decompress
 
 bp_backup = Blueprint("backup", __name__, url_prefix="/backup")
 
@@ -63,7 +64,7 @@ def backup(doc_source, doc_source_name, doc_name):
         logger.error(msg)
 
     return (
-        content,
+        text_decompress(content),
         200,
         {"Content-Type": "text/html; charset=utf-8"},
     )

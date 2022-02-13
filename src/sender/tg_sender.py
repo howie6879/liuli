@@ -111,7 +111,6 @@ if __name__ == "__main__":
         },
         send_data={
             "doc_id": "f42460107f69c9e929f8d591243efeb2",
-            "doc_content": "普通人搞一百万有多难？",
             "doc_date": "2021-04-11",
             "doc_des": "",
             "doc_ext": {},

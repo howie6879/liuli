@@ -92,8 +92,8 @@ def backup_doc(backup_config: dict):
 
 if __name__ == "__main__":
     backup = {
-        "backup_list": ["github", "mongodb"],
-        # "backup_list": ["mongodb"],
+        # "backup_list": ["github", "mongodb"],
+        "backup_list": ["mongodb"],
         "query_days": 7,
         "delta_time": 3,
         "basic_filter": {"doc_source": "liuli_book"},

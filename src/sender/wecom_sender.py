@@ -92,7 +92,6 @@ class WeComSender(SenderBase):
         doc_name = send_data["doc_name"]
         doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
-        # doc_content = send_data["doc_content"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
         doc_keywords = send_data["doc_keywords"]
@@ -194,7 +193,6 @@ if __name__ == "__main__":
         },
         send_data={
             "doc_id": "f42460107f69c9e929f8d591243efeb2",
-            "doc_content": "普通人搞一百万有多难？",
             "doc_date": "2021-04-11",
             "doc_des": "",
             "doc_ext": {},
