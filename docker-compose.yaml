@@ -1,7 +1,7 @@
 version: "3"
 services:
   liuli_api:
-    image: liuliio/api:v0.1.1
+    image: liuliio/api:v0.1.2
     restart: always
     container_name: liuli_api
     ports:

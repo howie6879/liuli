@@ -30,42 +30,47 @@ def run_liuli_task(ll_config: dict):
     Args:
         ll_config (dict): Liuli 任务配置
     """
-    # 文章源, 用于基础查询条件
-    doc_source: str = ll_config["doc_source"]
-    basic_filter = {"basic_filter": {"doc_source": doc_source}}
-    # 采集器配置
-    collector_conf: dict = ll_config["collector"]
-    # 处理器配置
-    processor_conf: dict = ll_config["processor"]
-    # 分发器配置
-    sender_conf: dict = ll_config["sender"]
-    sender_conf.update(basic_filter)
-    # 备份器配置
-    backup_conf: dict = ll_config["backup"]
-    backup_conf.update(basic_filter)
+    try:
+        # 防止内部函数篡改
+        ll_config_data = deepcopy(ll_config)
+        # 文章源, 用于基础查询条件
+        doc_source: str = ll_config_data["doc_source"]
+        basic_filter = {"basic_filter": {"doc_source": doc_source}}
+        # 采集器配置
+        collector_conf: dict = ll_config_data["collector"]
+        # 处理器配置
+        processor_conf: dict = ll_config_data["processor"]
+        # 分发器配置
+        sender_conf: dict = ll_config_data["sender"]
+        sender_conf.update(basic_filter)
+        # 备份器配置
+        backup_conf: dict = ll_config_data["backup"]
+        backup_conf.update(basic_filter)
 
-    # 采集器执行
-    LOGGER.info("采集器开始执行!")
-    for collect_type, collect_config in collector_conf.items():
-        collect_factory(collect_type, collect_config)
-    LOGGER.info("采集器执行完毕!")
-    # 采集器执行
-    LOGGER.info("处理器(after_collect): 开始执行!")
-    for each in processor_conf["after_collect"]:
-        func_name = each.pop("func")
-        # 注入查询条件
-        each.update(basic_filter)
-        LOGGER.info(f"处理器(after_collect): {func_name} 正在执行...")
-        processor_dict[func_name](**each)
-    LOGGER.info("处理器(after_collect): 执行完毕!")
-    # 分发器执行
-    LOGGER.info("分发器开始执行!")
-    send_doc(sender_conf)
-    LOGGER.info("分发器执行完毕!")
-    # 备份器执行
-    LOGGER.info("备份器开始执行!")
-    backup_doc(backup_conf)
-    LOGGER.info("备份器执行完毕!")
+        # 采集器执行
+        LOGGER.info("采集器开始执行!")
+        for collect_type, collect_config in collector_conf.items():
+            collect_factory(collect_type, collect_config)
+        LOGGER.info("采集器执行完毕!")
+        # 采集器执行
+        LOGGER.info("处理器(after_collect): 开始执行!")
+        for each in processor_conf["after_collect"]:
+            func_name = each.get("func")
+            # 注入查询条件
+            each.update(basic_filter)
+            LOGGER.info(f"处理器(after_collect): {func_name} 正在执行...")
+            processor_dict[func_name](**each)
+        LOGGER.info("处理器(after_collect): 执行完毕!")
+        # 分发器执行
+        LOGGER.info("分发器开始执行!")
+        send_doc(sender_conf)
+        LOGGER.info("分发器执行完毕!")
+        # 备份器执行
+        LOGGER.info("备份器开始执行!")
+        backup_doc(backup_conf)
+        LOGGER.info("备份器执行完毕!")
+    except Exception as e:
+        LOGGER.error(f"执行失败！{e}")
 
 
 def run_liuli_schedule(ll_config_name: str = "default"):
@@ -82,7 +87,7 @@ def run_liuli_schedule(ll_config_name: str = "default"):
         "period_list", ["00:10", "12:10", "21:10"]
     )
     for each in schdule_time_list:
-        schedule.every().day.at(each).do(run_liuli_task, deepcopy(ll_config))
+        schedule.every().day.at(each).do(run_liuli_task, ll_config)
 
     name: str = ll_config["name"]
     author: str = ll_config["author"]
@@ -93,7 +98,7 @@ def run_liuli_schedule(ll_config_name: str = "default"):
     )
     LOGGER.info(schdule_msg)
     # 启动就执行一次
-    run_liuli_task(deepcopy(ll_config))
+    run_liuli_task(ll_config)
     while True:
         schedule.run_pending()
         time.sleep(1)

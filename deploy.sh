@@ -8,10 +8,10 @@ docker run -d -it --restart=always -v $PWD/pro.env:/data/code/pro.env -v $PWD/li
 docker push liuliio/schedule:v0.2.1
 
 # 打包 liuli_api
-docker build --no-cache=true -t liuliio/api:v0.1.1 -f api.Dockerfile .
+docker build --no-cache=true -t liuliio/api:v0.1.2 -f api.Dockerfile .
 # 打包使用缓存
-docker build --no-cache=false -t liuliio/api:v0.1.1 -f api.Dockerfile .
+docker build --no-cache=false -t liuliio/api:v0.1.2 -f api.Dockerfile .
 # 运行
-docker run -d -it --restart=always -p 8765:8765 -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.1
+docker run -d -it --restart=always -p 8765:8765 -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.2
 # 上传
-docker push liuliio/api:v0.1.1
+docker push liuliio/api:v0.1.2

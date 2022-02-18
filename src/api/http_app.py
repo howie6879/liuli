@@ -31,7 +31,7 @@ def create_app():
         flask_app.config["app_logger"] = LOGGER
         flask_app.config["mongodb_base"] = mongodb_base
 
-        LOGGER.info("server started successfully :)")
+        LOGGER.info(f"server({Config.API_VERSION}) started successfully :)")
 
     flask_app.register_blueprint(bp_api)
     flask_app.register_blueprint(bp_rss)
