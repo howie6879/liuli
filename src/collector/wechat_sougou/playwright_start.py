@@ -10,7 +10,7 @@
             - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/playwright_start.py
         - 格式：
             {
-                "doc_date": "2022-01-09 21:20",
+                "doc_date": "2022-01-09 21:20:00",
                 "doc_image": "wx_fmt=jpeg",
                 "doc_name": "我的周刊（第021期）",
                 "doc_ts": 1641734400,
@@ -41,7 +41,7 @@ from playwright.async_api import async_playwright
 from src.collector.utils import load_data_to_articlles
 from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
 from src.config.config import Config
-from src.processor import html_to_text_h2t
+from src.processor.text_utils import html_to_text_h2t
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
 

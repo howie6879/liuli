@@ -8,6 +8,9 @@ import time
 from ruia import AttrField, HtmlField, Item, RegexField, Spider, TextField
 from ruia_ua import middleware as ua_middleware
 
+from src.processor.text_utils import text_compress
+from src.utils.tools import ts_to_str_date
+
 
 class WechatItem(Item):
     """
@@ -38,10 +41,14 @@ class WechatItem(Item):
     )
     # 文章发布日期
     # doc_date = TextField(css_select="em#publish_time", default="")
-    doc_date = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="2099-01-01 00:00")
+    doc_date = RegexField(
+        re_select=r"o=\"(20\d.*)\"\;", default=ts_to_str_date(time.time())
+    )
     # 文章发布时间戳
     # doc_ts = TextField(css_select="em#publish_time", default="")
-    doc_ts = RegexField(re_select=r"t=\"(20\d.*)\"\;", default="2099-01-01 00:00")
+    doc_ts = RegexField(
+        re_select=r"o=\"(20\d.*)\"\;", default=ts_to_str_date(time.time())
+    )
     # 文章图
     doc_image = AttrField(
         css_select='meta[property="og:image"]', attr="content", default=""
@@ -72,10 +79,10 @@ class WechatItem(Item):
         self.doc_source_account_intro = value[1]
         return value
 
-    async def clean_doc_core_html(self, value: list):
+    async def clean_doc_core_html(self, value: str):
         """清洗核心html"""
 
-        return (
+        return text_compress(
             str(value)
             .strip()
             .replace("visibility: visible;", "")
@@ -83,12 +90,26 @@ class WechatItem(Item):
             .replace("data-src", "src")
         )
 
+    async def clean_doc_date(self, value):
+        """
+        清洗时间，数据格式 2021-12-17 08:48
+        """
+        if value:
+            value += ":00"
+        else:
+            value = ts_to_str_date(time.time())
+        return value
+
     async def clean_doc_ts(self, value):
         """
         清洗时间戳，数据格式 2021-12-17 08:48
         """
+        if value:
+            value += ":00"
+        else:
+            value = ts_to_str_date(time.time())
         # 转成时间数组
-        time_arr = time.strptime(str(value), "%Y-%m-%d %H:%M")
+        time_arr = time.strptime(str(value), "%Y-%m-%d %H:%M:%S")
         # 转时间戳
         ts = time.mktime(time_arr)
         return ts
@@ -107,7 +128,8 @@ class WechatSpider(Spider):
     async def parse(self, response):
         html = await response.text()
         item = await WechatItem.get_item(html=html)
-        print(item.doc_core_html)
+        print(item.doc_ts)
+        print(item.doc_date)
         yield item
 
 

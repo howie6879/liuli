@@ -5,7 +5,7 @@
         - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/ruia_start.py
         - 结果示例：
         {
-            "doc_date": "2022-01-09 21:20",
+            "doc_date": "2022-01-09 21:20:00",
             "doc_image": "wx_fmt=jpeg",
             "doc_name": "我的周刊（第021期）",
             "doc_ts": 1641734400,

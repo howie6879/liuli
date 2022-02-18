@@ -33,7 +33,7 @@ class Config:
     PROC_HTML_TMPL_DIR = os.path.join(PROC_HTML_DIR, "tmpl")
 
     # 版本设置
-    SCHEDULE_VERSION = "v0.2.1"
+    SCHEDULE_VERSION = "v0.2.2"
     API_VERSION = "v0.1.2"
 
     # Flask API配置

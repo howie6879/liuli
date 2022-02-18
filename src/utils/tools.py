@@ -3,7 +3,6 @@
     Description：通用函数
     Changelog: all notable changes to this file will be documented
 """
-
 import hashlib
 import re
 import socket
@@ -83,6 +82,7 @@ def string_camelcase(string: str) -> str:
 
 
 if __name__ == "__main__":
-    print(ts_to_str_date(1640062200.0))
+    print(ts_to_str_date(1625024640.0))
     print(string_camelcase("github_backup"))
     print(get_ip())
+    print(ts_to_str_date(time.time()))

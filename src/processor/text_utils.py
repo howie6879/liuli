@@ -35,7 +35,6 @@ def ad_marker(
         basic_filter (dict): {} 查询条件
         is_force (bool): 是否强制重新判决
     """
-
     mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="liuli_articles")
     if is_force:

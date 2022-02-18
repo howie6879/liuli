@@ -97,7 +97,7 @@ class WeComSender(SenderBase):
         doc_keywords = send_data["doc_keywords"]
         doc_ts = send_data["doc_ts"]
         doc_date = send_data["doc_date"] or time.strftime(
-            "%Y-%m-%d: %H:%M", time.localtime(doc_ts)
+            "%Y-%m-%d: %H:%M:%S", time.localtime(doc_ts)
         )
 
         doc_des_info = f"亲，来自 {doc_source} 源的 {doc_source_name} 有更新啦!"
