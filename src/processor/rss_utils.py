@@ -96,7 +96,12 @@ def to_rss(
                     fg = FeedGenerator()
                     fg.id(doc_source_name)
                     fg.title(doc_source_name)
-                    fg.author({"name": "liuli"})
+                    fg.author({"name": "Liuli"})
+                    fg.generator(
+                        generator="Liuli",
+                        version=Config.SCHEDULE_VERSION,
+                        uri="https://github.com/liuli-io/liuli",
+                    )
                     # 再倒序
                     for each_data in f_db_info[::-1]:
                         cos_model_resp = each_data.get("cos_model", {})
@@ -116,13 +121,17 @@ def to_rss(
                         doc_link = get_bak_doc_link(
                             link_source=link_source, doc_data=each_data
                         )
-                        doc_author = each_data["doc_author"] or "liuli_defaults"
+                        doc_author = (
+                            each_data["doc_author"]
+                            or each_data["doc_source_name"]
+                            or "liuli_default"
+                        )
                         doc_ts = each_data["doc_ts"]
                         # 构造 RSS
                         fe = fg.add_entry()
                         article_id = f"{doc_source} - {doc_source_name} - {doc_name}"
                         fe.id(article_id)
-                        fe.title(f"{doc_name} | {doc_cus_des}")
+                        fe.title(f"{doc_name} {doc_cus_des}")
                         fe.link(href=doc_link)
                         fe.description(doc_des)
                         fe.author(name=f"{doc_source} - {doc_author}")
@@ -166,5 +175,5 @@ if __name__ == "__main__":
     to_rss(
         link_source="github",
         skip_ads=False,
-        **{"basic_filter": {"doc_source": "liuli_wechat"}},
+        # **{"basic_filter": {"doc_source": "liuli_wechat"}},
     )

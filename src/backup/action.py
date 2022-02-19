@@ -91,14 +91,28 @@ def backup_doc(backup_config: dict):
 
 
 if __name__ == "__main__":
-    backup = {
-        # "backup_list": ["github", "mongodb"],
-        "backup_list": ["mongodb"],
-        "query_days": 7,
+    b_backup = {
+        "backup_list": ["github", "mongodb"],
+        # "backup_list": ["mongodb"],
+        "query_days": 3,
         "delta_time": 3,
         "basic_filter": {"doc_source": "liuli_book"},
         "doc_html_dict": {"liuli_book": "book"},
         "init_config": {},
         "after_get_content": [],
     }
-    backup_doc(backup)
+    w_backup = {
+        "backup_list": ["github", "mongodb"],
+        "query_days": 3,
+        "delta_time": 3,
+        "init_config": {},
+        "basic_filter": {"doc_source": "liuli_wechat"},
+        "after_get_content": [
+            {
+                "func": "str_replace",
+                "before_str": 'data-src="',
+                "after_str": 'src="https://images.weserv.nl/?url=',
+            }
+        ],
+    }
+    backup_doc(w_backup)
