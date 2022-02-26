@@ -6,6 +6,8 @@
 """
 import time
 
+from re import T
+
 from src.backup.base import BackupBase
 from src.databases.mongodb_tools import (
     mongodb_delete_many_data,
@@ -28,6 +30,8 @@ class MongodbBackup(BackupBase):
         self.liuli_backup_coll = self.mongo_base.get_collection(
             coll_name="liuli_backup"
         )
+        # 是否每次更新都强制备份，默认只备份一次
+        self.force_backup = init_config.get("force_backup", False)
 
     def save(self, backup_data: dict) -> bool:
         """执行备份动作
@@ -52,47 +56,37 @@ class MongodbBackup(BackupBase):
             doc_source_name=doc_source_name,
             doc_name=doc_name,
         )
-        # 在数据库存在就默认线上必定存在，希望用户不操作这个仓库造成状态不同步
-        if not is_backup:
-            # 上传前做是否存在检测
-            # 已存在的但是数据库没有状态需要重新同步
+
+        # 未备份过或者强制备份下将继续执行
+        if not is_backup or self.force_backup:
             filter_dict = {
                 "doc_source": doc_source,
                 "doc_source_name": doc_source_name,
                 "doc_name": doc_name,
             }
-            # 先判断文件是否存在
-            db_find_res = mongodb_find(
+            update_data = {
+                "$set": {
+                    **filter_dict,
+                    **{"ts": int(time.time()), "content": text_compress(doc_html)},
+                }
+            }
+            db_update_res = mongodb_update_data(
                 coll_conn=self.liuli_backup_coll,
                 filter_dict=filter_dict,
-                return_dict={"_id": 0},
+                update_data=update_data,
+                upsert=True,
             )
-            if db_find_res["status"] and not db_find_res["info"]:
-                # 没有备份过继续远程备份
-                update_data = {
-                    "$set": {
-                        **filter_dict,
-                        **{"ts": int(time.time()), "content": text_compress(doc_html)},
-                    }
-                }
-
-                db_update_res = mongodb_update_data(
-                    coll_conn=self.liuli_backup_coll,
-                    filter_dict=filter_dict,
-                    update_data=update_data,
+            if db_update_res["status"]:
+                msg = f"Backup({self.backup_type}): {file_path} 上传成功！"
+                # 保存当前文章状态
+                self.save_backup(
+                    doc_source=doc_source,
+                    doc_source_name=doc_source_name,
+                    doc_name=doc_name,
                 )
-                if db_update_res["status"]:
-                    msg = f"Backup({self.backup_type}): {file_path} 上传成功！"
-                else:
-                    msg = f"Backup({self.backup_type}): {file_path} 上传失败！{db_update_res['info']}"
             else:
-                msg = f"Backup({self.backup_type}): {file_path} 已成功！"
-            # 保存当前文章状态
-            self.save_backup(
-                doc_source=doc_source,
-                doc_source_name=doc_source_name,
-                doc_name=doc_name,
-            )
+                msg = f"Backup({self.backup_type}): {file_path} 上传失败！{db_update_res['info']}"
+
         else:
             msg = f"Backup({self.backup_type}): {file_path} 已存在！"
         LOGGER.info(msg)
@@ -116,6 +110,7 @@ class MongodbBackup(BackupBase):
                 "doc_name": doc_name,
             },
         )
+        op_res = True
         if db_res["status"]:
             LOGGER.info(f"Backup({self.backup_type}): {file_path} 删除成功！")
             # 删除当前文章状态
@@ -125,9 +120,11 @@ class MongodbBackup(BackupBase):
                 doc_name=doc_name,
             )
         else:
+            op_res = False
             LOGGER.error(
                 f"Backup({self.backup_type}): {file_path} 删除失败！{db_res['info']}"
             )
+        return op_res
 
 
 if __name__ == "__main__":
@@ -136,11 +133,12 @@ if __name__ == "__main__":
         "doc_source_name": "老胡的储物柜",
         "doc_name": "打造一个干净且个性化的公众号阅读环境",
         "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
+        "doc_html": "Hello World2",
     }
-    mongo_backup = MongodbBackup({})
-    # mongo_backup.save(test_backup_data)
+    mongo_backup = MongodbBackup({"force_backup": True})
     mongo_backup.delete(
-        doc_source="liuli_book",
+        doc_source="liuli_wechat",
         doc_source_name="老胡的储物柜",
         doc_name="打造一个干净且个性化的公众号阅读环境",
     )
+    mongo_backup.save(test_backup_data)

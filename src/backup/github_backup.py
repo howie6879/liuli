@@ -25,6 +25,8 @@ class GithubBackup(BackupBase):
         github_repo = init_config.get("github_repo", Config.GITHUB_REPO)
         g = Github(github_token)
         self.repo = g.get_repo(github_repo)
+        # 是否每次更新都强制备份，默认只备份一次
+        self.force_backup = init_config.get("force_backup", False)
 
     def save(self, backup_data: dict) -> bool:
         """执行备份动作
@@ -42,8 +44,7 @@ class GithubBackup(BackupBase):
         # 源文件
         doc_html = backup_data["doc_html"]
 
-        file_msg = f"{doc_source}/{doc_source_name}/{doc_name}"
-        file_path = f"{file_msg}.html"
+        file_path = f"{doc_source}/{doc_source_name}/{doc_name}.html"
         is_backup = self.is_backup(
             doc_source=doc_source,
             doc_source_name=doc_source_name,
@@ -51,16 +52,20 @@ class GithubBackup(BackupBase):
         )
 
         # 在数据库存在就默认线上必定存在，希望用户不操作这个仓库造成状态不同步
-        if not is_backup:
+        if not is_backup or self.force_backup:
             # 上传前做是否存在检测，没有备份过继续远程备份
             # 已存在的但是数据库没有状态需要重新同步
             try:
                 # 先判断文件是否存在
                 try:
-                    self.repo.get_contents(file_path)
+                    contents = self.repo.get_contents(file_path)
+                    # 存在就更新
+                    self.repo.update_file(
+                        contents.path, f"Update {file_path}", doc_html, contents.sha
+                    )
                 except Exception as e:
-                    # 不存在
-                    self.repo.create_file(file_path, f"Add {file_msg}", doc_html)
+                    # 不存在就上传
+                    self.repo.create_file(file_path, f"Add {file_path}", doc_html)
 
                 LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
                 # 保存当前文章状态
@@ -85,9 +90,9 @@ class GithubBackup(BackupBase):
             bool: 是否成功
         """
         file_path = f"{doc_source}/{doc_source_name}/{doc_name}.html"
-        contents = self.repo.get_contents(file_path)
-
+        op_res = True
         try:
+            contents = self.repo.get_contents(file_path)
             _ = self.repo.delete_file(
                 contents.path, f"Remove {file_path}", contents.sha
             )
@@ -99,21 +104,24 @@ class GithubBackup(BackupBase):
                 doc_name=doc_name,
             )
         except Exception as e:
+            op_res = False
             LOGGER.error(f"Backup({self.backup_type}): {file_path} 删除失败！{e}")
+        return op_res
 
 
 if __name__ == "__main__":
-    # test_backup_data = {
-    #     "doc_id": "test",
-    #     "doc_source": "liuli_wechat",
-    #     "doc_source_name": "老胡的储物柜",
-    #     "doc_name": "打造一个干净且个性化的公众号阅读环境",
-    #     "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
-    # }
-    github_backup = GithubBackup({})
-    # github_backup.save(test_backup_data)
-    github_backup.delete(
-        doc_source="liuli_book",
-        doc_source_name="老胡的储物柜",
-        doc_name="打造一个干净且个性化的公众号阅读环境",
-    )
+    test_backup_data = {
+        "doc_id": "test",
+        "doc_source": "liuli_wechat",
+        "doc_source_name": "老胡的储物柜",
+        "doc_name": "打造一个干净且个性化的公众号阅读环境_test",
+        "doc_link": "https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw",
+        "doc_html": "Hello world2",
+    }
+    github_backup = GithubBackup({"force_backup": False})
+    github_backup.save(test_backup_data)
+    # github_backup.delete(
+    #     doc_source="liuli_book",
+    #     doc_source_name="老胡的储物柜",
+    #     doc_name="打造一个干净且个性化的公众号阅读环境",
+    # )
