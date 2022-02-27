@@ -15,7 +15,7 @@ services:
     networks:
       - liuli-network
   liuli_schedule:
-    image: liuliio/schedule:v0.2.2
+    image: liuliio/schedule:v0.2.3
     restart: always
     container_name: liuli_schedule
     volumes:

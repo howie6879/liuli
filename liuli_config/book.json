@@ -21,18 +21,20 @@
     },
     "sender": {
         "sender_list": ["wecom"],
-        "query_days": 7,
+        "query_days": 1,
         "delta_time": 3,
         "link_source": "github"
     },
     "backup": {
         "backup_list": ["github", "mongodb"],
-        "query_days": 7,
+        "query_days": 1,
         "delta_time": 3,
         "doc_html_dict": {
             "liuli_book": "book"
         },
-        "init_config": {},
+        "init_config": {
+            "force_backup": true
+        },
         "after_get_content": [{
             "func": "str_replace",
             "before_str": "本书首发",
