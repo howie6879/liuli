@@ -7,7 +7,7 @@ COPY . ${APP_ROOT}
 RUN rm -rf .git \
     && rm -rf ./pro.env \
     && pip install --no-cache-dir -i https://pypi.douban.com/simple/ pipenv \
-    && pipenv install --dev --skip-lock \
+    && pipenv install --skip-lock \
     && pipenv run playwright install chromium \
     && echo "${TIME_ZONE}" > /etc/timezone \
     && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
