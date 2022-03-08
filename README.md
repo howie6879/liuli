@@ -59,7 +59,7 @@ git clone https://github.com/liuli-io/liuli.git --depth=1
 cd liuli
 
 # 创建基础环境
-pipenv install --python={your_python3.7+_path}  --skip-lock --dev
+pipenv install --python={your_python3.7+_path} --dev  --skip-lock
 # 配置.env 具体查看 doc/02.环境变量.md 启动调度
 pipenv run dev_schedule
 ```

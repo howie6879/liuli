@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+verify_ssl = true
+url = "https://pypi.douban.com/simple/"
+
+[packages]
+flask = "==2.0.2"
+gunicorn = "==20.1.0"
+gevent = "==21.12.0"
+pymongo = "*"
+html5lib = "*"
+bs4 = "*"
+cchardet = "*"
+pytz = "*"
+html2text = "*"
+requests = "*"
+textrank4zh = "*"
+feedgen = "*"
+readability-lxml = "*"
+
+[scripts]
+pro_api = "bash ./pro_api.sh"

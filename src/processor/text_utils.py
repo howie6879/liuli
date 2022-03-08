@@ -5,7 +5,6 @@
 """
 import os
 import re
-import zlib
 
 from urllib.parse import urljoin
 
@@ -165,30 +164,6 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
         after_str (str): 替换后
     """
     return str(text).replace(before_str, after_str)
-
-
-def text_compress(text: str) -> str:
-    """对文本进行压缩
-
-    Args:
-        text (str): 待压缩文本
-
-    Returns:
-        str: 压缩后的文本
-    """
-    return zlib.compress(text.encode())
-
-
-def text_decompress(text) -> str:
-    """对文本进行解压
-
-    Args:
-        text (str or bytes): 待解压文本
-
-    Returns:
-        str: 解压后的文本
-    """
-    return zlib.decompress(text).decode() if type(text).__name__ == "bytes" else text
 
 
 def valid_chapter_name(chapter_name):
