@@ -21,8 +21,8 @@ def collect_factory(collect_type: str, collect_config: dict) -> bool:
     try:
         collect_module = import_module(f"src.collector.{collect_type}")
         collect_status = collect_module.run(collect_config)
-    except ModuleNotFoundError:
-        LOGGER.error(f"采集器类型不存在 {collect_type} - {collect_config}")
+    except ModuleNotFoundError as e:
+        LOGGER.error(f"采集器类型不存在 {collect_type} - {collect_config} -{e}")
     except Exception as e:
         LOGGER.error(f"采集器执行出错 {collect_type} - {collect_config} - {e}")
     return collect_status

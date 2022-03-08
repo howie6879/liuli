@@ -23,6 +23,7 @@ schedule = "*"
 jieba = "*"
 feedgen = "*"
 pygithub = "*"
+scipy = "*"
 
 [dev-packages]
 black = "*"
@@ -36,7 +37,6 @@ playwright = "*"
 flask = "==2.0.2"
 gunicorn = "==20.1.0"
 gevent = "==21.12.0"
-scipy = "*"
 
 [scripts]
 dev_schedule = "bash ./dev_schedule.sh"
