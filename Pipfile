@@ -39,7 +39,7 @@ gunicorn = "==20.1.0"
 gevent = "==21.12.0"
 
 [scripts]
-dev_schedule = "bash ./dev_schedule.sh"
-pro_schedule = "bash ./pro_schedule.sh"
-dev_api = "bash ./dev_api.sh"
-pro_api = "bash ./pro_api.sh"
+dev_schedule = "bash ./start.sh schedule dev"
+pro_schedule = "bash ./start.sh schedule pro"
+dev_api = "bash ./start.sh api dev"
+pro_api = "bash ./start.sh api pro"
