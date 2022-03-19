@@ -5,15 +5,15 @@
 """
 import os
 import re
-import zlib
 
 from urllib.parse import urljoin
 
 import html2text
+import jieba
+import jieba.analyse
 
 from bs4 import BeautifulSoup
 from readability import Document
-from textrank4zh import TextRank4Keyword
 
 from src.classifier import model_predict_factory
 from src.common.remote import get_html_by_requests, send_get_request
@@ -132,11 +132,16 @@ def extract_keyword_list(url_or_text: str = None):
     stop_file_path = os.path.join(
         os.path.join(Config.MODEL_DIR, "data"), "stop_words.txt"
     )
-    tr4w = TextRank4Keyword(stop_words_file=stop_file_path)
-    tr4w.analyze(text=text, lower=True, window=2)
-    keyword_list = []
-    for item in tr4w.get_keywords(20, word_min_len=2):
-        keyword_list.append(item.word)
+    jieba.analyse.set_stop_words(stop_file_path)
+    # keyword_list = jieba.analyse.extract_tags(text, topK=20)
+    keyword_list = jieba.analyse.textrank(text, topK=20)
+
+    # from textrank4zh import TextRank4Keyword
+    # tr4w = TextRank4Keyword(stop_words_file=stop_file_path)
+    # tr4w.analyze(text=text, lower=True, window=2)
+    # keyword_list = []
+    # for item in tr4w.get_keywords(20, word_min_len=2):
+    #     keyword_list.append(item.word)
 
     return keyword_list
 
@@ -167,30 +172,6 @@ def str_replace(text: str, before_str: str, after_str: str) -> str:
     return str(text).replace(before_str, after_str)
 
 
-def text_compress(text: str) -> str:
-    """对文本进行压缩
-
-    Args:
-        text (str): 待压缩文本
-
-    Returns:
-        str: 压缩后的文本
-    """
-    return zlib.compress(text.encode())
-
-
-def text_decompress(text) -> str:
-    """对文本进行解压
-
-    Args:
-        text (str or bytes): 待解压文本
-
-    Returns:
-        str: 解压后的文本
-    """
-    return zlib.decompress(text).decode() if type(text).__name__ == "bytes" else text
-
-
 def valid_chapter_name(chapter_name):
     """
     判断目录名称是否合理
@@ -211,6 +192,6 @@ if __name__ == "__main__":
     # print(doc.title(), doc.short_title(), dir(doc))
     # print(doc.summary())
     res_text = html_to_text_h2t(t_text)
-    print(res_text)
-    # res = extract_keyword_list(url)
-    # print(res)
+    # print(res_text)
+    res = extract_keyword_list(res_text)
+    print(res)

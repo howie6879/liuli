@@ -6,16 +6,10 @@
 """
 import time
 
-from re import T
-
 from src.backup.base import BackupBase
-from src.databases.mongodb_tools import (
-    mongodb_delete_many_data,
-    mongodb_find,
-    mongodb_update_data,
-)
-from src.processor.text_utils import text_compress
+from src.databases.mongodb_tools import mongodb_delete_many_data, mongodb_update_data
 from src.utils import LOGGER
+from src.utils.tools import text_compress
 
 
 class MongodbBackup(BackupBase):

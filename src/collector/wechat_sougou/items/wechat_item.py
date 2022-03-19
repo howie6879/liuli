@@ -8,8 +8,7 @@ import time
 from ruia import AttrField, HtmlField, Item, RegexField, Spider, TextField
 from ruia_ua import middleware as ua_middleware
 
-from src.processor.text_utils import text_compress
-from src.utils.tools import ts_to_str_date
+from src.utils.tools import text_compress, ts_to_str_date
 
 
 class WechatItem(Item):

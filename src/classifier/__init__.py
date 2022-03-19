@@ -5,4 +5,3 @@
     Changelog: all notable changes to this file will be documented
 """
 from .model_factory import model_predict_factory
-from .utils import ads2txt, text2py

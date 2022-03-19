@@ -8,7 +8,7 @@ from flask import Blueprint, current_app
 
 from src.databases.mongodb_base import MongodbBase
 from src.databases.mongodb_tools import mongodb_find
-from src.processor.text_utils import text_decompress
+from src.utils.tools import text_decompress
 
 bp_backup = Blueprint("backup", __name__, url_prefix="/backup")
 
@@ -20,7 +20,7 @@ bp_backup = Blueprint("backup", __name__, url_prefix="/backup")
 )
 def backup(doc_source, doc_source_name, doc_name):
     """备份文章获取接口
-
+    http://127.0.0.1:8765/backup/liuli_wechat/老胡的储物柜/我的周刊（第028期）
     Args:
         doc_source ([type]): 文章来源
         doc_source_name ([type]): 文章来源作者

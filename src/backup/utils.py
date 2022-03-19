@@ -8,7 +8,7 @@
 from src.common.remote import get_html_by_requests
 from src.config import Config
 from src.processor.html_render import render_book_html
-from src.processor.text_utils import text_decompress
+from src.utils.tools import text_decompress
 
 
 def get_bak_doc_html(doc_data: dict, doc_html_type: str = "default") -> str:
