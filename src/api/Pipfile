@@ -14,9 +14,10 @@ cchardet = "*"
 pytz = "*"
 html2text = "*"
 requests = "*"
-textrank4zh = "*"
+jieba = "*"
 feedgen = "*"
 readability-lxml = "*"
 
 [scripts]
-pro_api = "bash ./pro_api.sh"
+dev_api = "bash ./start.sh api dev"
+pro_api = "bash ./start.sh api pro"
