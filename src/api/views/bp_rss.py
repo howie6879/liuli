@@ -4,7 +4,7 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app
 
 from src.databases.mongodb_base import MongodbBase
 from src.databases.mongodb_tools import mongodb_find
@@ -15,7 +15,7 @@ bp_rss = Blueprint("rss", __name__, url_prefix="/rss")
 @bp_rss.route("/<doc_source>/<doc_source_name>/", methods=["GET"], strict_slashes=False)
 def rss(doc_source, doc_source_name):
     """RSS文章获取接口
-    /rss/liuli_wechat/老胡的储物柜/
+    http://127.0.0.1:8765/rss/liuli_wechat/老胡的储物柜/
     Args:
         doc_source ([type]): 文章来源
         doc_source_name ([type]): 文章来源作者

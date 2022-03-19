@@ -3,7 +3,6 @@
     Description: 搜狗微信爬虫启动函数
     Changelog: all notable changes to this file will be documented
 """
-from src.collector.wechat_sougou.playwright_start import playwright_main
 from src.collector.wechat_sougou.playwright_start import run as playwright_run
 from src.collector.wechat_sougou.ruia_start import run as ruia_run
 

@@ -4,12 +4,11 @@
     Description：模型校验脚本
     Changelog: all notable changes to this file will be documented
 """
-import requests
 
 from src.classifier import model_predict_factory
-from src.collector import extract_keyword_list
 from src.config import Config
 from src.databases import MongodbManager
+from src.processor import extract_keyword_list
 
 
 def cos_pre(text: str, cos_value: int = 0.5):

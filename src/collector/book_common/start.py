@@ -15,10 +15,9 @@ from src.processor.text_utils import (
     extract_core_html,
     extract_keyword_list,
     html_to_text_h2t,
-    text_compress,
 )
 from src.utils.log import LOGGER
-from src.utils.tools import md5_encryption
+from src.utils.tools import md5_encryption, text_compress
 
 
 def run(collect_config: dict):

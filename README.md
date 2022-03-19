@@ -3,7 +3,7 @@
 
 <h1 align="center">Liuli</h1>
 
-<p align="center">📖 构建一个多源、干净、个性化的阅读环境</p>
+<p align="center">📖 一站式构建多源、干净、个性化的阅读环境</p>
 <p align="center"><strong>琉璃开净界，薜荔启禅关</strong></p>
 
 <!-- <div align=center><img src=".files/images/liuli_ads_word_cloud.jpg"  width="100%" alt="liuli_ads_word_cloud" /></div> -->
@@ -59,7 +59,7 @@ git clone https://github.com/liuli-io/liuli.git --depth=1
 cd liuli
 
 # 创建基础环境
-pipenv install --python={your_python3.7+_path}  --skip-lock --dev
+pipenv install --python={your_python3.7+_path} --dev  --skip-lock
 # 配置.env 具体查看 doc/02.环境变量.md 启动调度
 pipenv run dev_schedule
 ```

@@ -7,6 +7,7 @@ import hashlib
 import re
 import socket
 import time
+import zlib
 
 
 def get_ip():
@@ -62,6 +63,39 @@ def load_text_to_list(file_path) -> list:
     return text_list
 
 
+def string_camelcase(string: str) -> str:
+    """
+    方便普通字符串转化成大写开头命名的形式
+    :param string:
+    :return:
+    """
+    return re.compile(r"[^a-zA-Z\d]").sub("", string.title())
+
+
+def text_compress(text: str) -> str:
+    """对文本进行压缩
+
+    Args:
+        text (str): 待压缩文本
+
+    Returns:
+        str: 压缩后的文本
+    """
+    return zlib.compress(text.encode())
+
+
+def text_decompress(text) -> str:
+    """对文本进行解压
+
+    Args:
+        text (str or bytes): 待解压文本
+
+    Returns:
+        str: 解压后的文本
+    """
+    return zlib.decompress(text).decode() if type(text).__name__ == "bytes" else text
+
+
 def ts_to_str_date(ts: int, ts_format: str = "%Y-%m-%d %H:%M:%S"):
     """
     时间戳转文本时间
@@ -70,15 +104,6 @@ def ts_to_str_date(ts: int, ts_format: str = "%Y-%m-%d %H:%M:%S"):
     :return:
     """
     return time.strftime(ts_format, time.localtime(int(ts)))
-
-
-def string_camelcase(string: str) -> str:
-    """
-    方便普通字符串转化成大写开头命名的形式
-    :param string:
-    :return:
-    """
-    return re.compile(r"[^a-zA-Z\d]").sub("", string.title())
 
 
 if __name__ == "__main__":

@@ -39,24 +39,22 @@ class CosModel(ModelLoaderBase):
 
         # 对训练数据进行预处理，形成最终可用样本
         self.train_data: list = [
-            {"index": i, "value": self.process_text(i)}
-            for i in load_text_to_list(self.model_path)
+            self.process_text(i) for i in load_text_to_list(self.model_path)
         ]
 
-    def predict(self, text: str, cos_value: float = 0.8) -> dict:
+    def predict(self, text: str, cos_value: float = 0.6) -> dict:
         """
         对文本相似度进行预测
         :param text: 文本
-        :param cos_value: 阈值 默认是0.9
+        :param cos_value: 阈值 默认是0.6
         :return:
         """
         max_pro, result = 0.0, 0
         for each in self.train_data:
-            cos = CosineSimilarity(self.process_text(text), each)
-            res_dict = cos.calculate()
-            value = res_dict["value"]
-            result = 1 if value >= cos_value else 0
-            max_pro = value if value > max_pro else max_pro
+            cos_ins = CosineSimilarity(self.process_text(text), each)
+            pre_cos_pro = cos_ins.calculate()
+            result = 1 if pre_cos_pro >= cos_value else 0
+            max_pro = pre_cos_pro if pre_cos_pro > max_pro else max_pro
             if result == 1:
                 break
 

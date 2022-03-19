@@ -5,4 +5,6 @@
 docs/
 scripts/
 pro.env
-liuli_condif/
+online.env
+pro_online.env
+liuli_config/
