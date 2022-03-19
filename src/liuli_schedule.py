@@ -128,4 +128,5 @@ def start(ll_config_name: str = ""):
 
 
 if __name__ == "__main__":
+    LOGGER.info("调度器开始执行")
     start(ll_config_name="")

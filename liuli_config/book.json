@@ -20,7 +20,7 @@
         }]
     },
     "sender": {
-        "sender_list": ["wecom"],
+        "sender_list": ["tg"],
         "query_days": 1,
         "delta_time": 3,
         "link_source": "github"
