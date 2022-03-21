@@ -8,7 +8,8 @@
                 "老胡的储物柜", "是不是很酷"
             ],
             "delta_time": 5,
-            "spider_type": "playwright"
+            "spider_type": "ruia",
+            "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写playwright"
         }
     },
     "processor": {

@@ -10,7 +10,7 @@ elif [ ${s_type} == "schedule" ]
 then
     script_command="python src/liuli_schedule.py"
 else
-    echo "服务类型不存在: "$s_type
+    echo "Service type doesn't exist: "$s_type
     exit
 fi
 
@@ -24,7 +24,7 @@ elif [ ${s_env} == "online" ]
 then
     start_script="PIPENV_DOTENV_LOCATION=./online.env pipenv run "$script_command
 else
-    echo "环境变量参数不存在: "$s_type
+    echo "Environment variable type doesn't exist: "$s_type
     exit
 fi
 
