@@ -4,6 +4,9 @@ verify_ssl = true
 url = "https://pypi.douban.com/simple/"
 
 [packages]
+flask = "*"
+gunicorn = "==20.1.0"
+gevent = "==21.12.0"
 # Common
 pymongo = "*"
 html5lib = "*"
@@ -22,6 +25,7 @@ schedule = "*"
 feedgen = "*"
 pygithub = "*"
 playwright = "*"
+feedparser = "*"
 
 [dev-packages]
 black = "*"
