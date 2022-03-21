@@ -1,0 +1,48 @@
+{
+  "name": "feeddd",
+  "author": "liuli_team",
+  "doc_source": "liuli_feeddd",
+  "collector": {
+    "feeddd_common": {
+      "feeds_dict": {
+        "36氪":"https://api.feeddd.org/feeds/6131e1441269c358aa0e2141/rss"
+      },
+      "delta_time": 5
+    }
+  },
+  "processor": {
+    "before_collect": [],
+    "after_collect": [
+      {
+        "func": "ad_marker",
+        "cos_value": 0.6
+      },
+      {
+        "func": "to_rss",
+        "doc_source_list": ["liuli_wechat"],
+        "link_source": "github"
+      }
+    ]
+  },
+  "sender": {
+    "sender_list": ["tg"],
+    "query_days": 7,
+    "delta_time": 3
+  },
+  "backup": {
+    "backup_list": ["mongodb"],
+    "query_days": 7,
+    "delta_time": 3,
+    "init_config": {},
+    "after_get_content": [
+      {
+        "func": "str_replace",
+        "before_str": "data-src=\"",
+        "after_str": "src=\"https://images.weserv.nl/?url="
+      }
+    ]
+  },
+  "schedule": {
+    "period_list": ["00:10", "12:10", "21:10"]
+  }
+}
