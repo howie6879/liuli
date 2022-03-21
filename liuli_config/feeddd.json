@@ -1,7 +1,7 @@
 {
   "name": "feeddd",
   "author": "liuli_team",
-  "doc_source": "liuli_feeddd",
+  "doc_source": "liuli_wechat",
   "collector": {
     "wechat_feddd": {
       "feeds_dict": {
