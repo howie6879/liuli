@@ -1,3 +1,11 @@
+"""
+    Created by leeorz.
+    Description：
+    采集器：
+        - 基于 src/collector/wechat_sougou/items/wechat_item.py的公众号采集
+        - 基于 feedparser,从feeddd解析rss
+    Changelog: all notable changes to this file will be documented
+"""
 import asyncio
 
 import feedparser
@@ -13,6 +21,12 @@ from src.utils.tools import md5_encryption
 
 
 class WeiXinSpider(Spider):
+    """微信公众号文章抓取爬虫
+
+    Args:
+        collect_config (dict, optional): 采集器配置
+    """
+
     name = "WeiXinSpider"
     request_config = {"RETRIES": 3, "DELAY": 5, "TIMEOUT": 20}
     concurrency = 10
@@ -31,7 +45,7 @@ class WeiXinSpider(Spider):
                 "doc_keywords": "",
                 "doc_source_name": self.wechat_name,
                 "doc_link": response.url,
-                "doc_source": "liuli_feeddd",
+                "doc_source": "liuli_wechat",
                 "doc_source_account_nick": wechat_item.doc_source_account_nick,
                 "doc_source_account_intro": wechat_item.doc_source_account_intro,
                 "doc_content": html_to_text_h2t(html),
@@ -40,16 +54,21 @@ class WeiXinSpider(Spider):
         }
         await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
 
+
 def run(collect_config: dict):
+    """rss解析，并使用WeiXinSpider抓取rss条目，并持久化
+
+    Args:
+        collect_config (dict, optional): 采集器配置
+    """
     feeds_dict: dict = collect_config.get("feeds_dict")
     feeds_name: list = list(feeds_dict)
     delta_time = collect_config.get("delta_time", 5)
     WeiXinSpider.request_config = {
-            "RETRIES": 3,
-            "DELAY": delta_time,
-            "TIMEOUT": 20,
-        }
-    
+        "RETRIES": 3,
+        "DELAY": delta_time,
+        "TIMEOUT": 20,
+    }
     for name in feeds_name:
         WeiXinSpider.wechat_name = name
         LOGGER.info(f"rss源 {name}: {feeds_dict[name]}")

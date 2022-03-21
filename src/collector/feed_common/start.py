@@ -1,26 +1,29 @@
-import asyncio
+"""
+    Created by leeorz.
+    Description：抓取目标rss，并解析rss条目，持久化到mongodb
+    Changelog: all notable changes to this file will be documented
+"""
 import time
 
 import feedparser
 
 from src.collector.utils import load_data_to_articlles
-from src.collector.wechat_sougou.items import WechatItem
 from src.common.remote import get_html_by_requests
 from src.config import Config
-from src.processor.text_utils import (
-    extract_chapters,
-    extract_core_html,
-    extract_keyword_list,
-    html_to_text_h2t,
-)
+from src.processor.text_utils import extract_core_html
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption, text_compress
 
 
 def run(collect_config: dict):
+    """rss解析，rss条目持久化
+
+    Args:
+        collect_config (dict, optional): 采集器配置
+    """
     feeds_dict: dict = collect_config.get("feeds_dict")
     feeds_name: list = list(feeds_dict)
-    delta_time = collect_config.get("delta_time", 5)
+    # delta_time = collect_config.get("delta_time", 5)
     for name in feeds_name:
         LOGGER.info(f"rss源 {name}: {feeds_dict[name]}")
         fd = feedparser.parse(feeds_dict[name])

@@ -3,8 +3,11 @@
   "author": "liuli_team",
   "doc_source": "liuli_feeddd",
   "collector": {
-    "feeddd_common": {
+    "wechat_feddd": {
       "feeds_dict": {
+        "天眼透视":"https://api.feeddd.org/feeds/62308f26701766717146f267/rss",
+        "唧唧堂":"https://api.feeddd.org/feeds/621ba34edca58a380c6bd7be/rss",
+        "上海译文":"https://api.feeddd.org/feeds/62335fec701766717148c2f4/rss",
         "36氪":"https://api.feeddd.org/feeds/6131e1441269c358aa0e2141/rss"
       },
       "delta_time": 5
