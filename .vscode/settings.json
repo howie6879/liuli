@@ -9,7 +9,7 @@
         "source.organizeImports": true
     },
     "python.formatting.provider": "black",
-    "python.linting.pylintEnabled": false,
+    "python.linting.pylintEnabled": true,
     "python.testing.pytestEnabled": true,
     // "python.envFile": "${workspaceFolder}/pro.env"
     "python.envFile": "${workspaceFolder}/.env",
@@ -18,5 +18,4 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.mypyEnabled": true
 }
