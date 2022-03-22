@@ -22,6 +22,7 @@ schedule = "*"
 feedgen = "*"
 pygithub = "*"
 playwright = "*"
+feedparser = "*"
 
 [dev-packages]
 black = "*"
