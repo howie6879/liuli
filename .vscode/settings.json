@@ -17,5 +17,5 @@
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
 }
