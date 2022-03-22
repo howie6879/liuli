@@ -139,7 +139,7 @@ def to_rss(
                         fe.content("")
                         fe.pubDate(
                             pytz.timezone("Asia/Shanghai").localize(
-                                datetime.fromtimestamp(doc_ts)
+                                datetime.fromtimestamp(int(doc_ts))
                             )
                         )
                     try:

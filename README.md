@@ -124,7 +124,7 @@ Loading .env environment variables...
 感谢以下开源项目：
 
 - [Flask](https://github.com/pallets/flask): web 框架
-- [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架
+- [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架（自研自用）
 - [playwright](https://playwright.dev/): 使用浏览器进行数据抓取
 - [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
 
@@ -140,6 +140,7 @@ Loading .env environment variables...
 <a href="https://github.com/zyd16888"><img src="https://avatars.githubusercontent.com/u/26684563?v=4" title="zyd16888" width="40" height="40" ></a>
 <a href="https://github.com/LeslieLeung"><img src="https://avatars.githubusercontent.com/u/22127499?v=4" title="LeslieLeung" width="40" height="40" ></a>
 <a href="https://github.com/gclm"><img src="https://avatars.githubusercontent.com/u/27618687?v=4" title="gclm" width="40" height="40" ></a>
+<a href="https://github.com/showthesunli"><img src="https://avatars.githubusercontent.com/u/3203516?v=4" title="showthesunli" width="40" height="40" ></a>
 
 ## 👉 关于
 

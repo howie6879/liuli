@@ -3,6 +3,10 @@
     Description: 采集器常用函数
     Changelog: all notable changes to this file will be documented
 """
+import time
+
+from copy import deepcopy
+
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 from src.databases.mongodb_tools import mongodb_update_data
@@ -18,12 +22,15 @@ def load_data_to_articlles(input_data: dict):
     doc_source_name = input_data.get("doc_source_name")
     doc_source = input_data.get("doc_source")
     doc_name = input_data.get("doc_name")
+
+    copy_input_data = deepcopy(input_data)
+    copy_input_data["doc_ts"] = int(copy_input_data.get("doc_ts", int(time.time())))
     if doc_source_name and doc_source and doc_name:
         # 抓取成功进行持久化
         mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
         coll_conn = mongo_base.get_collection(coll_name="liuli_articles")
-        filter_dict = {"doc_id": input_data["doc_id"]}
-        update_data = {"$set": input_data}
+        filter_dict = {"doc_id": copy_input_data["doc_id"]}
+        update_data = {"$set": copy_input_data}
         db_res = mongodb_update_data(
             coll_conn=coll_conn,
             filter_dict=filter_dict,

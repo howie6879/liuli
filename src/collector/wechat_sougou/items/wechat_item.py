@@ -3,6 +3,7 @@
     Description: 基于 Ruia 的微信页面 Item 提取类
     Changelog: all notable changes to this file will be documented
 """
+
 import time
 
 from ruia import AttrField, HtmlField, Item, RegexField, Spider, TextField
@@ -38,16 +39,26 @@ class WechatItem(Item):
     doc_type = AttrField(
         css_select='meta[property="og:type"]', attr="content", default=""
     )
-    # 文章发布日期
-    # doc_date = TextField(css_select="em#publish_time", default="")
-    doc_date = RegexField(
-        re_select=r"o=\"(20\d.*)\"\;", default=ts_to_str_date(time.time())
-    )
     # 文章发布时间戳
-    # doc_ts = TextField(css_select="em#publish_time", default="")
     doc_ts = RegexField(
-        re_select=r"o=\"(20\d.*)\"\;", default=ts_to_str_date(time.time())
+        re_select=r"var ct = \"(\d{1,10})\"\;",
+        default=time.time(),
     )
+    # 文章发布日期
+    doc_date = RegexField(
+        re_select=r"var ct = \"(\d{1,10})\"\;",
+        default=ts_to_str_date(time.time()),
+    )
+    # doc_date_f1 = TextField(css_select="em#publish_time", default="")
+    # doc_date_f2 = RegexField(
+    #     re_select=r"o=\"(20\d.*)\"\;",
+    #     default=ts_to_str_date(time.time(), "%Y-%m-%d %H:%M"),
+    # )
+    # doc_ts_f1 = TextField(css_select="em#publish_time", default="")
+    # doc_ts_f2 = RegexField(
+    #     re_select=r"o=\"(20\d.*)\"\;",
+    #     default=ts_to_str_date(time.time(), "%Y-%m-%d %H:%M"),
+    # )
     # 文章图
     doc_image = AttrField(
         css_select='meta[property="og:image"]', attr="content", default=""
@@ -93,25 +104,57 @@ class WechatItem(Item):
         """
         清洗时间，数据格式 2021-12-17 08:48
         """
-        if value:
-            value += ":00"
-        else:
+        try:
+            value = ts_to_str_date(value)
+        except:
             value = ts_to_str_date(time.time())
         return value
 
     async def clean_doc_ts(self, value):
         """
-        清洗时间戳，数据格式 2021-12-17 08:48
+        清洗时间戳，数据格式1620567960
         """
-        if value:
-            value += ":00"
-        else:
-            value = ts_to_str_date(time.time())
-        # 转成时间数组
-        time_arr = time.strptime(str(value), "%Y-%m-%d %H:%M:%S")
-        # 转时间戳
-        ts = time.mktime(time_arr)
-        return ts
+        try:
+            value = int(value)
+        except:
+            value = int(time.time())
+        return value
+
+    # async def clean_doc_date(self, value):
+    #     """
+    #     清洗时间，数据格式 2021-12-17 08:48
+    #     """
+    #     if value:
+    #         value += ":00"
+    #     else:
+    #         value = ts_to_str_date(time.time())
+    #     return value
+
+    # async def clean_doc_ts(self, value):
+    #     """
+    #     清洗时间戳，数据格式1620567960
+    #     """
+    #     if value:
+    #         value += ":00"
+    #     else:
+    #         value = ts_to_str_date(time.time())
+    #     # 转成时间数组
+    #     time_arr = time.strptime(str(value), "%Y-%m-%d %H:%M:%S")
+    #     # 转时间戳
+    #     ts = time.mktime(time_arr)
+    #     return ts
+
+    # async def clean_doc_date_f1(self, value):
+    #     """
+    #     清洗时间，数据格式 2021-12-17 08:48
+    #     """
+    #     return await self.clean_doc_date(value)
+
+    # async def clean_doc_ts_f1(self, value):
+    #     """
+    #     清洗时间戳，数据格式 1620567960
+    #     """
+    #     return await self.clean_doc_ts(value)
 
 
 class WechatSpider(Spider):
