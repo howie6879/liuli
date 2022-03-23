@@ -162,7 +162,7 @@ class WechatSpider(Spider):
 
     name = "WechatSpider"
     start_urls = ["https://mp.weixin.qq.com/s/NKnTiLixjB9h8fSd7Gq8lw"]
-    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 20}
+    request_config = {"RETRIES": 3, "DELAY": 0, "TIMEOUT": 5}
     concurrency = 10
     # aiohttp config
     aiohttp_kwargs = {}
@@ -172,6 +172,7 @@ class WechatSpider(Spider):
         item = await WechatItem.get_item(html=html)
         print(item.doc_ts)
         print(item.doc_date)
+        print(item.doc_des)
         yield item
 
 

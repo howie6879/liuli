@@ -7,7 +7,7 @@
 import asyncio
 import os
 
-from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
+from src.collector.wechat.items import SGWechatItem, WechatItem
 from src.config import Config
 
 ROOT_DIR = os.path.dirname(Config.BASE_DIR)

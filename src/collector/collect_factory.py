@@ -29,7 +29,11 @@ def collect_factory(collect_type: str, collect_config: dict) -> bool:
 
 
 if __name__ == "__main__":
-    t_collect_type = "wechat_sougou"
+    t_collect_type = "wechat"
     wechat_str = "小众消息;是不是很酷;caoz的梦呓;TGO鲲鹏会;老胡的储物柜;真没什么逻辑"
-    t_collect_config = {"wechat_list": wechat_str.split(";"), "delta_time": 5}
+    t_collect_config = {
+        "wechat_list": wechat_str.split(";"),
+        "delta_time": 1,
+        "spider_type": "sg_playwright",
+    }
     collect_factory(t_collect_type, t_collect_config)
