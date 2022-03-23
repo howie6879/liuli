@@ -39,7 +39,7 @@ import time
 from playwright.async_api import async_playwright
 
 from src.collector.utils import load_data_to_articlles
-from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
+from src.collector.wechat.items import SGWechatItem, WechatItem
 from src.config.config import Config
 from src.processor.text_utils import html_to_text_h2t
 from src.utils.log import LOGGER

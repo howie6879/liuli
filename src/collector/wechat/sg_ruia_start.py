@@ -35,7 +35,7 @@ from ruia import Response, Spider
 from ruia_ua import middleware as ua_middleware
 
 from src.collector.utils import load_data_to_articlles
-from src.collector.wechat_sougou.items import SGWechatItem, WechatItem
+from src.collector.wechat.items import SGWechatItem, WechatItem
 from src.processor import html_to_text_h2t
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
@@ -45,7 +45,7 @@ class SGWechatSpider(Spider):
     """微信文章爬虫"""
 
     name = "SGWechatSpider"
-    request_config = {"RETRIES": 3, "DELAY": 5, "TIMEOUT": 20}
+    request_config = {"RETRIES": 3, "DELAY": 3, "TIMEOUT": 5}
     concurrency = 10
     wechat_name = ""
     # aiohttp config
@@ -108,13 +108,13 @@ def run(collect_config: dict):
     """
     s_nums = 0
     wechat_list = collect_config["wechat_list"]
-    delta_time = collect_config.get("delta_time", 5)
+    delta_time = collect_config.get("delta_time", 3)
     for wechat_name in wechat_list:
         SGWechatSpider.wechat_name = wechat_name
         SGWechatSpider.request_config = {
             "RETRIES": 3,
             "DELAY": delta_time,
-            "TIMEOUT": 20,
+            "TIMEOUT": 5,
         }
         sg_url = f"https://weixin.sogou.com/weixin?type=1&query={wechat_name}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
         SGWechatSpider.start_urls = [sg_url]
