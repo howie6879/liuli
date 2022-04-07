@@ -3,13 +3,13 @@
     "author": "liuli_team",
     "doc_source": "liuli_wechat",
     "collector": {
-        "wechat_sougou": {
+        "wechat": {
             "wechat_list": [
                 "老胡的储物柜", "是不是很酷"
             ],
             "delta_time": 5,
-            "spider_type": "ruia",
-            "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写playwright"
+            "spider_type": "sg_ruia",
+            "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写sg_playwright"
         }
     },
     "processor": {
