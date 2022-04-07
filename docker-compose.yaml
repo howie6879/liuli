@@ -8,8 +8,6 @@ services:
       - "8765:8765"
     volumes:
       - ./pro.env:/data/code/pro.env
-    links:
-      - liuli_mongodb
     depends_on:
       - liuli_mongodb
     networks:
@@ -21,8 +19,6 @@ services:
     volumes:
       - ./pro.env:/data/code/pro.env
       - ./liuli_config:/data/code/liuli_config
-    links:
-      - liuli_mongodb
     depends_on:
       - liuli_mongodb
     networks:
