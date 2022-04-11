@@ -13,4 +13,5 @@ RUN rm -rf .git \
     && echo "${TIME_ZONE}" > /etc/timezone \
     && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     && find . -name "*.pyc" -delete
+EXPOSE 8765
 CMD ["pipenv", "run", "pro_api"]
