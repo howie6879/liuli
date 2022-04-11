@@ -1,16 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Init from '../views/Init.vue';
+import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
 
 const routes = [
     {
         path: '/',
-        component: Home
+        component: Home,
+        meta: { title: '首页' }
     },
     {
-        path: '/init',
-        component: Init
+        path: '/login',
+        component: Login,
+        meta: { title: '登录' }
     }
 ];
 
@@ -18,6 +20,11 @@ const router = createRouter({
     // history: createWebHashHistory(),
     history: createWebHistory('/'),
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    document.title = `${to.meta.title || ''} - liuli.io`;
+    next();
 });
 
 export default router;

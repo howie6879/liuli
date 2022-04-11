@@ -82,22 +82,3 @@ class MongodbManager:
             cls._mongodb_dict[key] = MongodbBase(mongodb_config)
 
         return cls._mongodb_dict[key]
-
-
-if __name__ == "__main__":
-    from src.config import Config
-
-    m_config = {
-        "username": "liuli",
-        "password": "liuli",
-        "host": "127.0.0.1",
-        "port": 27027,
-        "db": "admin",
-    }
-    mongo_base = MongodbManager.get_mongo_base(m_config)
-    print(mongo_base.mongodb_uri)
-    coll_conn = mongo_base.get_collection(coll_name="test", db_name="admin")
-
-    coll_conn.update_one(
-        filter={"test_id": "abc"}, update={"$set": {"test_id": "abc"}}, upsert=True
-    )
