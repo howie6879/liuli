@@ -7,32 +7,36 @@
                     <h1>Liuli</h1>
                     <h2>琉璃开净界，薜荔启禅关</h2>
                 </hgroup>
+                <!-- <p class="name">Liuli</p>
+                <p class="des">琉璃开净界，薜荔启禅关</p> -->
                 <form>
                     <input
+                        v-model="loginForm.username"
                         type="text"
                         name="login"
                         placeholder="用户名"
-                        aria-label="Login"
-                        autocomplete="nickname"
                         required
                     />
                     <input
+                        v-model="loginForm.password"
                         type="password"
                         name="password"
                         placeholder="密码"
-                        aria-label="Password"
-                        autocomplete="current-password"
                         required
                     />
                     <fieldset>
                         <label for="remember">
-                            <input type="checkbox" role="switch" id="remember" name="remember" />
+                            <input
+                                v-model="loginForm.remember"
+                                type="checkbox"
+                                role="switch"
+                                id="remember"
+                                name="remember"
+                            />
                             记住我
                         </label>
                     </fieldset>
-                    <button type="submit" class="contrast" onclick="event.preventDefault()">
-                        登录
-                    </button>
+                    <button type="submit" class="contrast" onclick="login()">登录</button>
                 </form>
             </div>
         </article>
@@ -40,10 +44,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            loginForm: {
+                username: '',
+                password: '',
+                remember: ''
+            }
+        };
+    }
+};
 </script>
 
-<style>
+<style scoped>
 main.container {
     display: flex;
     flex-direction: column;
@@ -61,10 +75,20 @@ article div {
     padding: 1rem;
 }
 
+article p.name {
+    color: '#1b2832';
+}
+
+article p.des {
+    color: #73828c;
+    font-size: 1rem;
+    font-family: unset;
+}
+
 article.grid div.login-cover {
     display: none;
     background-color: #374956;
-    background-image: url('https://cdn.jsdelivr.net/gh/howie6879/oss/uPic/ll_login_demo.jpg');
+    background-image: url('/src/assets/images/ll_login_img.jpg');
     background-position: center;
     background-size: cover;
 }

@@ -11,25 +11,24 @@ from src.common.remote import get_html_by_requests
 from src.config import Config
 from src.processor.text_utils import extract_chapters, extract_core_html
 
-bp_api = Blueprint("v1", __name__, url_prefix="/v1")
+bp_utils = Blueprint("utils", __name__, url_prefix="/utils")
 
 
-@bp_api.route("/ping", methods=["GET"], strict_slashes=False)
+@bp_utils.route("/ping", methods=["GET"], strict_slashes=False)
 def ping():
     """
-    示例接口: http://127.0.0.1:8765/v1/ping
+    示例接口: http://127.0.0.1:8765/v1/utils/ping
     :return:
     """
-    # 获取基本配置
     return "pong"
 
 
-@bp_api.route("/book_chapter", methods=["GET"], strict_slashes=False)
+@bp_utils.route("/book_chapter", methods=["GET"], strict_slashes=False)
 def book_chapter():
     """
     返回书籍目录json，依赖参数：
         - url: 书籍目录链接
-    eg: http://0.0.0.0:8765/v1/book_chapter?url=https://www.yruan.com/article/38563.html
+    eg: http://0.0.0.0:8765/v1/utils/book_chapter?url=https://www.yruan.com/article/38563.html
     """
     args = request.args.to_dict()
     url = args.get("url", "")
@@ -49,13 +48,13 @@ def book_chapter():
     return response_handle(request=request, dict_value=result)
 
 
-@bp_api.route("/book_content", methods=["GET"], strict_slashes=False)
+@bp_utils.route("/book_content", methods=["GET"], strict_slashes=False)
 def book_content():
     """
     基于readability算法提取文章核心内容，并转化为MD格式输出
     返回书籍目录json，依赖参数：
         - url: 书籍章节页链接
-    eg: http://0.0.0.0:8765/v1/book_content?url=https://www.yruan.com/article/38563/4082438.html
+    eg: http://0.0.0.0:8765/v1/utils/book_content?url=https://www.yruan.com/article/38563/4082438.html
     """
     args = request.args.to_dict()
     url = args.get("url", "")

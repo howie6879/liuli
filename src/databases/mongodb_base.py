@@ -5,6 +5,7 @@
     Changelog: all notable changes to this file will be documented
 """
 
+from unittest.main import main
 from urllib import parse
 
 from pymongo import MongoClient
@@ -82,3 +83,24 @@ class MongodbManager:
             cls._mongodb_dict[key] = MongodbBase(mongodb_config)
 
         return cls._mongodb_dict[key]
+
+
+if __name__ == "__main__":
+    import time
+
+    from src.config import Config
+
+    mongo_base = MongodbManager.get_mongo_base(Config.MONGODB_CONFIG)
+    coll_conn = mongo_base.get_collection(coll_name="liuli_user")
+
+    coll_conn.update_one(
+        filter={"username": "liuli"},
+        update={
+            "$set": {
+                "username": "liuli",
+                "password": md5_encryption("liuli"),
+                "updated_at": int(time.time()),
+            }
+        },
+        upsert=True,
+    )
