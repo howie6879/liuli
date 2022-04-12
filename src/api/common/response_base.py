@@ -25,6 +25,8 @@ class ResponseReply:
     PARAM_ERR = "参数错误!"
     PARAM_PARSE_ERR = "参数解析错误!"
     UNKNOWN_ERR = "未知错误"
+    USER_LOGIN_ERROR = "用户登录失败"
+    NOT_AUTHORIZED = "验证未通过"
 
     # Success
     SUCCESS = "ok"
@@ -35,9 +37,11 @@ class ResponseCode:
     定义通用响应状态码
     """
 
-    BAD_REQUEST = 400
-    SERVER_ERR = 500
     SUCCESS = 200
+    BAD_REQUEST = 400
+    NOT_AUTHORIZED = 401
+    SERVER_ERR = 500
+    USER_LOGIN_ERROR = 901
 
 
 class UniResponse:
@@ -49,23 +53,24 @@ class UniResponse:
     DB_ERR = {
         ResponseField.MESSAGE: ResponseReply.DB_ERROR,
         ResponseField.STATUS: ResponseCode.SERVER_ERR,
-        ResponseField.DATA: {},
     }
     # 参数错误
     PARAM_ERR = {
         ResponseField.MESSAGE: ResponseReply.PARAM_ERR,
         ResponseField.STATUS: ResponseCode.BAD_REQUEST,
-        ResponseField.DATA: {},
     }
     # 服务未知错误
     SERVER_UNKNOWN_ERR = {
         ResponseField.MESSAGE: ResponseReply.UNKNOWN_ERR,
         ResponseField.STATUS: ResponseCode.SERVER_ERR,
-        ResponseField.DATA: {},
     }
     # 请求成功
     SUCCESS = {
         ResponseField.MESSAGE: ResponseReply.SUCCESS,
         ResponseField.STATUS: ResponseCode.SUCCESS,
-        ResponseField.DATA: {},
+    }
+    # 未验证
+    NOT_AUTHORIZED = {
+        ResponseField.MESSAGE: ResponseReply.NOT_AUTHORIZED,
+        ResponseField.STATUS: ResponseCode.NOT_AUTHORIZED,
     }

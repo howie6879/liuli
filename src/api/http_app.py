@@ -6,8 +6,9 @@
     Changelog: all notable changes to this file will be documented
 """
 from flask import Flask
+from flask_jwt_extended import JWTManager
 
-from src.api.views import bp_api, bp_backup, bp_rss
+from src.api.views import bp_api_v1, bp_backup, bp_rss
 from src.config import Config
 from src.databases import MongodbManager
 from src.utils.log import get_logger
@@ -33,9 +34,15 @@ def create_app():
 
         LOGGER.info(f"server({Config.API_VERSION}) started successfully :)")
 
-    flask_app.register_blueprint(bp_api)
+    # 注册相关蓝图
+    flask_app.register_blueprint(bp_api_v1)
     flask_app.register_blueprint(bp_rss)
     flask_app.register_blueprint(bp_backup)
+
+    # 初始化JWT
+    flask_app.config["JWT_SECRET_KEY"] = Config.JWT_SECRET_KEY
+    _ = JWTManager(flask_app)
+
     return flask_app
 
 

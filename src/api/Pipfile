@@ -17,6 +17,7 @@ requests = "*"
 jieba = "*"
 feedgen = "*"
 readability-lxml = "*"
+flask-jwt-extended = "==4.3.1"
 
 [scripts]
 dev_api = "bash ./start.sh api dev"

@@ -5,6 +5,6 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from .bp_api_v1 import bp_api
+from .api_v1 import bp_api_v1
 from .bp_backup import bp_backup
 from .bp_rss import bp_rss

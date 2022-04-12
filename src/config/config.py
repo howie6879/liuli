@@ -38,6 +38,7 @@ class Config:
     API_VERSION = "v0.1.3"
 
     # Flask API配置
+    JWT_SECRET_KEY = os.getenv("LL_JWT_SECRET_KEY", "ll64b3996626a6e5278a13286cfffa98")
     DEBUG = bool(os.getenv("LL_FLASK_DEBUG", "0") == "1")
     TIMEZONE = "Asia/Shanghai"
     HOST = os.getenv("LL_HOST", "127.0.0.1")

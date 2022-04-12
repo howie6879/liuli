@@ -20,7 +20,7 @@ bp_backup = Blueprint("backup", __name__, url_prefix="/backup")
 )
 def backup(doc_source, doc_source_name, doc_name):
     """备份文章获取接口
-    http://127.0.0.1:8765/backup/liuli_wechat/老胡的储物柜/我的周刊（第030期）
+    http://127.0.0.1:8765/backup/liuli_wechat/老胡的储物柜/杂谈|程序员还是工程师
     Args:
         doc_source ([type]): 文章来源
         doc_source_name ([type]): 文章来源作者
