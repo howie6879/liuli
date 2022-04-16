@@ -75,7 +75,7 @@ def send_doc(sender_conf: dict):
                     send_type=send_type, init_config=init_config, send_data=each_data
                 )
     else:
-        LOGGER.warn("未配置分发器!")
+        LOGGER.error()("未配置分发器!")
 
 
 if __name__ == "__main__":
