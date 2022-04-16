@@ -51,26 +51,31 @@ class UniResponse:
 
     # 数据库出错
     DB_ERR = {
+        ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.DB_ERROR,
         ResponseField.STATUS: ResponseCode.SERVER_ERR,
     }
     # 参数错误
     PARAM_ERR = {
+        ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.PARAM_ERR,
         ResponseField.STATUS: ResponseCode.BAD_REQUEST,
     }
     # 服务未知错误
     SERVER_UNKNOWN_ERR = {
+        ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.UNKNOWN_ERR,
         ResponseField.STATUS: ResponseCode.SERVER_ERR,
     }
     # 请求成功
     SUCCESS = {
+        ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.SUCCESS,
         ResponseField.STATUS: ResponseCode.SUCCESS,
     }
     # 未验证
     NOT_AUTHORIZED = {
+        ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.NOT_AUTHORIZED,
         ResponseField.STATUS: ResponseCode.NOT_AUTHORIZED,
     }

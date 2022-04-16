@@ -4,12 +4,11 @@
     </main>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            title: 'Liuli'
-        };
-    }
-};
+<script setup>
+import { onMounted } from 'vue';
+import { useUserStore } from '../store/user';
+onMounted(() => {
+    const userStore = useUserStore();
+    console.log(userStore.getToken);
+});
 </script>

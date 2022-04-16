@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@picocss/pico": "^1.5.0",
+    "axios": "^0.26.1",
+    "pinia": "^2.0.0-rc.10",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14"
   },

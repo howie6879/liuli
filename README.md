@@ -123,10 +123,12 @@ Loading .env environment variables...
 
 感谢以下开源项目：
 
-- [Flask](https://github.com/pallets/flask): web 框架
+- [Flask](https://github.com/pallets/flask): web框架
+- [Vue](https://github.com/vuejs/core): 渐进式JavaScript框架
 - [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架（自研自用）
-- [playwright](https://playwright.dev/): 使用浏览器进行数据抓取
-- [CharCNN](https://github.com/mhjabreel/CharCNN): 感谢`CharCNN`论文作者`Xiang Zhang, Junbo Zhao, Yann LeCun`
+- [playwright](https://github.com/microsoft/playwright): 使用浏览器进行数据抓取
+
+以上仅列出比较核心的开园以来，更多第三方依赖请见[Pipfile](./Pipfile)文件。
 
 您任何PR都是对`Liuli`项目的大力支持，非常感谢以下开发者的贡献（排名不分先后）：
 
