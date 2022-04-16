@@ -6,6 +6,7 @@ defineProps({
 });
 
 const count = ref(0);
+document.querySelector('html').setAttribute('data-theme', 'dark');
 </script>
 
 <template>

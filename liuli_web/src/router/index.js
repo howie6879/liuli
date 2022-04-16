@@ -2,7 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
+import { callUserStore } from '../store/user';
 
+// 初始化 store
+const userStore = callUserStore();
+
+// 定义路由
 const routes = [
     {
         path: '/',
@@ -22,9 +27,35 @@ const router = createRouter({
     routes
 });
 
+const whiteList = ['/login', '/404'];
+
 router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title || ''} - liuli.io`;
-    next();
+    if (to.meta && typeof to.meta.title !== 'undefined') {
+        document.title = `${to.meta.title || ''} - liuli.io`;
+    } else {
+        document.title = `liuli.io`;
+    }
+
+    const hasToken = userStore.getToken;
+    console.log(3333, hasToken);
+
+    if (hasToken) {
+        if (to.path == '/login') {
+            // 登录状态下进入登录页面，直接跳转到主页
+            next('/');
+        } else {
+            next();
+        }
+    } else {
+        // 未登录状态直接进入登录页面
+        if (whiteList.indexOf(to.path) > -1) {
+            // 在白名单里直接跳转
+            next();
+        } else {
+            // 非白名单一律跳到登录页
+            next('/login');
+        }
+    }
 });
 
 export default router;

@@ -7,13 +7,11 @@
                     <h1>Liuli</h1>
                     <h2>琉璃开净界，薜荔启禅关</h2>
                 </hgroup>
-                <!-- <p class="name">Liuli</p>
-                <p class="des">琉璃开净界，薜荔启禅关</p> -->
-                <form>
+                <form @submit.prevent="">
                     <input
                         v-model="loginForm.username"
                         type="text"
-                        name="login"
+                        name="username"
                         placeholder="用户名"
                         required
                     />
@@ -36,23 +34,46 @@
                             记住我
                         </label>
                     </fieldset>
-                    <button type="submit" class="contrast" onclick="login()">登录</button>
+                    <button type="submit" class="contrast" @click="login()">登录</button>
                 </form>
             </div>
         </article>
     </main>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            loginForm: {
-                username: '',
-                password: '',
-                remember: ''
-            }
-        };
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useUserStore } from '../store/user';
+const userStore = useUserStore();
+// onMounted(() => {
+//     const userStore = useUserStore();
+//     console.log(userStore.getToken);
+// });
+
+const loginForm = ref({
+    username: '',
+    password: '',
+    remember: true
+});
+const router = useRouter();
+const login = function () {
+    if (!this.loginForm.username) {
+        document.getElementsByName('username').focus();
+    } else {
+        userStore.login({
+            username: this.loginForm.username,
+            password: this.loginForm.password,
+            remember: this.loginForm.remember
+        });
+        console.log(userStore.getToken);
+        router.push('/');
+        // const res = await userStore.login({
+        //     username: this.loginForm.username,
+        //     password: this.loginForm.password,
+        //     remember: this.loginForm.remember
+        // });
     }
 };
 </script>
@@ -73,16 +94,6 @@ article {
 
 article div {
     padding: 1rem;
-}
-
-article p.name {
-    color: '#1b2832';
-}
-
-article p.des {
-    color: #73828c;
-    font-size: 1rem;
-    font-family: unset;
 }
 
 article.grid div.login-cover {

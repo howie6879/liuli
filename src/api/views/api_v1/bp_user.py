@@ -70,11 +70,13 @@ def login():
             identity=username, expires_delta=expires_delta
         )
         result = {
-            ResponseField.MESSAGE: access_token,
+            ResponseField.DATA: {"token": access_token},
+            ResponseField.MESSAGE: ResponseReply.SUCCESS,
             ResponseField.STATUS: ResponseCode.SUCCESS,
         }
     else:
         result = {
+            ResponseField.DATA: {},
             ResponseField.MESSAGE: ResponseReply.USER_LOGIN_ERROR,
             ResponseField.STATUS: ResponseCode.USER_LOGIN_ERROR,
         }
