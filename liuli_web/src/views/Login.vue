@@ -34,7 +34,14 @@
                             记住我
                         </label>
                     </fieldset>
-                    <button type="submit" class="contrast" @click="login()">登录</button>
+                    <button
+                        aria-busy="false"
+                        type="submit"
+                        class="contrast login-submit"
+                        @click="login()"
+                    >
+                        登录
+                    </button>
                 </form>
             </div>
         </article>
@@ -46,34 +53,36 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useUserStore } from '../store/user';
+
+const router = useRouter();
 const userStore = useUserStore();
-// onMounted(() => {
-//     const userStore = useUserStore();
-//     console.log(userStore.getToken);
-// });
 
 const loginForm = ref({
     username: '',
     password: '',
     remember: true
 });
-const router = useRouter();
+
 const login = function () {
     if (!this.loginForm.username) {
         document.getElementsByName('username').focus();
     } else {
-        userStore.login({
-            username: this.loginForm.username,
-            password: this.loginForm.password,
-            remember: this.loginForm.remember
-        });
-        console.log(userStore.getToken);
-        router.push('/');
-        // const res = await userStore.login({
-        //     username: this.loginForm.username,
-        //     password: this.loginForm.password,
-        //     remember: this.loginForm.remember
-        // });
+        document.querySelector('.login-submit').setAttribute('aria-busy', 'true');
+        userStore
+            .login({
+                username: this.loginForm.username,
+                password: this.loginForm.password,
+                remember: this.loginForm.remember
+            })
+            .then((res) => {
+                if (res) {
+                    // 进行提示
+                    router.push('/');
+                } else {
+                    // 有结果表示正常请求
+                    document.querySelector('.login-submit').setAttribute('aria-busy', 'false');
+                }
+            });
     }
 };
 </script>

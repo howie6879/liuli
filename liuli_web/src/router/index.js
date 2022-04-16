@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
     }
 
     const hasToken = userStore.getToken;
-    console.log(3333, hasToken);
+    // console.log(userStore.getUsername + ' 已登录!');
 
     if (hasToken) {
         if (to.path == '/login') {

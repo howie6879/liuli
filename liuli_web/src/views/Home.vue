@@ -7,8 +7,8 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useUserStore } from '../store/user';
-onMounted(() => {
-    const userStore = useUserStore();
-    console.log(userStore.getToken);
-});
+// onMounted(() => {
+//     const userStore = useUserStore();
+//     console.log(userStore.getToken);
+// });
 </script>

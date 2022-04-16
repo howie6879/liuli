@@ -19,7 +19,7 @@ export function getLiuliToken() {
         isTimeout = isTokenTimeout(tokenData.timeStamp);
     }
     // 超时重置，未超时继续使用
-    return isTimeout ? { token: '', timeStamp: 0 } : tokenData;
+    return isTimeout ? { token: '', timeStamp: 0, username: '' } : tokenData;
 }
 
 export function setLiuliToken(tokenData) {
