@@ -116,5 +116,5 @@ logs/
 *.xml
 *.h5
 
-# mongodb测试脚本
+# db
 *.mongodb
