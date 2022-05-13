@@ -7,7 +7,7 @@
             - playwright install chromium
             - playwright codegen https://weixin.sogou.com/
         - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-            - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/playwright_start.py
+            - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat/sg_playwright_start.py
         - 格式：
             {
                 "doc_date": "2022-01-09 21:20:00",

@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2022-01-05.
     Description: 采集器工厂函数，根据采集模块名称启动主函数
-        - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/collect_factory.py
+        - 命令: PIPENV_DOTENV_LOCATION=./dev.env pipenv run python src/collector/collect_factory.py
     Changelog: all notable changes to this file will be documented
 """
 
@@ -30,10 +30,10 @@ def collect_factory(collect_type: str, collect_config: dict) -> bool:
 
 if __name__ == "__main__":
     t_collect_type = "wechat"
-    wechat_str = "小众消息;是不是很酷;caoz的梦呓;TGO鲲鹏会;老胡的储物柜;真没什么逻辑"
     t_collect_config = {
-        "wechat_list": wechat_str.split(";"),
+        "wechat_list": ["老胡的储物柜"],
         "delta_time": 1,
-        "spider_type": "sg_playwright",
+        # data258 sg_playwright sg_ruia
+        "spider_type": "data258",
     }
     collect_factory(t_collect_type, t_collect_config)

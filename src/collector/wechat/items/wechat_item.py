@@ -170,7 +170,7 @@ class WechatSpider(Spider):
     async def parse(self, response):
         html = await response.text()
         item = await WechatItem.get_item(html=html)
-        print(item.results)
+        # print(item.results)
         print(item.doc_ts)
         print(item.doc_date)
         print(item.doc_des)
