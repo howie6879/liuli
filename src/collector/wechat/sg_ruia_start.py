@@ -2,7 +2,7 @@
     Created by howie.hu at 2022-01-13.
     Description: 基于Ruia爬虫框架的微信公众号爬虫
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-        - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/ruia_start.py
+        - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/sg_ruia_start.py
         - 结果示例：
         {
             "doc_date": "2022-01-09 21:20:00",
@@ -116,8 +116,8 @@ def run(collect_config: dict):
             "DELAY": delta_time,
             "TIMEOUT": 5,
         }
-        sg_url = f"https://weixin.sogou.com/weixin?type=1&query={wechat_name}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
-        SGWechatSpider.start_urls = [sg_url]
+        t_url = f"https://weixin.sogou.com/weixin?type=1&query={wechat_name}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
+        SGWechatSpider.start_urls = [t_url]
         try:
             SGWechatSpider.start(middleware=ua_middleware)
             s_nums += 1

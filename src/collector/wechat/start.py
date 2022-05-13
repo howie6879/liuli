@@ -24,6 +24,10 @@ def run(collect_config: dict):
         from src.collector.wechat.feddd_start import run as feddd_run
 
         run_func = feddd_run
+    elif spider_type == "data258":
+        from src.collector.wechat.data258_ruia_start import run as data258_run
+
+        run_func = data258_run
     else:
         run_func = ruia_run
 
