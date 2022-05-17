@@ -128,7 +128,7 @@ Loading .env environment variables...
 - [Ruia](https://github.com/howie6879/ruia): 异步爬虫框架（自研自用）
 - [playwright](https://github.com/microsoft/playwright): 使用浏览器进行数据抓取
 
-以上仅列出比较核心的开园以来，更多第三方依赖请见[Pipfile](./Pipfile)文件。
+以上仅列出比较核心的开源依赖，更多第三方依赖请见[Pipfile](./Pipfile)文件。
 
 您任何PR都是对`Liuli`项目的大力支持，非常感谢以下开发者的贡献（排名不分先后）：
 
