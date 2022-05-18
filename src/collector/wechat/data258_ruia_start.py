@@ -2,6 +2,7 @@
     Created by howie.hu at 2022-05-12.
     Description: 基于Ruia爬虫框架的微信公众号爬虫
         原始数据来源于：https://mp.data258.com/mp/search?type=category&key=老胡的储物柜&sort=
+        ! 注意，该目标网站有比较严厉的反爬措施，单IP只能访问15次，此功能需要代理池
         - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
         - 命令: PIPENV_DOTENV_LOCATION=./dev.env pipenv run python src/collector/wechat/data258_ruia_start.py
         - 结果示例：
@@ -124,7 +125,7 @@ class Data258WechatSpider(Spider):
         };
         """
         js_text += re.compile(r"\}\);(.*?)</script>", re.S).search(html)[1]
-        js_text += re.compile(r"setTimeout\(function\(\){(.*?);},").search(html)[1]
+        js_text += re.compile(r":setTimeout\(function\(\){(.*?);},").search(html)[1]
 
         real_wechat_url = await asyncio.coroutine(exec_js_data258)(js_text=js_text)
         yield self.request(
