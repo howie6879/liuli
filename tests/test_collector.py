@@ -99,7 +99,11 @@ def test_data258_js2wechat():
     };
     """
     js_text += re.compile(r"\}\);(.*?)</script>", re.S).search(html)[1]
-    js_text += re.compile(r"setTimeout\(function\(\){(.*?);},").search(html)[1]
+    js_text += re.compile(r":setTimeout\(function\(\){(.*?);},").search(html)[1]
     js = execjs.compile(js_text)
     res = js.eval("location")
-    assert res["href"] != ""
+    print(res["href"])
+    assert (
+        res["href"]
+        == "http://mp.weixin.qq.com/s?__biz=MzU4MTA0NDQ0Ng==&mid=2247486002&idx=1&sn=b1cbe64cb8e9f76338b2a5187f8115eb&chksm=fd4cdb83ca3b529578eacdf6a4a19eed2ae10b44de173ee0a178d505e29db4dd2d03cedb0b94&scene=126&&sessionid=0#rd"
+    )
