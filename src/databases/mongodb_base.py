@@ -5,7 +5,6 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from unittest.main import main
 from urllib import parse
 
 from pymongo import MongoClient

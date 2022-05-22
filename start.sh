@@ -14,9 +14,12 @@ else
     exit
 fi
 
-if [ ${s_env} == "dev" ]
+if [ ${s_env} == "local" ]
 then
     start_script="PIPENV_DOTENV_LOCATION=./.env pipenv run "$script_command
+elif [ ${s_env} == "dev" ]
+then
+    start_script="PIPENV_DOTENV_LOCATION=./dev.env pipenv run "$script_command
 elif [ ${s_env} == "pro" ]
 then
     start_script="PIPENV_DOTENV_LOCATION=./pro.env pipenv run "$script_command

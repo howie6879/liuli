@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
 
   const hasToken = userStore.getToken;
   // console.log(userStore.getUsername + ' 已登录!');
-
+  console.log(hasToken);
   if (hasToken) {
     if (to.path == '/login') {
       // 登录状态下进入登录页面，直接跳转到主页
