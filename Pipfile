@@ -39,7 +39,9 @@ flask-jwt-extended = "==4.3.1"
 pyexecjs = "*"
 
 [scripts]
+local_schedule = "bash ./start.sh schedule local"
 dev_schedule = "bash ./start.sh schedule dev"
 pro_schedule = "bash ./start.sh schedule pro"
+local_api = "bash ./start.sh api local"
 dev_api = "bash ./start.sh api dev"
 pro_api = "bash ./start.sh api pro"

@@ -17,14 +17,16 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
-    setToken(token, username) {
+    setToken(token, username, remember) {
       this.token = token;
       this.username = username;
-      setLiuliToken({
-        token: token,
-        username: username,
-        timeStamp: Date.now()
-      });
+      if (remember) {
+        setLiuliToken({
+          token: token,
+          username: username,
+          timeStamp: Date.now()
+        });
+      }
     },
     resetState() {
       this.token = '';
@@ -34,10 +36,9 @@ export const useUserStore = defineStore('user', {
     async login(data) {
       // 登录获取Token
       const res = await api.login(data);
-
-      if (res && data.remember) {
+      if (res.status == 200) {
         console.log('正在持久化 Token!');
-        this.setToken(res.token, res.username);
+        this.setToken(res.data.token, res.data.username, data.remember);
       }
       return new Promise((resolve, reject) => {
         resolve(res);

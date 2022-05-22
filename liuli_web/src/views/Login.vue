@@ -4,7 +4,7 @@
       <div class="login-cover"></div>
       <div>
         <hgroup>
-          <h1>Liuli</h1>
+          <h1><a href="https://github.com/liuli-io/liuli">Liuli</a></h1>
           <h2>琉璃开净界，薜荔启禅关</h2>
         </hgroup>
         <form @submit.prevent="">
@@ -23,7 +23,7 @@
             required
           />
           <fieldset>
-            <label for="remember">
+            <!-- <label for="remember">
               <input
                 v-model="loginForm.remember"
                 type="checkbox"
@@ -32,9 +32,9 @@
                 name="remember"
               />
               记住我
-            </label>
+            </label> -->
           </fieldset>
-          <button aria-busy="false" type="submit" class="contrast login-submit" @click="login()">
+          <button aria-busy="false" type="submit" class="login-submit" @click="login()">
             登录
           </button>
         </form>
@@ -44,13 +44,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { createToaster } from '@meforma/vue-toaster';
 
 import { useUserStore } from '../store/user';
 
 const router = useRouter();
 const userStore = useUserStore();
+const toaster = createToaster({
+  position: 'top-right'
+});
 
 const loginForm = ref({
   username: '',
@@ -70,11 +74,12 @@ const login = function () {
         remember: this.loginForm.remember
       })
       .then((res) => {
-        if (res) {
-          // 进行提示
+        if (res.status == 200) {
+          // 有结果表示正常请求
           router.push('/');
         } else {
-          // 有结果表示正常请求
+          const msg = res.info ? res.info : '服务器超时';
+          toaster.error(msg);
           document.querySelector('.login-submit').setAttribute('aria-busy', 'false');
         }
       });
