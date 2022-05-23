@@ -5,4 +5,4 @@
     Changelog: all notable changes to this file will be documented
 """
 from .mongodb_base import MongodbBase, MongodbManager
-from .mongodb_tools import mongodb_find
+from .mongodb_tools import mongodb_find, mongodb_update_data

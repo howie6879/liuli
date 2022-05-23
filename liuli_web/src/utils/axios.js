@@ -3,7 +3,6 @@ import { getLiuliToken } from './auth';
 
 const http = axios.create({
   baseURL: '/v1',
-  // baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 3000
 });
 
@@ -11,9 +10,10 @@ http.interceptors.request.use(
   // 请求拦截器
   (config) => {
     // 注入token
-    if (getLiuliToken().token) {
+    const local_token = getLiuliToken().token;
+    if (local_token) {
       // 如果token存在 注入token
-      config.headers.Authorization = `Bearer ${store.getters.token}`;
+      config.headers.Authorization = `Bearer ${local_token}`;
     }
     // console.log(config);
     return config;
