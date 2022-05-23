@@ -53,7 +53,7 @@ import { useUserStore } from '../store/user';
 const router = useRouter();
 const userStore = useUserStore();
 const toaster = createToaster({
-  position: 'top-right'
+  position: 'bottom-right'
 });
 
 const loginForm = ref({

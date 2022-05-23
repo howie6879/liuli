@@ -26,6 +26,7 @@ class ResponseReply:
     PARAM_PARSE_ERR = "参数解析错误!"
     UNKNOWN_ERR = "未知错误"
     USER_LOGIN_ERROR = "用户登录失败"
+    USER_CHANGE_PWD_ERROR = "用户修改密码失败"
     NOT_AUTHORIZED = "验证未通过"
 
     # Success
@@ -42,6 +43,7 @@ class ResponseCode:
     NOT_AUTHORIZED = 401
     SERVER_ERR = 500
     USER_LOGIN_ERROR = 901
+    USER_CHANGE_PWD_ERROR = 902
 
 
 class UniResponse:
@@ -78,4 +80,10 @@ class UniResponse:
         ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.NOT_AUTHORIZED,
         ResponseField.STATUS: ResponseCode.NOT_AUTHORIZED,
+    }
+    # 修改密码失败
+    CHANGE_PWD_ERROR = {
+        ResponseField.DATA: {},
+        ResponseField.MESSAGE: ResponseReply.USER_CHANGE_PWD_ERROR,
+        ResponseField.STATUS: ResponseCode.USER_CHANGE_PWD_ERROR,
     }

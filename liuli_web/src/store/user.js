@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
     },
 
     async login(data) {
-      // 登录获取Token
+      // 登录获取 Token
       const res = await api.login(data);
       if (res.status == 200) {
         console.log('正在持久化 Token!');

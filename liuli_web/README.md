@@ -1,4 +1,4 @@
-> Liuli Web 版，基于 Vite + Vue3
+> Liuli Web 版，基于 Vue3 + Vite
 
 ```shell
 cd liuli_web
