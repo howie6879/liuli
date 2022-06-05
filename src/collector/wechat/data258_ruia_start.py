@@ -37,46 +37,41 @@ from urllib.parse import urljoin
 
 import execjs
 
-from ruia import AttrField, Item, Response, Spider, TextField
+from ruia import Response, Spider
 from ruia_ua import middleware as ua_middleware
 
 from src.collector.utils import load_data_to_articlles
-from src.collector.wechat.items import WechatItem
+from src.collector.wechat.items import (
+    Data258WechatItem,
+    Data258WechatListItem,
+    WechatItem,
+)
 from src.processor import html_to_text_h2t
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
 
 
-def exec_js_data258(js_text: str) -> str:
+def exec_js_data258(html: str) -> str:
     """返回js执行结果"""
-    js = execjs.compile(js_text)
-    return js.eval("location")["href"]
+    t_list = re.findall(r"setTimeout\(function\(\){(.*?);},", html)
+    mp_res_list = []
+    for i in t_list:
+        js_text = """
+        window = {};
+        location = {
+        href: null,
+        };
+        """
+        js_text += re.compile(r"\}\);(.*?)</script>", re.S).search(html)[1]
+        js_text += i
+        js = execjs.compile(js_text)
+        res = js.eval("location")["href"]
+        if "www.data258.com" in res:
+            break
+        else:
+            mp_res_list.append(res)
 
-
-class Data258WechatItem(Item):
-    """
-    微阅读公众号搜索一级页面信息提取
-    示例：https://mp.data258.com/mp/search?type=category&key=老胡的储物柜&sort=
-    """
-
-    target_item = TextField(css_select="div.layui-panel")
-    wechat_name = TextField(css_select="h2>a", default="")
-    wehcat_href = AttrField(css_select="h2>a", attr="href", default="")
-
-
-class Data258WechatListItem(Item):
-    """
-    微阅读公众号历史文章信息提取
-    示例: https://mp.data258.com/article/category/howie_locker
-    """
-
-    target_item = TextField(css_select="ul.jie-row>li")
-    w_article_title = TextField(css_select="a.jie-title", default="")
-    w_article_href = AttrField(css_select="a.jie-title", attr="href", default="")
-
-    async def clean_w_article_title(self, value: list):
-        """获取文章标题"""
-        return str(value).strip() if value else ""
+    return mp_res_list[-1] if mp_res_list else None
 
 
 class Data258WechatSpider(Spider):
@@ -112,26 +107,23 @@ class Data258WechatSpider(Spider):
                 url=url,
                 headers={"Host": "mp.data258.com", "Referer": response.url},
                 callback=self.parse_wechat_url,
+                metadata={"wechat_title": item.w_article_title},
             )
 
     async def parse_wechat_url(self, response: Response):
         """解析公众号文章原始链接"""
         html = await response.text()
-        # 构建加密js
-        js_text = """
-        window = {};
-        location = {
-        href: null,
-        };
-        """
-        js_text += re.compile(r"\}\);(.*?)</script>", re.S).search(html)[1]
-        js_text += re.compile(r":setTimeout\(function\(\){(.*?);},").search(html)[1]
-
-        real_wechat_url = await asyncio.coroutine(exec_js_data258)(js_text=js_text)
-        yield self.request(
-            url=real_wechat_url,
-            callback=self.parse_wechat,
-        )
+        if "今日浏览次数已达上限" in html:
+            LOGGER.error(f"微信真实链接提取失败(IP 限制)：{response.metadata['wechat_title']} ")
+        else:
+            real_wechat_url = await asyncio.coroutine(exec_js_data258)(html)
+            if real_wechat_url:
+                yield self.request(
+                    url=real_wechat_url,
+                    callback=self.parse_wechat,
+                )
+            else:
+                LOGGER.error(f"微信真实链接提取失败(js解密)：{response.metadata['wechat_title']} ")
 
     async def parse_wechat(self, response: Response):
         """解析公众号元数据"""

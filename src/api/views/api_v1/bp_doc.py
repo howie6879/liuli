@@ -23,6 +23,21 @@ from src.utils import LOGGER, get_ip, ts_to_str_date
 bp_doc = Blueprint("doc", __name__, url_prefix="/doc")
 
 
+@bp_doc.route("/articles", methods=["POST"], strict_slashes=False)
+@jwt_required()
+def articles():
+    """查询历史文章
+    {
+        "username": "liuli",
+        "doc_source": "",
+        "doc_source_name": ""
+    }
+
+    Returns:
+        Response: 响应类
+    """
+
+
 @bp_doc.route("/rss_list", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def rss_list():
@@ -64,7 +79,6 @@ def rss_list():
                     },
                 }
             )
-        # 查询成功
         result = {
             ResponseField.DATA: rss_dict,
             ResponseField.MESSAGE: ResponseReply.SUCCESS,
