@@ -4,5 +4,6 @@
     Changelog: all notable changes to this file will be documented
 """
 
+from .data258_wechat_item import Data258WechatItem, Data258WechatListItem
 from .sg_wechat_item import SGWechatItem
 from .wechat_item import WechatItem

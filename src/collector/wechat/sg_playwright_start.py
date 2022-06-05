@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2021-12-20.
-    Description: 利用 playwright 模拟浏览器进行数据抓取，此脚本产出目标页HTML
+    Description: 利用 playwright 模拟浏览器进行数据抓取微笑公众号
         - 文档: https://playwright.dev/python/docs/intro
         - 安装: 默认使用 playwright 爬虫版本，如果要启用，请自行安装以下依赖
             - pipenv install playwright
@@ -40,7 +40,7 @@ from playwright.async_api import async_playwright
 
 from src.collector.utils import load_data_to_articlles
 from src.collector.wechat.items import SGWechatItem, WechatItem
-from src.config.config import Config
+from src.config import Config
 from src.processor.text_utils import html_to_text_h2t
 from src.utils.log import LOGGER
 from src.utils.tools import md5_encryption
