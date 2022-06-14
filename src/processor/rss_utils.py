@@ -1,7 +1,7 @@
 """
     Created by howie.hu at 2021-12-27.
     Description: RSS相关脚本
-        - 生成RSS命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/processor/rss_utils.py
+        - 生成RSS命令: PIPENV_DOTENV_LOCATION=./online.env pipenv run python src/processor/rss_utils.py
     Changelog: all notable changes to this file will be documented
 """
 import time
@@ -127,6 +127,9 @@ def to_rss(
                             or "liuli_default"
                         )
                         doc_ts = each_data["doc_ts"]
+                        doc_date = pytz.timezone("Asia/Shanghai").localize(
+                            datetime.fromtimestamp(int(doc_ts))
+                        )
                         # 构造 RSS
                         fe = fg.add_entry()
                         article_id = f"{doc_source} - {doc_source_name} - {doc_name}"
@@ -137,11 +140,8 @@ def to_rss(
                         fe.author(name=f"{doc_source} - {doc_author}")
                         # 内容先为空
                         fe.content("")
-                        fe.pubDate(
-                            pytz.timezone("Asia/Shanghai").localize(
-                                datetime.fromtimestamp(int(doc_ts))
-                            )
-                        )
+                        fe.updated(doc_date)
+                        fe.pubDate(doc_date)
                     try:
                         rss_data = str(fg.atom_str(pretty=True), "utf-8")
                         # 更新 RSS 内容
