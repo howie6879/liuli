@@ -21,13 +21,18 @@
             "func": "to_rss",
             "doc_source_list": ["liuli_wechat"],
             "link_source": "github"
-
         }]
     },
     "sender": {
         "sender_list": ["wecom"],
         "query_days": 7,
-        "delta_time": 3
+        "delta_time": 3,
+        "custom_filter": {
+            "wecom": {
+                "delta_time": 1,
+                "ignore_doc_source_name": [""]
+            }
+        }
     },
     "backup": {
         "backup_list": ["github", "mongodb"],

@@ -31,7 +31,7 @@ class BarkSender(SenderBase):
         :return:
         """
         doc_name = send_data["doc_name"]
-        doc_source = send_data["doc_source"]
+        # doc_source = send_data["doc_source"]
         doc_link = send_data["doc_link"]
         doc_cus_des = send_data["doc_cus_des"]
         doc_source_name = send_data["doc_source_name"]
@@ -53,13 +53,10 @@ class BarkSender(SenderBase):
                 )
                 # 下发成功
                 LOGGER.info(f"{notice_msg} 成功！")
-                send_status = True
             else:
                 errmsg = json.loads(resp.text)["code"]
                 LOGGER.error(f"{notice_msg} 失败：{errmsg}")
-
-        else:
-            LOGGER.error(f"{notice_msg} 失败!")
+                send_status = False
         return send_status
 
     def compose(self, send_data) -> str:
