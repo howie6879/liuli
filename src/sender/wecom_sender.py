@@ -163,10 +163,11 @@ class WeComSender(SenderBase):
 
                     # 下发成功
                     LOGGER.info(f"{notice_msg} 成功！")
-                    send_status = True
                 else:
+                    send_status = False
                     LOGGER.error(f"{notice_msg} 失败：{resp_dict.get('errmsg')}")
             else:
+                send_status = False
                 LOGGER.error(f"{notice_msg} 失败!")
 
         return send_status

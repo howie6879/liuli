@@ -84,11 +84,12 @@ class TGSender(SenderBase):
                     )
                     # 下发成功
                     LOGGER.info(f"{notice_msg} 成功！")
-                    send_status = True
                 else:
                     LOGGER.error(f"{notice_msg} 失败：{resp_dict.get('errmsg')}")
+                    send_status = False
             else:
                 LOGGER.error(f"{notice_msg} 失败!")
+                send_status = False
 
         return send_status
 
