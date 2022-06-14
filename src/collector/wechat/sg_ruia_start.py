@@ -2,7 +2,7 @@
     Created by howie.hu at 2022-01-13.
     Description: 基于Ruia爬虫框架的微信公众号爬虫
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-        - 命令: PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/collector/wechat_sougou/sg_ruia_start.py
+        - 命令: PIPENV_DOTENV_LOCATION=./online.env pipenv run python src/collector/wechat/sg_ruia_start.py
         - 结果示例：
         {
             "doc_date": "2022-01-09 21:20:00",
@@ -56,7 +56,12 @@ class SGWechatSpider(Spider):
         html = await response.text()
         item_list = []
         async for item in SGWechatItem.get_items(html=html):
-            if item.wechat_name == self.wechat_name:
+            # 修复清洗空格造成公众号名称不相等Bug
+            # 具体见：https://github.com/liuli-io/liuli/issues/60
+            if (
+                item.wechat_name
+                == self.wechat_name.replace("\n", "").replace(" ", "").strip()
+            ):
                 item_list.append(item)
                 yield self.request(
                     url=item.latest_href,
@@ -97,7 +102,7 @@ class SGWechatSpider(Spider):
                 "doc_html": "",
             },
         }
-        await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
+        # await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
 
 
 def run(collect_config: dict):
@@ -130,7 +135,7 @@ def run(collect_config: dict):
 
 
 if __name__ == "__main__":
-    t_collect_config = {"wechat_list": ["是不是很酷", "老胡的储物柜"], "delta_time": 5}
+    t_collect_config = {"wechat_list": ["老胡的储物柜"], "delta_time": 5}
     run(t_collect_config)
 
     # sg_url = "https://weixin.sogou.com/weixin?type=1&query={}&ie=utf8&s_from=input&_sug_=n&_sug_type_="
