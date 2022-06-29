@@ -63,6 +63,50 @@ def mongodb_find(
     return db_result
 
 
+def mongodb_find_by_page(
+    coll_conn,
+    filter_dict: dict,
+    size: int = 10,
+    page: int = 1,
+    return_dict: dict = None,
+    sorted_key: str = "",
+    sorted_order: int = -1,
+) -> dict:
+    """
+    分页查询
+    Args:
+        coll_conn (_type_): 集合连接对象
+        filter_dict (dict): 条件字典
+        size (int): 查询数量
+        page (int): 查询页数
+        return_dict (dict, optional): 返回条件字典. Defaults to None.
+        sorted_key (str, optional): 排序的key. Defaults to "".
+        sorted_order (int, optional): 排序的顺序. Defaults to -1.
+
+    Returns:
+        dict: 结果字典
+    """
+    db_result = {"status": True, "info": ""}
+    try:
+        res = []
+        if return_dict:
+            cursor = coll_conn.find(filter_dict, return_dict)
+        else:
+            cursor = coll_conn.find(filter_dict)
+        cursor = cursor.sort(sorted_key, sorted_order) if sorted_key else cursor
+        cursor = cursor.skip((page - 1) * size).limit(size)
+        for document in cursor:
+            res.append(document)
+        db_result["info"] = {
+            "counts": coll_conn.count_documents(filter_dict),
+            "detail_list": res,
+        }
+    except Exception as e:
+        db_result["status"] = False
+        db_result["info"] = str(e)
+    return db_result
+
+
 def mongodb_update_data(
     coll_conn, filter_dict: dict, update_data: dict, upsert: bool = True
 ) -> dict:

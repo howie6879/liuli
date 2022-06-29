@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "colName": "ll_api",
+    "created": "2022-06-29T03:10:38.913Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "688a2b02-623a-4a57-aa2f-726355c861bc",
+        "name": "user",
+        "containerId": "",
+        "created": "2022-06-29T03:10:56.418Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
+        "name": "doc",
+        "containerId": "",
+        "created": "2022-06-29T03:21:27.330Z",
+        "sortNum": 20000
+      }
+    ]
+  }
+]
