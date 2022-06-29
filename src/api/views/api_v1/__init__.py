@@ -27,14 +27,85 @@ def ping():
         "version": "v1.0",
         "github": "https://github.com/liuli-io/liuli",
         "website": "https://liuli.io/",
-        "description": {
+        "api": {
             "/user": [
-                {"path": "v1/user/login", "method": "post", "info": "用户登录接口"},
+                {
+                    "path": "v1/user/login",
+                    "method": "post",
+                    "description": "用户登录接口",
+                    "request": {},
+                    "response": {
+                        "data": {"token": "..", "username": "liuli"},
+                        "info": "ok",
+                        "status": 200,
+                    },
+                },
                 {
                     "path": "v1/user/token_valid",
                     "method": "post",
-                    "info": "用户token校验接口",
+                    "description": "用户token校验接口",
+                    "request": {"username": "liuli"},
+                    "response": {"data": {}, "info": "ok", "status": 200},
                 },
-            ]
+                {
+                    "path": "v1/user/change_pwd",
+                    "method": "post",
+                    "description": "修改密码",
+                    "request": {
+                        "username": "liuli",
+                        "o_password": "liuli",
+                        "n_password": "liuli",
+                    },
+                    "response": {
+                        "data": {"username": "liuli"},
+                        "info": "ok",
+                        "status": 200,
+                    },
+                },
+            ],
+            "/doc": [
+                {
+                    "path": "v1/doc/articles",
+                    "method": "post",
+                    "description": "查询历史文章",
+                    "request": {},
+                    "response": {},
+                },
+                {
+                    "path": "v1/doc/rss_list",
+                    "method": "post",
+                    "description": "获取用户下所有rss链接地址",
+                    "request": {"username": "liuli", "doc_source": "liuli_wechat"},
+                    "response": {
+                        "data": [
+                            {
+                                "doc_source": "liuli_wechat",
+                                "doc_source_name": "老胡的储物柜",
+                                "rss_url": "http://192.168.1.50:8765/rss/liuli_wechat/老胡的储物柜",
+                                "updated_at": "2022-06-29 11:30:02",
+                            }
+                        ],
+                        "info": "ok",
+                        "status": 200,
+                    },
+                },
+                {
+                    "path": "v1/doc/source_list",
+                    "method": "post",
+                    "description": "获取所有文档源统计信息",
+                    "request": {"username": "liuli"},
+                    "response": {
+                        "data": {
+                            "liuli_wechat": {
+                                "doc_count": 14,
+                                "doc_source_details": [{"_id": "老胡的储物柜", "count": 14}],
+                                "doc_source_list": ["老胡的储物柜"],
+                            }
+                        },
+                        "info": "ok",
+                        "status": 200,
+                    },
+                },
+            ],
         },
     }

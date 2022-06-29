@@ -40,7 +40,7 @@ def token_valid():
 @bp_user.route("/change_pwd", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def change_pwd():
-    """修改默认密码
+    """修改密码
     eg:
     {
         "username": "liuli",

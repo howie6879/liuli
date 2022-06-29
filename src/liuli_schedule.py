@@ -3,7 +3,7 @@
     Created by howie.hu at 2021/4/10.
     Description：统一调度入口
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-        - 命令: pipenv run pro_schedule or PIPENV_DOTENV_LOCATION=./pro.env pipenv run python src/liuli_schedule.py
+        - 命令: pipenv run pro_schedule or PIPENV_DOTENV_LOCATION=./dev.env pipenv run python src/liuli_schedule.py
     - 调度时间：每日的 ["00:10", "12:10", "21:10"]
     Changelog: all notable changes to this file will be documented
 """
@@ -124,7 +124,7 @@ def start(ll_config_name: str = ""):
         _ = [p.join() for p in process_list]
 
     else:
-        run_liuli_schedule(ll_config_name)
+        run_liuli_schedule(ll_config_name.replace(".json", ""))
 
 
 if __name__ == "__main__":

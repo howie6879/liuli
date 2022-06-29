@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "c2eb8cc6-023b-4c8d-b43e-80af40668020",
+    "name": "(Global Env)",
+    "default": false,
+    "global": true,
+    "sortNum": -1,
+    "created": "2022-06-29T03:11:27.262Z",
+    "modified": "2022-06-29T03:11:43.560Z",
+    "data": [
+      {
+        "name": "local_api",
+        "value": "http://0.0.0.0:8765"
+      }
+    ]
+  }
+]
