@@ -134,5 +134,33 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "780ee195-0e0d-4df8-a9ba-b01357ddca4c",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
+    "name": "articles",
+    "url": "{{local_api}}/v1/doc/articles",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-07-03T12:48:14.189Z",
+    "modified": "2022-07-03T13:44:42.857Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NjQ3MjYzMywianRpIjoiZWVhNjJkNWMtZDRlZC00NWE3LWI2NGUtYjAzYjU1MDRlNDEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjU2NDcyNjMzLCJleHAiOjE2NzIwMjQ2MzN9.dxxpvsbS4PXLPzCzyvemynWV4ae2qfh50w9DM7JWFr4"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_source\": \"liuli_wechat\",\n  \"doc_source_name\": \"老胡的储物柜\",\n  \"size\": 100,\n  \"page\": 1\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

@@ -4,7 +4,6 @@
     Description：MongoDB 连接类
     Changelog: all notable changes to this file will be documented
 """
-
 from urllib import parse
 
 from pymongo import MongoClient
