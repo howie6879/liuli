@@ -4,6 +4,8 @@
     Changelog: all notable changes to this file will be documented
 """
 
+import json
+
 from urllib.parse import urljoin
 
 from flask import Blueprint, current_app, request
@@ -17,7 +19,7 @@ from src.api.common import (
     response_handle,
 )
 from src.config import Config
-from src.databases import MongodbBase
+from src.databases import MongodbBase, mongodb_find_by_page
 from src.utils import LOGGER, get_ip, ts_to_str_date
 
 bp_doc = Blueprint("doc", __name__, url_prefix="/doc")
@@ -29,13 +31,64 @@ def articles():
     """查询历史文章
     {
         "username": "liuli",
-        "doc_source": "",
-        "doc_source_name": ""
+        "doc_source": "liuli_wechat",
+        "doc_source_name": "",
+        "size": 10,
+        "page": 1,
+        "sorted_order": 1,
+
     }
 
     Returns:
         Response: 响应类
     """
+    mongodb_base: MongodbBase = current_app.config["mongodb_base"]
+    app_logger: LOGGER = current_app.config["app_logger"]
+    app_config: Config = current_app.config["app_config"]
+    coll = mongodb_base.get_collection(coll_name="liuli_articles")
+    # 获取基础数据
+    post_data: dict = request.json
+    doc_source = post_data.get("doc_source", "")
+    doc_source_name = post_data.get("doc_source_name", "")
+    size = post_data.get("size", 10)
+    page = post_data.get("page", 1)
+    # 默认从小到大
+    sorted_order = post_data.get("sorted_order", 1)
+    filter_dict = {"doc_source": doc_source} if doc_source else {}
+    if doc_source_name:
+        filter_dict.update({"doc_source_name": doc_source_name})
+    db_res = mongodb_find_by_page(
+        coll_conn=coll,
+        filter_dict=filter_dict,
+        size=size,
+        page=page,
+        return_dict={
+            "_id": 1,
+            "doc_source": 1,
+            "doc_source_name": 1,
+            "doc_ts": 1,
+            "doc_name": 1,
+        },
+        sorted_key="doc_ts",
+        sorted_order=sorted_order,
+    )
+    db_info = db_res["info"]
+    if db_res["status"]:
+        # 对于 _id 做强制 str 处理
+        return json.dumps(
+            {
+                ResponseField.DATA: {**db_info, **{"size": size, "page": page}},
+                ResponseField.MESSAGE: ResponseReply.SUCCESS,
+                ResponseField.STATUS: ResponseCode.SUCCESS,
+            },
+            default=str,
+        )
+    else:
+        result = UniResponse.DB_ERR
+        err_info = f"query doc articles failed! DB response info -> {db_info}"
+        app_logger.error(err_info)
+
+        return response_handle(request=request, dict_value=result)
 
 
 @bp_doc.route("/rss_list", methods=["POST"], strict_slashes=False)

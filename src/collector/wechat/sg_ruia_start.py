@@ -102,7 +102,7 @@ class SGWechatSpider(Spider):
                 "doc_html": "",
             },
         }
-        # await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
+        await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
 
 
 def run(collect_config: dict):

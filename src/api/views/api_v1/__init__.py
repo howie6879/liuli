@@ -68,8 +68,31 @@ def ping():
                     "path": "v1/doc/articles",
                     "method": "post",
                     "description": "查询历史文章",
-                    "request": {},
-                    "response": {},
+                    "request": {
+                        "username": "liuli",
+                        "doc_source": "liuli_wechat",
+                        "doc_source_name": "老胡的储物柜",
+                        "size": 1,
+                        "page": 1,
+                    },
+                    "response": {
+                        "data": {
+                            "counts": 21,
+                            "detail_list": [
+                                {
+                                    "_id": {"$oid": "6227505ee43a4af747b70fda"},
+                                    "doc_name": "我的周刊（第028期）",
+                                    "doc_source": "liuli_wechat",
+                                    "doc_source_name": "老胡的储物柜",
+                                    "doc_ts": 1645795680.0,
+                                }
+                            ],
+                            "page": 1,
+                            "size": 1,
+                        },
+                        "info": "ok",
+                        "status": 200,
+                    },
                 },
                 {
                     "path": "v1/doc/rss_list",
@@ -81,7 +104,7 @@ def ping():
                             {
                                 "doc_source": "liuli_wechat",
                                 "doc_source_name": "老胡的储物柜",
-                                "rss_url": "http://192.168.1.50:8765/rss/liuli_wechat/老胡的储物柜",
+                                "rss_url": "http://0.0.0.0:8765/rss/liuli_wechat/老胡的储物柜",
                                 "updated_at": "2022-06-29 11:30:02",
                             }
                         ],
