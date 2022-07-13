@@ -27,21 +27,21 @@ docker manifest create liuliio/schedule:v0.2.4_playwright liuliio/schedule-amd64
 docker manifest push liuliio/schedule:v0.2.4_playwright
 
 # 打包 liuli_api
-docker build --no-cache=true -t liuliio/api:v0.1.3 -f api.Dockerfile .
+docker build --no-cache=true -t liuliio/api:v0.1.4 -f api.Dockerfile .
 # 打包使用缓存
-docker build --no-cache=false -t liuliio/api-amd64:v0.1.3 -f api.Dockerfile .
-docker buildx build --no-cache=false --platform linux/arm/v7 -t liuliio/api-armv7:v0.1.3 -f api.Dockerfile .
-docker buildx build --no-cache=false --platform linux/arm/v8 -t liuliio/api-armv8:v0.1.3 -f api.Dockerfile .
-docker buildx build --no-cache=false --platform linux/arm64 -t liuliio/api-arm64:v0.1.3 -f api.Dockerfile .
-docker buildx build --no-cache=false --platform linux/amd64 -t liuliio/api-amd64:v0.1.3 -f api.Dockerfile .
+docker build --no-cache=false -t liuliio/api-amd64:v0.1.4 -f api.Dockerfile .
+docker buildx build --no-cache=false --platform linux/arm/v7 -t liuliio/api-armv7:v0.1.4 -f api.Dockerfile .
+docker buildx build --no-cache=false --platform linux/arm/v8 -t liuliio/api-armv8:v0.1.4 -f api.Dockerfile .
+docker buildx build --no-cache=false --platform linux/arm64 -t liuliio/api-arm64:v0.1.4 -f api.Dockerfile .
+docker buildx build --no-cache=false --platform linux/amd64 -t liuliio/api-amd64:v0.1.4 -f api.Dockerfile .
 # 运行
-docker run -d -it --restart=always -p 8765:8765 -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.3
+docker run -d -it --restart=always -p 8765:8765 -v $PWD/pro.env:/data/code/pro.env --name liuli_api liuliio/api:v0.1.4
 # 上传
-docker push liuliio/api-amd64:v0.1.3
-docker push liuliio/api-armv7:v0.1.3
-docker push liuliio/api-armv8:v0.1.3
-docker push liuliio/api-arm64:v0.1.3
+docker push liuliio/api-amd64:v0.1.4
+docker push liuliio/api-armv7:v0.1.4
+docker push liuliio/api-armv8:v0.1.4
+docker push liuliio/api-arm64:v0.1.4
 
-docker manifest rm liuliio/api:v0.1.3
-docker manifest create liuliio/api:v0.1.3 liuliio/api-amd64:v0.1.3 liuliio/api-armv7:v0.1.3 liuliio/api-armv8:v0.1.3 liuliio/api-arm64:v0.1.3:v0.1.3
-docker manifest push liuliio/api:v0.1.3
+docker manifest rm liuliio/api:v0.1.4
+docker manifest create liuliio/api:v0.1.4 liuliio/api-amd64:v0.1.4 liuliio/api-armv7:v0.1.4 liuliio/api-armv8:v0.1.4 liuliio/api-arm64:v0.1.4
+docker manifest push liuliio/api:v0.1.4

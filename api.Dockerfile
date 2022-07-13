@@ -6,7 +6,7 @@ ENV APP_ROOT=/data/code \
 WORKDIR ${APP_ROOT}/
 COPY . ${APP_ROOT}
 RUN rm -rf .git \
-    && pip install --upgrade pip \
+    && pip install -i https://pypi.douban.com/simple/ --upgrade pip \
     && pip install --no-cache-dir -i https://pypi.douban.com/simple/ pipenv \
     && rm -f Pipfile && cp ./src/api/Pipfile ./Pipfile \
     && pipenv install --skip-lock \
