@@ -35,7 +35,7 @@ class Config:
 
     # 版本设置
     SCHEDULE_VERSION = "v0.2.4"
-    API_VERSION = "v0.1.3"
+    API_VERSION = "v0.1.4"
 
     # Flask API配置
     JWT_SECRET_KEY = os.getenv("LL_JWT_SECRET_KEY", "ll64b3996626a6e5278a13286cfffa98")
