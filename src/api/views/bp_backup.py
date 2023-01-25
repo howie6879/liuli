@@ -56,12 +56,12 @@ def backup(doc_source, doc_source_name, doc_name):
             content = db_info[0]["content"]
         else:
             # 不存在 rss
-            msg = f"{file_path} 不存在，请先录入!"
-            logger.error(msg)
+            content = f"文章 {file_path} 不存在，请先进行备份!"
+            logger.error(content)
     else:
         # 查询失败
-        msg = f"{file_path} 查询失败!"
-        logger.error(msg)
+        content = f"{file_path} 查询失败!"
+        logger.error(content)
 
     return (
         text_decompress(content),

@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2022-04-12.
-    Description: 用户API
+    Description: 用户 API
     Changelog: all notable changes to this file will be documented
 """
 import datetime
@@ -21,20 +21,6 @@ from src.databases import MongodbBase, mongodb_find, mongodb_update_data
 from src.utils import LOGGER, md5_encryption
 
 bp_user = Blueprint("user", __name__, url_prefix="/user")
-
-
-@bp_user.route("/token_valid", methods=["POST"], strict_slashes=False)
-@jwt_required()
-def token_valid():
-    """验证jwt是否有效
-    eg:
-    {
-        "username": "liuli"
-    }
-    Returns:
-        Response: 响应类
-    """
-    return response_handle(request=request, dict_value=UniResponse.SUCCESS)
 
 
 @bp_user.route("/change_pwd", methods=["POST"], strict_slashes=False)
@@ -145,3 +131,17 @@ def login():
         app_logger.error(err_info)
 
     return response_handle(request=request, dict_value=result)
+
+
+@bp_user.route("/token_valid", methods=["POST"], strict_slashes=False)
+@jwt_required()
+def token_valid():
+    """验证jwt是否有效
+    eg:
+    {
+        "username": "liuli"
+    }
+    Returns:
+        Response: 响应类
+    """
+    return response_handle(request=request, dict_value=UniResponse.SUCCESS)

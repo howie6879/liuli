@@ -83,9 +83,8 @@ def to_rss(
                 coll_conn=coll_articles_conn,
                 filter_dict=filter_dict,
                 return_dict=return_dict,
-                sorted_key="doc_ts",
                 # 倒序，从最新发的开始
-                sorted_index=-1,
+                sorted_list=[("doc_ts", -1)],
                 # 最近 rss_count 篇文章
                 limit=rss_count,
             )
