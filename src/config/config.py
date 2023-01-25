@@ -34,8 +34,8 @@ class Config:
     PROC_HTML_TMPL_DIR = os.path.join(PROC_HTML_DIR, "tmpl")
 
     # 版本设置
-    SCHEDULE_VERSION = "v0.2.4"
-    API_VERSION = "v0.1.4"
+    SCHEDULE_VERSION = "v0.2.5"
+    API_VERSION = "v0.1.5"
 
     # Flask API配置
     JWT_SECRET_KEY = os.getenv("LL_JWT_SECRET_KEY", "ll64b3996626a6e5278a13286cfffa98")
@@ -49,11 +49,11 @@ class Config:
 
     # 数据库配置
     MONGODB_CONFIG = {
-        # "mongodb://0.0.0.0:27017"
+        # "mongodb://0.0.0.0:27027"
         "username": os.getenv("LL_M_USER", ""),
         "password": os.getenv("LL_M_PASS", ""),
         "host": os.getenv("LL_M_HOST", "0.0.0.0"),
-        "port": int(os.getenv("LL_M_PORT") or 27017),
+        "port": int(os.getenv("LL_M_PORT") or 27027),
         "db": os.getenv("LL_M_DB", "liuli"),
         # 不设置就默认等于 LL_M_DB，针对设置了默认db是admin情况下，想再单独设置操作DB
         "op_db": os.getenv("LL_M_OP_DB", os.getenv("LL_M_DB", "liuli")),

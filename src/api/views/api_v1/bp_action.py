@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2022-05-23.
-    Description: 文章相关API
+    Description: 操作相关 API
     Changelog: all notable changes to this file will be documented
 """
 
@@ -18,14 +18,16 @@ from src.api.common import (
     jwt_required,
     response_handle,
 )
+from src.backup.action import backup_doc
 from src.config import Config
 from src.databases import MongodbBase, mongodb_find_by_page
+from src.processor.rss_utils import to_rss
 from src.utils import LOGGER, get_ip, ts_to_str_date
 
-bp_doc = Blueprint("doc", __name__, url_prefix="/doc")
+bp_action = Blueprint("bp_action", __name__, url_prefix="/action")
 
 
-@bp_doc.route("/articles", methods=["POST"], strict_slashes=False)
+@bp_action.route("/articles", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def articles():
     """查询历史文章
@@ -35,8 +37,7 @@ def articles():
         "doc_source_name": "",
         "size": 10,
         "page": 1,
-        "sorted_order": 1,
-
+        "sorted_order": 1
     }
 
     Returns:
@@ -52,8 +53,6 @@ def articles():
     doc_source_name = post_data.get("doc_source_name", "")
     size = post_data.get("size", 10)
     page = post_data.get("page", 1)
-    # 默认从小到大
-    sorted_order = post_data.get("sorted_order", 1)
     filter_dict = {"doc_source": doc_source} if doc_source else {}
     if doc_source_name:
         filter_dict.update({"doc_source_name": doc_source_name})
@@ -66,11 +65,12 @@ def articles():
             "_id": 1,
             "doc_source": 1,
             "doc_source_name": 1,
+            "doc_image": 1,
             "doc_ts": 1,
             "doc_name": 1,
+            "doc_des": 1,
         },
-        sorted_key="doc_ts",
-        sorted_order=sorted_order,
+        sorted_list=[("doc_ts", post_data.get("sorted_order", -1))],
     )
     db_info = db_res["info"]
     if db_res["status"]:
@@ -91,7 +91,93 @@ def articles():
         return response_handle(request=request, dict_value=result)
 
 
-@bp_doc.route("/rss_list", methods=["POST"], strict_slashes=False)
+@bp_action.route("/backup_generate", methods=["POST"], strict_slashes=False)
+@jwt_required()
+def backup_generate():
+    """对数据源进行备份
+    eg:
+    {
+        "username": "liuli",
+        "basic_filter": {
+            "doc_source": "liuli_wechat"
+        },
+        "backup_list": [
+            "mongodb"
+        ],
+        "query_days": 7,
+        "delta_time": 0,
+        "init_config": {},
+        "after_get_content": [
+            {
+            "func": "str_replace",
+            "before_str": "data-src=\"",
+            "after_str": "src=\"https://images.weserv.nl/?url="
+            }
+        ]
+    }
+    Returns:
+        Response: 响应类
+    """
+    app_logger: LOGGER = current_app.config["app_logger"]
+    # 获取基础数据
+    post_data: dict = request.json
+    del post_data["username"]
+    result = UniResponse.SUCCESS
+    try:
+        backup_doc(post_data)
+    except Exception as e:
+        result = {
+            ResponseField.DATA: {},
+            ResponseField.MESSAGE: ResponseReply.GEN_BACKUP_FAILED,
+            ResponseField.STATUS: ResponseCode.GEN_BACKUP_FAILED,
+        }
+        err_info = f"gen backup failed! response info -> {e}"
+        app_logger.error(err_info)
+    return response_handle(request=request, dict_value=result)
+
+
+@bp_action.route("/rss_generate", methods=["POST"], strict_slashes=False)
+@jwt_required()
+def rss_generate():
+    """生成目标 rss 源
+    eg:
+    {
+        "username": "liuli",
+        "doc_source_list": ["liuli_wechat"],
+        "link_source": "mongodb",
+        "rss_count": 20
+    }
+    Returns:
+        Response: 响应类
+    """
+    app_logger: LOGGER = current_app.config["app_logger"]
+    # 获取基础数据
+    post_data: dict = request.json
+    doc_source_list = post_data.get("doc_source_list", [])
+    link_source = post_data.get("link_source", "")
+    rss_count = int(post_data.get("rss_count", "20"))
+    skip_ads = bool(post_data.get("skip_ads", "0") == "1")
+
+    result = UniResponse.SUCCESS
+    try:
+        to_rss(
+            doc_source_list=doc_source_list,
+            link_source=link_source,
+            skip_ads=skip_ads,
+            rss_count=rss_count,
+        )
+    except Exception as e:
+        result = {
+            ResponseField.DATA: {},
+            ResponseField.MESSAGE: ResponseReply.GEN_RSS_FAILED,
+            ResponseField.STATUS: ResponseCode.GEN_RSS_FAILED,
+        }
+        err_info = f"gen rss failed! response info -> {e}"
+        app_logger.error(err_info)
+    return response_handle(request=request, dict_value=result)
+
+
+@bp_action.route("/rss_list", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def rss_list():
     """获取用户下所有rss链接地址
@@ -142,51 +228,4 @@ def rss_list():
         err_info = f"query doc RSS failed! DB response info -> {e}"
         app_logger.error(err_info)
 
-    return response_handle(request=request, dict_value=result)
-
-
-@bp_doc.route("/source_list", methods=["POST"], strict_slashes=False)
-@jwt_required()
-def source_list():
-    """获取所有文档源统计信息
-    eg:
-    {
-        "username": "liuli"
-    }
-    Returns:
-        Response: 响应类
-    """
-    mongodb_base: MongodbBase = current_app.config["mongodb_base"]
-    app_logger: LOGGER = current_app.config["app_logger"]
-    coll = mongodb_base.get_collection(coll_name="liuli_articles")
-    try:
-        doc_source_list = coll.distinct("doc_source")
-        doc_source_dict = {}
-        for doc_source in doc_source_list:
-            pipeline = [
-                {"$match": {"doc_source": doc_source}},
-                {"$group": {"_id": "$doc_source_name", "count": {"$sum": 1}}},
-            ]
-            doc_source_dict[doc_source] = {
-                "doc_count": 0,
-                "doc_source_list": [],
-                "doc_source_details": [],
-            }
-            for item in coll.aggregate(pipeline):
-                doc_source_list: list = doc_source_dict[doc_source]["doc_source_list"]
-                doc_source_list.append(item["_id"])
-                doc_source_details: list = doc_source_dict[doc_source][
-                    "doc_source_details"
-                ]
-                doc_source_details.append(item)
-                doc_source_dict[doc_source]["doc_count"] += item["count"]
-        result = {
-            ResponseField.DATA: doc_source_dict,
-            ResponseField.MESSAGE: ResponseReply.SUCCESS,
-            ResponseField.STATUS: ResponseCode.SUCCESS,
-        }
-    except Exception as e:
-        result = UniResponse.DB_ERR
-        err_info = f"query doc source failed! DB response info -> {e}"
-        app_logger.error(err_info)
     return response_handle(request=request, dict_value=result)

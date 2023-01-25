@@ -84,6 +84,7 @@ def backup_doc(backup_config: dict):
                     # 进行保存动作
                     each_data["doc_html"] = doc_html
                     backup_ins.save(each_data)
+            LOGGER.info(f"Backup 执行成功，备份文章 {len(db_res['info'])} 篇")
         else:
             LOGGER.error(f"Backup 数据查询失败! {db_res['info']}")
     else:

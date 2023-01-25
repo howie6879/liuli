@@ -1,3 +1,7 @@
+# 基本开发环境准备
+# MongoDB
+docker run --name ll_mongo  --restart=always -p 27027:27017 -v "`pwd`:/data/db" -e MONGO_INITDB_ROOT_USERNAME=liuli -e MONGO_INITDB_ROOT_PASSWORD=liuli -d mongo:3.6
+
 # 打包 liuli_schedule
 docker build --no-cache=true -t liuliio/schedule:v0.2.4 -f schedule.Dockerfile .
 # 打包使用缓存

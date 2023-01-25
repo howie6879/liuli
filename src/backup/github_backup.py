@@ -63,7 +63,7 @@ class GithubBackup(BackupBase):
                     self.repo.update_file(
                         contents.path, f"Update {file_path}", doc_html, contents.sha
                     )
-                except Exception as e:
+                except Exception as _:
                     # 不存在就上传
                     self.repo.create_file(file_path, f"Add {file_path}", doc_html)
 
