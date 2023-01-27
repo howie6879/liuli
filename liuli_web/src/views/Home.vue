@@ -2,7 +2,7 @@
   <SideBar @menuStatus="menuStatus" />
   <div class="content" :class="{ collapsed: collapsed }">
     <Header :title="title" />
-    <main class="container">
+    <main class="main-content">
       <div class="grid" style="margin-left: 5px; margin-right: 5px">
         <div v-for="stat in statData.stats">
           <a :href="stat.path">
@@ -90,7 +90,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.container {
+.main-content {
+  margin-left: 30px;
+  margin-right: 30px;
   margin-top: 60px;
 }
 
