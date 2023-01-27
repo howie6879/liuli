@@ -1,6 +1,6 @@
 import { setItem, getItem, removeItem } from '../utils/storage';
 
-const TokenKey = 'x-auth-token';
+const TokenKey = 'liuli-auth-token';
 const tokenTimeoutValue = 90 * 24 * 3600 * 1000;
 
 export function isTokenTimeout(timeStamp) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { getLiuliToken } from './auth';
-
+import { getLiuliToken, removeLiuliToken } from './auth';
+import { toaster } from './notification';
 const http = axios.create({
   baseURL: '/v1',
   timeout: 3000
@@ -26,30 +26,43 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   // 响应拦截器
   (response) => {
-    return response.data;
-    // const { data, info, status } = response.data;
-    // console.log(response.data);
-    // if (status == 200) {
-    //   return data;
-    // } else {
-    //   return Promise.reject(new Error(info));
-    // }
+    // 此处 status 表示 http 请求状态码 200
+    if (response.status == 200) {
+      // 此处 status 表示服务端自定义的状态码
+      const { data, info, status } = response.data;
+      return {
+        data: data,
+        info: info,
+        status: status
+      };
+    } else {
+      console.log('非 200 响应', response.data);
+      return Promise.reject(new Error(response.data));
+    }
   },
   (error) => {
     // if (error.response && error.response.data && error.response.data.status === 401) {
     //     store.logout();
     // }
+
     if (typeof error.response == 'undefined') {
       // 超时无响应
-      console.log('服务器超时', error.status);
+      console.log('服务器超时', error.response);
       return {
         data: {},
         info: '',
         status: 408
       };
-    } else {
-      return Promise.reject(error);
     }
+
+    if (error.response.status == 422 || error.response.status == 401) {
+      // token 被篡改，格式错误
+      toaster.error(error.response.data.msg);
+      removeLiuliToken();
+      setTimeout("window.location.href = '/login'", 3000);
+    }
+
+    return Promise.reject(error);
   }
 );
 

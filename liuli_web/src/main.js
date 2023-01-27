@@ -1,18 +1,21 @@
 import { createApp } from 'vue';
 
-// 导入第三方库
+// 导入 CSS 库
 import '@picocss/pico';
+import '../public/static/css/global.css';
 
 // 导入自定义模块
-import App from './App.vue';
 import api from './api/index';
-import pinia from './store/index';
+import App from './App.vue';
 import router from './router/index';
+import pinia from './store/index';
 
 const app = createApp(App);
+// 挂载 router
+app.use(router);
 // 挂载 pinia
 app.use(pinia);
 // 挂载 axios 全局对象
 app.provide('$api', api);
 // 绑定
-app.use(router).mount('#app');
+app.mount('#app');
