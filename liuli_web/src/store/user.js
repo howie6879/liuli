@@ -37,7 +37,7 @@ export const useUserStore = defineStore('user', {
       // 登录获取 Token
       const res = await api.login(data);
       if (res.status == 200) {
-        console.log('正在持久化 Token!');
+        // console.log('正在持久化 Token!');
         this.setToken(res.data.token, res.data.username, data.remember);
       }
       return new Promise((resolve, reject) => {

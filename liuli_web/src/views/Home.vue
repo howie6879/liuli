@@ -1,14 +1,154 @@
 <template>
-  <main class="container">
-    <p>Home</p>
-  </main>
+  <SideBar @menuStatus="menuStatus" />
+  <div class="content" :class="{ collapsed: collapsed }">
+    <Header :title="title" />
+    <main class="container">
+      <div class="grid" style="margin-left: 5px; margin-right: 5px">
+        <div v-for="stat in statData.stats">
+          <a :href="stat.path">
+            <div class="stats-panel">
+              <div class="stats-panel-ico">
+                <img :src="stat.image" alt="" />
+              </div>
+              <div class="stats-panel-details">
+                <div class="stats-panel-details-count">{{ stat.counts }}</div>
+                <div class="stats-panel-details-title">{{ stat.name }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import Header from '../components/Header.vue';
+import SideBar from '../components/SideBar.vue';
+
+import { onMounted, ref } from 'vue';
 import { useUserStore } from '../store/user';
-// onMounted(() => {
-//     const userStore = useUserStore();
-//     console.log(userStore.getToken);
-// });
+import { userApi } from '../api/index';
+import { toaster } from '../utils/notification';
+
+const collapsed = ref(false);
+const title = ref('首页概览');
+
+const statData = ref({ stats: [] });
+
+function menuStatus(value) {
+  // 获取导航栏传递过来的状态值
+  collapsed.value = value;
+}
+
+onMounted(() => {
+  const userStore = useUserStore();
+
+  userApi
+    .getStats({
+      username: userStore.getUsername
+    })
+    .then((res) => {
+      if (res.status == 200) {
+        console.log(res);
+        // 有结果表示正常请求
+        statData.value.doc_counts = res.data.doc_counts;
+        statData.value.doc_source_counts = res.data.doc_source_counts;
+        statData.value.stats = [
+          {
+            path: '/subscription',
+            counts: res.data.doc_counts,
+            name: '订阅数',
+            image: '/src/assets/images/home/subscription.svg'
+          },
+          {
+            path: '/favorite',
+            counts: 0,
+            name: '收藏数',
+            image: '/src/assets/images/home/favorite.svg'
+          },
+          {
+            path: '/bookmark',
+            counts: 0,
+            name: '书签数',
+            image: '/src/assets/images/home/page.svg'
+          },
+          {
+            path: '/doc_source',
+            counts: res.data.doc_source_counts,
+            name: '订阅源',
+            image: '/src/assets/images/home/doc_source.svg'
+          }
+        ];
+        console.log(statData);
+      } else {
+        const msg = res.info ? res.info : '服务器超时';
+        toaster.error(msg);
+      }
+    });
+});
 </script>
+
+<style scoped>
+.container {
+  margin-top: 60px;
+}
+
+div.stats-panel {
+  height: 120px;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 40px rgb(0 0 0 / 5%);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+div.stats-panel:hover {
+  background-color: #fff;
+  box-shadow: 4px 4px 40px rgba(249, 204, 204, 0.291);
+}
+
+div.stats-panel:hover .stats-panel-details-title {
+  /* color: #e2989e; */
+  color: #434141;
+}
+
+div.stats-panel:hover img {
+  filter: drop-shadow(10000px 0 0 #434141);
+  /* filter: drop-shadow(10000px 0 0 #e8878f); */
+  transform: translate(-10000px);
+}
+
+div.stats-panel-ico {
+  float: left;
+  margin-top: 35px;
+  width: 60px;
+  margin-left: 20%;
+}
+
+div.stats-panel-ico img {
+  filter: drop-shadow(10000px 0 0 #636262);
+  transform: translate(-10000px);
+  height: 50px !important;
+}
+
+div.stats-panel-details {
+  float: right;
+  margin-right: 20%;
+  margin-top: 30px;
+}
+
+div.stats-panel-details-title {
+  color: rgb(0 0 0 / 61%);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+div.stats-panel-details-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: #666;
+  text-align: center;
+}
+</style>

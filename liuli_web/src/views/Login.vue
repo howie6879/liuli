@@ -1,10 +1,25 @@
 <template>
+  <div class="forkme">
+    <a
+      class="github-fork-ribbon fixed"
+      href="https://github.com/liuli-io/liuli"
+      target="_blank"
+      data-ribbon="Fork me on GitHub"
+      title="Fork me on GitHub"
+    >
+      Fork me on GitHub
+    </a>
+  </div>
   <main class="container">
     <article class="grid">
       <div class="login-cover"></div>
       <div>
         <hgroup>
-          <h1><a href="https://github.com/liuli-io/liuli">Liuli</a></h1>
+          <h1>
+            <a target="_blank" style="color: #e2989e" href="https://github.com/liuli-io/liuli"
+              >Liuli</a
+            >
+          </h1>
           <h2>琉璃开净界，薜荔启禅关</h2>
         </hgroup>
         <form @submit.prevent="">
@@ -45,16 +60,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { createToaster } from '@meforma/vue-toaster';
 
+import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
+import { toaster } from '../utils/notification';
 
 const router = useRouter();
 const userStore = useUserStore();
-const toaster = createToaster({
-  position: 'bottom-right'
-});
 
 const loginForm = ref({
   username: '',
@@ -75,8 +87,9 @@ const login = function () {
       })
       .then((res) => {
         if (res.status == 200) {
-          // 有结果表示正常请求
-          router.push('/');
+          // toaster.success('登陆成功');
+          window.location.href = '/';
+          // setTimeout("window.location.href = '/'", 500);
         } else {
           const msg = res.info ? res.info : '服务器超时';
           toaster.error(msg);
@@ -88,6 +101,8 @@ const login = function () {
 </script>
 
 <style scoped>
+@import '../../public/static/css/gh-fork-ribbon.min.css';
+
 main.container {
   display: flex;
   flex-direction: column;
@@ -117,5 +132,15 @@ article.grid div.login-cover {
   article.grid div.login-cover {
     display: block;
   }
+}
+
+.login-submit {
+  background: #e2989e;
+  border: none;
+}
+
+.login-submit:hover {
+  background: #e8878f;
+  border: none;
 }
 </style>

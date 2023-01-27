@@ -1,7 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
+import Subscription from '../views/Subscription.vue';
+import Bookmark from '../views/Bookmark.vue';
+import Log from '../views/Log.vue';
+import DocSource from '../views/DocSource.vue';
 import { callUserStore } from '../store/user';
 
 // 初始化 store
@@ -13,6 +17,31 @@ const routes = [
     path: '/',
     component: Home,
     meta: { title: '首页' }
+  },
+  {
+    path: '/subscription',
+    component: Subscription,
+    meta: { title: '我的订阅' }
+  },
+  {
+    path: '/bookmark',
+    component: Bookmark,
+    meta: { title: '我的订阅' }
+  },
+  {
+    path: '/favorite',
+    component: Subscription,
+    meta: { title: '我的收藏' }
+  },
+  {
+    path: '/doc_source',
+    component: DocSource,
+    meta: { title: '配置管理' }
+  },
+  {
+    path: '/log',
+    component: Log,
+    meta: { title: '日志管理' }
   },
   {
     path: '/login',

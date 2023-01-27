@@ -37,25 +37,30 @@ def source_list():
     coll = mongodb_base.get_collection(coll_name="liuli_articles")
     try:
         doc_source_list = coll.distinct("doc_source")
-        doc_source_dict = {}
+        doc_source_dict = {
+            "doc_source_list": [],
+            "doc_source_name_list": doc_source_list,
+            "doc_source_counts": len(doc_source_list),
+            "doc_counts": 0,
+        }
         for doc_source in doc_source_list:
             pipeline = [
                 {"$match": {"doc_source": doc_source}},
                 {"$group": {"_id": "$doc_source_name", "count": {"$sum": 1}}},
             ]
-            doc_source_dict[doc_source] = {
-                "doc_count": 0,
-                "doc_source_list": [],
-                "doc_source_details": [],
+            each_doc_source: dict = {
+                "counts": 0,
+                "rows": [],
+                "rows_info": [],
             }
+
             for item in coll.aggregate(pipeline):
-                doc_source_list: list = doc_source_dict[doc_source]["doc_source_list"]
-                doc_source_list.append(item["_id"])
-                doc_source_details: list = doc_source_dict[doc_source][
-                    "doc_source_details"
-                ]
-                doc_source_details.append(item)
-                doc_source_dict[doc_source]["doc_count"] += item["count"]
+                each_doc_source["rows"].append(item["_id"])
+                each_doc_source["rows_info"].append(item)
+                each_doc_source["counts"] += item["count"]
+                doc_source_dict["doc_counts"] += item["count"]
+            doc_source_dict["doc_source_list"].append({doc_source: each_doc_source})
+
         result = {
             ResponseField.DATA: doc_source_dict,
             ResponseField.MESSAGE: ResponseReply.SUCCESS,
