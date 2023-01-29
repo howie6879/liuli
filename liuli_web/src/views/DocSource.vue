@@ -2,7 +2,7 @@
   <SideBar @menuStatus="menuStatus" />
   <div class="content" :class="{ collapsed: collapsed }">
     <Header :title="title" />
-    <main class="container">
+    <main class="main-content">
       <p>Home</p>
     </main>
   </div>

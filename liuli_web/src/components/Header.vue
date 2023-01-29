@@ -89,7 +89,7 @@ function clickOther(event) {
 }
 </script>
 
-<style>
+<style scoped>
 header {
   height: 50px;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
