@@ -100,9 +100,9 @@ const login = function () {
 };
 </script>
 
-<style scoped>
-@import '../../public/static/css/gh-fork-ribbon.min.css';
+<style scoped src="../../public/static/css/gh-fork-ribbon.min.css"></style>
 
+<style scoped>
 main.container {
   display: flex;
   flex-direction: column;

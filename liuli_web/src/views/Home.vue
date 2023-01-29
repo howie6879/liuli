@@ -80,7 +80,6 @@ onMounted(() => {
             image: '/src/assets/images/home/doc_source.svg'
           }
         ];
-        console.log(statData);
       } else {
         const msg = res.info ? res.info : '服务器超时';
         toaster.error(msg);
@@ -104,11 +103,24 @@ div.stats-panel {
   border-radius: 10px;
   box-shadow: 4px 4px 40px rgb(0 0 0 / 5%);
   border-color: rgba(0, 0, 0, 0.05);
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  /* box-shadow: rgb(220 214 214 / 20%) 0px 3px 1px -2px, rgb(180 173 173 / 14%) 0px 2px 2px 0px,
+    rgb(213 203 203 / 12%) 0px 1px 5px 0px; */
+
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px,
+    rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 }
 
 div.stats-panel:hover {
   background-color: #fff;
-  box-shadow: 4px 4px 40px rgba(249, 204, 204, 0.291);
+  /* box-shadow: 4px 4px 40px rgba(249, 204, 204, 0.291); */
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%),
+    0px 1px 10px 0px rgb(0 0 0 / 12%);
 }
 
 div.stats-panel:hover .stats-panel-details-title {
@@ -130,7 +142,7 @@ div.stats-panel-ico {
 }
 
 div.stats-panel-ico img {
-  filter: drop-shadow(10000px 0 0 #636262);
+  filter: drop-shadow(10000px 0 0 #434141);
   transform: translate(-10000px);
   height: 50px !important;
 }

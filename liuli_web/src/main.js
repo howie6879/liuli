@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 
 // 导入 CSS 库
-import '@picocss/pico';
 import '../public/static/css/global.css';
+import '../public/static/css/pico.min.css';
 
 // 导入自定义模块
 import api from './api/index';

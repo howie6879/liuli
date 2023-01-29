@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
 import Subscription from '../views/Subscription.vue';
+import Favorite from '../views/Favorite.vue';
 import Bookmark from '../views/Bookmark.vue';
 import Log from '../views/Log.vue';
 import DocSource from '../views/DocSource.vue';
@@ -30,7 +31,7 @@ const routes = [
   },
   {
     path: '/favorite',
-    component: Subscription,
+    component: Favorite,
     meta: { title: '我的收藏' }
   },
   {

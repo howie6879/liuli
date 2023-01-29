@@ -61,15 +61,7 @@ def articles():
         filter_dict=filter_dict,
         size=size,
         page=page,
-        return_dict={
-            "_id": 1,
-            "doc_source": 1,
-            "doc_source_name": 1,
-            "doc_image": 1,
-            "doc_ts": 1,
-            "doc_name": 1,
-            "doc_des": 1,
-        },
+        return_dict={"doc_content": 0, "doc_core_html": 0, "doc_html": 0},
         sorted_list=[("doc_ts", post_data.get("sorted_order", -1))],
     )
     db_info = db_res["info"]
