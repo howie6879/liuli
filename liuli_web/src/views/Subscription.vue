@@ -75,6 +75,7 @@ console.log(selectData.value.doc_source_options);
 
 function onDocSourceSelect(items, lastSelectItem) {
   selectData.value.doc_source_items = items;
+  console.log(selectData.value.doc_source_items);
 }
 
 function menuStatus(value) {
@@ -104,6 +105,7 @@ onMounted(() => {
             text: res.data.doc_source_stats_dict[key].doc_source_alias_name
           });
         }
+        selectData.value.doc_source_items = selectData.value.doc_source_options;
       } else {
         const msg = res.info ? res.info : '服务器超时';
         toaster.error(msg);
@@ -153,7 +155,7 @@ div.search-bar {
 
 div.search-bar .search-bar-left {
   float: left;
-  width: 300px;
+  width: 420px;
 }
 
 div.search-bar .search-bar-right {

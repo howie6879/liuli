@@ -256,7 +256,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-01-25T07:12:07.435Z",
-    "modified": "2023-01-25T07:22:54.671Z",
+    "modified": "2023-01-30T03:49:56.105Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -264,13 +264,13 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NDYyNDM4MSwianRpIjoiNWVmNTcwMzYtNjBhNS00Mjk2LWFiMWEtM2Q2YjQ1YjYyMThkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc0NjI0MzgxLCJleHAiOjE2OTAxNzYzODF9.C7TgZ7vha_NfjM5i2UYVZ9Q7eu7nflp_CFZO3M9FKEY"
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTA0OTg0NSwianRpIjoiNTJlYmJmNzctNzVhMi00ZjMxLTljYjQtNzlhYTU4ODdmNzhiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc1MDQ5ODQ1LCJleHAiOjE2OTA2MDE4NDV9.SBQrUOck6xVIgPhoN-3Zy6eUU4wbEfy0RS8rOSojK2I"
       }
     ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"name\": \"wechat\",\n  \"author\": \"liuli_team\",\n  \"doc_source\": \"liuli_wechat\",\n  \"collector\": {\n    \"wechat\": {\n      \"wechat_list\": [\n        \"老胡的储物柜\"\n      ],\n      \"delta_time\": 5,\n      \"spider_type\": \"sg_ruia\",\n      \"spider_type_des\": \"当镜像是schedule:playwright_*时，spider_type可填写sg_playwright\"\n    }\n  },\n  \"processor\": {\n    \"before_collect\": [],\n    \"after_collect\": [\n      {\n        \"func\": \"ad_marker\",\n        \"cos_value\": 0.6\n      },\n      {\n        \"func\": \"to_rss\",\n        \"doc_source_list\": [\n          \"liuli_wechat\"\n        ],\n        \"link_source\": \"github\"\n      }\n    ]\n  },\n  \"sender\": {\n    \"sender_list\": [\n      \"wecom\"\n    ],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"custom_filter\": {\n      \"wecom\": {\n        \"delta_time\": 1,\n        \"ignore_doc_source_name\": [\n          \"\"\n        ]\n      }\n    }\n  },\n  \"backup\": {\n    \"backup_list\": [\n      \"github\",\n      \"mongodb\"\n    ],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"init_config\": {},\n    \"after_get_content\": [\n      {\n        \"func\": \"str_replace\",\n        \"before_str\": \"data-src=\\\"\",\n        \"after_str\": \"src=\\\"https://images.weserv.nl/?url=\"\n      }\n    ]\n  },\n  \"schedule\": {\n    \"period_list\": [\n      \"00:10\",\n      \"12:10\",\n      \"21:10\"\n    ]\n  }\n}",
+      "raw": "{\n  \"name\": \"wechat\",\n  \"username\": \"liuli\",\n  \"author\": \"liuli_team\",\n  \"doc_source\": \"liuli_wechat_sg\",\n  \"doc_source_alias_name\": \"微信源(搜狗)\",\n  \"collector\": {\n    \"wechat\": {\n      \"wechat_list\": [\"老胡的储物柜\", \"是不是很酷\"],\n      \"delta_time\": 5,\n      \"spider_type\": \"sg_ruia\",\n      \"spider_type_des\": \"当镜像是schedule:playwright_*时，spider_type可填写sg_playwright\"\n    }\n  },\n  \"processor\": {\n    \"before_collect\": [],\n    \"after_collect\": [\n      {\n        \"func\": \"ad_marker\",\n        \"cos_value\": 0.6\n      },\n      {\n        \"func\": \"to_rss\",\n        \"doc_source_list\": [\"liuli_wechat\"],\n        \"link_source\": \"github\"\n      }\n    ]\n  },\n  \"sender\": {\n    \"sender_list\": [\"wecom\"],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"custom_filter\": {\n      \"wecom\": {\n        \"delta_time\": 1,\n        \"ignore_doc_source_name\": [\"\"]\n      }\n    }\n  },\n  \"backup\": {\n    \"backup_list\": [\"github\", \"mongodb\"],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"init_config\": {},\n    \"after_get_content\": [\n      {\n        \"func\": \"str_replace\",\n        \"before_str\": \"data-src=\\\"\",\n        \"after_str\": \"src=\\\"https://images.weserv.nl/?url=\"\n      }\n    ]\n  },\n  \"schedule\": {\n    \"period_list\": [\"00:10\", \"12:10\", \"21:10\"]\n  }\n}\n",
       "form": []
     },
     "tests": []
