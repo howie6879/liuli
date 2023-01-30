@@ -1,55 +1,56 @@
 {
-    "name": "wechat",
-    "author": "liuli_team",
-    "doc_source": "liuli_wechat",
-    "collector": {
-        "wechat": {
-            "wechat_list": [
-                "老胡的储物柜", "是不是很酷"
-            ],
-            "delta_time": 5,
-            "spider_type": "sg_ruia",
-            "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写sg_playwright"
-        }
-    },
-    "processor": {
-        "before_collect": [],
-        "after_collect": [{
-            "func": "ad_marker",
-            "cos_value": 0.6
-        }, {
-            "func": "to_rss",
-            "doc_source_list": ["liuli_wechat"],
-            "link_source": "github"
-        }]
-    },
-    "sender": {
-        "sender_list": ["wecom"],
-        "query_days": 7,
-        "delta_time": 3,
-        "custom_filter": {
-            "wecom": {
-                "delta_time": 1,
-                "ignore_doc_source_name": [""]
-            }
-        }
-    },
-    "backup": {
-        "backup_list": ["github", "mongodb"],
-        "query_days": 7,
-        "delta_time": 3,
-        "init_config": {},
-        "after_get_content": [{
-            "func": "str_replace",
-            "before_str": "data-src=\"",
-            "after_str": "src=\"https://images.weserv.nl/?url="
-        }]
-    },
-    "schedule": {
-        "period_list": [
-            "00:10",
-            "12:10",
-            "21:10"
-        ]
+  "name": "wechat",
+  "username": "liuli",
+  "author": "liuli_team",
+  "doc_source": "liuli_wechat_sg",
+  "doc_source_alias_name": "微信源(搜狗)",
+  "collector": {
+    "wechat": {
+      "wechat_list": ["老胡的储物柜", "是不是很酷"],
+      "delta_time": 5,
+      "spider_type": "sg_ruia",
+      "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写sg_playwright"
     }
+  },
+  "processor": {
+    "before_collect": [],
+    "after_collect": [
+      {
+        "func": "ad_marker",
+        "cos_value": 0.6
+      },
+      {
+        "func": "to_rss",
+        "doc_source_list": ["liuli_wechat"],
+        "link_source": "github"
+      }
+    ]
+  },
+  "sender": {
+    "sender_list": ["wecom"],
+    "query_days": 7,
+    "delta_time": 3,
+    "custom_filter": {
+      "wecom": {
+        "delta_time": 1,
+        "ignore_doc_source_name": [""]
+      }
+    }
+  },
+  "backup": {
+    "backup_list": ["github", "mongodb"],
+    "query_days": 7,
+    "delta_time": 3,
+    "init_config": {},
+    "after_get_content": [
+      {
+        "func": "str_replace",
+        "before_str": "data-src=\"",
+        "after_str": "src=\"https://images.weserv.nl/?url="
+      }
+    ]
+  },
+  "schedule": {
+    "period_list": ["00:10", "12:10", "21:10"]
+  }
 }

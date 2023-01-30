@@ -1,51 +1,53 @@
 {
-    "name": "book",
-    "author": "liuli_team",
-    "doc_source": "liuli_book",
-    "collector": {
-        "book_common": {
-            "book_dict": {
-                "诡秘之主": "https://www.yruan.com/article/38563.html"
-            },
-            "delta_time": 3,
-            "latest_chapter_nums": 3
-        }
-    },
-    "processor": {
-        "before_collect": [],
-        "after_collect": [{
-            "func": "to_rss",
-            "link_source": "github",
-            "rss_count": 20
-        }]
-    },
-    "sender": {
-        "sender_list": ["wecom"],
-        "query_days": 1,
-        "delta_time": 3,
-        "link_source": "github"
-    },
-    "backup": {
-        "backup_list": ["github", "mongodb"],
-        "query_days": 1,
-        "delta_time": 3,
-        "doc_html_dict": {
-            "liuli_book": "book"
-        },
-        "init_config": {
-            "force_backup": true
-        },
-        "after_get_content": [{
-            "func": "str_replace",
-            "before_str": "本书首发",
-            "after_str": ""
-        }]
-    },
-    "schedule": {
-        "period_list": [
-            "00:10",
-            "12:10",
-            "21:10"
-        ]
+  "name": "book",
+  "username": "liuli",
+  "author": "liuli_team",
+  "doc_source": "liuli_book",
+  "doc_source_alias_name": "小说源",
+  "collector": {
+    "book_common": {
+      "book_dict": {
+        "诡秘之主": "https://www.yruan.com/article/38563.html"
+      },
+      "delta_time": 3,
+      "latest_chapter_nums": 3
     }
+  },
+  "processor": {
+    "before_collect": [],
+    "after_collect": [
+      {
+        "func": "to_rss",
+        "link_source": "github",
+        "rss_count": 20
+      }
+    ]
+  },
+  "sender": {
+    "sender_list": ["wecom"],
+    "query_days": 1,
+    "delta_time": 3,
+    "link_source": "github"
+  },
+  "backup": {
+    "backup_list": ["github", "mongodb"],
+    "query_days": 1,
+    "delta_time": 3,
+    "doc_html_dict": {
+      "liuli_book": "book"
+    },
+    "init_config": {
+      "force_backup": true
+    },
+    "after_get_content": [
+      {
+        "func": "str_replace",
+        "before_str": "本书首发",
+        "after_str": ""
+      }
+    ]
+  },
+  "schedule": {
+    "period_list": ["00:10", "12:10", "21:10"]
+  }
 }

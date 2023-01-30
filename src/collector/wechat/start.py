@@ -20,10 +20,10 @@ def run(collect_config: dict):
         from src.collector.wechat.sg_playwright_start import run as playwright_run
 
         run_func = playwright_run
-    elif spider_type == "feddd":
-        from src.collector.wechat.feddd_start import run as feddd_run
+    elif spider_type == "feeddd":
+        from src.collector.wechat.feeddd_start import run as feeddd_run
 
-        run_func = feddd_run
+        run_func = feeddd_run
     elif spider_type == "data258":
         from src.collector.wechat.data258_ruia_start import run as data258_run
 
