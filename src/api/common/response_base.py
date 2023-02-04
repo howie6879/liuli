@@ -93,3 +93,7 @@ class UniResponse:
         ResponseField.MESSAGE: ResponseReply.USER_CHANGE_PWD_ERROR,
         ResponseField.STATUS: ResponseCode.USER_CHANGE_PWD_ERROR,
     }
+
+
+if __name__ == "__main__":
+    print(UniResponse().SUCCESS)

@@ -45,7 +45,6 @@ def articles():
     """
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
     app_logger: LOGGER = current_app.config["app_logger"]
-    app_config: Config = current_app.config["app_config"]
     coll = mongodb_base.get_collection(coll_name="liuli_articles")
     # 获取基础数据
     post_data: dict = request.json
@@ -90,26 +89,13 @@ def backup_generate():
     eg:
     {
         "username": "liuli",
-        "basic_filter": {
-            "doc_source": "liuli_wechat"
-        },
-        "backup_list": [
-            "mongodb"
-        ],
-        "query_days": 7,
-        "delta_time": 0,
-        "init_config": {},
-        "after_get_content": [
-            {
-            "func": "str_replace",
-            "before_str": "data-src=\"",
-            "after_str": "src=\"https://images.weserv.nl/?url="
-            }
-        ]
+        "doc_source": "liuli_wechat_sg",
+        "doc_source_name": "老胡的储物柜"
     }
     Returns:
         Response: 响应类
     """
+    # TODO 重构，基于 liuli_doc_source 读取数据
     app_logger: LOGGER = current_app.config["app_logger"]
     # 获取基础数据
     post_data: dict = request.json
@@ -131,7 +117,7 @@ def backup_generate():
 @bp_action.route("/rss_generate", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def rss_generate():
-    """生成目标 rss 源
+    """生成目标 RSS 源
     eg:
     {
         "username": "liuli",
@@ -172,7 +158,7 @@ def rss_generate():
 @bp_action.route("/rss_list", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def rss_list():
-    """获取用户下所有rss链接地址
+    """获取用户下所有 RSS 链接地址
     eg:
     {
         "username": "liuli",
