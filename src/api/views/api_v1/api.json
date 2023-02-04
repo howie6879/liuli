@@ -5,24 +5,6 @@
   "api": {
     "/user": [
       {
-        "path": "v1/user/login",
-        "method": "post",
-        "description": "用户登录接口",
-        "request": {},
-        "response": {
-          "data": { "token": "..", "username": "liuli" },
-          "info": "ok",
-          "status": 200
-        }
-      },
-      {
-        "path": "v1/user/token_valid",
-        "method": "post",
-        "description": "用户token校验接口",
-        "request": { "username": "liuli" },
-        "response": { "data": {}, "info": "ok", "status": 200 }
-      },
-      {
         "path": "v1/user/change_pwd",
         "method": "post",
         "description": "修改密码",
@@ -36,6 +18,27 @@
           "info": "ok",
           "status": 200
         }
+      },
+      {
+        "path": "v1/user/login",
+        "method": "post",
+        "description": "用户登录接口",
+        "request": {
+          "username": "liuli",
+          "password": "liuli"
+        },
+        "response": {
+          "data": { "username": "liuli", "token": ".." },
+          "info": "ok",
+          "status": 200
+        }
+      },
+      {
+        "path": "v1/user/token_valid",
+        "method": "post",
+        "description": "用户 token 校验接口",
+        "request": { "username": "liuli" },
+        "response": { "data": {}, "info": "ok", "status": 200 }
       }
     ],
     "/stats": [
@@ -46,10 +49,27 @@
         "request": { "username": "liuli" },
         "response": {
           "data": {
-            "liuli_wechat": {
-              "doc_count": 14,
-              "doc_source_details": [{ "_id": "老胡的储物柜", "count": 14 }],
-              "doc_source_list": ["老胡的储物柜"]
+            "doc_counts": 3,
+            "doc_source_counts": 3,
+            "doc_source_stats_dict": {
+              "liuli_book": {
+                "counts": 0,
+                "doc_source_alias_name": "小说源",
+                "rows": [],
+                "rows_info": []
+              },
+              "liuli_wechat_feeddd": {
+                "counts": 0,
+                "doc_source_alias_name": "微信源(feeddd)",
+                "rows": [],
+                "rows_info": []
+              },
+              "liuli_wechat_sg": {
+                "counts": 0,
+                "doc_source_alias_name": "微信源(搜狗)",
+                "rows": [],
+                "rows_info": []
+              }
             }
           },
           "info": "ok",
