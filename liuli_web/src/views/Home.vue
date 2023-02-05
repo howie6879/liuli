@@ -1,7 +1,7 @@
 <template>
-  <SideBar @menuStatus="menuStatus" />
-  <div class="content" :class="{ collapsed: collapsed }">
-    <Header :title="title" />
+  <!-- <SideBar @menuStatus="menuStatus" /> -->
+  <div class="app-content" :class="{ collapsed: collapsed }">
+    <!-- <Header :title="title" /> -->
     <main class="main-content">
       <div class="grid" style="margin-left: 5px; margin-right: 5px">
         <div v-for="stat in statData.stats">
