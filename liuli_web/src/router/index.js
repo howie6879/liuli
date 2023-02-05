@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import Login from '../views/Login.vue';
-import Home from '../views/Home.vue';
 import Subscription from '../views/Subscription.vue';
 import Favorite from '../views/Favorite.vue';
 import Bookmark from '../views/Bookmark.vue';
@@ -9,44 +8,75 @@ import Log from '../views/Log.vue';
 import DocSource from '../views/DocSource.vue';
 import { callUserStore } from '../store/user';
 
+import Layout from "@/layout";
+import subViews from '@/layout/components/subViews'
+
 // 初始化 store
 const userStore = callUserStore();
 
 // 定义路由
-const routes = [
+export const routes = [
   {
     path: '/',
-    component: Home,
-    meta: { title: '首页' }
+    component: Layout,
+    name: 'Home',
+    children: [
+      {
+        path: '/first',
+        name: 'first',
+        component: subViews,
+        redirect:'/first/log1',//展开菜单时重定向
+        meta: { title: '一级菜单', icon: 'svg-subscription' },
+        children: [
+          {
+            path: 'log1',
+            component: Log,
+            name:'Log1',
+            meta: { title: '日志管理', icon: 'svg-page' },
+          }
+        ]
+      },
+       {
+                path: 'log',
+                component: Log,
+                name:'Log',
+                meta: { title: '日志管理',icon:'svg-page' }
+       },
+    {
+            path: 'bookmark',
+            component: Bookmark,
+            name:'Bookmark',
+            meta: { title: '我的书签',icon:'svg-doc_source' }
+          },
+          {
+            path: 'favorite',
+            component: Favorite,
+            name: 'Favorite',
+            meta: { title: '我的收藏',icon: 'svg-favorite' }
+          },
+          {
+            path: 'Subscription',
+            component: Subscription,
+            name: 'Subscription',
+            meta: { title: '我的订阅',icon: 'svg-subscription' }
+          },
+          {
+            path: 'doc_source',
+            component: DocSource,
+            name:'DocSource',
+            meta: { title: '配置管理', icon: 'svg-setting' /* /src/assets/icons文件夹下的svg文件，文件夹名-文件名 */}
+          },
+
+
+    ]
+
   },
-  {
-    path: '/subscription',
-    component: Subscription,
-    meta: { title: '我的订阅' }
-  },
-  {
-    path: '/bookmark',
-    component: Bookmark,
-    meta: { title: '我的订阅' }
-  },
-  {
-    path: '/favorite',
-    component: Favorite,
-    meta: { title: '我的收藏' }
-  },
-  {
-    path: '/doc_source',
-    component: DocSource,
-    meta: { title: '配置管理' }
-  },
-  {
-    path: '/log',
-    component: Log,
-    meta: { title: '日志管理' }
-  },
+  
   {
     path: '/login',
     component: Login,
+    name: 'Login',
+    isHidden: true, //是否显示
     meta: { title: '登录' }
   }
 ];

@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 
-import api from '../api/index';
-import store from '../store/index';
-import { setLiuliToken, removeLiuliToken, getLiuliToken } from '../utils/auth';
+import api from '@/api';
+import store from '@/store';
+import { setLiuliToken, removeLiuliToken, getLiuliToken } from '@/utils/auth';
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', {
   },
   getters: {
     getToken: (state) => {
-      return state.token || getLiuliToken().token;
+      return state.token || getLiuliToken().token ;
     },
     getUsername: (state) => {
       return state.username || getLiuliToken().username;
