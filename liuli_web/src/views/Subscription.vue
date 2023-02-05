@@ -1,32 +1,21 @@
 <template>
-  <SideBar @menuStatus="menuStatus" />
-  <div class="content" :class="{ collapsed: collapsed }">
-    <Header :title="title" />
+
+  <div class="app-content ">
     <main class="main-content">
       <div class="search-bar" role="list">
         <div class="search-bar-left">
           <div>
-            <multi-select
-              :options="selectData.doc_source_options"
-              :selected-options="selectData.doc_source_items"
-              placeholder="选择订阅源"
-              @select="onDocSourceSelect"
-            >
+            <multi-select :options="selectData.doc_source_options" :selected-options="selectData.doc_source_items"
+              placeholder="选择订阅源" @select="onDocSourceSelect">
             </multi-select>
           </div>
         </div>
 
         <div class="search-bar-right">
-          <button
-            aria-busy="false"
-            type="submit"
-            class="outline contrast sub-search"
-            @click="subSearch()"
-          >
+          <button aria-busy="false" type="submit" class="outline contrast sub-search" @click="subSearch()">
             搜索
             <span style="display: inherit; margin-right: -4px; margin-left: 8px">
-              <svg
-                style="
+              <svg style="
                   user-select: none;
                   width: 1em;
                   height: 1em;
@@ -34,12 +23,7 @@
                   fill: currentcolor;
                   flex-shrink: 0;
                   transition: fill 200ms;
-                "
-                focusable="false"
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                data-testid="ArrowForwardOutlinedIcon"
-              >
+                " focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowForwardOutlinedIcon">
                 <path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"></path>
               </svg>
             </span>
@@ -51,8 +35,6 @@
 </template>
 
 <script setup>
-import Header from '../components/Header.vue';
-import SideBar from '../components/SideBar.vue';
 
 import { onMounted, ref } from 'vue';
 import { useUserStore } from '../store/user';
@@ -118,12 +100,13 @@ onMounted(() => {
 input:not([type='checkbox'], [type='radio'], [type='range']) {
   height: auto;
 }
-.ui.multiple.search.dropdown > .text {
+
+.ui.multiple.search.dropdown>.text {
   font-size: 15px;
   /* margin-top: 0.6em; */
 }
 
-.ui.multiple.dropdown > .label {
+.ui.multiple.dropdown>.label {
   /* margin-top: 0.35em; */
   color: rgb(255, 255, 255);
   background-color: #b9b9b9;
@@ -145,7 +128,7 @@ input:not([type='checkbox'], [type='radio'], [type='range']) {
 .main-content {
   margin-left: 30px;
   margin-right: 30px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 div.search-bar {
