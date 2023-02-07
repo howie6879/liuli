@@ -26,7 +26,7 @@
                     </menuItem> -->
         <AppLink :to="resolvePath(item.path, '/')">
           <el-menu-item :index="resolvePath(item.path, '/')">
-            <item v-bind="item.meta"></item>
+            <MenuItem v-bind="item.meta"></MenuItem>
           </el-menu-item>
         </AppLink>
         <template v-if="index === 3">
@@ -42,7 +42,7 @@ import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { routes } from '@/router';
 import AppLink from '../AppLink';
-import item from './item';
+import MenuItem from './MenuItem';
 import { resolvePath } from '@/utils';
 
 const props = defineProps({

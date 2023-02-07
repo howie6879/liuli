@@ -8,14 +8,14 @@ export function isExternal(path) {
   
 //拼接完整路径
 export function resolvePath(routePath, basePath) {
-  // 如果是网址，直接返回
+  // 如果routePath是网址，直接返回routePath
   if (isExternal(routePath)) {
       return routePath
   }
-  // 如果是网址，直接返回
+  // 如果basePath是网址，直接返回basePath
   if (isExternal(basePath)) {
       return basePath
   }
-  // 如果是
+  // 拼接完整路径
   return path.resolve(basePath, routePath)
 }
