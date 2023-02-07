@@ -1,7 +1,28 @@
 <template>
-
-  <div class="app-content ">
-    <main class="main-content">
+  <div class="app-content bg-white">
+    <div class="flex f-jsb plr-20 pt-20">
+      <div class="ml-20">
+        <el-select
+          v-model="selectData.doc_source_items"
+          placeholder="选择订阅源"
+          size="default"
+          @change="onDocSourceSelect"
+        >
+          <el-option
+            v-for="item in selectData.doc_source_options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+      <div class="mr-20">
+        <el-button type="primary" class="el-icon--right" size="default" @click="subSearch">
+          搜索<el-icon class="el-icon--right"><Right /></el-icon
+        ></el-button>
+      </div>
+    </div>
+    <!-- <main class="main-content">
       <div class="search-bar" role="list">
         <div class="search-bar-left">
           <div>
@@ -10,7 +31,6 @@
             </multi-select>
           </div>
         </div>
-
         <div class="search-bar-right">
           <button aria-busy="false" type="submit" class="outline contrast sub-search" @click="subSearch()">
             搜索
@@ -30,18 +50,17 @@
           </button>
         </div>
       </div>
-    </main>
+    </main> -->
   </div>
 </template>
 
 <script setup>
-
 import { onMounted, ref } from 'vue';
 import { useUserStore } from '../store/user';
 import { userApi } from '../api/index';
-import { toaster } from '../utils/notification';
-
-import { MultiSelect } from 'vue-search-select';
+import { ElMessage } from 'element-plus';
+import { Right } from '@element-plus/icons-vue'
+// import { MultiSelect } from 'vue-search-select';
 import 'vue-search-select/dist/VueSearchSelect.css';
 
 const collapsed = ref(false);
@@ -90,18 +109,28 @@ onMounted(() => {
         selectData.value.doc_source_items = selectData.value.doc_source_options;
       } else {
         const msg = res.info ? res.info : '服务器超时';
-        toaster.error(msg);
+        ElMessage({
+          message: msg,
+          type: 'error'
+        });
       }
     });
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+:deep(input){
+  margin-bottom:0 !important;
+  padding: 0 !important;
+  height: 1.5rem;
+  width: 300px !important;
+}
 input:not([type='checkbox'], [type='radio'], [type='range']) {
   height: auto;
 }
 
-.ui.multiple.search.dropdown>.text {
+.ui.multiple.search.dropdown > .text {
   font-size: 15px;
   /* margin-top: 0.6em; */
 }
@@ -133,12 +162,12 @@ input:not([type='checkbox'], [type='radio'], [type='range']) {
 
 div.search-bar {
   width: 100%;
-  height: 40px;
+  /* height: 40px; */
 }
 
 div.search-bar .search-bar-left {
   float: left;
-  width: 420px;
+  /* width: 420px; */
 }
 
 div.search-bar .search-bar-right {
