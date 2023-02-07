@@ -8,7 +8,6 @@
     </div>
     <div>
       <el-dropdown ref="setting">
-
         <div class="avatar flex f-ac">
           <el-avatar :src="'/src/assets/images/logo.png'"></el-avatar>
         </div>
@@ -18,68 +17,57 @@
               <el-icon size="16px">
                 <svg-icon name="svg-setting"></svg-icon>
               </el-icon>
-              <router-link :to="'/log'">个人设置</router-link>
+              <router-link to="/log">
+                <span class="drop-menu"> 个人设置 </span>
+              </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
               <el-icon size="16px">
-                <svg-icon name="svg-setting"></svg-icon>
+                <!-- <svg-icon name="svg-setting"></svg-icon> -->
+                <SwitchButton />
               </el-icon>
-              <router-link :to="'/log'">退出登陆</router-link>
+              <router-link to="/login">
+                <span class="drop-menu" @click="logout"> 退出登陆 </span>
+              </router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
-
   </div>
-  <!-- <header>
-    <div class="title">{{ title }}</div>
-    <div class="dropdown">
-      <div class="avatar" @click="showDropDown()">
-        <ProfileAvatar username="liuli.io" :image="avatarConfig.imageUrl" :customSize="avatarConfig.customSize"
-          :border="avatarConfig.border"></ProfileAvatar>
-        <div id="dropdown-content">
-          <a href="/setting"><img class="dropdown_ico" src="/src/assets/images/setting.svg" alt="logout" />
-            &nbsp;个人设置</a>
-
-          <div style="width: 100%; height: 0px; border-top: 1px solid rgba(0, 0, 0, 0.1); clear: both"></div>
-          <a href="/login" @click="logout()">
-            <img class="dropdown_ico" src="/src/assets/images/logout.svg" alt="logout" />
-            &nbsp;退出登录</a>
-        </div>
-      </div>
-    </div>
-  </header> -->
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity"
+import { ref } from '@vue/reactivity';
+import { useUserStore } from '@/store/user';
 
-const emits = defineEmits(['foldChange'])
+const emits = defineEmits(['foldChange']);
 const props = defineProps({
   isCollapse: {
-    type: String,
-    default: '琉璃后台'
+    type: Boolean,
+    default: false
   }
-})
-
+});
 
 function handleClick() {
-  emits('foldChange')
+  emits('foldChange');
 }
 
-const setting = ref(null)
+const setting = ref(null);
 
 function handleClickPic() {
-  console.log('===setting.value===', setting.value.handleOpen)
-  setting.value.handleOpen()
+  setting.value.handleOpen();
 }
 
+const userStore = useUserStore();
+function logout() {
+  console.log('===logout===');
+  userStore.resetState();
+}
 </script>
 
 <style scoped lang="scss">
 .header {
-
   height: 60px;
 
   .avatar {
@@ -96,7 +84,9 @@ function handleClickPic() {
       color: transparent;
     }
   }
+}
 
+.drop-menu {
+  color: #000;
 }
 </style>
-

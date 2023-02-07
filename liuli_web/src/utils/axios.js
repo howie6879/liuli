@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getLiuliToken, removeLiuliToken } from './auth';
-import { toaster } from './notification';
+import { ElMessage } from 'element-plus';
 const http = axios.create({
   baseURL: '/v1',
   timeout: 3000
@@ -57,7 +57,10 @@ http.interceptors.response.use(
 
     if (error.response.status == 422 || error.response.status == 401) {
       // token 被篡改，格式错误
-      toaster.error(error.response.data.msg);
+      ElMessage({
+        message: error.response.data.msg,
+        type: 'error'
+      });
       removeLiuliToken();
       setTimeout("window.location.href = '/login'", 3000);
     }
