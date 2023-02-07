@@ -1,14 +1,9 @@
 import { createApp } from 'vue';
 
 // 导入 CSS 库
-// import '/public/static/css/global.css';
-import '../public/static/css/pico.min.css';
-// import '@picocss/pico';
-import '../public/static/css/global.css';
-
+import './style/index.scss';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
 
 // 导入自定义模块
 import api from './api/index';
@@ -16,7 +11,7 @@ import App from './App.vue';
 import router from './router/index';
 import pinia from './store/index';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-// import install  from './assets/icons/index'
+
 
 import 'virtual:svg-icons-register'
 const app = createApp(App);
