@@ -1,0 +1,323 @@
+.line-1 {
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+}
+
+.line-2 {
+    -webkit-line-clamp: 2;
+}
+
+.line-3 {
+    -webkit-line-clamp: 3;
+}
+
+.line-4 {
+    -webkit-line-clamp: 4;
+}
+
+.line-5 {
+    -webkit-line-clamp: 5;
+}
+
+.line-1,
+.line-2,
+.line-3,
+.line-4,
+.line-5 {
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box; // 弹性伸缩盒
+    -webkit-box-orient: vertical; // 设置伸缩盒子元素排列方式
+}
+
+.poiter {
+    cursor: pointer;
+}
+
+.box-s {
+    box-sizing: border-box;
+}
+
+.color-red {
+    color: #F50537;
+}
+
+.color-black {
+    color: #000000
+}
+
+.bg-black {
+    background: #000000;
+}
+
+.color-c {
+    color: #cccccc;
+}
+
+
+.color-white {
+    color: #ffffff;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.color-33 {
+    color: #333333
+}
+
+.color-66 {
+    color: #666666;
+}
+
+.color-99 {
+    color: #999999;
+}
+
+.color-4d {
+    color: #4d4d4d;
+}
+
+.color-main {
+    color: #000000;
+}
+
+.bg-main {
+    background: #000000;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.f-wrap {
+    flex-wrap: wrap;
+}
+
+
+.f-ac {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.f-ae {
+    display: flex;
+    align-items: flex-end;
+}
+
+.f-jc {
+    display: flex;
+    justify-content: center;
+}
+
+.f-je {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.f-jsb {
+    display: flex;
+    justify-content: space-between;
+}
+
+.f-jsa {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fc {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.f-ac-jc {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.f-ac-je {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.f-ac-jsb {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.f-ac-jsa {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+@for $size from 1 to 8 {
+    .f-#{$size} {
+        flex: $size;
+    }
+}
+
+//二、元素
+//align-self: auto | flex-start | flex-end | center | baseline | stretch;
+.as-e {
+    align-self: flex-end;
+}
+
+.as-c {
+    align-self: flex-end;
+}
+
+//文本对齐方式
+.text-l {
+    text-align: left;
+}
+
+.text-c {
+    text-align: center;
+}
+
+.text-r {
+    text-align: right;
+}
+
+//文本两端对齐
+.text-j {
+    text-align: justify;
+    text-align-last: justify;
+}
+
+//文本加粗
+.fw-b {
+    font-weight: bold;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+// 深灰色的线条
+.line-dark {
+    border-bottom: 1px solid #797B89;
+    width: 100%;
+    height: 1px;
+}
+
+// 浅灰色的线条
+.line {
+    border-bottom: 1px solid #CDCDCD;
+    width: 100%;
+    height: 1px;
+}
+
+//删除线
+.td-lt {
+    text-decoration: line-through;
+}
+
+.un-line {
+    text-decoration: underline;
+}
+
+@for $size from 10 to 32 {
+    .fs-#{$size} {
+        font-size: #{$size}px;
+    }
+}
+
+@for $size from 12 to 40 {
+    .lh-#{$size } {
+        line-height: #{$size}px;
+    }
+}
+
+
+
+
+
+$span: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 48, 64, 100;
+
+@each $var in $span {
+    .pt-#{$var} {
+        padding-top:#{$var}px;
+    }
+
+    .pr-#{$var} {
+        padding-right:#{$var}px;
+    }
+
+    .pl-#{$var} {
+        padding-left:#{$var}px;
+    }
+
+    .pb-#{$var} {
+        padding-bottom:#{$var}px;
+    }
+
+    .ptb-#{$var} {
+        padding-top:#{$var}px;
+        padding-bottom:#{$var}px;
+    }
+
+    .plr-#{$var} {
+        padding-left:#{$var}px;
+        padding-right:#{$var}px;
+    }
+
+    .mt-#{$var} {
+        margin-top:#{$var}px;
+    }
+
+    .mb-#{$var} {
+        margin-bottom:#{$var}px;
+    }
+
+    .ml-#{$var} {
+        margin-left:#{$var}px;
+    }
+
+    .mr-#{$var} {
+        margin-right:#{$var}px;
+    }
+
+    .mlr-#{$var} {
+        margin-right:#{$var}px;
+        margin-left:#{$var}px;
+    }
+
+    .mtb-#{$var} {
+        margin-top:#{$var}px;
+        margin-bottom:#{$var}px;
+    }
+}
+
+.pr-320 {
+    margin-right: 320px !important;
+}
+
+.scroll-y {
+    overflow-y: scroll;
+}
+
+.scroll-x {
+    overflow-x: scroll;
+}
