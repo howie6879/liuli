@@ -63,7 +63,7 @@ import { ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
-import { toaster } from '../utils/notification';
+import { ElMessage } from 'element-plus';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -87,12 +87,18 @@ const login = function () {
       })
       .then((res) => {
         if (res.status == 200) {
-          // toaster.success('登陆成功');
+        //   ElMessage({
+        //   message: '登陆成功',
+        //   type: 'success'
+        // });
           window.location.href = '/';
           // setTimeout("window.location.href = '/'", 500);
         } else {
           const msg = res.info ? res.info : '服务器超时';
-          toaster.error(msg);
+          ElMessage({
+          message: msg,
+          type: 'error'
+        });
           document.querySelector('.login-submit').setAttribute('aria-busy', 'false');
         }
       });
@@ -100,7 +106,7 @@ const login = function () {
 };
 </script>
 
-<style scoped src="../../public/static/css/gh-fork-ribbon.min.css"></style>
+<style scoped src="@/style/gh-fork-ribbon.min.css"></style>
 
 <style scoped>
 main.container {
