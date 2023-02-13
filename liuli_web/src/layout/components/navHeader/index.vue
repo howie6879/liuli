@@ -61,8 +61,9 @@ function handleClickPic() {
 
 const userStore = useUserStore();
 function logout() {
-  console.log('===logout===');
-  userStore.resetState();
+  userStore.logout().then((res) => {
+    window.location.href = '/login';
+  });
 }
 </script>
 

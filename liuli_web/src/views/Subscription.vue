@@ -59,9 +59,9 @@ import { onMounted, ref } from 'vue';
 import { useUserStore } from '../store/user';
 import { userApi } from '../api/index';
 import { ElMessage } from 'element-plus';
-import { Right } from '@element-plus/icons-vue'
+import { Right } from '@element-plus/icons-vue';
 // import { MultiSelect } from 'vue-search-select';
-import 'vue-search-select/dist/VueSearchSelect.css';
+// import 'vue-search-select/dist/VueSearchSelect.css';
 
 const collapsed = ref(false);
 const title = ref('我的订阅');
@@ -119,9 +119,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
-:deep(input){
-  margin-bottom:0 !important;
+:deep(input) {
+  margin-bottom: 0 !important;
   padding: 0 !important;
   height: 1.5rem;
   width: 300px !important;
@@ -135,7 +134,7 @@ input:not([type='checkbox'], [type='radio'], [type='range']) {
   /* margin-top: 0.6em; */
 }
 
-.ui.multiple.dropdown>.label {
+.ui.multiple.dropdown > .label {
   /* margin-top: 0.35em; */
   color: rgb(255, 255, 255);
   background-color: #b9b9b9;
