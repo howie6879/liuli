@@ -10,7 +10,6 @@ import Home from '@/views/Home.vue';
 import { callUserStore } from '../store/user';
 
 import Layout from '@/layout';
-import subViews from '@/layout/components/subViews';
 
 // 初始化 store
 const userStore = callUserStore();

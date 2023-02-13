@@ -3,19 +3,28 @@
     <div class="title">{{ title }}</div>
     <div class="dropdown">
       <div class="avatar" @click="showDropDown()">
-        <ProfileAvatar username="liuli.io" :image="avatarConfig.imageUrl" :customSize="avatarConfig.customSize"
-          :border="avatarConfig.border"></ProfileAvatar>
+        <ProfileAvatar
+          username="liuli.io"
+          :image="avatarConfig.imageUrl"
+          :customSize="avatarConfig.customSize"
+          :border="avatarConfig.border"
+        ></ProfileAvatar>
         <div id="dropdown-content">
           <!-- <a href="/"
             ><img class="dropdown_ico" src="/src/assets/images/logout.svg" alt="logout" /> Home</a
           > -->
-          <a href="/setting"><img class="dropdown_ico" src="/src/assets/images/setting.svg" alt="logout" />
-            &nbsp;个人设置</a>
+          <a href="/setting"
+            ><img class="dropdown_ico" src="/src/assets/images/setting.svg" alt="logout" />
+            &nbsp;个人设置</a
+          >
 
-          <div style="width: 100%; height: 0px; border-top: 1px solid rgba(0, 0, 0, 0.1); clear: both"></div>
+          <div
+            style="width: 100%; height: 0px; border-top: 1px solid rgba(0, 0, 0, 0.1); clear: both"
+          ></div>
           <a href="/login" @click="logout()">
             <img class="dropdown_ico" src="/src/assets/images/logout.svg" alt="logout" />
-            &nbsp;退出登录</a>
+            &nbsp;退出登录</a
+          >
         </div>
       </div>
     </div>
@@ -27,7 +36,6 @@ import ProfileAvatar from 'vue-profile-avatar';
 import { toRefs, ref, onMounted, onBeforeUnmount } from 'vue';
 
 import { useUserStore } from '../store/user';
-import { toaster } from '../utils/notification';
 
 const props = defineProps({
   //子组件接收父组件传递过来的值
@@ -45,7 +53,6 @@ const avatarConfig = ref({
 const userStore = useUserStore();
 function logout() {
   userStore.logout().then((res) => {
-    toaster.success('已退出登录');
     setTimeout("window.location.href = '/login'", 3000);
   });
 }
@@ -88,7 +95,7 @@ header {
   background-color: #fff;
 }
 
-header>div.title {
+header > div.title {
   float: left;
   width: 100px;
   color: #97a8be;
@@ -98,7 +105,7 @@ header>div.title {
   margin-left: 10px;
 }
 
-header>div.dropdown {
+header > div.dropdown {
   cursor: pointer;
   float: right;
   /* display: inline-block; */
