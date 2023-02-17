@@ -1,3 +1,10 @@
-@import './common.scss';
 @import './global.scss';
 @import './pico.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --theme-color: #e2989e;
+  --default-text-color: #41454d;
+}

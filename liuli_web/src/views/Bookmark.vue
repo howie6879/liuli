@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content bg-white">
+  <div class="app-content">
     <p>{{ title }}</p>
   </div>
 </template>

@@ -1,39 +1,50 @@
 <template>
   <div class="nav-menu">
-    <div class="logo plr-20 flex f-ac-jc">
-      <img
-        class="img"
-        :style="collapse ? 'height:40px' : 'height:50px'"
-        src="~@/assets/images/logo.png"
-        alt="logo"
-      />
-      <transition>
-        <span v-show="!collapse" class="title ml-10">琉璃后台</span>
-      </transition>
+    <!-- 头部 -->
+    <div class="logo flex justify-center items-center flex-shrink-0">
+      <a
+        class="font-bold text-[18px] text-textColor"
+        href="https://github.com/liuli-io/liuli"
+        target="_blank"
+        >LIULI</a
+      >
     </div>
-    <el-menu
-      :default-active="currentItemId"
-      class="el-menu-vertical"
-      background-color="#FFF"
-      :collapse="collapse"
-      text-color="#000"
-      active-text-color="#0a60bd"
-      @open="openMenu"
-      collapse-transition
-    >
-      <template v-for="(item, index) in menuList" :key="item.name">
-        <!-- <menuItem :data="item" base-path="/" :index="index">
+    <!-- 菜单 -->
+    <el-scrollbar>
+      <hr class="line" />
+      <el-menu
+        :default-active="currentItemId"
+        class="el-menu-vertical"
+        background-color="#FFF"
+        :collapse="collapse"
+        :collapse-transition="false"
+        :unique-opened="false"
+        text-color="#41454D"
+        active-text-color="#41454D"
+        @open="openMenu"
+      >
+        <template v-for="(item, index) in menuList" :key="item.name">
+          <!-- <menuItem :data="item" base-path="/" :index="index">
                     </menuItem> -->
-        <AppLink :to="resolvePath(item.path, '/')">
-          <el-menu-item :index="resolvePath(item.path, '/')">
-            <MenuItem v-bind="item.meta"></MenuItem>
-          </el-menu-item>
-        </AppLink>
-        <template v-if="index === 3">
-          <hr class="line" />
+          <AppLink :to="resolvePath(item.path, '/')">
+            <el-menu-item
+              :index="resolvePath(item.path, '/')"
+              :class="[!collapse ? 'big-menu-item' : 'small-menu-item']"
+            >
+              <MenuItem v-bind="item.meta"></MenuItem>
+            </el-menu-item>
+          </AppLink>
+          <template v-if="index === 3">
+            <hr class="line" />
+            <div class="text-[#a6aab2] text-[14px] ml-4 mt-3 whitespace-nowrap" v-show="!collapse">
+              我的设置
+            </div>
+          </template>
         </template>
-      </template>
-    </el-menu>
+      </el-menu>
+    </el-scrollbar>
+    <!-- 版本 -->
+    <!-- <div class="text-[13px] text-textColor text-center">v 1.1.1</div> -->
   </div>
 </template>
 
@@ -76,22 +87,16 @@ function openMenu(index, indexPath) {
 
 <style scoped lang="scss">
 .nav-menu {
-  height: calc(100vh - 20px);
+  box-sizing: border-box;
+  padding: 0 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background-color: #fff;
-
+  transition: all 0.3s ease;
   .logo {
     height: 60px;
-
-    .img {
-      // height: 50px;
-      margin: 0 10px;
-    }
-
-    .title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #000;
-    }
+    margin: 0 auto;
   }
 
   // 目录
@@ -100,8 +105,9 @@ function openMenu(index, indexPath) {
 
     // 二级菜单 ( 默认背景 )
     .el-menu-item {
+      height: 44px;
       padding-left: 50px !important;
-      background-color: #fff !important;
+      background-color: white !important;
     }
   }
 
@@ -109,19 +115,70 @@ function openMenu(index, indexPath) {
     background-color: #fff !important;
   }
 
-  // hover 高亮
-  .el-menu-item:hover {
-    color: #fff !important; // 菜单
+  :deep(.el-menu-item) {
+    box-sizing: border-box;
+    margin: 20px auto;
+    font-size: 16px;
+    border-radius: 4px;
+    &.is-active {
+      font-weight: 500;
+      .el-icon {
+        color: white;
+        border-radius: 4px;
+        background-color: black;
+      }
+      &:hover {
+        .el-icon {
+          color: white;
+        }
+      }
+    }
+    &:hover {
+      font-weight: 500;
+      background: white;
+      .el-icon {
+        color: black;
+      }
+    }
+    .el-icon {
+      width: 38px;
+      height: 38px;
+      color: #41454d;
+      border-radius: 4px;
+      background-color: rgb(225, 225, 225);
+    }
+    span {
+      line-height: 44px;
+      margin-left: 20px;
+    }
   }
-
-  .el-menu-item.is-active {
-    // color: #fff !important;
-    // background-color: #0a60bd !important;
+  //缩小的menu样式
+  .small-menu-item {
+    justify-content: center;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    :deep(.el-icon) {
+      margin-right: 0px;
+    }
+  }
+  //放大的menu样式
+  .big-menu-item {
+    height: 44px;
+    :deep(.el-icon) {
+      margin-left: 30px;
+    }
+    span {
+      line-height: 44px;
+      margin-left: 18px;
+    }
   }
 
   .line {
+    width: 210px;
+    height: 1px;
+    margin: 0 auto;
     background-color: rgba(0, 0, 0, 0.1);
-    height: 2px;
   }
 }
 </style>
