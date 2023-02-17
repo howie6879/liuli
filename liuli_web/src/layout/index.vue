@@ -2,7 +2,7 @@
   <div class="main">
     <el-container class="main-content">
       <el-collapse-transition>
-        <el-aside :width="isCollapse ? '80px' : '210px'">
+        <el-aside :width="isCollapse ? '80px' : '245px'">
           <nav-menu :collapse="isCollapse" />
         </el-aside>
       </el-collapse-transition>
@@ -10,12 +10,14 @@
         <el-header class="page-header">
           <nav-header @foldChange="foldChange" :isCollapse="isCollapse" />
         </el-header>
-        <el-main class="page-content">
-          <!-- 页面视图 -->
-          <div class="plr-10 page-content-main">
-            <router-view></router-view>
-          </div>
-        </el-main>
+        <el-scrollbar>
+          <el-main class="page-content">
+            <!-- 页面视图 -->
+            <div class="page-content-main">
+              <router-view></router-view>
+            </div>
+          </el-main>
+        </el-scrollbar>
       </el-container>
     </el-container>
   </div>
@@ -34,14 +36,14 @@ function foldChange() {
 <style scoped lang="scss">
 .main {
   min-height: 100vh;
-
-  .header {
-    background-color: #fff;
+  .el-aside {
+    transition: all 0.4s ease-in-out;
   }
-
   .page-content {
     padding: 0;
-
+    min-width: 1080px;
+    height: auto;
+    overflow: auto;
     &-main {
       padding: 20px;
     }

@@ -1,49 +1,43 @@
 .app-content {
-    margin: 0;
-    border-radius: 15px;
-    min-height: calc(100vh - 100px);
-    padding: 20px;
+  margin: 0;
+  background-color: white;
+  border-radius: 15px;
+  min-height: calc(100vh - 100px);
+  padding: 20px;
 }
-
 
 div,
 section {
-    margin-bottom: 0px;
-    box-sizing: border-box;
+  margin-bottom: 0px;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
-    background-color: #f2f4f7;
-    --block-spacing-vertical: 0rem !important;
-    --el-header-padding: 0px !important;
+  height: 100%;
+  background-color: #f2f4f7;
+  --block-spacing-vertical: 0rem !important;
+  --el-header-padding: 0px !important;
 }
-
 
 .content {
-    margin-left: 250px;
+  margin-left: 250px;
 }
 
-
-
-
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .el-header {
-    padding: 0 !important;
-
+  padding: 0 !important;
 }
 
 .el-menu {
-    border-right: 0px !important;
-
+  border-right: 0px !important;
 }
 
 div,
 section {
-    margin-bottom: 0px;
-    box-sizing: border-box;
+  margin-bottom: 0px;
+  box-sizing: border-box;
 }
