@@ -1,15 +1,15 @@
 <template>
   <div class="app-content">
-    <div class="flex f-jsb">
+    <div class="flex justify-between">
       <div
         v-for="(item, index) in statData.stats"
-        class="flex card f-ac f-jsb ptb-10 plr-40 mr-6"
+        class="flex card items-center justify-between py-[10px] px-10 mr-[6px]"
         @click="handleClick(item.path)"
       >
-        <img :src="getImageUrl(item.image)" alt="" class="img mr-20" />
-        <div class="flex fc f-ac f-jsb">
+        <img :src="getImageUrl(item.image)" alt="" class="img mr-4" />
+        <div class="flex flex-col items-center justify-between">
           <div class="count">{{ item.counts }}</div>
-          <div class="mt-10 title">{{ item.name }}</div>
+          <div class="title">{{ item.name }}</div>
         </div>
       </div>
     </div>

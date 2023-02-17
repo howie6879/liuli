@@ -96,7 +96,8 @@ router.beforeEach((to, from, next) => {
 
   const hasToken = userStore.getToken;
   // console.log(userStore.getUsername + ' 已登录!');
-  if (hasToken) {
+  //TODO：记得把感叹号去掉
+  if (!hasToken) {
     if (to.path == '/login') {
       // 登录状态下进入登录页面，直接跳转到主页
       next('/');

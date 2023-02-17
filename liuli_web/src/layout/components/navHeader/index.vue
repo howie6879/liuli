@@ -1,14 +1,33 @@
 <template>
-  <div class="flex f-ac f-jsb header pl-10 pr-20">
-    <div @click.stop="handleClick">
-      <el-icon size="30px">
-        <Expand v-if="isCollapse" />
-        <Fold v-else />
-      </el-icon>
+  <div class="flex items-center justify-between header pl-[20px] pr-5">
+    <div @click.stop="handleClick" class="cursor-pointer">
+      <div
+        class="w-[22px] h-[22px] rounded-[4px] bg-[rgb(225,225,225)] relative"
+        v-if="!props.isCollapse"
+      >
+        <div
+          class="absolute w-[7px] h-[7px] border-[2px] border-black border-solid top-[8px] left-[6px] border-t-0 border-l-0 rounded-[1px]"
+          style="transform: rotate(135deg)"
+        ></div>
+        <div
+          class="absolute w-[7px] h-[7px] border-[2px] border-[#00000052] border-solid top-[8px] left-[12px] border-t-0 border-l-0 rounded-[1px]"
+          style="transform: rotate(135deg)"
+        ></div>
+      </div>
+      <div class="w-[22px] h-[22px] rounded-[4px] bg-[rgb(225,225,225)] relative" v-else>
+        <div
+          class="absolute w-[7px] h-[7px] border-[2px] border-black border-solid top-[8px] right-[6px] border-t-0 border-l-0 rounded-[1px]"
+          style="transform: rotate(-45deg)"
+        ></div>
+        <div
+          class="absolute w-[7px] h-[7px] border-[2px] border-[#00000052] border-solid top-[8px] right-[12px] border-t-0 border-l-0 rounded-[1px]"
+          style="transform: rotate(-45deg)"
+        ></div>
+      </div>
     </div>
     <div>
       <el-dropdown ref="setting">
-        <div class="avatar flex f-ac">
+        <div class="avatar flex items-center">
           <el-avatar :src="'/src/assets/images/logo.png'"></el-avatar>
         </div>
         <template #dropdown>
@@ -18,7 +37,15 @@
                 <svg-icon name="svg-setting"></svg-icon>
               </el-icon>
               <router-link to="/log">
-                <span class="drop-menu"> 个人设置 </span>
+                <span class="drop-menu"> 设置 </span>
+              </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <el-icon size="16px">
+                <InfoFilled />
+              </el-icon>
+              <router-link to="/log">
+                <span class="drop-menu"> 关于 </span>
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
@@ -27,7 +54,7 @@
                 <SwitchButton />
               </el-icon>
               <router-link to="/login">
-                <span class="drop-menu" @click="logout"> 退出登陆 </span>
+                <span class="drop-menu" @click="logout"> 退出 </span>
               </router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -70,7 +97,7 @@ function logout() {
 <style scoped lang="scss">
 .header {
   height: 60px;
-
+  background: white;
   .avatar {
     background-color: transparent;
     border: none;
