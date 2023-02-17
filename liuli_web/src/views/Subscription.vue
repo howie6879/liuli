@@ -1,6 +1,6 @@
 <template>
   <div class="app-content bg-white">
-    <div class="flex f-jsb plr-20 pt-20">
+    <div class="flex justify-between px-5 pt-5">
       <div class="ml-20">
         <el-select
           v-model="selectData.doc_source_items"
@@ -16,7 +16,7 @@
           />
         </el-select>
       </div>
-      <div class="mr-20">
+      <div class="mr-5">
         <el-button type="primary" class="el-icon--right" size="default" @click="subSearch">
           搜索<el-icon class="el-icon--right"><Right /></el-icon
         ></el-button>
