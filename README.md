@@ -144,9 +144,6 @@ Loading .env environment variables...
 <a href="https://github.com/gclm"><img src="https://avatars.githubusercontent.com/u/27618687?v=4" title="gclm" width="40" height="40" ></a>
 <a href="https://github.com/showthesunli"><img src="https://avatars.githubusercontent.com/u/3203516?v=4" title="showthesunli" width="40" height="40" ></a>
 <a href="https://github.com/throughs"><img src="https://avatars.githubusercontent.com/u/54225721?v=4" title="throughs" width="40" height="40" ></a>
-<a href="https://github.com/LiuYi0526"><img src="https://avatars.githubusercontent.com/u/50787709?v=4" title="LiuYi0526" width="40" height="40" ></a>
-<a href="https://github.com/blue-troy"><img src="https://avatars.githubusercontent.com/u/12729455?v=4" title="blue-troy" width="40" height="40" ></a>
-<a href="https://github.com/didnhdj2"><img src="https://avatars.githubusercontent.com/u/115675424?v=4" title="didnhdj2" width="40" height="40" ></a>
 
 ## 👉 关于
 

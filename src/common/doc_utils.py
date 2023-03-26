@@ -21,10 +21,10 @@ def get_bak_doc_link(link_source: str, doc_data: dict) -> str:
     doc_name = quote(doc_data["doc_name"])
 
     if link_source == "github":
-        github_domain = Config.LL_GITHUB_LL_DOMAIN
+        github_domain = Config.GITHUB_DOMAIN
         doc_link = f"{github_domain}/{doc_source}/{doc_source_name}/{doc_name}.html"
     elif link_source == "mongodb":
-        domain: str = Config.LL_DOMAIN or f"{get_ip()}:{Config.HTTP_PORT}"
+        domain: str = Config.DOMAIN or f"{get_ip()}:{Config.HTTP_PORT}"
         doc_link = f"{domain}/backup/{doc_source}/{doc_source_name}/{doc_name}"
     else:
         doc_link = doc_data["doc_link"]

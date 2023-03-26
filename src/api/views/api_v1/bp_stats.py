@@ -1,8 +1,9 @@
 """
-    Created by howie.hu at 2023-03-26.
-    Description: 获取所有文档源统计信息
+    Created by howie.hu at 2022-05-23.
+    Description: 统计相关 API
     Changelog: all notable changes to this file will be documented
 """
+
 
 from flask import Blueprint, current_app, request
 
@@ -15,10 +16,14 @@ from src.api.common import (
     response_handle,
 )
 from src.databases import MongodbBase, mongodb_find
+from src.utils import LOGGER
+
+bp_stats = Blueprint("stats", __name__, url_prefix="/stats")
 
 
+@bp_stats.route("/source_list", methods=["POST"], strict_slashes=False)
 @jwt_required()
-def stats_source_list():
+def source_list():
     """获取所有文档源统计信息
     eg:
     {
@@ -28,7 +33,7 @@ def stats_source_list():
         Response: 响应类
     """
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
-    app_logger = current_app.config["app_logger"]
+    app_logger: LOGGER = current_app.config["app_logger"]
     article_coll = mongodb_base.get_collection(coll_name="liuli_articles")
     doc_source_coll = mongodb_base.get_collection(coll_name="liuli_doc_source")
 

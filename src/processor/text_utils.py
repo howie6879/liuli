@@ -35,7 +35,7 @@ def ad_marker(
         basic_filter (dict): {} 查询条件
         is_force (bool): 是否强制重新判决
     """
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.LL_MONGODB_CONFIG)
+    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="liuli_articles")
     if is_force:
         query = {}
@@ -61,7 +61,7 @@ def ad_marker(
             model_name="cos",
             model_path="",
             input_dict={"text": doc_name + doc_keywords, "cos_value": cos_value},
-            # input_dict={"text": doc_name, "cos_value": Config.LL_COS_VALUE},
+            # input_dict={"text": doc_name, "cos_value": Config.COS_VALUE},
         ).to_dict()
         each_data["cos_model"] = cos_model_resp
         if cos_model_resp["result"] == 1:

@@ -32,9 +32,7 @@ def backup_doc(backup_config: dict):
     init_config = backup_config.get("init_config", {})
     after_get_content = backup_config.get("after_get_content", [])
     if backup_list:
-        mongo_base = MongodbManager.get_mongo_base(
-            mongodb_config=Config.LL_MONGODB_CONFIG
-        )
+        mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
         coll = mongo_base.get_collection(coll_name="liuli_articles")
         cur_ts = int(time.time())
         filter_dict = {

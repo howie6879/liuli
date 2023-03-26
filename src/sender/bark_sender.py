@@ -21,7 +21,7 @@ class BarkSender(SenderBase):
 
     def __init__(self, init_config: dict):
         super(BarkSender, self).__init__(send_type="bark", init_config=init_config)
-        bark_url = init_config.get("bark_url", Config.LL_BARK_URL)
+        bark_url = init_config.get("bark_url", Config.BARK_URL)
         self.url = bark_url[:-1] if bark_url.endswith("/") else bark_url
 
     def send(self, send_data) -> bool:
