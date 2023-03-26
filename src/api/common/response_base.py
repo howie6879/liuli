@@ -31,6 +31,7 @@ class ResponseReply:
     GEN_RSS_FAILED = "RSS 生成失败"
     GEN_BACKUP_FAILED = "BACKUP 生成失败"
     GET_DC_EMPTY = "获取不到 doc_source 配置"
+    NOT_READY = "服务尚未准备就绪"
 
     # Success
     SUCCESS = "ok"
@@ -50,6 +51,7 @@ class ResponseCode:
     GEN_RSS_FAILED = 903
     GEN_BACKUP_FAILED = 904
     GET_DC_EMPTY = 905
+    NOT_READY = 906
 
 
 class UniResponse:
@@ -92,6 +94,12 @@ class UniResponse:
         ResponseField.DATA: {},
         ResponseField.MESSAGE: ResponseReply.USER_CHANGE_PWD_ERROR,
         ResponseField.STATUS: ResponseCode.USER_CHANGE_PWD_ERROR,
+    }
+    # 服务尚未准备就绪
+    NOT_READY = {
+        ResponseField.DATA: {},
+        ResponseField.MESSAGE: ResponseReply.NOT_READY,
+        ResponseField.STATUS: ResponseCode.NOT_READY,
     }
 
 

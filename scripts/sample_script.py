@@ -95,7 +95,7 @@ def gen_normal_sample(nums: int = None):
         ads_path = os.path.join(Config.DS_DIR, "clean_ads.csv")
         ads_title_list = load_text_to_list(ads_path)
         nums = len(ads_title_list) - 1
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.LL_MONGODB_CONFIG)
     coll = mongo_base.get_collection(coll_name="liuli_articles")
     query = {"cos_model.result": 0, "doc_source_name": "真没什么逻辑"}
     normal_path = os.path.join(Config.DS_DIR, "normal.csv")
