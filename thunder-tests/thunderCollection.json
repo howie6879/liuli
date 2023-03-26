@@ -32,13 +32,6 @@
         "containerId": "",
         "created": "2023-01-25T06:58:34.723Z",
         "sortNum": 40000
-      },
-      {
-        "_id": "258c0e98-4f4c-4069-aa44-fd25c05b4b07",
-        "name": "utils",
-        "containerId": "",
-        "created": "2023-03-26T15:35:05.772Z",
-        "sortNum": 15000
       }
     ]
   }

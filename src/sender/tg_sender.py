@@ -39,8 +39,8 @@ class TGSender(SenderBase):
         :param init_config:
         """
         super().__init__(send_type="tg", init_config=init_config)
-        self.chat_id = init_config.get("tg_chat_id", Config.LL_TG_CHAT_ID)
-        self.token = init_config.get("tg_token", Config.LL_TG_TOKEN)
+        self.chat_id = init_config.get("tg_chat_id", Config.TG_CHAT_ID)
+        self.token = init_config.get("tg_token", Config.TG_TOKEN)
         self.url = f"https://api.telegram.org/bot{self.token}/sendMessage"
 
     def send(self, send_data) -> bool:

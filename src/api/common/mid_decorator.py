@@ -7,7 +7,7 @@
 
 from functools import wraps
 
-from flask import current_app, request
+from flask import request
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 
 from src.api.common.flask_tools import response_handle
@@ -40,7 +40,6 @@ def jwt_required():
                     dict_value=UniResponse.NOT_AUTHORIZED,
                     status=401,
                 )
-
             return resp
 
         return decorator

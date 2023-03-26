@@ -6,7 +6,8 @@
 
 - 发起HTTP-POST请求请在Header头加上如下字段： 
    - `Content-Type: application/json`
-- 接口完整 URL 为：接入地址/api/接口地址: http://0.0.0.0:8765/api/user/login
+- 当前服务版本为：v1
+- 接口完整 URL 为：接入地址/版本号/接口地址
 
 ## 状态码
 
@@ -130,7 +131,7 @@ POST
         "username": "liuli"
     },
     "info": "OK",
-    "status": 200
+    "status": 0
 }
 ```
 
@@ -494,7 +495,7 @@ POST
 
 - self: 不替换，用本身的 `doc_link`
 - mongodb: 用 liuli api 服务的连接 `{LL_DOMAIN}/backup/{doc_source}/{doc_source_name}/{doc_name}`
--  github: 用 github 仓库地址 `{LL_GITHUB_LL_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html`
+-  github: 用 github 仓库地址 `{LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html`
 
 ### 返回参数
 

@@ -96,22 +96,6 @@ def text_decompress(text) -> str:
     return zlib.decompress(text).decode() if type(text).__name__ == "bytes" else text
 
 
-def read_file(file_path: str) -> list:
-    """
-    读取文本内容
-    Args:
-        file_path (str): 文件路径
-    Returns:
-        list: 每行文件内容组成的列表
-    """
-    try:
-        with open(file_path, encoding="utf-8") as fp:
-            file_list = [_.strip() for _ in fp.readlines()]
-    except Exception as _:
-        file_list = []
-    return file_list
-
-
 def ts_to_str_date(ts: int, ts_format: str = "%Y-%m-%d %H:%M:%S"):
     """
     时间戳转文本时间
