@@ -4,11 +4,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
     "name": "login",
-    "url": "{{local_api}}/v1/user/login",
+    "url": "{{local_api}}/api/user/login",
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-06-29T03:11:15.453Z",
-    "modified": "2022-06-29T03:13:37.159Z",
+    "modified": "2023-03-26T15:11:57.788Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -28,11 +28,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
     "name": "token_valid",
-    "url": "{{local_api}}/v1/user/token_valid",
+    "url": "{{local_api}}/api/user/token_valid",
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-06-29T03:15:06.883Z",
-    "modified": "2023-02-04T16:31:28.041Z",
+    "modified": "2023-03-26T15:10:34.849Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -56,11 +56,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
     "name": "change_pwd",
-    "url": "{{local_api}}/v1/user/change_pwd",
+    "url": "{{local_api}}/api/user/change_pwd",
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-06-29T03:18:43.084Z",
-    "modified": "2022-06-29T03:20:51.780Z",
+    "modified": "2023-03-26T15:14:01.378Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -68,7 +68,7 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NjQ3MjYzMywianRpIjoiZWVhNjJkNWMtZDRlZC00NWE3LWI2NGUtYjAzYjU1MDRlNDEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjU2NDcyNjMzLCJleHAiOjE2NzIwMjQ2MzN9.dxxpvsbS4PXLPzCzyvemynWV4ae2qfh50w9DM7JWFr4"
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTg0MzUxOCwianRpIjoiNjgwNWRiOTgtYmMzYS00OTYyLTljNDUtNWYwOTI0MGFiNDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5ODQzNTE4LCJleHAiOjE2OTUzOTU1MTh9.uU5VreMFbIox-g-PErPGIECEMCoAB_LWshLmzJou6ZA"
       }
     ],
     "params": [],
@@ -84,11 +84,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "c98f2929-09db-49f3-8c86-1ac3e46e27de",
     "name": "source_list",
-    "url": "{{local_api}}/v1/stats/source_list",
+    "url": "{{local_api}}/api/stats/source_list",
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-06-29T03:22:01.818Z",
-    "modified": "2023-01-26T08:02:20.687Z",
+    "modified": "2023-03-26T15:32:26.380Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -112,11 +112,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
     "name": "rss_list",
-    "url": "{{local_api}}/v1/action/rss_list",
+    "url": "{{local_api}}/api/action/rss_list",
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-06-29T03:24:10.769Z",
-    "modified": "2023-01-25T06:12:40.932Z",
+    "modified": "2023-03-26T15:17:56.619Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -140,11 +140,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
     "name": "articles",
-    "url": "{{local_api}}/v1/action/articles",
+    "url": "{{local_api}}/api/action/articles",
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-07-03T12:48:14.189Z",
-    "modified": "2023-02-04T17:22:04.971Z",
+    "modified": "2023-03-26T14:39:13.315Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -167,12 +167,12 @@
     "_id": "ab63c949-1fb8-4a74-9044-2f1957bcf826",
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
-    "name": "rss_gen",
-    "url": "{{local_api}}/v1/action/rss_generate",
+    "name": "gen_rss",
+    "url": "{{local_api}}/api/action/gen_rss",
     "method": "POST",
     "sortNum": 25000,
     "created": "2023-01-25T05:56:42.001Z",
-    "modified": "2023-01-25T06:47:14.403Z",
+    "modified": "2023-03-26T15:22:21.590Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -195,12 +195,12 @@
     "_id": "cb8c467e-2830-4a68-9a4f-c6657157667e",
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "21dcc1ca-b76f-438e-9bf4-56ccb7713f82",
-    "name": "backup_gen",
-    "url": "{{local_api}}/v1/action/backup_generate",
+    "name": "gen_backup",
+    "url": "{{local_api}}/api/action/gen_backup",
     "method": "POST",
     "sortNum": 27500,
     "created": "2023-01-25T06:20:57.322Z",
-    "modified": "2023-01-25T06:32:36.748Z",
+    "modified": "2023-03-26T15:22:01.613Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -224,11 +224,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "95f1c08e-b988-42e9-80bb-343bb3dd34d9",
     "name": "get",
-    "url": "{{local_api}}/v1/doc_source/get",
+    "url": "{{local_api}}/api/doc_source/get",
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-01-25T06:58:39.078Z",
-    "modified": "2023-02-04T18:04:33.692Z",
+    "modified": "2023-03-26T15:28:58.580Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -252,11 +252,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "95f1c08e-b988-42e9-80bb-343bb3dd34d9",
     "name": "update",
-    "url": "{{local_api}}/v1/doc_source/update",
+    "url": "{{local_api}}/api/doc_source/update",
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-01-25T07:12:07.435Z",
-    "modified": "2023-01-30T03:49:56.105Z",
+    "modified": "2023-03-26T15:30:28.051Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -280,11 +280,11 @@
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "95f1c08e-b988-42e9-80bb-343bb3dd34d9",
     "name": "delete",
-    "url": "{{local_api}}/v1/doc_source/delete",
+    "url": "{{local_api}}/api/doc_source/delete",
     "method": "POST",
     "sortNum": 15000,
     "created": "2023-01-25T07:28:17.068Z",
-    "modified": "2023-01-25T07:28:25.091Z",
+    "modified": "2023-03-26T15:27:36.082Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -299,6 +299,62 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"username\": \"liuli\",\n  \"doc_source\": \"liuli_wechat\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "cb4d85a7-f695-465e-a4d8-6c045dd735af",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "258c0e98-4f4c-4069-aa44-fd25c05b4b07",
+    "name": "book_chapter",
+    "url": "{{local_api}}/api/utils/book_chapter",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-03-26T15:35:05.774Z",
+    "modified": "2023-03-26T15:37:49.834Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTg0MzUxOCwianRpIjoiNjgwNWRiOTgtYmMzYS00OTYyLTljNDUtNWYwOTI0MGFiNDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5ODQzNTE4LCJleHAiOjE2OTUzOTU1MTh9.uU5VreMFbIox-g-PErPGIECEMCoAB_LWshLmzJou6ZA"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"url\": \"https://www.yruan.com/article/38563.html\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "2b3cdf53-fe53-4f1e-91fe-9a374fdaf609",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "258c0e98-4f4c-4069-aa44-fd25c05b4b07",
+    "name": "book_content",
+    "url": "{{local_api}}/api/utils/book_content",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-03-26T15:40:09.992Z",
+    "modified": "2023-03-26T15:40:35.659Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTg0MzUxOCwianRpIjoiNjgwNWRiOTgtYmMzYS00OTYyLTljNDUtNWYwOTI0MGFiNDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5ODQzNTE4LCJleHAiOjE2OTUzOTU1MTh9.uU5VreMFbIox-g-PErPGIECEMCoAB_LWshLmzJou6ZA"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"url\": \"https://www.yruan.com/article/38563/4082438.html\"\n}",
       "form": []
     },
     "tests": []
