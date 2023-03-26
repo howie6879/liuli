@@ -28,7 +28,7 @@ def test_mongo_doc():
     """
     测试数据库文本
     """
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.LL_MONGODB_CONFIG)
     # coll = mongo_base.get_collection(coll_name="liuli_articles")
     coll = mongo_base.get_collection(coll_name="liuli_wechat_datasets")
     for each in coll.find({}):

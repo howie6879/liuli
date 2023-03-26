@@ -27,7 +27,7 @@ class BackupBase:
         self.init_config = init_config
         # 初始化数据库
         self.mongo_base: MongodbBase = MongodbManager.get_mongo_base(
-            mongodb_config=Config.MONGODB_CONFIG
+            mongodb_config=Config.LL_MONGODB_CONFIG
         )
         # liuli_send_list 存储所有已经备份过的文章列表
         self.bak_coll = self.mongo_base.get_collection(coll_name="liuli_backup_list")

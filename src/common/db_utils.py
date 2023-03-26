@@ -7,7 +7,7 @@
 from src.config import Config
 from src.databases.mongodb_base import MongodbManager
 
-MONGO_BASE = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+MONGO_BASE = MongodbManager.get_mongo_base(mongodb_config=Config.LL_MONGODB_CONFIG)
 
 
 def get_doc_source_list() -> list:

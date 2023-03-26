@@ -34,7 +34,7 @@ def to_rss(
         link_source (str, optional): 链接返回规则类型，基于备份器，目前支持字段如下:
             - self: 不替换，用本身的 doc_link
             - mongodb: 用 liuli api 服务的连接 {LL_DOMAIN}/backup/{doc_source}/{doc_source_name}/{doc_name}
-            - github: 用 github 仓库地址 {LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
+            - github: 用 github 仓库地址 {LL_GITHUB_LL_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
         skip_ads (bool, optional): 是否直接忽略广告. Defaults to False.
         rss_count (int, optional): 生成rss的文章数量. Defaults to 20.
     """
@@ -48,7 +48,7 @@ def to_rss(
     # 获取 doc_source 下的 doc_source_name 组成的字典
     doc_source_name_dict: dict = get_doc_source_name_dict(doc_source_list)
     # 数据库初始化
-    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+    mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.LL_MONGODB_CONFIG)
     coll_articles_conn = mongo_base.get_collection(
         coll_name="liuli_articles", db_name="liuli"
     )
@@ -98,7 +98,7 @@ def to_rss(
                     fg.author({"name": "Liuli"})
                     fg.generator(
                         generator="Liuli",
-                        version=Config.SCHEDULE_VERSION,
+                        version=Config.VERSION,
                         uri="https://github.com/liuli-io/liuli",
                     )
                     # 再倒序

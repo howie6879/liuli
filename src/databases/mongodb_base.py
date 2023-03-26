@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
     from src.config import Config
 
-    mongo_base = MongodbManager.get_mongo_base(Config.MONGODB_CONFIG)
+    mongo_base = MongodbManager.get_mongo_base(Config.LL_MONGODB_CONFIG)
     coll_conn = mongo_base.get_collection(coll_name="liuli_user")
 
     coll_conn.update_one(
