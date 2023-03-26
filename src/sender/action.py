@@ -28,7 +28,9 @@ def send_doc(sender_conf: dict):
     skip_ads = sender_conf.get("skip_ads", False)
     if sender_list:
         # 是否启用分发器
-        mongo_base = MongodbManager.get_mongo_base(mongodb_config=Config.MONGODB_CONFIG)
+        mongo_base = MongodbManager.get_mongo_base(
+            mongodb_config=Config.LL_MONGODB_CONFIG
+        )
         coll = mongo_base.get_collection(coll_name="liuli_articles")
 
         # 分别分发给各个目标

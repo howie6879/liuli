@@ -21,8 +21,8 @@ class GithubBackup(BackupBase):
         :param init_config:
         """
         super().__init__(backup_type="github", init_config=init_config or {})
-        github_token = init_config.get("github_token", Config.GITHUB_TOKEN)
-        github_repo = init_config.get("github_repo", Config.GITHUB_REPO)
+        github_token = init_config.get("github_token", Config.LL_GITHUB_TOKEN)
+        github_repo = init_config.get("github_repo", Config.LL_GITHUB_REPO)
         g = Github(github_token)
         self.repo = g.get_repo(github_repo)
         # 是否每次更新都强制备份，默认只备份一次

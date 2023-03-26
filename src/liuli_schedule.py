@@ -91,7 +91,9 @@ def run_liuli_schedule(ll_config_name: str = "default"):
 
     name: str = ll_config["name"]
     author: str = ll_config["author"]
-    start_info = f"Schedule({Config.SCHEDULE_VERSION}) task({name}@{author}) started successfully :)"
+    start_info = (
+        f"Schedule({Config.VERSION}) task({name}@{author}) started successfully :)"
+    )
     LOGGER.info(start_info)
     schdule_msg = f"Task({name}@{author}) schedule time:\n " + "\n ".join(
         schdule_time_list
