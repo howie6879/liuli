@@ -48,10 +48,10 @@ class Config:
     LL_HTTP_PORT = 8765
 
     # 可变配置
+    LL_X_TOKEN = os.getenv("LL_X_TOKEN", "hello liuli")
     LL_JWT_SECRET_KEY = os.getenv(
         "LL_JWT_SECRET_KEY", "ll64b3996626a6e5278a13286cfffa98"
     )
-    LL_AUTH_KEY = os.getenv("LL_AUTH_KEY", "123456")
     LL_DOMAIN = os.getenv("LL_DOMAIN", "")
 
     # 数据库配置

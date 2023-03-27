@@ -312,7 +312,7 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-03-26T15:35:05.774Z",
-    "modified": "2023-03-26T15:37:49.834Z",
+    "modified": "2023-03-27T13:16:13.369Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -320,7 +320,7 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTg0MzUxOCwianRpIjoiNjgwNWRiOTgtYmMzYS00OTYyLTljNDUtNWYwOTI0MGFiNDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5ODQzNTE4LCJleHAiOjE2OTUzOTU1MTh9.uU5VreMFbIox-g-PErPGIECEMCoAB_LWshLmzJou6ZA"
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
       }
     ],
     "params": [],
@@ -340,7 +340,7 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-26T15:40:09.992Z",
-    "modified": "2023-03-26T15:40:35.659Z",
+    "modified": "2023-03-27T13:17:16.599Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -348,13 +348,285 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTg0MzUxOCwianRpIjoiNjgwNWRiOTgtYmMzYS00OTYyLTljNDUtNWYwOTI0MGFiNDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5ODQzNTE4LCJleHAiOjE2OTUzOTU1MTh9.uU5VreMFbIox-g-PErPGIECEMCoAB_LWshLmzJou6ZA"
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
       }
     ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"url\": \"https://www.yruan.com/article/38563/4082438.html\"\n}",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"url\": \"https://www.yruan.com/article/38563/4082440.html\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "4c95f814-824d-4826-907f-ec43373ab73e",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "update",
+    "url": "{{local_api}}/api/bm/update",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-03-27T08:11:50.977Z",
+    "modified": "2023-03-27T15:42:27.216Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"url\": \"https://github.com/howie6879/liuli\",\n  \"tags\": [\n    \"1\",\n    \"2\"\n  ],\n  \"title\": \"title\",\n  \"des\": \"des\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "4f1319cf-d072-4721-b48c-e8348c57ec11",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "search",
+    "url": "{{local_api}}/api/bm/search",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-03-27T09:49:29.869Z",
+    "modified": "2023-03-27T15:27:30.091Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkwNTIzNywianRpIjoiZDkxODk1MGQtZjYzZC00ZDAwLWIwNDEtNTk3YTE4NmY5ZjYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTA1MjM3LCJleHAiOjE2OTU0NTcyMzd9.Bns215J1jTwb70g0lEpK5jzO0rjmP7nAheiNEcrdUzg"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"url\": \"liuli3\",\n  \"page\": 1,\n  \"page_size\": 2\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c9d2c130-decf-4984-827b-5381ba4a8cf9",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "search_url",
+    "url": "{{local_api}}/api/bm/search_url",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-03-27T15:23:11.018Z",
+    "modified": "2023-03-27T15:23:39.110Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkwNTIzNywianRpIjoiZDkxODk1MGQtZjYzZC00ZDAwLWIwNDEtNTk3YTE4NmY5ZjYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTA1MjM3LCJleHAiOjE2OTU0NTcyMzd9.Bns215J1jTwb70g0lEpK5jzO0rjmP7nAheiNEcrdUzg"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"url\": \"https://github.com/howie6879/liuli\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "3093106a-b2cb-4bae-af35-6459b4b46b8e",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "delete_url",
+    "url": "{{local_api}}/api/bm/delete_url",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-03-27T15:30:17.609Z",
+    "modified": "2023-03-27T15:42:09.070Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkwNTIzNywianRpIjoiZDkxODk1MGQtZjYzZC00ZDAwLWIwNDEtNTk3YTE4NmY5ZjYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTA1MjM3LCJleHAiOjE2OTU0NTcyMzd9.Bns215J1jTwb70g0lEpK5jzO0rjmP7nAheiNEcrdUzg"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"url_list\": [\n    \"https://github.com/howie6879/liuli\",\n    \"https://github.com/howie6879/liuli3\"\n  ]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "3d590580-ef81-41af-a5bc-eba12e060e7a",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "status",
+    "url": "{{local_api}}/api/bm/status",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2023-03-27T15:34:48.772Z",
+    "modified": "2023-03-27T15:37:04.855Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkwNTIzNywianRpIjoiZDkxODk1MGQtZjYzZC00ZDAwLWIwNDEtNTk3YTE4NmY5ZjYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTA1MjM3LCJleHAiOjE2OTU0NTcyMzd9.Bns215J1jTwb70g0lEpK5jzO0rjmP7nAheiNEcrdUzg"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "0a022002-53e0-436d-92e0-e09420f484fb",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "97ee275d-e672-422e-a0d3-37dd1e9cb03c",
+    "name": "get_tag_list",
+    "url": "{{local_api}}/api/bm/get_tag_list",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2023-03-27T15:47:34.700Z",
+    "modified": "2023-03-27T15:50:28.195Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkwNTIzNywianRpIjoiZDkxODk1MGQtZjYzZC00ZDAwLWIwNDEtNTk3YTE4NmY5ZjYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTA1MjM3LCJleHAiOjE2OTU0NTcyMzd9.Bns215J1jTwb70g0lEpK5jzO0rjmP7nAheiNEcrdUzg"
+      },
+      {
+        "name": "L-X-Token",
+        "value": "2f09a22a4c65dd7fe00ea3af4f290c1f"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"tag\": \"\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b0ff7055-b186-48c5-84d3-36537804260c",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
+    "name": "get_config",
+    "url": "{{local_api}}/api/user/get_config",
+    "method": "POST",
+    "sortNum": 25000,
+    "created": "2023-03-27T15:55:44.671Z",
+    "modified": "2023-03-27T15:56:41.804Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b9e22020-458e-48cd-9710-232b724c9df1",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
+    "name": "update_config",
+    "url": "{{local_api}}/api/user/update_config",
+    "method": "POST",
+    "sortNum": 27500,
+    "created": "2023-03-27T16:04:33.899Z",
+    "modified": "2023-03-27T16:07:15.624Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"_id\": \"64215cca554b6d873380103a\",\n  \"data\": {\n    \"LL_HELLO\": \"3\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "511adb87-915d-4ab3-bcd5-731ca715a817",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
+    "name": "delete_config",
+    "url": "{{local_api}}/api/user/delete_config",
+    "method": "POST",
+    "sortNum": 28750,
+    "created": "2023-03-27T16:14:27.522Z",
+    "modified": "2023-03-27T16:15:30.708Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"_id\": \"64215cca554b6d873380103a\",\n  \"config_key\": [\n    \"LL_DEMO\",\n    \"LL_HELLO\"\n  ]\n}",
       "form": []
     },
     "tests": []

@@ -12,7 +12,8 @@ from flask_jwt_extended import JWTManager
 
 from src.api.views import bp_api, bp_backup, bp_rss
 from src.config import API_LOGGER, Config, init_db_config
-from src.databases import MongodbManager
+from src.databases import MongodbManager, mongodb_find, mongodb_update_data
+from src.utils import gen_random_str, md5_encryption
 
 
 def init_liuli_app(flask_app: Flask) -> Flask:
@@ -28,12 +29,35 @@ def init_liuli_app(flask_app: Flask) -> Flask:
         mongodb_base = MongodbManager.get_mongo_base(
             mongodb_config=Config.LL_MONGODB_CONFIG
         )
-        flask_app.config["mongodb_base"] = mongodb_base
-        # 配置全局状态
-        flask_app.config["app_config"] = Config
-        flask_app.config["app_logger"] = API_LOGGER
+        # 验证数据库可用性
+        coll = mongodb_base.get_collection(coll_name="liuli_config")
+        db_res = mongodb_find(coll, {}, {})
+        if db_res["status"]:
+            config_data = db_res["info"][0] if db_res["info"] else {}
+            # 判断必要key是否存在
+            for each in ["LL_X_TOKEN", "LL_JWT_SECRET_KEY"]:
+                if not config_data.get(each, ""):
+                    config_data[each] = md5_encryption(gen_random_str(32))
+                    API_LOGGER.info(f"HTTP 配置 {each} 初始化成功")
+            # 数据唯一标识
+            config_flag = config_data.get("config_flag", "liuli")
+            update_db_res = mongodb_update_data(
+                coll, {"config_flag": config_flag}, {"$set": config_data}
+            )
 
-        return flask_app
+            if update_db_res["status"]:
+                # 初始化成功
+                Config.set_config(config_data)
+                flask_app.config["mongodb_base"] = mongodb_base
+                # 配置全局状态
+                flask_app.config["app_config"] = Config
+                flask_app.config["app_logger"] = API_LOGGER
+                return flask_app
+
+        else:
+            API_LOGGER.info(
+                f"Detected that mongodb is connect failed! {db_res['status']}"
+            )
 
     API_LOGGER.info("Detected that mongodb is not configured!")
     exit()

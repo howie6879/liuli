@@ -6,6 +6,7 @@
 """
 from .log import LOGGER
 from .tools import (
+    gen_random_str,
     get_ip,
     is_contain_text,
     load_text_to_list,

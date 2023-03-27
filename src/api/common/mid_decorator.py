@@ -12,6 +12,7 @@ from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 
 from src.api.common.flask_tools import response_handle
 from src.api.common.response_base import UniResponse
+from src.config import Config
 
 
 def jwt_required():
@@ -21,28 +22,38 @@ def jwt_required():
         @wraps(fn)
         def decorator(*args, **kwargs):
             if request.method == "POST":
-                post_data: dict = request.json
-                username = post_data.get("username")
-                # 返回 401 就是验证错误
-                verify_jwt_in_request()
-
-                if get_jwt_identity() == username:
-                    resp = fn(*args, **kwargs)
+                # 判断是否是浏览器访问
+                if "L-X-Token" in request.headers.keys():
+                    ll_x_token = request.headers["L-X-Token"]
+                    if ll_x_token == Config.LL_X_TOKEN:
+                        resp = fn(*args, **kwargs)
+                    else:
+                        resp = return_401()
                 else:
-                    resp = response_handle(
-                        request=request,
-                        dict_value=UniResponse.NOT_AUTHORIZED,
-                        status=401,
-                    )
-            else:
-                resp = response_handle(
-                    request=request,
-                    dict_value=UniResponse.NOT_AUTHORIZED,
-                    status=401,
-                )
+                    post_data: dict = request.json
+                    username = post_data.get("username")
+                    # 返回 401 就是验证错误
+                    verify_jwt_in_request()
 
+                    if get_jwt_identity() == username:
+                        resp = fn(*args, **kwargs)
+                    else:
+                        resp = return_401()
+            else:
+                resp = return_401()
             return resp
 
         return decorator
 
     return wrapper
+
+
+def return_401():
+    """
+    返回401
+    """
+    return response_handle(
+        request=request,
+        dict_value=UniResponse.NOT_AUTHORIZED,
+        status=401,
+    )
