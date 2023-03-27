@@ -4,10 +4,22 @@
     Changelog: all notable changes to this file will be documented
 """
 import hashlib
+import random
 import re
 import socket
+import string
 import time
 import zlib
+
+
+def gen_random_str(length) -> str:
+    """
+    生成随机位数字符串
+    Returns:
+        str: 字符串
+    """
+    letters = string.ascii_lowercase + string.digits
+    return "".join(random.choice(letters) for _ in range(length))
 
 
 def get_ip():
@@ -127,3 +139,4 @@ if __name__ == "__main__":
     print(string_camelcase("github_backup"))
     print(get_ip())
     print(ts_to_str_date(time.time()))
+    print(gen_random_str(32))
