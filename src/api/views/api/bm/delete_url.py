@@ -20,7 +20,7 @@ from src.databases import MongodbBase, mongodb_delete_many_data
 @jwt_required()
 def bm_delete_url():
     """
-    删除浏览器书签 url
+    删除浏览器书签
     eg:
     {
         "url_list": ["https://github.com/howie6879/liuli"]
