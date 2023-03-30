@@ -6,7 +6,14 @@
 
 from flask import request
 
-from src.api.common import ResponseField, UniResponse, jwt_required, response_handle
+from src.api.common import (
+    ResponseCode,
+    ResponseField,
+    ResponseReply,
+    UniResponse,
+    jwt_required,
+    response_handle,
+)
 from src.common.remote import get_html_by_requests
 from src.config import Config
 from src.processor.text_utils import extract_core_html
@@ -30,11 +37,15 @@ def utils_book_content():
         # 章节链接必须存在
         resp_text = get_html_by_requests(url, headers={"User-Agent": Config.SPIDER_UA})
         _, core_html = extract_core_html(resp_text)
+        result = {
+            ResponseField.DATA: {
+                "url": url,
+                "core_html": core_html,
+            },
+            ResponseField.MESSAGE: ResponseReply.SUCCESS,
+            ResponseField.STATUS: ResponseCode.SUCCESS,
+        }
     else:
         result = UniResponse.PARAM_ERR
 
-    result[ResponseField.DATA] = {
-        "url": url,
-        "core_html": core_html,
-    }
     return response_handle(request=request, dict_value=result)
