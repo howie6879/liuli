@@ -1,12 +1,18 @@
 <template>
-  <router-view></router-view>
+  <el-config-provider :locale="locale">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
-<script>
+<script setup lang="ts">
 import './style/common.scss';
 import './style/global.scss';
-export default {
-  name: 'App'
-};
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
+import { ElConfigProvider } from 'element-plus';
+import en from 'element-plus/lib/locale/lang/en';
+
+const locale = zhCn;
+
 </script>
-<style></style>
+
+<style scoped lang="scss"></style>

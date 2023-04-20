@@ -1,11 +1,8 @@
 <template>
   <div class="app-content">
     <div class="flex justify-between">
-      <div
-        v-for="(item, index) in statData.stats"
-        class="flex card items-center justify-between py-[10px] px-10 mr-[6px]"
-        @click="handleClick(item.path)"
-      >
+      <div v-for="(item, index) in statData.stats" class="flex card items-center justify-between py-[10px] px-10 mr-[6px]"
+        @click="handleClick(item.path)">
         <img :src="getImageUrl(item.image)" alt="" class="img mr-4" />
         <div class="flex flex-col items-center justify-between">
           <div class="count">{{ item.counts }}</div>
@@ -34,12 +31,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useUserStore } from '../store/user';
-import { userApi } from '../api/index';
-import { ElMessage } from 'element-plus';
+import { UserStore } from '../store/user';
+import { statsApi } from '@/api';
+import { ElNotification } from 'element-plus';
 import { useRouter } from 'vue-router';
+
+const userStore = UserStore();
+
 
 const collapsed = ref(false);
 const title = ref('首页概览');
@@ -73,67 +73,60 @@ const statData = ref({
   ]
 });
 
-function menuStatus(value) {
+function menuStatus(value: boolean) {
   // 获取导航栏传递过来的状态值
   collapsed.value = value;
 }
 
-const getImageUrl = (name) => {
+const getImageUrl = (name: string) => {
   return new URL(name, import.meta.url).href;
 };
 
 const $router = useRouter();
-function handleClick(path) {
+function handleClick(path: any) {
   $router.push({ path });
 }
 
-onMounted(() => {
-  const userStore = useUserStore();
-
-  userApi
-    .getStats({
-      username: userStore.getUsername
-    })
-    .then((res) => {
-      if (res.status == 200) {
-        console.log(res);
-        // 有结果表示正常请求
-        statData.value.doc_counts = res.data.doc_counts;
-        statData.value.doc_source_counts = res.data.doc_source_counts;
-        statData.value.stats = [
-          {
-            path: '/subscription',
-            counts: res.data.doc_counts,
-            name: '订阅数',
-            image: '/src/assets/images/home/subscription.svg'
-          },
-          {
-            path: '/favorite',
-            counts: 0,
-            name: '收藏数',
-            image: '/src/assets/images/home/favorite.svg'
-          },
-          {
-            path: '/bookmark',
-            counts: 0,
-            name: '书签数',
-            image: '/src/assets/images/home/page.svg'
-          },
-          {
-            path: '/doc_source',
-            counts: res.data.doc_source_counts,
-            name: '订阅源',
-            image: '/src/assets/images/home/doc_source.svg'
-          }
-        ];
-      } else {
-        const msg = res.info ? res.info : '服务器超时';
-        ElMessage({
-          message: msg,
-          type: 'error'
-        });
+onMounted(async () => {
+  const res = await statsApi.getStats({ username: userStore.username })
+  if (res.status == 200) {
+    console.log(res);
+    // 有结果表示正常请求
+    statData.value.stats = [
+      {
+        path: '/subscription',
+        counts: res.data.doc_counts,
+        name: '订阅数',
+        image: '/src/assets/images/home/subscription.svg'
+      },
+      {
+        path: '/favorite',
+        counts: 0,
+        name: '收藏数',
+        image: '/src/assets/images/home/favorite.svg'
+      },
+      {
+        path: '/bookmark',
+        counts: 0,
+        name: '书签数',
+        image: '/src/assets/images/home/page.svg'
+      },
+      {
+        path: '/doc_source',
+        counts: res.data.doc_source_counts,
+        name: '订阅源',
+        image: '/src/assets/images/home/doc_source.svg'
       }
+    ];
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      type: 'error',
+      message: msg,
+      duration: 2000,
     });
+
+  }
 });
 </script>
 
@@ -153,17 +146,20 @@ onMounted(() => {
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
+
 .title {
   color: rgb(0 0 0 / 61%);
   font-weight: 500;
   font-size: 16px;
 }
+
 .count {
   font-size: 20px;
   font-weight: 700;
   color: #666;
   text-align: center;
 }
+
 .img {
   filter: drop-shadow(10000px 0 0 #434141);
   transform: translate(-10000px);

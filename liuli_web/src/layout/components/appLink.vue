@@ -4,7 +4,7 @@
   </component>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { isExternal as checkIsisExternal } from '@/utils';
 import { computed } from 'vue';
 
@@ -25,7 +25,7 @@ const type = computed(() => {
 });
 
 // 根据传入的url决定渲染哪种组件
-function linkProps(to) {
+function linkProps(to: any) {
   if (isExternal.value) {
     return {
       href: to,
