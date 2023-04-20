@@ -1,28 +1,21 @@
 <template>
   <div class="flex items-center justify-between header pl-[20px] pr-5">
     <div @click.stop="handleClick" class="cursor-pointer">
-      <div
-        class="w-[22px] h-[22px] rounded-[4px] bg-[rgb(225,225,225)] relative"
-        v-if="!props.isCollapse"
-      >
+      <div class="w-[22px] h-[22px] rounded-[4px] bg-[rgb(225,225,225)] relative" v-if="!props.isCollapse">
         <div
           class="absolute w-[7px] h-[7px] border-[2px] border-black border-solid top-[8px] left-[6px] border-t-0 border-l-0 rounded-[1px]"
-          style="transform: rotate(135deg)"
-        ></div>
+          style="transform: rotate(135deg)"></div>
         <div
           class="absolute w-[7px] h-[7px] border-[2px] border-[#00000052] border-solid top-[8px] left-[12px] border-t-0 border-l-0 rounded-[1px]"
-          style="transform: rotate(135deg)"
-        ></div>
+          style="transform: rotate(135deg)"></div>
       </div>
       <div class="w-[22px] h-[22px] rounded-[4px] bg-[rgb(225,225,225)] relative" v-else>
         <div
           class="absolute w-[7px] h-[7px] border-[2px] border-black border-solid top-[8px] right-[6px] border-t-0 border-l-0 rounded-[1px]"
-          style="transform: rotate(-45deg)"
-        ></div>
+          style="transform: rotate(-45deg)"></div>
         <div
           class="absolute w-[7px] h-[7px] border-[2px] border-[#00000052] border-solid top-[8px] right-[12px] border-t-0 border-l-0 rounded-[1px]"
-          style="transform: rotate(-45deg)"
-        ></div>
+          style="transform: rotate(-45deg)"></div>
       </div>
     </div>
     <div>
@@ -34,7 +27,7 @@
           <el-dropdown-menu>
             <el-dropdown-item>
               <el-icon size="16px">
-                <svg-icon name="svg-setting"></svg-icon>
+                <svg-icon name="svg-setting" prefix="icon"></svg-icon>
               </el-icon>
               <router-link to="/log">
                 <span class="drop-menu"> 设置 </span>
@@ -64,9 +57,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from '@vue/reactivity';
-import { useUserStore } from '@/store/user';
+import { UserStore } from '@/store/user';
 
 const emits = defineEmits(['foldChange']);
 const props = defineProps({
@@ -75,22 +68,20 @@ const props = defineProps({
     default: false
   }
 });
+const userStore = UserStore();
 
 function handleClick() {
   emits('foldChange');
 }
 
-const setting = ref(null);
+const setting = ref();
 
 function handleClickPic() {
   setting.value.handleOpen();
 }
 
-const userStore = useUserStore();
 function logout() {
-  userStore.logout().then((res) => {
-    window.location.href = '/login';
-  });
+  userStore.logout()
 }
 </script>
 
@@ -98,6 +89,7 @@ function logout() {
 .header {
   height: 60px;
   background: white;
+
   .avatar {
     background-color: transparent;
     border: none;

@@ -1,9 +1,9 @@
-import { setItem, getItem, removeItem } from '../utils/storage';
+import { setItem, getItem, removeItem } from './storage';
 
-const TokenKey = 'liuli-auth-token';
+const TokenKey = 'liuli-user-store-id';
 const tokenTimeoutValue = 90 * 24 * 3600 * 1000;
 
-export function isTokenTimeout(timeStamp) {
+export function isTokenTimeout(timeStamp:any) {
   // 判断是否超时
   const currentTime = Date.now();
   return currentTime - timeStamp > tokenTimeoutValue;
@@ -19,10 +19,11 @@ export function getLiuliToken() {
     isTimeout = isTokenTimeout(tokenData.timeStamp);
   }
   // 超时重置，未超时继续使用
-  return isTimeout ? { token: '', timeStamp: 0, username: '' } : tokenData;
+  // return isTimeout ? { token: '', timeStamp: 0, username: '' } : tokenData;
+  return tokenData
 }
 
-export function setLiuliToken(tokenData) {
+export function setLiuliToken(tokenData:any) {
   return setItem(TokenKey, tokenData);
 }
 

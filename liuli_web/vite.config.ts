@@ -22,7 +22,7 @@ export default defineConfig({
        * 自定义插入位置
        * @default: body-last
        */
-      inject: 'body-last' | 'body-first',
+      inject: 'body-last',
 
       /**
        * custom dom id
@@ -31,7 +31,28 @@ export default defineConfig({
       customDomId: '__svg__icons__dom__',
     }),
   ],
-  
+  build: {
+      brotliSize: false,
+      // 消除打包大小超过500kb警告
+      chunkSizeWarningLimit: 2000,
+      minify: 'terser',
+      // 在生产环境移除console.log
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      assetsDir: 'static/assets',
+      // 静态资源打包到dist下的不同目录
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        },
+      },
+    },
   resolve: {
     // 配置路径别名
     alias: {
@@ -40,15 +61,24 @@ export default defineConfig({
     // 导入简化后缀名
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
+    css: {
+      preprocessorOptions: {
+        // 全局引入了 scss 的文件
+        scss: {
+          javascriptEnabled: true,
+        },
+      },
+    },
   server: {
-    host: '0.0.0.0',
+    host: true,
     port: 8080,
     open: false,
     https: false,
     proxy: {
-      '/v1': {
-        target: 'http://0.0.0.0:8765/',
-        changeOrigin: true
+      '/api': {
+        target: 'http://192.168.1.50:8765',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace('/api', ''),
       }
     }
   }

@@ -2,24 +2,16 @@
   <div class="app-content bg-white">
     <div class="flex justify-between px-5 pt-5">
       <div class="ml-20">
-        <el-select
-          v-model="selectData.doc_source_items"
-          placeholder="选择订阅源"
-          size="default"
-          @change="onDocSourceSelect"
-        >
-          <el-option
-            v-for="item in selectData.doc_source_options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+        <el-select v-model="selectData.doc_source_items" placeholder="选择订阅源" size="default" @change="onDocSourceSelect">
+          <el-option v-for="item in selectData.doc_source_options" :key="item.value" :label="item.label"
+            :value="item.value" />
         </el-select>
       </div>
       <div class="mr-5">
         <el-button type="primary" class="el-icon--right" size="default" @click="subSearch">
-          搜索<el-icon class="el-icon--right"><Right /></el-icon
-        ></el-button>
+          搜索<el-icon class="el-icon--right">
+            <Right />
+          </el-icon></el-button>
       </div>
     </div>
     <!-- <main class="main-content">
@@ -54,11 +46,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useUserStore } from '../store/user';
-import { userApi } from '../api/index';
-import { ElMessage } from 'element-plus';
+import { UserStore, useUserStore } from '@/store/user';
+import { userApi } from '@/api';
+import { ElNotification } from 'element-plus';
 import { Right } from '@element-plus/icons-vue';
 // import { MultiSelect } from 'vue-search-select';
 // import 'vue-search-select/dist/VueSearchSelect.css';
@@ -74,12 +66,12 @@ const selectData = ref({
 
 console.log(selectData.value.doc_source_options);
 
-function onDocSourceSelect(items, lastSelectItem) {
+function onDocSourceSelect(items: never[], lastSelectItem: any) {
   selectData.value.doc_source_items = items;
   console.log(selectData.value.doc_source_items);
 }
 
-function menuStatus(value) {
+function menuStatus(value: boolean) {
   // 获取导航栏传递过来的状态值
   collapsed.value = value;
 }
@@ -89,32 +81,33 @@ function subSearch() {
 }
 
 onMounted(() => {
-  const userStore = useUserStore();
-  userApi
-    .getStats({
-      username: userStore.getUsername
-    })
-    .then((res) => {
-      if (res.status == 200) {
-        console.log(res);
-        // 有结果表示正常请求
-        // 开始处理数据
-        for (var key in res.data.doc_source_stats_dict) {
-          // 生成订阅源 select 数据
-          selectData.value.doc_source_options.push({
-            value: key,
-            text: res.data.doc_source_stats_dict[key].doc_source_alias_name
-          });
-        }
-        selectData.value.doc_source_items = selectData.value.doc_source_options;
-      } else {
-        const msg = res.info ? res.info : '服务器超时';
-        ElMessage({
-          message: msg,
-          type: 'error'
-        });
-      }
-    });
+  const userStore = UserStore();
+  // userApi
+  //   .getStats({
+  //     username: userStore.username
+  //   })
+  //   .then((res) => {
+  //     if (res.status == 200) {
+  //       console.log(res);
+  //       // 有结果表示正常请求
+  //       // 开始处理数据
+  //       for (var key in res.data.doc_source_stats_dict) {
+  //         // 生成订阅源 select 数据
+  //         selectData.value.doc_source_options.push({
+  //           value: key,
+  //           text: res.data.doc_source_stats_dict[key].doc_source_alias_name
+  //         });
+  //       }
+  //       selectData.value.doc_source_items = selectData.value.doc_source_options;
+  //     } else {
+  //       const msg = res.info ? res.info : '服务器超时';
+  //       ElNotification({
+  //         message: msg,
+  //         type: 'error',
+  //         duration: 2000
+  //       });
+  //     }
+  //   });
 });
 </script>
 
@@ -125,16 +118,17 @@ onMounted(() => {
   height: 1.5rem;
   width: 300px !important;
 }
+
 input:not([type='checkbox'], [type='radio'], [type='range']) {
   height: auto;
 }
 
-.ui.multiple.search.dropdown > .text {
+.ui.multiple.search.dropdown>.text {
   font-size: 15px;
   /* margin-top: 0.6em; */
 }
 
-.ui.multiple.dropdown > .label {
+.ui.multiple.dropdown>.label {
   /* margin-top: 0.35em; */
   color: rgb(255, 255, 255);
   background-color: #b9b9b9;

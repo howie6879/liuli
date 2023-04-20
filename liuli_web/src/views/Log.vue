@@ -4,12 +4,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 const title = ref('日志管理');
 </script>
 
-<style>
-
-</style>
+<style></style>
