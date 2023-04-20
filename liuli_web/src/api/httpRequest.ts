@@ -1,19 +1,19 @@
-import axios from 'axios';
-import { getLiuliToken, removeLiuliToken } from './auth';
-import { ElMessage } from 'element-plus';
-const http = axios.create({
-  baseURL: '/v1',
+import axios, { AxiosInstance } from 'axios';
+import { ElNotification } from 'element-plus';
+import { UserStore } from '@/store/user';
+const axiosInstance: AxiosInstance = axios.create({
+  baseURL: '/api',
   timeout: 3000
 });
 
-http.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   // 请求拦截器
   (config) => {
     // 注入token
-    const local_token = getLiuliToken().token;
-    if (local_token) {
+    const uerStore = UserStore(); 
+    if (uerStore.token) {
       // 如果token存在 注入token
-      config.headers.Authorization = `Bearer ${local_token}`;
+      config.headers!.Authorization = `Bearer ${uerStore.token}`;
     }
     // console.log(config);
     return config;
@@ -23,7 +23,7 @@ http.interceptors.request.use(
   }
 );
 
-http.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   // 响应拦截器
   (response) => {
     // 此处 status 表示 http 请求状态码 200
@@ -44,6 +44,7 @@ http.interceptors.response.use(
     // if (error.response && error.response.data && error.response.data.status === 401) {
     //     store.logout();
     // }
+    const uerStore = UserStore(); 
 
     if (typeof error.response == 'undefined') {
       // 超时无响应
@@ -57,16 +58,25 @@ http.interceptors.response.use(
 
     if (error.response.status == 422 || error.response.status == 401) {
       // token 被篡改，格式错误
-      ElMessage({
+      tification({
         message: error.response.data.msg,
-        type: 'error'
+        type: 'error',
+        duration:2000
       });
-      removeLiuliToken();
-      setTimeout("window.location.href = '/login'", 3000);
+      setTimeout(()=> uerStore.logout(), 3000);
     }
-
     return Promise.reject(error);
   }
 );
 
-export default http;
+const Request = {
+  post<T = any>(url: string, data: object = {}): Promise<T> {
+    try {
+      return axiosInstance.post(url, data);
+    } catch (error) {
+      throw Error('请求失败');
+    }
+  },
+};
+
+export default Request;

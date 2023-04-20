@@ -1,16 +1,9 @@
 <template>
-  <sidebar-menu
-    :menu="sideBarConfig.menu"
-    @update:collapsed="onToggleCollapse"
-    :theme="sideBarConfig.theme"
-    :width="sideBarConfig.width"
-    :hideToggle="sideBarConfig.hideToggle"
-    :relative="false"
-    :disableHover="true"
-  />
+  <sidebar-menu :menu="sideBarConfig.menu" @update:collapsed="onToggleCollapse" :theme="sideBarConfig.theme"
+    :width="sideBarConfig.width" :hideToggle="sideBarConfig.hideToggle" :relative="false" :disableHover="true" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { SidebarMenu } from 'vue-sidebar-menu';
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
 import '@fortawesome/fontawesome-free/css/all.css';
