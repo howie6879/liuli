@@ -23,10 +23,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { provide, ref } from 'vue';
-import navHeader from './components/navHeader';
-import navMenu from './components/navMenu';
+import navHeader from "./components/navHeader/index.vue"
+import navMenu from './components/navMenu/index.vue';
 const isCollapse = ref(false);
 provide('isCollapse', isCollapse);
 function foldChange() {
@@ -36,14 +36,17 @@ function foldChange() {
 <style scoped lang="scss">
 .main {
   min-height: 100vh;
+
   .el-aside {
     transition: all 0.4s ease-in-out;
   }
+
   .page-content {
     padding: 0;
     min-width: 1080px;
     height: auto;
     overflow: auto;
+
     &-main {
       padding: 20px;
     }
