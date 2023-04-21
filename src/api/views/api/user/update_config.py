@@ -25,7 +25,6 @@ def user_update_config():
     eg:
     {
         "username": "liuli",
-        "_id": "64215cca554b6d873380103a",
         "data": {
             "LL_DEMO": "3"
         }
@@ -37,12 +36,12 @@ def user_update_config():
     coll = mongodb_base.get_collection(coll_name="liuli_config")
     # 获取基础数据
     post_data: dict = request.json
-    _id = post_data["_id"]
     config_data = post_data.get("data", {})
+    username = post_data["username"]
 
     db_res: dict = mongodb_update_data(
         coll_conn=coll,
-        filter_dict={"_id": ObjectId(_id)},
+        filter_dict={"config_flag": username},
         update_data={"$set": config_data},
     )
 

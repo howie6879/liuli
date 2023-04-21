@@ -49,19 +49,19 @@ def bm_search():
     )
     page_size = post_data.get("page_size", 1)
 
-    if url or tags or title or des:
-        filter_dict = {"$or": []}
+    filter_dict = {}
 
+    if tags:
+        filter_dict["tags"] = {"$elemMatch": {"$in": tags}}
+
+    if url or title or des:
+        filter_dict = {"$or": []}
         if url:
             filter_dict["$or"].append({"url": {"$regex": url, "$options": "$i"}})
-        if tags:
-            filter_dict["tags"] = {"$elemMatch": {"$in": tags}}
         if title:
             filter_dict["$or"].append({"title": {"$regex": title, "$options": "$i"}})
         if des:
             filter_dict["$or"].append({"des": {"$regex": des, "$options": "$i"}})
-    else:
-        filter_dict = {}
 
     result = UniResponse.SUCCESS
 

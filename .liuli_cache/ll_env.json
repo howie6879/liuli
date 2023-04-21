@@ -1,0 +1,10 @@
+{
+  "mongodb": {
+    "username": "liuli",
+    "password": "liuli",
+    "host": "127.0.0.1",
+    "port": 27027,
+    "db": "admin",
+    "op_db": "liuli"
+  }
+}

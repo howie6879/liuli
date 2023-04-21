@@ -44,7 +44,7 @@ def bm_update():
     title = post_data.get("title", "")
     des = post_data.get("des", "")
 
-    if url:
+    if url and tags:
         result = UniResponse.SUCCESS
         # 更新标签
         db_op_list = []
@@ -89,8 +89,8 @@ def bm_update():
     else:
         result = result = {
             ResponseField.DATA: {},
-            ResponseField.MESSAGE: ResponseReply.BM_URL_IS_EMPTY,
-            ResponseField.STATUS: ResponseCode.BM_URL_IS_EMPTY,
+            ResponseField.MESSAGE: ResponseReply.BM_URL_TAG_IS_EMPTY,
+            ResponseField.STATUS: ResponseCode.BM_URL_TAG_IS_EMPTY,
         }
 
     return response_handle(request=request, dict_value=result)

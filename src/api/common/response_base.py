@@ -26,7 +26,8 @@ class ResponseReply:
     PARAM_PARSE_ERR = "参数解析错误!"
     UNKNOWN_ERR = "未知错误"
 
-    BM_URL_IS_EMPTY = "书签链接为空"
+    BM_URL_IS_EMPTY = "书签URL为空"
+    BM_URL_TAG_IS_EMPTY = "书签URL&Tag为空"
     USER_LOGIN_ERROR = "用户登录失败"
     USER_CHANGE_PWD_ERROR = "用户修改密码失败"
     NOT_AUTHORIZED = "验证未通过"
@@ -49,6 +50,7 @@ class ResponseCode:
     NOT_AUTHORIZED = 401
     SERVER_ERR = 500
     BM_URL_IS_EMPTY = 800
+    BM_URL_TAG_IS_EMPTY = 801
     USER_LOGIN_ERROR = 901
     USER_CHANGE_PWD_ERROR = 902
     GEN_RSS_FAILED = 903
