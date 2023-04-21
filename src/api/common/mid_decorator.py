@@ -23,7 +23,7 @@ def jwt_required():
         def decorator(*args, **kwargs):
             if request.method == "POST":
                 # 判断是否是浏览器访问
-                if "L-X-Token" in request.headers.keys():
+                if "L-X-Token" in request.headers.keys() and "/api/bm" in request.path:
                     ll_x_token = request.headers["L-X-Token"]
                     if ll_x_token == Config.LL_X_TOKEN:
                         resp = fn(*args, **kwargs)

@@ -42,7 +42,7 @@ class Config:
 
     # Flask API配置
     # 固定配置
-    LL_HTTP_DEBUG = bool(os.getenv("LL_HTTP_DEBUG", "0") == "1")
+    LL_HTTP_DEBUG = bool(os.getenv("LL_HTTP_DEBUG", "1") == "1")
     LL_HTTP_HOST = os.getenv("LL_HTTP_HOST", "127.0.0.1")
     LL_HTTP_WORKERS = int(os.getenv("LL_HTTP_WORKERS", "1"))
     LL_HTTP_PORT = 8765

@@ -33,11 +33,12 @@ def user_get_config():
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
     app_logger = current_app.config["app_logger"]
     coll = mongodb_base.get_collection(coll_name="liuli_config")
+    username = request.json["username"]
 
     db_res: dict = mongodb_find(
         coll_conn=coll,
-        filter_dict={},
-        return_dict={"LL_JWT_SECRET_KEY": 0, "config_flag": 0},
+        filter_dict={"config_flag": username},
+        return_dict={"LL_JWT_SECRET_KEY": 0, "config_flag": 0, "_id": 0},
         sorted_list=[("updated_at", -1)],
     )
 
