@@ -4,6 +4,7 @@
         - 启动命令:
             - gunicorn: PIPENV_DOTENV_LOCATION=./dev.env pipenv run  gunicorn -c src/config/gunicorn.py src.api.http_app:app
             - flask: PIPENV_DOTENV_LOCATION=./dev.env pipenv run  python src/api/http_app.py
+            - flask: PIPENV_DOTENV_LOCATION=./env pipenv run  python src/api/http_app.py
     Changelog: all notable changes to this file will be documented
 """
 

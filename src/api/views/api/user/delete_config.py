@@ -39,7 +39,6 @@ def user_delete_config():
     config_key = post_data.get("config_key", [])
 
     if config_key:
-
         result = UniResponse.SUCCESS
         unset_dict = {}
         for each in config_key:
