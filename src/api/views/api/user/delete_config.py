@@ -15,7 +15,7 @@ from src.api.common import (
     jwt_required,
     response_handle,
 )
-from src.databases import MongodbBase, mongodb_find, mongodb_update_data
+from src.databases import MongodbBase, mongodb_update_data
 
 
 @jwt_required()
