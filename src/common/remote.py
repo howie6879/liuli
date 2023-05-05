@@ -11,6 +11,25 @@ import requests
 from src.utils import LOGGER
 
 
+def get_html_by_phantomjs(url: str, sk_key: str):
+    """
+    基于 phantomjs 获取html
+    """
+    data = {
+        "url": url,
+        "renderType": "html",
+        # "waitForSelector": "",
+    }
+    url = f"http://PhantomJScloud.com/api/browser/v2/{sk_key}/"
+    html = ""
+    try:
+        req = requests.post(url, data=json.dumps(data), timeout=60)
+        html = req.text
+    except Exception as e:
+        LOGGER.error(f"通过 Phantomjs 请求 {url} 失败! {e}")
+    return html
+
+
 def get_html_by_requests(url: str, params: dict = None, timeout: int = 3, **kwargs):
     """发起GET请求，获取文本
 

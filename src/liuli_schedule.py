@@ -3,12 +3,11 @@
     Created by howie.hu at 2021/4/10.
     Description：统一调度入口
     - 运行: 根目录执行，其中环境文件pro.env根据实际情况选择即可
-        - 命令: pipenv run pro_schedule or PIPENV_DOTENV_LOCATION=./dev.env pipenv run python src/liuli_schedule.py
+        - 命令: pipenv run pro_schedule or pipenv run python src/liuli_schedule.py
     - 调度时间：每日的 ["00:10", "12:10", "21:10"]
     Changelog: all notable changes to this file will be documented
 """
-import json
-import os
+
 import time
 
 from copy import deepcopy
@@ -18,7 +17,9 @@ import schedule
 
 from src.backup.action import backup_doc
 from src.collector.collect_factory import collect_factory
-from src.config.config import Config
+from src.common.db_utils import get_liuli_config
+from src.config import Config, init_env_config
+from src.databases import MongodbManager, mongodb_find
 from src.processor import processor_dict
 from src.sender.action import send_doc
 from src.utils import LOGGER
@@ -31,6 +32,8 @@ def run_liuli_task(ll_config: dict):
         ll_config (dict): Liuli 任务配置
     """
     try:
+        # 全局更新 Config 配置
+        Config.set_config(get_liuli_config())
         # 防止内部函数篡改
         ll_config_data = deepcopy(ll_config)
         # 文章源, 用于基础查询条件
@@ -50,7 +53,9 @@ def run_liuli_task(ll_config: dict):
         # 采集器执行
         LOGGER.info("采集器开始执行!")
         for collect_type, collect_config in collector_conf.items():
-            collect_factory(collect_type, collect_config)
+            collect_factory(
+                collect_type, {**collect_config, **{"doc_source": doc_source}}
+            )
         LOGGER.info("采集器执行完毕!")
         # 采集器执行
         LOGGER.info("处理器(after_collect): 开始执行!")
@@ -70,19 +75,15 @@ def run_liuli_task(ll_config: dict):
         backup_doc(backup_conf)
         LOGGER.info("备份器执行完毕!")
     except Exception as e:
-        LOGGER.error(f"执行失败！{e}")
+        LOGGER.exception(f"执行失败！{e}")
 
 
-def run_liuli_schedule(ll_config_name: str = "default"):
+def run_liuli_schedule(ll_config: dict):
     """调度启动函数
 
     Args:
-        task_config (dict): 调度任务配置
+        ll_config (dict): Liuli 任务配置
     """
-    ll_config_path = os.path.join(Config.LL_CONFIG_DIR, f"{ll_config_name}.json")
-    with open(ll_config_path, "r", encoding="utf-8") as load_f:
-        ll_config = json.load(load_f)
-
     schdule_time_list = ll_config["schedule"].get(
         "period_list", ["00:10", "12:10", "21:10"]
     )
@@ -95,7 +96,7 @@ def run_liuli_schedule(ll_config_name: str = "default"):
         f"Schedule({Config.VERSION}) task({name}@{author}) started successfully :)"
     )
     LOGGER.info(start_info)
-    schdule_msg = f"Task({name}@{author}) schedule time:\n " + "\n ".join(
+    schdule_msg = f"Schedule Task({name}@{author}) schedule time:\n " + "\n ".join(
         schdule_time_list
     )
     LOGGER.info(schdule_msg)
@@ -106,28 +107,46 @@ def run_liuli_schedule(ll_config_name: str = "default"):
         time.sleep(1)
 
 
-def start(ll_config_name: str = ""):
+def start():
     """调度启动函数
 
     Args:
-        task_config (dict): 调度任务配置
+        doc_source (str): 调度任务配置
     """
-    if not ll_config_name:
-        # 默认启动 liuli_config 目录下所有配置
-        process_list = []
-        for each_file in os.listdir(Config.LL_CONFIG_DIR):
-            if each_file.endswith("json"):
-                # 加入启动列表
-                each_ll_config_name = each_file.replace(".json", "")
-                process_list.append(
-                    Process(target=run_liuli_schedule, args=(each_ll_config_name,))
-                )
-        _ = [p.start() for p in process_list]
-        _ = [p.join() for p in process_list]
+    while True:
+        LOGGER.info("Schedule start...")
+        # 检查数据库集合 是否存在配置数据
+        Config.LL_MONGODB_CONFIG = init_env_config()["mongodb"]
+        mongodb_base = MongodbManager.get_mongo_base(
+            mongodb_config=Config.LL_MONGODB_CONFIG
+        )
+        # 配置 liuli_doc_source 前，一定要配置好 liuli_config
+        coll = mongodb_base.get_collection(coll_name="liuli_doc_source")
+        db_res = mongodb_find(
+            coll_conn=coll,
+            filter_dict={"username": "liuli", "is_open": 1},
+            return_dict={"_id": 0},
+            sorted_list=[("doc_source", -1)],
+        )
+        db_info = db_res["info"]
+        if db_res["status"]:
+            if db_info:
+                process_list = []
+                for each_config in db_info:
+                    process_list.append(
+                        Process(target=run_liuli_schedule, args=(each_config,))
+                    )
 
-    else:
-        run_liuli_schedule(ll_config_name.replace(".json", ""))
+                _ = [p.start() for p in process_list]
+                _ = [p.join() for p in process_list]
+                break
+
+        else:
+            err_info = f"Schedule start failed! DB response info -> {db_info}"
+            LOGGER.error(err_info)
+        # 休眠 5 秒重试
+        time.sleep(5)
 
 
 if __name__ == "__main__":
-    start(ll_config_name="")
+    start()

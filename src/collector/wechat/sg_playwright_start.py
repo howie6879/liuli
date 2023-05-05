@@ -1,6 +1,6 @@
 """
     Created by howie.hu at 2021-12-20.
-    Description: 利用 playwright 模拟浏览器进行数据抓取微笑公众号
+    Description: 利用 playwright 模拟浏览器进行数据抓取微笑公众号   !!! 打包镜像太大，不准备维护，后续使用 phantomjscloud.com，免费额度应该够日常使用
         - 文档: https://playwright.dev/python/docs/intro
         - 安装: 默认使用 playwright 爬虫版本，如果要启用，请自行安装以下依赖
             - pipenv install playwright
@@ -77,7 +77,7 @@ async def playwright_main(wechat_name: str):
         async with async_playwright() as p:
             # browser = await p.chromium.launch(headless=False)
             browser = await p.chromium.launch()
-            context = await browser.new_context(user_agent=Config.SPIDER_UA)
+            context = await browser.new_context(user_agent=Config.LL_SPIDER_UA)
             page = await context.new_page()
             # 进行公众号检索
             await page.goto("https://weixin.sogou.com/")

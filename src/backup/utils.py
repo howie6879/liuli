@@ -27,7 +27,7 @@ def get_bak_doc_html(doc_data: dict, doc_html_type: str = "default") -> str:
     # 获取原始文本内容
     doc_link = doc_data["doc_link"]
     online_func = lambda url: get_html_by_requests(
-        url=url, headers={"User-Agent": Config.SPIDER_UA}
+        url=url, headers={"User-Agent": Config.LL_SPIDER_UA}
     )
     if doc_html_type == "online":
         doc_html = online_func(doc_link)

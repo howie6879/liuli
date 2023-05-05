@@ -21,15 +21,14 @@ def doc_source_update():
         "name": "wechat",
         "author": "liuli_team",
         "doc_source": "liuli_wechat",
+        "is_open": 1,
         "collector": {
             "wechat": {
             "wechat_list": [
-                "老胡的储物柜",
-                "是不是很酷"
+                "老胡的储物柜"
             ],
             "delta_time": 5,
-            "spider_type": "sg_ruia",
-            "spider_type_des": "当镜像是schedule:playwright_*时，spider_type可填写sg_playwright"
+            "spider_type": "sg_ruia"
             }
         },
         "processor": {
@@ -96,28 +95,47 @@ def doc_source_update():
     coll = mongodb_base.get_collection(coll_name="liuli_doc_source")
     # 获取基础数据
     post_data: dict = request.json
-    username = post_data.pop("username", "")
-    doc_source = post_data.get("doc_source", "")
 
-    db_res = mongodb_update_data(
-        coll_conn=coll,
-        filter_dict={"doc_source": doc_source, "username": username},
-        update_data={
-            "$set": {
-                "username": username,
-                "doc_source": doc_source,
-                "data": post_data,
-                "updated_at": int(time.time()),
-            }
-        },
-    )
-    result = UniResponse.SUCCESS
-    if not db_res["status"]:
-        # 更新失败
-        result = UniResponse.DB_ERR
-        err_info = (
-            f"update doc_source config failed! DB response info -> {db_res['info']}"
+    # 校验列表
+    valid_keys = [
+        "username",
+        "name",
+        "author",
+        "doc_source",
+        "is_open",
+        "collector",
+        "processor",
+        "sender",
+        "backup",
+        "schedule",
+        "doc_source_alias_name",
+    ]
+
+    if set(post_data.keys()) == set(valid_keys):
+        # 校验通过
+        doc_source = post_data["doc_source"]
+        username = post_data["username"]
+        db_res = mongodb_update_data(
+            coll_conn=coll,
+            filter_dict={"doc_source": doc_source, "username": username},
+            update_data={
+                "$set": {
+                    **post_data,
+                    **{"updated_at": int(time.time())},
+                }
+            },
         )
+        result = UniResponse.SUCCESS
+        if not db_res["status"]:
+            # 更新失败
+            result = UniResponse.DB_ERR
+            err_info = (
+                f"update doc_source config failed! DB response info -> {db_res['info']}"
+            )
+            app_logger.error(err_info)
+    else:
+        result = UniResponse.PARAM_ERR
+        err_info = "update doc_source config failed! -> param error"
         app_logger.error(err_info)
 
     return response_handle(request=request, dict_value=result)

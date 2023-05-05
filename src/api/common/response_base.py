@@ -35,6 +35,7 @@ class ResponseReply:
     GEN_BACKUP_FAILED = "BACKUP 生成失败"
     GET_DC_EMPTY = "获取不到 doc_source 配置"
     NOT_READY = "服务尚未准备就绪"
+    GET_DOC_EMPTY = "获取不到 doc_id 相关文章"
 
     # Success
     SUCCESS = "ok"
@@ -57,6 +58,7 @@ class ResponseCode:
     GEN_BACKUP_FAILED = 904
     GET_DC_EMPTY = 905
     NOT_READY = 906
+    GET_DOC_EMPTY = 907
 
 
 class UniResponse:

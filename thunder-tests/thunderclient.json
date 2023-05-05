@@ -88,7 +88,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-06-29T03:22:01.818Z",
-    "modified": "2023-03-26T15:32:26.380Z",
+    "modified": "2023-05-05T04:02:32.586Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -96,7 +96,7 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NDYyNDM4MSwianRpIjoiNWVmNTcwMzYtNjBhNS00Mjk2LWFiMWEtM2Q2YjQ1YjYyMThkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc0NjI0MzgxLCJleHAiOjE2OTAxNzYzODF9.C7TgZ7vha_NfjM5i2UYVZ9Q7eu7nflp_CFZO3M9FKEY"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
       }
     ],
     "params": [],
@@ -228,7 +228,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-01-25T06:58:39.078Z",
-    "modified": "2023-03-26T15:28:58.580Z",
+    "modified": "2023-05-05T00:39:14.944Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -236,13 +236,13 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NDYyNDM4MSwianRpIjoiNWVmNTcwMzYtNjBhNS00Mjk2LWFiMWEtM2Q2YjQ1YjYyMThkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc0NjI0MzgxLCJleHAiOjE2OTAxNzYzODF9.C7TgZ7vha_NfjM5i2UYVZ9Q7eu7nflp_CFZO3M9FKEY"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
       }
     ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_source\": \"liuli_wechat_sg\"\n}",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_source\": \"liuli_wechat\"\n}",
       "form": []
     },
     "tests": []
@@ -256,7 +256,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-01-25T07:12:07.435Z",
-    "modified": "2023-03-26T15:30:28.051Z",
+    "modified": "2023-05-05T02:39:08.047Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -264,13 +264,13 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTA0OTg0NSwianRpIjoiNTJlYmJmNzctNzVhMi00ZjMxLTljYjQtNzlhYTU4ODdmNzhiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc1MDQ5ODQ1LCJleHAiOjE2OTA2MDE4NDV9.SBQrUOck6xVIgPhoN-3Zy6eUU4wbEfy0RS8rOSojK2I"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
       }
     ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"wechat\",\n  \"username\": \"liuli\",\n  \"author\": \"liuli_team\",\n  \"doc_source\": \"liuli_wechat_sg\",\n  \"doc_source_alias_name\": \"微信源(搜狗)\",\n  \"collector\": {\n    \"wechat\": {\n      \"wechat_list\": [\"老胡的储物柜\", \"是不是很酷\"],\n      \"delta_time\": 5,\n      \"spider_type\": \"sg_ruia\",\n      \"spider_type_des\": \"当镜像是schedule:playwright_*时，spider_type可填写sg_playwright\"\n    }\n  },\n  \"processor\": {\n    \"before_collect\": [],\n    \"after_collect\": [\n      {\n        \"func\": \"ad_marker\",\n        \"cos_value\": 0.6\n      },\n      {\n        \"func\": \"to_rss\",\n        \"doc_source_list\": [\"liuli_wechat\"],\n        \"link_source\": \"github\"\n      }\n    ]\n  },\n  \"sender\": {\n    \"sender_list\": [\"wecom\"],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"custom_filter\": {\n      \"wecom\": {\n        \"delta_time\": 1,\n        \"ignore_doc_source_name\": [\"\"]\n      }\n    }\n  },\n  \"backup\": {\n    \"backup_list\": [\"github\", \"mongodb\"],\n    \"query_days\": 7,\n    \"delta_time\": 3,\n    \"init_config\": {},\n    \"after_get_content\": [\n      {\n        \"func\": \"str_replace\",\n        \"before_str\": \"data-src=\\\"\",\n        \"after_str\": \"src=\\\"https://images.weserv.nl/?url=\"\n      }\n    ]\n  },\n  \"schedule\": {\n    \"period_list\": [\"00:10\", \"12:10\", \"21:10\"]\n  }\n}\n",
+      "raw": "{\n  \"name\": \"book\",\n  \"username\": \"liuli\",\n  \"author\": \"liuli_team\",\n  \"is_open\" : 1,\n  \"doc_source\": \"liuli_book\",\n  \"collector\": {\n    \"book_common\": {\n      \"book_dict\": {\n        \"谁还不是个修行者了\": \"https://www.asxs.com/view/162095/\"\n      },\n      \"latest_chapter_nums\": 2,\n      \"delta_time\": 5\n    }\n  },\n  \"processor\": {\n    \"before_collect\": [],\n    \"after_collect\": [\n      {\n        \"func\": \"to_rss\",\n        \"link_source\": \"github\",\n        \"rss_count\": 20\n      }\n    ]\n  },\n  \"sender\": {\n    \"sender_list\": [\n      \"wecom\",\n      \"ding\"\n    ],\n    \"query_days\": 1,\n    \"delta_time\": 3,\n    \"link_source\": \"github\"\n  },\n  \"backup\": {\n    \"backup_list\": [\n      \"github\",\n      \"mongodb\"\n    ],\n    \"query_days\": 1,\n    \"delta_time\": 3,\n    \"doc_html_dict\": {\n      \"liuli_book\": \"book\"\n    },\n    \"init_config\": {\n      \"force_backup\": false\n    },\n    \"after_get_content\": [\n      {\n        \"func\": \"str_replace\",\n        \"before_str\": \"本书首发\",\n        \"after_str\": \"\"\n      }\n    ]\n  },\n  \"schedule\": {\n    \"period_list\": [\n      \"00:00\",\n      \"06:00\",\n      \"09:00\",\n      \"12:00\",\n      \"19:00\",\n      \"22:00\"\n    ]\n  }\n}",
       "form": []
     },
     "tests": []
@@ -284,7 +284,7 @@
     "method": "POST",
     "sortNum": 15000,
     "created": "2023-01-25T07:28:17.068Z",
-    "modified": "2023-03-26T15:27:36.082Z",
+    "modified": "2023-05-05T00:35:08.854Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -292,7 +292,7 @@
       },
       {
         "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NDYyNDM4MSwianRpIjoiNWVmNTcwMzYtNjBhNS00Mjk2LWFiMWEtM2Q2YjQ1YjYyMThkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc0NjI0MzgxLCJleHAiOjE2OTAxNzYzODF9.C7TgZ7vha_NfjM5i2UYVZ9Q7eu7nflp_CFZO3M9FKEY"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
       }
     ],
     "params": [],
@@ -628,6 +628,118 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"username\": \"liuli\",\n  \"_id\": \"64215cca554b6d873380103a\",\n  \"config_key\": [\n    \"LL_DEMO\",\n    \"LL_HELLO\"\n  ]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a09952ed-5694-4850-9bdf-6ff1a28eef28",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "3c6db4f4-64d5-4f08-be95-b956f4ffd15b",
+    "name": "search",
+    "url": "{{local_api}}/api/articles/search",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-05-05T09:19:54.889Z",
+    "modified": "2023-05-05T09:28:31.863Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_source\": \"\",\n  \"doc_source_name\": \"老胡的储物柜\",\n  \"doc_name\": \"\",\n  \"page\": 1,\n  \"page_size\": 2\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "40f9449a-cf44-4a90-95cb-7ceffb0caad3",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "3c6db4f4-64d5-4f08-be95-b956f4ffd15b",
+    "name": "get",
+    "url": "{{local_api}}/api/articles/get",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-05-05T09:36:10.970Z",
+    "modified": "2023-05-05T09:36:52.014Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_id\": \"fb2bf1d6e3e357c1669b0ae2296feb4e\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "faea81cf-3b5e-49d1-ba7a-2cb9606e6496",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "3c6db4f4-64d5-4f08-be95-b956f4ffd15b",
+    "name": "favorite",
+    "url": "{{local_api}}/api/articles/favorite",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-05-05T09:46:19.371Z",
+    "modified": "2023-05-05T09:49:23.965Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MzI0NjAxNiwianRpIjoiYWI0YzQwMGUtNGQ2Yy00NjE2LWE4MWItZjg0YjEyZmNiOTBjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjgzMjQ2MDE2LCJleHAiOjE2OTg3OTgwMTZ9.Q9nrXLJxc-2pjP0HUOW04Dyk0SajWFoC7yVho7OrLd0"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_id\": \"a327ba71f1ccf5ef3b4aa6b839956f20\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "401af304-b088-491d-82d5-48dc50c5ac53",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
+    "name": "get_favorite",
+    "url": "{{local_api}}/api/user/get_favorite",
+    "method": "POST",
+    "sortNum": 26250,
+    "created": "2023-05-05T09:57:29.301Z",
+    "modified": "2023-05-05T10:12:56.075Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"page\": 1,\n  \"page_size\": 1\n}",
       "form": []
     },
     "tests": []

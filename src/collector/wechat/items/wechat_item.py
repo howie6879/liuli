@@ -35,10 +35,6 @@ class WechatItem(Item):
     doc_link = AttrField(
         css_select='meta[property="og:url"]', attr="content", default=""
     )
-    # 文章类型
-    doc_type = AttrField(
-        css_select='meta[property="og:type"]', attr="content", default=""
-    )
     # 文章发布时间戳
     doc_ts = RegexField(
         re_select=r"var ct = \"(\d{1,10})\"\;",
@@ -79,9 +75,8 @@ class WechatItem(Item):
     doc_source_account_intro = ""
     # 文本内容，兼容
     doc_content = ""
-    # 常量
-    # 信息来源
-    doc_source = "liuli_wechat"
+    # 文章类型
+    doc_type = "wechat"
 
     async def clean_doc_source_meta_list(self, value: list):
         """从doc_source_meta_list提取公众号昵称和介绍"""

@@ -32,7 +32,8 @@ def run(collect_config: dict):
             # 休眠
             time.sleep(delta_time)
             resp_text = get_html_by_requests(
-                url=entry.link, headers={"User-Agent": Config.SPIDER_UA}
+                url=entry.link,
+                headers={"User-Agent": Config.LL_SPIDER_UA},
             )
             _, doc_core_html = extract_core_html(resp_text)
             doc_core_html_lib = text_compress(doc_core_html)

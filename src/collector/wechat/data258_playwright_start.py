@@ -41,7 +41,7 @@ async def playwright_main(wechat_name: str):
     base_url = "https://mp.data258.com/"
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
-        context = await browser.new_context(user_agent=Config.SPIDER_UA)
+        context = await browser.new_context(user_agent=Config.LL_SPIDER_UA)
         page = await context.new_page()
         # # 关闭Webdriver属性
 

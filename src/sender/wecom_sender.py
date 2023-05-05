@@ -26,9 +26,11 @@ class WeComSender(SenderBase):
         :param init_config:
         """
         super().__init__(send_type="wecom", init_config=init_config)
-        self.wecom_id = init_config.get("wecom_id", Config.WECOM_ID)
-        self.wecom_agent_id = init_config.get("wecom_agent_id", Config.WECOM_AGENT_ID)
-        self.wecom_secret = init_config.get("wecom_secret", Config.WECOM_SECRET)
+        self.wecom_id = init_config.get("wecom_id", Config.LL_WECOM_ID)
+        self.wecom_agent_id = init_config.get(
+            "wecom_agent_id", Config.LL_WECOM_AGENT_ID
+        )
+        self.wecom_secret = init_config.get("wecom_secret", Config.LL_WECOM_SECRET)
         self.access_token = self.get_token()
         self.url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={self.access_token}"
         self.wecom_party_list = init_config.get(
@@ -37,7 +39,7 @@ class WeComSender(SenderBase):
         self.wecom_to_user = init_config.get("wecom_to_user", Config.LL_WECOM_TO_USER)
         self.wecom_party = ""
         # 如果部门和用户都没有，则默认发送给所有人
-        if not self.wecom_party_list[0] and not self.wecom_to_user:
+        if not self.wecom_party_list and not self.wecom_to_user:
             self.wecom_to_user = "@all"
         # 其他情况，则按用户填写的发送(既发用户，也发部门)
         else:
@@ -53,7 +55,7 @@ class WeComSender(SenderBase):
             "corpsecret": self.wecom_secret,
         }
         token_url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
-        json_data = requests.get(token_url, params=data).json()
+        json_data = requests.get(token_url, params=data, timeout=10).json()
         return json_data.get("access_token", "")
 
     def get_party(self):
@@ -65,7 +67,7 @@ class WeComSender(SenderBase):
             "access_token": self.access_token,
         }
         url = "https://qyapi.weixin.qq.com/cgi-bin/department/list"
-        json_data = requests.get(url, params=data).json()
+        json_data = requests.get(url, params=data, timeout=10).json()
         return json_data.get("department", [])
 
     def change_wecom_party_to_id(self):
@@ -126,6 +128,7 @@ class WeComSender(SenderBase):
                 url=self.url,
                 data=data.encode("utf-8").decode("latin1"),
                 headers={"Content-Type": "application/json"},
+                timeout=10,
             ).json()
             return resp_dict
         except Exception as e:
@@ -135,7 +138,7 @@ class WeComSender(SenderBase):
 
     def send(self, send_data) -> bool:
         """
-        下发到钉钉终端
+        下发到微信终端
         :param send_data: 下发内容字典，字段开发者自定义
         :return:
         """
@@ -175,7 +178,7 @@ class WeComSender(SenderBase):
 
 def send(init_config: dict, send_data: dict) -> bool:
     """
-    下发到钉钉终端
+    下发到终端
     :param init_config: 下发终端配置
     :param send_data: 下发内容字典，字段开发者自定义
     :return:
