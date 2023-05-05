@@ -71,7 +71,7 @@ class MongodbBackup(BackupBase):
                 upsert=True,
             )
             if db_update_res["status"]:
-                msg = f"Backup({self.backup_type}): {file_path} 上传成功！"
+                msg = f"Backup({self.backup_type}): {file_path} 备份成功！"
                 # 保存当前文章状态
                 self.save_backup(
                     doc_source=doc_source,
@@ -79,7 +79,7 @@ class MongodbBackup(BackupBase):
                     doc_name=doc_name,
                 )
             else:
-                msg = f"Backup({self.backup_type}): {file_path} 上传失败！{db_update_res['info']}"
+                msg = f"Backup({self.backup_type}): {file_path} 备份失败！{db_update_res['info']}"
 
         else:
             msg = f"Backup({self.backup_type}): {file_path} 已存在！"

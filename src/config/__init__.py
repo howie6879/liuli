@@ -24,3 +24,4 @@ def init_env_config() -> dict:
 
 
 API_LOGGER = get_logger("Liuli API")
+LOGGER = get_logger("Liuli")

@@ -4,7 +4,7 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from flask import Blueprint, current_app, request
+from flask import current_app, request
 
 from src.api.common import (
     ResponseCode,
@@ -39,7 +39,7 @@ def stats_source_list():
             p_doc_source_dict = {}
             for each in doc_source_res["info"]:
                 p_doc_source_dict[each["doc_source"]] = {
-                    "doc_source_alias_name": each["data"]["doc_source_alias_name"]
+                    "doc_source_alias_name": each["doc_source_alias_name"]
                 }
 
             all_doc_source_dict = {

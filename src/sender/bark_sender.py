@@ -41,7 +41,11 @@ class BarkSender(SenderBase):
         notice_msg = f"{doc_cus_des}👉{doc_source_name}_{doc_name}：{doc_link} 分发到 {self.send_type}"
         if not is_send:
             url = self.compose(send_data)
-            resp = requests.post(url)
+            resp = requests.post(
+                url,
+                headers={"Content-Type": "application/json"},
+                timeout=10,
+            )
             if resp.status_code == 200 and json.loads(resp.text)["code"] == 200:
                 # 将状态持久化到数据库
                 self.sl_coll.insert_one(

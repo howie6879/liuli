@@ -34,7 +34,7 @@ def to_rss(
         link_source (str, optional): 链接返回规则类型，基于备份器，目前支持字段如下:
             - self: 不替换，用本身的 doc_link
             - mongodb: 用 liuli api 服务的连接 {LL_DOMAIN}/backup/{doc_source}/{doc_source_name}/{doc_name}
-            - github: 用 github 仓库地址 {LL_GITHUB_LL_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
+            - github: 用 github 仓库地址 {LL_GITHUB_DOMAIN}/{doc_source}/{doc_source_name}/{doc_name}.html
         skip_ads (bool, optional): 是否直接忽略广告. Defaults to False.
         rss_count (int, optional): 生成rss的文章数量. Defaults to 20.
     """

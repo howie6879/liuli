@@ -35,7 +35,9 @@ def utils_book_content():
     core_html = ""
     if url:
         # 章节链接必须存在
-        resp_text = get_html_by_requests(url, headers={"User-Agent": Config.SPIDER_UA})
+        resp_text = get_html_by_requests(
+            url, headers={"User-Agent": Config.LL_SPIDER_UA}
+        )
         _, core_html = extract_core_html(resp_text)
         result = {
             ResponseField.DATA: {

@@ -24,7 +24,7 @@ class DingSender(SenderBase):
         :param init_config:
         """
         super().__init__(send_type="ding", init_config=init_config)
-        dd_token = init_config.get("dd_token", Config.DD_TOKEN)
+        dd_token = init_config.get("dd_token", Config.LL_DD_TOKEN)
         self.url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
 
     def send(self, send_data) -> bool:

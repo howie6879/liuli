@@ -37,17 +37,20 @@ def doc_source_get():
     post_data: dict = request.json
     doc_source = post_data.get("doc_source", "")
     username = post_data.get("username", "")
+    filter_dict = {"username": username}
+    if doc_source:
+        filter_dict["doc_source"] = doc_source
     db_res = mongodb_find(
         coll_conn=coll,
-        filter_dict={"doc_source": doc_source, "username": username},
+        filter_dict=filter_dict,
         return_dict={"_id": 0},
-        limit=1,
+        sorted_list=[("doc_source", -1)],
     )
     db_info = db_res["info"]
     if db_res["status"]:
         if db_info:
             result = {
-                ResponseField.DATA: db_info[0],
+                ResponseField.DATA: db_info,
                 ResponseField.MESSAGE: ResponseReply.SUCCESS,
                 ResponseField.STATUS: ResponseCode.SUCCESS,
             }

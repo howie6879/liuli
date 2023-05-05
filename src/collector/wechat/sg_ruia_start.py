@@ -48,6 +48,7 @@ class SGWechatSpider(Spider):
     request_config = {"RETRIES": 3, "DELAY": 3, "TIMEOUT": 5}
     concurrency = 10
     wechat_name = ""
+    doc_source = ""
     # aiohttp config
     aiohttp_kwargs = {}
 
@@ -95,11 +96,12 @@ class SGWechatSpider(Spider):
                 "doc_keywords": "",
                 "doc_source_name": self.wechat_name,
                 "doc_link": response.url,
-                "doc_source": wechat_item.doc_source,
+                "doc_source": self.doc_source,
                 "doc_source_account_nick": wechat_item.doc_source_account_nick,
                 "doc_source_account_intro": wechat_item.doc_source_account_intro,
                 "doc_content": html_to_text_h2t(html),
                 "doc_html": "",
+                "doc_type": wechat_item.doc_type,
             },
         }
         await asyncio.coroutine(load_data_to_articlles)(input_data=wechat_data)
@@ -116,6 +118,7 @@ def run(collect_config: dict):
     delta_time = collect_config.get("delta_time", 3)
     for wechat_name in wechat_list:
         SGWechatSpider.wechat_name = wechat_name
+        SGWechatSpider.doc_source = collect_config["doc_source"]
         SGWechatSpider.request_config = {
             "RETRIES": 3,
             "DELAY": delta_time,
@@ -135,7 +138,12 @@ def run(collect_config: dict):
 
 
 if __name__ == "__main__":
-    t_collect_config = {"wechat_list": ["老胡的储物柜"], "delta_time": 5}
+    t_collect_config = {
+        "wechat_list": ["老胡的储物柜"],
+        "delta_time": 10,
+        "spider_type": "ruia",
+        "doc_source": "liuli_wechat",
+    }
     run(t_collect_config)
 
     # sg_url = "https://weixin.sogou.com/weixin?type=1&query={}&ie=utf8&s_from=input&_sug_=n&_sug_type_="

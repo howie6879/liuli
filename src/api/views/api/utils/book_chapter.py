@@ -35,7 +35,9 @@ def utils_book_chapter():
     result = UniResponse.SUCCESS
     if url:
         # 目录链接必须存在
-        resp_text = get_html_by_requests(url, headers={"User-Agent": Config.SPIDER_UA})
+        resp_text = get_html_by_requests(
+            url, headers={"User-Agent": Config.LL_SPIDER_UA}
+        )
         chapter_list = extract_chapters(url, resp_text)
         result = {
             ResponseField.DATA: {

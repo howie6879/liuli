@@ -49,9 +49,7 @@ class Config:
 
     # 可变配置
     LL_X_TOKEN = os.getenv("LL_X_TOKEN", "hello liuli")
-    LL_JWT_SECRET_KEY = os.getenv(
-        "LL_JWT_SECRET_KEY", "ll64b3996626a6e5278a13286cfffa98"
-    )
+    LL_JWT_SECRET_KEY = os.getenv("LL_JWT_SECRET_KEY", "")
     LL_DOMAIN = os.getenv("LL_DOMAIN", "")
 
     # 数据库配置
@@ -67,9 +65,9 @@ class Config:
     }
 
     # 采集器配置
-    # 是否为爬虫设置代理
-    LL_SPIDER_PROXY = os.getenv("LL_SPIDER_PROXY", "http://0.0.0.0:1087")
-    SPIDER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
+    LL_SPIDER_PROXY = os.getenv("LL_SPIDER_PROXY", "")
+    LL_SPIDER_PHANTOMJS_KEY = os.getenv("LL_SPIDER_PHANTOMJS_KEY", "")
+    LL_SPIDER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
 
     # 处理器配置
     # 分类器余弦相似度阈值
@@ -77,7 +75,7 @@ class Config:
 
     # 分发器配置
     # 目标支持：ding[钉钉]、wecom[企业微信]、tg[Telegram]
-    # 钉钉分发器参数配置，如果 SENDER_LIST 包含 ding ，LL_D_TOKEN 配置就必须填写
+    # 钉钉分发器参数配置，如果 SENDER_LIST 包含 ding ，LL_DD_TOKEN 配置就必须填写
     # 申请钉钉TOKEN时候，关键字必须带有 [liuli]
     LL_DD_TOKEN = os.getenv("LL_DD_TOKEN", "")
     # 企业微信配置
@@ -97,7 +95,7 @@ class Config:
     # 备份器配置
     LL_GITHUB_TOKEN = os.getenv("LL_GITHUB_TOKEN", "")
     LL_GITHUB_REPO = os.getenv("LL_GITHUB_REPO", "")
-    LL_GITHUB_LL_DOMAIN = os.getenv("LL_GITHUB_LL_DOMAIN", "")
+    LL_GITHUB_DOMAIN = os.getenv("LL_GITHUB_DOMAIN", "")
 
     @staticmethod
     def set_config(config_data: dict):
@@ -113,6 +111,17 @@ class Config:
             key = str(key).lower()
             if key.startswith("ll_"):
                 setattr(Config, key.upper(), value)
+
+    @staticmethod
+    def get_config():
+        """
+        获取 LL 配置
+        """
+        attributes = {}
+        for attr in dir(Config):
+            if attr.startswith("LL"):
+                attributes[attr] = getattr(Config, attr)
+        return attributes
 
 
 if __name__ == "__main__":

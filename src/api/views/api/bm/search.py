@@ -43,11 +43,8 @@ def bm_search():
     des = post_data.get("des", "")
 
     # 分页限制
-    page = post_data.get(
-        "page",
-        1,
-    )
-    page_size = post_data.get("page_size", 1)
+    page = post_data.get("page", 1)
+    page_size = post_data.get("page_size", 10)
 
     filter_dict = {}
 

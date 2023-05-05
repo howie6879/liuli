@@ -67,7 +67,7 @@ class GithubBackup(BackupBase):
                     # 不存在就上传
                     self.repo.create_file(file_path, f"Add {file_path}", doc_html)
 
-                LOGGER.info(f"Backup({self.backup_type}): {file_path} 上传成功！")
+                LOGGER.info(f"Backup({self.backup_type}): {file_path} 备份成功！")
                 # 保存当前文章状态
                 self.save_backup(
                     doc_source=doc_source,
@@ -75,7 +75,7 @@ class GithubBackup(BackupBase):
                     doc_name=doc_name,
                 )
             except GithubException as e:
-                LOGGER.error(f"Backup({self.backup_type}): {file_path} 上传失败！{e}")
+                LOGGER.error(f"Backup({self.backup_type}): {file_path} 备份失败！{e}")
         else:
             LOGGER.info(f"Backup({self.backup_type}): {file_path} 已存在！")
 
