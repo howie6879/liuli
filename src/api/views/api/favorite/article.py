@@ -19,7 +19,7 @@ from src.databases import MongodbBase, mongodb_find, mongodb_update_data
 
 
 @jwt_required()
-def articles_favorite():
+def favorite_article():
     """收藏喜欢 doc_id
     eg:
     {
@@ -32,7 +32,7 @@ def articles_favorite():
     # 获取基本配置
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
     app_logger = current_app.config["app_logger"]
-    coll = mongodb_base.get_collection(coll_name="liuli_user_favorite")
+    coll = mongodb_base.get_collection(coll_name="liuli_favorite")
     article_oll = mongodb_base.get_collection(coll_name="liuli_articles")
     # 获取基础数据
     post_data: dict = request.json
@@ -58,6 +58,7 @@ def articles_favorite():
                         "doc_id": doc_id,
                         "username": username,
                         "updated_at": int(time.time()),
+                        "source_db": "liuli_articles",
                     }
                 },
             )

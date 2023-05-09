@@ -4,9 +4,6 @@
     Changelog: all notable changes to this file will be documented
 """
 
-import json
-
-from bson import json_util
 from flask import current_app, request
 
 from src.api.common import (
@@ -21,7 +18,7 @@ from src.databases import MongodbBase
 
 
 @jwt_required()
-def user_get_favorite():
+def favorite_get():
     """
     获取 favorite 列表
     eg:
@@ -34,7 +31,7 @@ def user_get_favorite():
     # 获取基本配置
     mongodb_base: MongodbBase = current_app.config["mongodb_base"]
     app_logger = current_app.config["app_logger"]
-    coll = mongodb_base.get_collection(coll_name="liuli_user_favorite")
+    coll = mongodb_base.get_collection(coll_name="liuli_favorite")
     username = request.json["username"]
     post_data: dict = request.json
     page = post_data.get("page", 1)

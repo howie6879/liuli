@@ -549,90 +549,6 @@
     "tests": []
   },
   {
-    "_id": "b0ff7055-b186-48c5-84d3-36537804260c",
-    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
-    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
-    "name": "get_config",
-    "url": "{{local_api}}/api/user/get_config",
-    "method": "POST",
-    "sortNum": 25000,
-    "created": "2023-03-27T15:55:44.671Z",
-    "modified": "2023-03-27T15:56:41.804Z",
-    "headers": [
-      {
-        "name": "Content-Type",
-        "value": "application/json"
-      },
-      {
-        "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
-      }
-    ],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"username\": \"liuli\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "b9e22020-458e-48cd-9710-232b724c9df1",
-    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
-    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
-    "name": "update_config",
-    "url": "{{local_api}}/api/user/update_config",
-    "method": "POST",
-    "sortNum": 27500,
-    "created": "2023-03-27T16:04:33.899Z",
-    "modified": "2023-04-21T07:14:35.469Z",
-    "headers": [
-      {
-        "name": "Content-Type",
-        "value": "application/json"
-      },
-      {
-        "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
-      }
-    ],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"data\": {\n    \"LL_DOMAIN\": \"\",\n    \"LL_DD_TOKEN\": \"\",\n    \"LL_WECOM_ID\": \"\",\n    \"LL_WECOM_AGENT_ID\": \"-1\",\n    \"LL_WECOM_SECRET\": \"\",\n    \"LL_WECOM_TO_USER\": \"\",\n    \"LL_WECOM_PARTY\": \"\",\n    \"LL_TG_CHAT_ID\": \"\",\n    \"LL_TG_TOKEN\": \"\",\n    \"LL_BARK_URL\": \"\",\n    \"LL_GITHUB_TOKEN\": \"\",\n    \"LL_GITHUB_REPO\": \"\",\n    \"LL_GITHUB_LL_DOMAIN\": \"\"\n  }\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "511adb87-915d-4ab3-bcd5-731ca715a817",
-    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
-    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
-    "name": "delete_config",
-    "url": "{{local_api}}/api/user/delete_config",
-    "method": "POST",
-    "sortNum": 28750,
-    "created": "2023-03-27T16:14:27.522Z",
-    "modified": "2023-03-27T16:15:30.708Z",
-    "headers": [
-      {
-        "name": "Content-Type",
-        "value": "application/json"
-      },
-      {
-        "name": "Authorization",
-        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
-      }
-    ],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"_id\": \"64215cca554b6d873380103a\",\n  \"config_key\": [\n    \"LL_DEMO\",\n    \"LL_HELLO\"\n  ]\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
     "_id": "a09952ed-5694-4850-9bdf-6ff1a28eef28",
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
     "containerId": "3c6db4f4-64d5-4f08-be95-b956f4ffd15b",
@@ -691,13 +607,13 @@
   {
     "_id": "faea81cf-3b5e-49d1-ba7a-2cb9606e6496",
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
-    "containerId": "3c6db4f4-64d5-4f08-be95-b956f4ffd15b",
-    "name": "favorite",
-    "url": "{{local_api}}/api/articles/favorite",
+    "containerId": "f0921f46-bd6c-485c-9135-6f20012429f4",
+    "name": "article",
+    "url": "{{local_api}}/api/favorite/article",
     "method": "POST",
-    "sortNum": 30000,
+    "sortNum": 20000,
     "created": "2023-05-05T09:46:19.371Z",
-    "modified": "2023-05-05T09:49:23.965Z",
+    "modified": "2023-05-09T07:18:41.790Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -711,7 +627,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_id\": \"a327ba71f1ccf5ef3b4aa6b839956f20\"\n}",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_id\": \"fb2bf1d6e3e357c1669b0ae2296feb4e\"\n}",
       "form": []
     },
     "tests": []
@@ -719,13 +635,13 @@
   {
     "_id": "401af304-b088-491d-82d5-48dc50c5ac53",
     "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
-    "containerId": "688a2b02-623a-4a57-aa2f-726355c861bc",
-    "name": "get_favorite",
-    "url": "{{local_api}}/api/user/get_favorite",
+    "containerId": "f0921f46-bd6c-485c-9135-6f20012429f4",
+    "name": "get",
+    "url": "{{local_api}}/api/favorite/get",
     "method": "POST",
-    "sortNum": 26250,
+    "sortNum": 10000,
     "created": "2023-05-05T09:57:29.301Z",
-    "modified": "2023-05-05T10:12:56.075Z",
+    "modified": "2023-05-09T07:18:16.190Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -740,6 +656,118 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"username\": \"liuli\",\n  \"page\": 1,\n  \"page_size\": 1\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "107cc38b-7d3c-45da-b286-90d83cc29ed4",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "c5d260c3-6b03-487b-b904-b28c3245cf54",
+    "name": "get",
+    "url": "{{local_api}}/api/config/get",
+    "method": "POST",
+    "sortNum": 25000,
+    "created": "2023-05-09T06:54:38.900Z",
+    "modified": "2023-05-09T07:12:35.023Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "56b04635-08c1-4286-8f6d-5f39a89ef245",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "c5d260c3-6b03-487b-b904-b28c3245cf54",
+    "name": "update",
+    "url": "{{local_api}}/api/config/update",
+    "method": "POST",
+    "sortNum": 27500,
+    "created": "2023-05-09T06:54:38.902Z",
+    "modified": "2023-05-09T07:15:19.304Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"data\": {\n    \"LL_DOMAIN\": \"\",\n    \"LL_DD_TOKEN\": \"\",\n    \"LL_SPIDER_PHANTOMJS_KEY\": \"\",\n    \"LL_WECOM_ID\": \"\",\n    \"LL_WECOM_AGENT_ID\": \"-1\",\n    \"LL_WECOM_SECRET\": \"\",\n    \"LL_WECOM_TO_USER\": \"\",\n    \"LL_WECOM_PARTY\": \"\",\n    \"LL_TG_CHAT_ID\": \"\",\n    \"LL_TG_TOKEN\": \"\",\n    \"LL_BARK_URL\": \"\",\n    \"LL_GITHUB_TOKEN\": \"\",\n    \"LL_GITHUB_REPO\": \"\",\n    \"LL_GITHUB_LL_DOMAIN\": \"\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "cc38ce88-93ab-4193-9186-c9924ab27f27",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "c5d260c3-6b03-487b-b904-b28c3245cf54",
+    "name": "delete",
+    "url": "{{local_api}}/api/config/delete",
+    "method": "POST",
+    "sortNum": 28750,
+    "created": "2023-05-09T06:54:38.903Z",
+    "modified": "2023-05-09T07:13:17.077Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"_id\": \"64215cca554b6d873380103a\",\n  \"config_key\": [\n    \"LL_DEMO\",\n    \"LL_HELLO\"\n  ]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f1f1c9bc-83f0-4160-9391-2f4b681ae9c4",
+    "colId": "4218d20e-f083-4ced-b47f-14f4564c9842",
+    "containerId": "f0921f46-bd6c-485c-9135-6f20012429f4",
+    "name": "delete",
+    "url": "{{local_api}}/api/favorite/delete",
+    "method": "POST",
+    "sortNum": 15000,
+    "created": "2023-05-09T07:27:03.223Z",
+    "modified": "2023-05-09T07:46:49.875Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3OTkyMjk2NCwianRpIjoiODEyYThiNjQtMzQwZS00NTIwLThkNjgtNzliMjgyZDVjYjIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxpdWxpIiwibmJmIjoxNjc5OTIyOTY0LCJleHAiOjE2OTU0NzQ5NjR9.hXTUHp6OOEU9bujP4vWxWWpdM11FeUd49YeXdr0VgOw"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\": \"liuli\",\n  \"doc_id_list\": [\n    \"fb2bf1d6e3e357c1669b0ae2296feb4e\"\n  ]\n}",
       "form": []
     },
     "tests": []

@@ -19,9 +19,9 @@ from src.databases import MongodbBase, mongodb_update_data
 
 
 @jwt_required()
-def user_delete_config():
+def config_delete():
     """
-    获取 config 列表
+    删除 config
     eg:
     {
         "username": "liuli",
