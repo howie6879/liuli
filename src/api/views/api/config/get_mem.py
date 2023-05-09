@@ -1,9 +1,12 @@
 """
-    Created by howie.hu at 2023-05-05.
-    Description: 文档模糊搜索接口
+    Created by howie.hu at 2023-05-09.
+    Description: 获取当前内存配置
     Changelog: all notable changes to this file will be documented
 """
 
+import json
+
+from bson import json_util
 from flask import current_app, request
 
 from src.api.common import (
@@ -15,12 +18,14 @@ from src.api.common import (
     response_handle,
 )
 from src.databases import MongodbBase, mongodb_find
-from src.utils.tools import text_decompress
 
 
 @jwt_required()
-def articles_fuzzy_search():
+def config_get_mem():
     """
-    文档模糊搜索接口
+    获取当前内存配置
+    eg:
+    {
+        "username": "liuli"
+    }
     """
-    pass

@@ -21,7 +21,7 @@ from src.databases import MongodbBase, mongodb_find
 
 
 @jwt_required()
-def user_get_config():
+def config_get():
     """
     获取 config 列表
     eg:

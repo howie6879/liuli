@@ -3,10 +3,13 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "none",
   "python.linting.pylintEnabled": true,
   "python.testing.pytestEnabled": true,
   "python.envFile": "${workspaceFolder}/.env",
   "isort.args": ["--settings-path", "${workspaceFolder}/setup.cfg"],
-  "python.linting.enabled": true
+  "python.linting.enabled": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }

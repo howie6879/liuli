@@ -4,7 +4,6 @@
     Changelog: all notable changes to this file will be documented
 """
 
-from bson import ObjectId
 from flask import current_app, request
 
 from src.api.common import (
@@ -19,7 +18,7 @@ from src.databases import MongodbBase, mongodb_update_data
 
 
 @jwt_required()
-def user_update_config():
+def config_update():
     """
     获取 config 列表
     eg:
