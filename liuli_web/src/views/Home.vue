@@ -34,12 +34,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { UserStore } from '../store/user';
-import { statsApi } from '@/api';
+import { bookmarkApi, favoriteApi, statsApi } from '@/api';
 import { ElNotification } from 'element-plus';
 import { useRouter } from 'vue-router';
 
 const userStore = UserStore();
 
+let res
+
+const show = ref(true)
 
 const collapsed = ref(false);
 const title = ref('首页概览');
@@ -65,7 +68,7 @@ const statData = ref({
       image: '/src/assets/images/home/page.svg'
     },
     {
-      path: '/doc_source',
+      path: `/doc_source?activeName=订阅源配置`,
       counts: 0,
       name: '订阅源',
       image: '/src/assets/images/home/doc_source.svg'
@@ -83,41 +86,15 @@ const getImageUrl = (name: string) => {
 };
 
 const $router = useRouter();
-function handleClick(path: any) {
-  $router.push({ path });
+function handleClick(path: string) {
+  $router.push(path);
 }
 
 onMounted(async () => {
-  const res = await statsApi.getStats({ username: userStore.username })
+  res = await statsApi.getStats({ username: userStore.username })
   if (res.status == 200) {
-    console.log(res);
-    // 有结果表示正常请求
-    statData.value.stats = [
-      {
-        path: '/subscription',
-        counts: res.data.doc_counts,
-        name: '订阅数',
-        image: '/src/assets/images/home/subscription.svg'
-      },
-      {
-        path: '/favorite',
-        counts: 0,
-        name: '收藏数',
-        image: '/src/assets/images/home/favorite.svg'
-      },
-      {
-        path: '/bookmark',
-        counts: 0,
-        name: '书签数',
-        image: '/src/assets/images/home/page.svg'
-      },
-      {
-        path: '/doc_source',
-        counts: res.data.doc_source_counts,
-        name: '订阅源',
-        image: '/src/assets/images/home/doc_source.svg'
-      }
-    ];
+    statData.value.stats[0].counts = res.data.doc_counts
+    statData.value.stats[3].counts = res.data.doc_source_counts
   } else {
     const msg = res.info ? res.info : '服务器超时';
     ElNotification({
@@ -125,7 +102,28 @@ onMounted(async () => {
       message: msg,
       duration: 2000,
     });
-
+  }
+  res = await favoriteApi.getFavorite({ username: userStore.username, page: 1, page_size: 1 })
+  if (res.status == 200) {
+    statData.value.stats[1].counts = res.data.total
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      type: 'error',
+      message: msg,
+      duration: 2000,
+    });
+  }
+  res = await bookmarkApi.searchBM({ username: userStore.username, url: '', des: '', tags: [], title: '', page: 1, page_size: 1 })
+  if (res.status == 200) {
+    statData.value.stats[2].counts = res.data.total
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      type: 'error',
+      message: msg,
+      duration: 2000,
+    });
   }
 });
 </script>

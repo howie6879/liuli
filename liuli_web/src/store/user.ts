@@ -9,8 +9,6 @@ export const UserStore = defineStore(
   () => {
     const token = ref('',);
     const username=ref('');
-    const LL_X_TOKEN=ref('')
-    const otherConfig=ref({})
 
     const login = async (data:ILoginParams)=>{
       const res= await userApi.login(data)
@@ -27,10 +25,7 @@ export const UserStore = defineStore(
       window.location.href = '/login'
     }
 
-    const initConfig = async()=>{
-      const res= await userApi.getConfig({username:username.value})
-      console.log(res)
-    }
+   
 
   
     return {
@@ -38,7 +33,6 @@ export const UserStore = defineStore(
       username,
       login,
       logout,
-      initConfig,
     };
   },
   { persist: piniaPersistConfig('liuli-user-store-id') },

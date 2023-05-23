@@ -25,29 +25,27 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>
-              <el-icon size="16px">
-                <svg-icon name="svg-setting" prefix="icon"></svg-icon>
-              </el-icon>
-              <router-link to="/log">
-                <span class="drop-menu"> 设置 </span>
-              </router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
+            <el-dropdown-item @click="about">
               <el-icon size="16px">
                 <InfoFilled />
               </el-icon>
-              <router-link to="/log">
-                <span class="drop-menu"> 关于 </span>
-              </router-link>
+              <span class="drop-menu"> 关 于 </span>
             </el-dropdown-item>
-            <el-dropdown-item>
+
+            <el-dropdown-item @click="onChangePwd">
+              <el-icon size="16px">
+                <svg-icon name="svg-setting" prefix="icon"></svg-icon>
+              </el-icon>
+              <span class="drop-menu"> 修改密码 </span>
+            </el-dropdown-item>
+
+            <el-dropdown-item @click="logout">
               <el-icon size="16px">
                 <!-- <svg-icon name="svg-setting"></svg-icon> -->
                 <SwitchButton />
               </el-icon>
               <router-link to="/login">
-                <span class="drop-menu" @click="logout"> 退出 </span>
+                <span class="drop-menu"> 退 出 </span>
               </router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -55,11 +53,13 @@
       </el-dropdown>
     </div>
   </div>
+  <changwPwdDialog v-model="isShowChangePwdDialog"></changwPwdDialog>
 </template>
 
 <script setup lang="ts">
-import { ref } from '@vue/reactivity';
 import { UserStore } from '@/store/user';
+import changwPwdDialog from './changwPwdDialog.vue';
+import { ref } from 'vue';
 
 const emits = defineEmits(['foldChange']);
 const props = defineProps({
@@ -70,18 +70,22 @@ const props = defineProps({
 });
 const userStore = UserStore();
 
+const isShowChangePwdDialog = ref(false)
+
 function handleClick() {
   emits('foldChange');
 }
 
-const setting = ref();
-
-function handleClickPic() {
-  setting.value.handleOpen();
-}
-
 function logout() {
   userStore.logout()
+}
+
+const about = () => {
+  window.open('https://github.com/howie6879/liuli')
+}
+
+const onChangePwd = () => {
+  isShowChangePwdDialog.value = true
 }
 </script>
 
