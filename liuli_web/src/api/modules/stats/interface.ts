@@ -9,24 +9,13 @@ export interface IGetStatsResp extends ICommonResp {
       doc_counts: number,
         doc_source_counts: number,
         doc_source_stats_dict: {
-            liuli_book: {
+            // 以下结构固定 对象名不确定
+            any: {
                 counts: number,
                 doc_source_alias_name: string,
                 rows: any[],
                 rows_info: string[]
             },
-            liuli_wechat_feeddd: {
-                counts: number,
-                doc_source_alias_name: string,
-                rows: any[],
-                rows_info: string[]
-            },
-            liuli_wechat_sg: {
-                counts: number,
-                doc_source_alias_name: string,
-                rows: any[],
-                rows_info: string[]
-            }
         }
     }
 }
