@@ -1,4 +1,4 @@
-import { ICommonResp } from "@/api/shareInterface";
+import { ICommonResp,IPage,IArticle} from "@/api/shareInterface";
 
 export interface ILoginParams {
     username: string;
@@ -12,13 +12,12 @@ export interface ILoginResp extends ICommonResp {
     }
 }
 
-export interface IGetConfigParams {
+export interface IChangePwdParams {
     username: string;
+    o_password: string;
+    n_password: string;
 }
 
-export interface IGetConfigResp extends ICommonResp {
-    data:{
-        LL_X_TOKEN: string;
-        _id: object;
-    }
+export interface IChangePwdResp  extends ICommonResp {
+     data:{}
 }

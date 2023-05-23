@@ -1,217 +1,230 @@
 <template>
-  <div class="app-content bg-white">
-    <div class="flex justify-between px-5 pt-5">
-      <div class="ml-20">
-        <el-select v-model="selectData.doc_source_items" placeholder="选择订阅源" size="default" @change="onDocSourceSelect">
-          <el-option v-for="item in selectData.doc_source_options" :key="item.value" :label="item.label"
-            :value="item.value" />
-        </el-select>
-      </div>
-      <div class="mr-5">
-        <el-button type="primary" class="el-icon--right" size="default" @click="subSearch">
-          搜索<el-icon class="el-icon--right">
-            <Right />
-          </el-icon></el-button>
+  <div class="app-content flex flex-col bg-white max-h-[calc(100%-100px)]">
+    <!-- searchBar -->
+    <div class="flex gap-4 justify-between">
+      <el-form inline :model="searchForm">
+        <el-form-item label="文章标题:">
+          <el-input v-model="searchForm.doc_name" placeholder="标题" clearable style="width: 250px"
+            @keyup.enter="onSearch" />
+        </el-form-item>
+        <el-form-item label="文章类型:">
+          <el-select clearable v-model="searchForm.doc_type" filterable placeholder="请选择文章类型" style="width: 250px">
+            <el-option v-for="i in ['全部', ...doc_type_options]" :key="i" :label="i" :value="i === '全部' ? '' : i" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="订阅源名称:">
+          <el-select clearable v-model="searchForm.doc_source" filterable placeholder="请选择订阅源" style="width: 250px">
+            <el-option v-for="i in ['全部', ...doc_source_options]" :key="i" :label="i" :value="i === '全部' ? '' : i" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="订阅源目标:">
+          <el-select clearable v-model="searchForm.doc_source_name" :disabled="!searchForm.doc_source" filterable
+            placeholder="请选择订阅源目标" style="width: 250px">
+            <el-option v-for="i in ['全部', ...doc_source_name_options]" :key="i"
+              :label="searchForm.doc_source === '' ? '' : i" :value="i === '全部' ? '' : i" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div class="flex-none">
+        <el-button type="primary" @click="onSearch" class="ml-[10px] mr-[12px]">搜索</el-button>
       </div>
     </div>
-    <!-- <main class="main-content">
-      <div class="search-bar" role="list">
-        <div class="search-bar-left">
-          <div>
-            <multi-select :options="selectData.doc_source_options" :selected-options="selectData.doc_source_items"
-              placeholder="选择订阅源" @select="onDocSourceSelect">
-            </multi-select>
+
+    <!-- table -->
+    <el-table :data="list" stripe tooltip-effect="light" class="flex-grow">
+      <el-table-column label="标题" min-width="300">
+        <template #default="scope">
+          <div class=" truncate">
+            <a :href="scope.row.doc_link" target="_blank"
+              class="hover:text-blue-400 hover:underline-blue-300 hover:underline">{{ scope.row.doc_name
+              }}</a>
           </div>
-        </div>
-        <div class="search-bar-right">
-          <button aria-busy="false" type="submit" class="outline contrast sub-search" @click="subSearch()">
-            搜索
-            <span style="display: inherit; margin-right: -4px; margin-left: 8px">
-              <svg style="
-                  user-select: none;
-                  width: 1em;
-                  height: 1em;
-                  display: inline-block;
-                  fill: currentcolor;
-                  flex-shrink: 0;
-                  transition: fill 200ms;
-                " focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowForwardOutlinedIcon">
-                <path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"></path>
-              </svg>
-            </span>
-          </button>
-        </div>
-      </div>
-    </main> -->
+        </template>
+      </el-table-column>
+
+      <el-table-column label="地址" min-width="180">
+        <template #default="scope">
+          <div class="truncate">
+            <el-icon :size="12" class="mr-2">
+              <DocumentCopy @click="copyUrl(scope.row.doc_link)" class="cursor-pointer" />
+            </el-icon>
+            <a :href="scope.row.doc_link" target="_blank"
+              class="hover:text-blue-400 hover:underline-blue-300 hover:underline">{{ scope.row.doc_link }}</a>
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="文章类型" width="100" :show-overflow-tooltip="true">
+        <template #default="scope">
+          <div class="truncate">
+            {{ scope.row.doc_type }}
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="订阅源目标" prop="des" width="200" :show-overflow-tooltip="true">
+        <template #default="scope">
+          <div class="truncate">
+            {{ scope.row.doc_source_name }}
+          </div>
+        </template>
+      </el-table-column>
+
+
+      <el-table-column label="订阅源名称" width="180" :show-overflow-tooltip="true">
+        <template #default="scope">
+          <div class="truncate">
+            {{ scope.row.doc_source }}
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="收集时间" width="250" prop="published_at">
+        <template #default="scope">
+          <span class="text-[13px]">
+            {{ formatTimeStamp(scope.row.doc_ts, 'YYYY-MM-DD HH:mm:ss') }}
+          </span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作" fixed="right" width="105px">
+        <template #default="scope">
+          <el-tooltip class="box-item" effect="light" content="在线阅读">
+            <el-button color="#409EFF" circle @click="onReader(scope.row.doc_id)">
+              <template #icon>
+                <el-icon color="#fff">
+                  <View />
+                </el-icon>
+              </template>
+            </el-button>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="light" content="收藏">
+            <el-button color="#E6A23C" circle @click="onFavorite(scope.row.doc_id)">
+              <template #icon>
+                <el-icon color="#fff">
+                  <Star />
+                </el-icon>
+              </template>
+            </el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <!-- 分页 -->
+    <el-pagination v-model:current-page="page" :page-size="15" :page-sizes="[100, 200, 300, 400]"
+      class=" self-center mt-4" layout="total, prev, pager, next, jumper" :total="total"
+      @current-change="onCurrentChange" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { UserStore, useUserStore } from '@/store/user';
-import { userApi } from '@/api';
+import { onMounted, reactive, ref, watch } from 'vue';
+import { UserStore } from '@/store/user';
+import { formatTimeStamp } from "@/utils/day"
+import { copyUrl } from "@/utils/tools"
+import { articleApi, favoriteApi, statsApi } from '@/api';
 import { ElNotification } from 'element-plus';
-import { Right } from '@element-plus/icons-vue';
-// import { MultiSelect } from 'vue-search-select';
-// import 'vue-search-select/dist/VueSearchSelect.css';
+import { IArticle } from '@/api/shareInterface';
+import { useRoute, useRouter } from 'vue-router';
 
-const collapsed = ref(false);
-const title = ref('我的订阅');
+const route = useRoute()
+const router = useRouter()
 
-const selectData = ref({
-  doc_source_options: [],
-  doc_source_items: [],
-  doc_source_author_items: []
-});
+const userStore = UserStore();
 
-console.log(selectData.value.doc_source_options);
+const doc_source_options = ref([] as string[])
+const doc_source_name_options = ref([] as string[])
+const doc_type_options = ref(['book', 'wechat'])
 
-function onDocSourceSelect(items: never[], lastSelectItem: any) {
-  selectData.value.doc_source_items = items;
-  console.log(selectData.value.doc_source_items);
+let res
+let doc_source_stats_dict: any
+
+const searchForm = reactive({ doc_source: '', doc_source_name: '', doc_type: '', doc_name: '' })
+const page = ref(1)
+const total = ref(8)
+
+const list = ref([] as IArticle[])
+
+// 搜索
+const onSearch = async () => {
+  page.value = 1
+  res = await getDescribeContent();
 }
 
-function menuStatus(value: boolean) {
-  // 获取导航栏传递过来的状态值
-  collapsed.value = value;
+//分页器监听
+const onCurrentChange = async () => {
+  await getDescribeContent();
+};
+
+const onFavorite = async (_id: string) => {
+  res = await favoriteApi.favoriteArticle({ username: userStore.username, doc_id: _id })
+  if (res.status === 200) {
+    ElNotification({
+      message: '操作成功',
+      type: 'success',
+      duration: 2000
+    });
+    await getDescribeContent();
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      message: msg,
+      type: 'error',
+      duration: 2000
+    });
+  }
 }
 
-function subSearch() {
-  console.log(selectData.value.doc_source_items[0]);
+const onReader = (doc_id: string) => {
+  window.open(`/reader?doc_id=${doc_id}`)
 }
 
-onMounted(() => {
-  const userStore = UserStore();
-  // userApi
-  //   .getStats({
-  //     username: userStore.username
-  //   })
-  //   .then((res) => {
-  //     if (res.status == 200) {
-  //       console.log(res);
-  //       // 有结果表示正常请求
-  //       // 开始处理数据
-  //       for (var key in res.data.doc_source_stats_dict) {
-  //         // 生成订阅源 select 数据
-  //         selectData.value.doc_source_options.push({
-  //           value: key,
-  //           text: res.data.doc_source_stats_dict[key].doc_source_alias_name
-  //         });
-  //       }
-  //       selectData.value.doc_source_items = selectData.value.doc_source_options;
-  //     } else {
-  //       const msg = res.info ? res.info : '服务器超时';
-  //       ElNotification({
-  //         message: msg,
-  //         type: 'error',
-  //         duration: 2000
-  //       });
-  //     }
-  //   });
-});
+const getDescribeContent = async () => {
+  // 获取订阅源内容
+  res = await articleApi.searchArticle({ username: userStore.username, page: page.value, page_size: 15, ...searchForm })
+  if (res.status == 200) {
+    console.log(res.data)
+    list.value = res.data.rows
+    total.value = res.data.total
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      message: msg,
+      type: 'error',
+      duration: 2000
+    });
+  }
+}
+
+watch(() => searchForm.doc_source, () => {
+  searchForm.doc_source_name = ''
+  if (searchForm.doc_source === '') return
+  doc_source_name_options.value = doc_source_stats_dict[searchForm.doc_source].rows
+})
+
+onMounted(async () => {
+  await getDescribeContent()
+  res = await statsApi.getStats({ username: userStore.username })
+  if (res.status == 200) {
+    doc_source_stats_dict = res.data.doc_source_stats_dict
+    doc_source_options.value = Object.keys(doc_source_stats_dict)
+  } else {
+    const msg = res.info ? res.info : '服务器超时';
+    ElNotification({
+      message: msg,
+      type: 'error',
+      duration: 2000
+    });
+  }
+})
+
 </script>
 
 <style lang="scss" scoped>
-:deep(input) {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  height: 1.5rem;
-  width: 300px !important;
-}
-
-input:not([type='checkbox'], [type='radio'], [type='range']) {
-  height: auto;
-}
-
-.ui.multiple.search.dropdown>.text {
-  font-size: 15px;
-  /* margin-top: 0.6em; */
-}
-
-.ui.multiple.dropdown>.label {
-  /* margin-top: 0.35em; */
-  color: rgb(255, 255, 255);
-  background-color: #b9b9b9;
-  text-decoration: none;
-  box-shadow: rgb(220 214 214 / 20%) 0px 3px 1px -2px, rgb(180 173 173 / 14%) 0px 2px 2px 0px,
-    rgb(213 203 203 / 12%) 0px 1px 5px 0px;
-}
-
-.ui.selection.dropdown {
-  /* height: 40px;
-  line-height: 40px; */
-  border: 0px;
-  box-shadow: rgb(220 214 214 / 20%) 0px 3px 1px -2px, rgb(180 173 173 / 14%) 0px 2px 2px 0px,
-    rgb(213 203 203 / 12%) 0px 1px 5px 0px;
-}
-</style>
-
-<style scoped>
-.main-content {
-  margin-left: 30px;
-  margin-right: 30px;
-  /* margin-top: 30px; */
-}
-
-div.search-bar {
-  width: 100%;
-  /* height: 40px; */
-}
-
-div.search-bar .search-bar-left {
-  float: left;
-  /* width: 420px; */
-}
-
-div.search-bar .search-bar-right {
-  float: right;
-}
-
-div.search-bar-right .sub-search {
-  margin-bottom: auto !important;
-  width: 100px;
-  font-size: 15px;
-  /* height: 39px; */
-  /* line-height: 40px; */
-
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  outline: 0px;
-  border: 0px;
-  cursor: pointer;
-  user-select: none;
-  vertical-align: middle;
-  appearance: none;
-  text-decoration: none;
-  font-family: Inter, Helvetica, Arial, sans-serif;
+:deep(.el-form-item__label) {
   font-weight: 500;
-  /* font-size: 0.875rem; */
-  /* line-height: 1.7; */
-  text-transform: uppercase;
-  min-width: 64px;
-  padding: 6px 16px;
-  border-radius: 4px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(67, 129, 255);
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px,
-    rgb(0 0 0 / 12%) 0px 1px 5px 0px;
-}
-
-div.search-bar-right .sub-search:hover {
-  text-decoration: none;
-  background-color: rgb(46, 90, 178);
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%),
-    0px 1px 10px 0px rgb(0 0 0 / 12%);
 }
 </style>
+
