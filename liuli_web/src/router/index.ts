@@ -3,10 +3,11 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import Login from '../views/Login.vue';
 import Subscription from '../views/Subscription.vue';
 import Favorite from '../views/Favorite.vue';
-import Bookmark from '../views/Bookmark';
+import Bookmark from '../views/Bookmark/index.vue';
 import Log from '../views/Log.vue';
-import DocSource from '../views/DocSource.vue';
+import ConfigManage from '../views/ConfigManage/index.vue';
 import Home from '@/views/Home.vue';
+import Reader from '@/views/Reader/index.vue'
 import { UserStore } from '@/store/user';
 
 import Layout from '@/layout/index.vue';
@@ -46,8 +47,9 @@ export const routes = [
       },
       {
         path: 'doc_source',
-        component: DocSource,
-        name: 'DocSource',
+        component: ConfigManage
+      ,
+        name: 'ConfigManage',
         meta: {
           title: '配置管理',
           icon: 'svg-liuli_svg-side_bar-spa' /* /src/assets/icons文件夹下的svg文件，文件夹名-文件名 */
@@ -61,7 +63,13 @@ export const routes = [
       }
     ]
   },
-
+ {
+    path: '/reader',
+    component: Reader,
+    name: 'Reader',
+    isHidden: true, //是否显示
+    meta: { title: '在线阅读' }
+  },
   {
     path: '/login',
     component: Login,

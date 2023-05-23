@@ -58,7 +58,7 @@ axiosInstance.interceptors.response.use(
 
     if (error.response.status == 422 || error.response.status == 401) {
       // token 被篡改，格式错误
-      tification({
+      ElNotification({
         message: error.response.data.msg,
         type: 'error',
         duration:2000

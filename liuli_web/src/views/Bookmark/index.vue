@@ -5,11 +5,11 @@
             <el-form inline :model="searchForm">
                 <el-form-item label="标题:">
                     <el-input v-model="searchForm.title" placeholder="标题" clearable style="width: 250px"
-                        @keyup.enter="onSearchBm" />
+                        @keyup.enter="onSearch" />
                 </el-form-item>
                 <el-form-item label="链接:">
                     <el-input v-model="searchForm.url" placeholder="链接" clearable style="width: 250px"
-                        @keyup.enter="onSearchBm" />
+                        @keyup.enter="onSearch" />
                 </el-form-item>
                 <el-form-item label="标签:">
                     <el-select clearable v-model="searchForm.tags" filterable collapse-tags-tooltip collapse-tags multiple
@@ -19,19 +19,19 @@
                 </el-form-item>
             </el-form>
             <div class="flex-none">
-                <el-button type="primary" @click="onSearchBm" class="ml-[10px] mr-[12px]">搜索</el-button>
+                <el-button type="primary" @click="onSearch" class="ml-[10px] mr-[12px]">搜索</el-button>
                 <el-dropdown trigger="click">
-                    <el-button color="#eee" circle icon="setting" @click="onSearchBm"></el-button>
+                    <el-button color="#eee" circle icon="setting"></el-button>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item @click="onAddBookmark()">
+                            <!-- <el-dropdown-item @click="onAdd()">
                                 <span>添加</span>
-                            </el-dropdown-item>
+                            </el-dropdown-item> -->
                             <el-upload ref="uploadRef" accept=".html" class="mb-0" :before-upload="onUploadSuccess"
                                 :show-file-list="false"
                                 action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15">
                                 <el-dropdown-item>
-                                    <span>导入书签</span>
+                                    <span>导入</span>
                                 </el-dropdown-item>
                             </el-upload>
                         </el-dropdown-menu>
@@ -73,8 +73,7 @@
             <el-table-column label="标签" width="350">
                 <template #default="scope">
                     <el-tooltip class="box-item" :disabled="!scope.row.tags.length" effect="light" placement="top-start">
-                        <div class="w-auto overflow-hidden text-overflow-hidden cursor-pointer"
-                            v-if="scope.row.tags.length">
+                        <div class="w-auto overflow-hidden text-overflow-hidden" v-if="scope.row.tags.length">
                             <el-tag v-for="i in scope.row.tags" class="mr-1" :key="i">{{ i }}</el-tag>
                         </div>
                         <div v-else>-</div>
@@ -91,16 +90,22 @@
 
             <el-table-column label="更新时间" width="250" prop="published_at">
                 <template #default="scope">
-                    <span class="text-[13px] cursor-pointer">
+                    <span class="text-[13px] ">
                         {{ formatTimeStamp(scope.row.updated_at, 'YYYY-MM-DD HH:mm:ss') }}
                     </span>
                 </template>
             </el-table-column>
 
             <el-table-column label="操作" fixed="right" width="105px">
+                <template #header>
+                    <div class="flex items-center">
+                        <span class="mr-auto">操作</span>
+                        <el-button type="primary" icon="Plus" circle @click="onAdd()" />
+                    </div>
+                </template>
                 <template #default="scope">
                     <el-tooltip class="box-item" effect="light" content="编辑">
-                        <el-button color="#409EFF" circle @click="onEditBM(scope.row)">
+                        <el-button color="#409EFF" circle @click="onEdit(scope.row)">
                             <template #icon>
                                 <el-icon color="#fff">
                                     <Edit />
@@ -109,7 +114,7 @@
                         </el-button>
                     </el-tooltip>
 
-                    <el-popconfirm title="是否删除?" @confirm="onDeleteBM(scope.row.url)" width="190px">
+                    <el-popconfirm title="是否删除?" @confirm="onDelete(scope.row.url)" width="190px">
                         <template #reference>
                             <el-button color="#F45B65" circle>
                                 <el-icon color="#fff">
@@ -123,8 +128,9 @@
         </el-table>
 
         <!-- 分页 -->
-        <el-pagination v-model:current-page="page" :page-size="15" :page-sizes="[100, 200, 300, 400]" class=" self-center"
-            layout="total, prev, pager, next, jumper" :total="total" @current-change="onCurrentChange" />
+        <el-pagination v-model:current-page="page" :page-size="15" :page-sizes="[100, 200, 300, 400]"
+            class=" self-center mt-4" layout="total, prev, pager, next, jumper" :total="total"
+            @current-change="onCurrentChange" />
     </div>
     <editBookmarkDialog v-model="isShowDialog" :is-add="isAdd" :bm="bm" @on-update="getBookmark(), getTagList()">
     </editBookmarkDialog>
@@ -181,7 +187,7 @@ const tagList = ref(
         其他: [] as string[],
     }
 )
-const tags = ref(['#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元', '#())', '极客', '阿波罗', '嗷嗷嗷', 'ajax', '阿萨德', '啊阿斯顿', '啊呀呀呀', '电影', '二次元'])
+const tags = ref([] as string[])
 
 const isShowDialog = ref(false)
 const isAdd = ref(true)
@@ -194,12 +200,12 @@ const bm = ref({
     updated_at: 0,
 })
 
-const onSearchBm = async () => {
+const onSearch = async () => {
     page.value = 1
     await getBookmark()
 }
 
-const onAddBookmark = () => {
+const onAdd = () => {
     isAdd.value = true
     isShowDialog.value = true
 }
@@ -212,16 +218,16 @@ const onUploadSuccess: UploadProps['beforeUpload'] = async (rawFile) => {
         const dom = parser.parseFromString(reader.result as string, "text/html");
         const bmDom = dom.getElementsByTagName('a')
         const data = {
-            tags: [],
+            tags: ['HTML导入'],
             des: '',
             title: '',
             url: '',
         }
         let errorBmTime = 0
-        for (let i = 0; i <= bmDom.length; i++) {
-            // console.log(bmDom.item(i)!.href)
-            data.url = bmDom.item(i)!.href ? bmDom.item(i)!.href : ''
-            data.title = bmDom.item(i)!.innerText ? bmDom.item(i)!.innerText : ''
+        for (let i = 0; i < bmDom.length; i++) {
+            console.log(bmDom.item(i))
+            data.url = bmDom.item(i)?.href ? bmDom.item(i)!.href : ''
+            data.title = bmDom.item(i)?.innerText ? bmDom.item(i)!.innerText : ''
             if (data.url) {
                 res = await bookmarkApi.updateBM({ ...data, username: userStore.username })
                 if (res.status != 200)
@@ -235,6 +241,7 @@ const onUploadSuccess: UploadProps['beforeUpload'] = async (rawFile) => {
             message: `操作成功${errorBmTime !== 0 ? ` 有${errorBmTime}条书签导入失败` : ``}`,
             duration: 2000,
         });
+        await getBookmark()
     }
     return false;
 }
@@ -244,13 +251,13 @@ const onCurrentChange = async () => {
     await getBookmark();
 };
 
-const onEditBM = (bmData: IBookMark) => {
+const onEdit = (bmData: IBookMark) => {
     (bm.value as IBookMark) = bmData
     isAdd.value = false
     isShowDialog.value = true
 }
 
-const onDeleteBM = async (url: string) => {
+const onDelete = async (url: string) => {
     res = await bookmarkApi.deleteBM({ url_list: [url], username: userStore.username })
     if (res.status == 200) {
         ElNotification({
