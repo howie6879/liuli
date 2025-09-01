@@ -153,3 +153,6 @@ Loading .env environment variables...
 欢迎一起交流（关注入群）：
 
 <div align=center><img src="https://raw.githubusercontent.com/howie6879/oss/master/images/wechat_howie.png"  width="85%" alt="img" /></div>
+
+
+<!-- Security scan triggered at 2025-09-01 23:41:49 -->
